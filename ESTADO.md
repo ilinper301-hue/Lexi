@@ -74,7 +74,9 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
   esfuerzo medio): frases que un niño de 6 años no entienda, no-ejemplos dudosos, gestos que se
   confundan entre semanas. Solo propone; los cambios los aprueba Iván.
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`
-- [ ] Paquete de 2.º: lista, contenido, tareas `relaciona` y `familia`
+- [ ] Paquete de 2.º: **Iván revisa la lista borrador** (`docs/lista-2-borrador.md`, propuesta de Fable
+  del 13-11-2026, sin fichas escritas)
+- [ ] Paquete de 2.º: contenido de las 60 palabras y tareas `relaciona` y `familia`
 
 ## Fase 5 · Aula · Sonnet, esfuerzo medio
 - [ ] Muro de palabras y tarjetas para imprimir
