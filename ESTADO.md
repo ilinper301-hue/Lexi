@@ -37,10 +37,8 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
    Medio. Es así en la lista; solo se avisa.
 
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
-- [ ] Subir al repositorio los documentos que faltan de la carpeta `repo/` del proyecto de Claude, tal
-  cual y con la misma ruta: **`CLAUDE.md`, `ECOSISTEMA.md` y `docs/semana-01.md`**. `ECOSISTEMA.md`
-  es mejor copiarlo del repo `tabula` (es la copia de referencia). El resto ya está en el repo desde
-  el 13-11-2026 (Claude ya tiene acceso al repo `Lexi`).
+- [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
+  `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
 - [ ] Proponer 3 mascotas y 3 paletas (distintas de Lectori, Barri y Calculi) y esperar la elección de Iván
 - [ ] Elegir con Iván el dibujo de la escala de 4 pasos (va unido a la mascota)
 
