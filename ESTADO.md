@@ -36,6 +36,28 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 6. La semana 5 no tiene palabra de «sentir» (lleva `proteger`) y la 10 es entera de Conocimiento del
    Medio. Es así en la lista; solo se avisa.
 
+Salieron al diseñar la Fase 3 (14-11-2026). Están escritas como propuesta en `docs/pedagogia.md`;
+**la Fase 3 no se programa hasta que Iván conteste a los puntos 7 y 8**:
+
+7. **«Pocos» en una tarea de usar** (`acaba`, `habla`): propuesta, que solo baje de paso si la palabra
+   estaba en «La usamos». En «La entendemos» se queda (pierde sus días buenos de usar y vuelve mañana
+   con una tarea de entender). La regla anterior era «pocos baja un paso» siempre; así, cada fallo al
+   usar la palabra la devolvía a «La conocemos» y había que ganar otra vez dos días de entender.
+   Regla E8 y test 13.
+8. **Cierre sin valoración propia.** La sesión decía «el docente valora con un toque» en el cierre,
+   pero cada tarea ya tiene su valoración y lo del día de la presentación no cuenta para la escala.
+   Propuesta: el cierre solo dice las palabras nuevas y enseña las que han subido. Regla H5.
+9. **Palabras nuevas por sesión:** ajuste del tutor, 1 o 2 (de fábrica 2), y nunca más de 6 por semana
+   natural. Aviso: 6 por semana solo se sostienen con sesión diaria; con 3 o 4 sesiones el repaso se
+   atrasa semanas (tabla del apartado 10) y conviene 1 por sesión. Regla H3.
+10. **Descanso:** una palabra en «La usamos» que supera el repaso de los 30 días deja de salir sola
+    (sigue en el muro). Regla R6.
+11. **Segundo significado (`otro`):** sale una vez, tras una tarea de «Recordamos», cuando la palabra
+    ya está en «La entendemos». Regla H6.
+12. Ideas aparte, no incluidas en las reglas: en Familias, botones «Lo sabe · A medias · Todavía no»
+    en vez de «casi todos · la mitad · pocos»; que el tutor pueda corregir a mano el paso de una
+    palabra; que `ejemplo` enseñe un sí y un no seguidos antes de valorar.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -61,10 +83,19 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 - [ ] Iván lo prueba en clase; apuntar aquí lo que haya que cambiar
 
 ## Fase 3 · Repaso y escala · Sonnet, esfuerzo alto
-- [ ] Escala única de 4 pasos con las reglas de `docs/pedagogia.md` (apartado 4) y sus tests
-- [ ] Repaso por días (1, 3, 7, 15, 30) que cambia de tarea y de contexto
-- [ ] Botón «Hoy»: monta la sesión sola (recordamos, palabra nueva, jugamos, cierre)
-- [ ] Muro de palabras de la clase con el paso de cada una
+- [x] **Diseño** (14-11-2026, Fable, esfuerzo alto; sin programar nada): reglas exactas en
+  `docs/pedagogia.md`: apartado 4 (escala, E1-E11), 5 (repaso R1-R9, tarea y frase T1-T7), 10 (botón
+  «Hoy», H1-H10), 11 (casos de ejemplo), 12 (57 tests que deben pasar) y 13 (datos v4 y notas). Las
+  reglas se comprobaron con una simulación antes de escribirlas (tabla del apartado 10).
+- [ ] **Iván contesta a los puntos 7 y 8 de «Para decidir con Iván»** (y, si quiere, 9 a 12)
+- [ ] 3.1 Datos v4 con migración desde v3, fecha local y funciones de escala y cajas (reglas E y R).
+  Tests 1-31 y 54-57. Sin pantallas nuevas: las valoraciones de «Jugamos» ya mueven la escala
+- [ ] 3.2 Elección de tarea y de frase (reglas T), campos `orden` y `sep` en las fichas, `elige` solo
+  con palabras presentadas. Tests 32-39
+- [ ] 3.3 Botón «Hoy» (reglas H1-H4, H7-H10) con el ajuste «Palabras nuevas por sesión» en la zona del
+  tutor. Tests 40-49 y 51-53, y prueba de humo
+- [ ] 3.4 Cierre y segundo significado (H5, H6). Test 50
+- [ ] 3.5 Muro de palabras de la clase con el paso de cada una
 
 ## Fase 4 · Contenido de 1.º y 2.º · Fable u Opus, esfuerzo alto
 - [x] Escribir las semanas 2 a 10 (54 palabras) y sus peticiones de imágenes (13-11-2026, Fable)
