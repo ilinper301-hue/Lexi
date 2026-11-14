@@ -40,21 +40,43 @@
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--tx)}
 body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .infantil{font-family:var(--fd)}
-#app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px}
+#app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:72px 20px 28px}
+.inicio,.pantalla{margin-block:auto}
 .inicio{width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
 .inicio h1{font:700 clamp(2.2rem,8vw,3.4rem)/1.1 var(--fd);margin:0}
 .inicio p{margin:0;color:var(--mu);font-size:1.1rem}
 .btn{min-height:56px;min-width:44px;padding:12px 28px;border:0;border-radius:18px;background:var(--ac);color:var(--on);font:600 1.3rem var(--fd);cursor:pointer;box-shadow:var(--sh)}
 .btn:active{background:var(--acx)}
 .btn.sec{background:var(--soft);color:var(--tx)}
-.tema{position:fixed;top:12px;right:12px;min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.3rem;cursor:pointer}
+.top{position:fixed;top:12px;left:12px;right:12px;display:flex;justify-content:space-between;pointer-events:none;z-index:5}
+.top .tema{pointer-events:auto}
+.tema{min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.3rem;cursor:pointer}
 :focus-visible{outline:3px solid var(--aci);outline-offset:2px}
 
 .escala{display:block;width:100%;height:auto}
 .escala-fila{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:end;width:100%;max-width:520px}
+.escala-fila{margin:10px auto 18px}
 .escala-fila figure{margin:0;min-width:0;text-align:center}
 .escala-fila figure .escala{max-width:120px;margin:0 auto}
 .escala-fila figcaption{font:500 clamp(.8rem,2.6vw,1.1rem)/1.15 var(--fd);margin-top:6px;overflow-wrap:anywhere}
+
+.opciones{display:grid;gap:12px;width:100%}
+.btn.grande{width:100%;min-height:72px;font-size:1.6rem}
+.pantalla{width:100%;max-width:560px;display:flex;flex-direction:column;gap:14px;text-align:center}
+.h-pant{font:700 clamp(1.8rem,6vw,2.6rem)/1.1 var(--fd);margin:0}
+.h-sec{font:600 1.3rem var(--fd);margin:0}
+.mu{color:var(--mu);margin:0}.pq{font-size:.95rem}
+.quien{display:grid;gap:10px}
+.qa{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 16px;border-radius:18px;border:2px solid var(--bd);background:var(--card);color:var(--tx);font:600 1.3rem var(--fd);text-align:left;cursor:pointer}
+.qa.on{border-color:var(--aci)}
+.av{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;font-size:1.6rem;flex:none}
+.casa-cab{display:flex;align-items:center;justify-content:center;gap:12px}
+.nuevo{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:18px;background:var(--card);border:1px solid var(--bd);box-shadow:var(--sh)}
+.campo{width:100%;min-height:56px;padding:10px 16px;border-radius:14px;border:2px solid var(--bd2);background:var(--bg);color:var(--tx);font:500 1.2rem var(--fd)}
+.animales{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px}
+.animales button{min-height:52px;border-radius:14px;border:0;font-size:1.8rem;cursor:pointer}
+.animales button.on{outline:4px solid var(--tx);outline-offset:1px}
+.error{color:var(--no);font:500 1rem var(--fi);margin:0;min-height:1.2em}
 
 /* Lexi · mascota por capas (la imagen original, sin redibujar) */
 .lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
@@ -84,6 +106,7 @@ const LS = {
   get(k, d) { try { const v = localStorage.getItem('lexi.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem('lexi.' + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
 };
+const nid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
 
 /* ---- js/10-tema.js ---- */
 /* Tema claro/oscuro (clave lexi.th) */
@@ -111,8 +134,69 @@ function escalaFila() {
   return '<div class="escala-fila">' + PASOS.map((n, i) => `<figure>${escalaSVG(i + 1)}<figcaption>${n}</figcaption></figure>`).join('') + '</div>';
 }
 
+/* ---- js/20-datos.js ---- */
+/* ===== Datos guardados: una sola clave, «lexi.v1» (prefijo propio: se comparte dominio con otras apps) =====
+   Perfil Docente = una CLASE ({t:'doc'}); perfil Familias = un NIÑO ({t:'fam', av}). El progreso va por perfil, no por alumno. */
+const VERSION_DATOS = 1, MAX_PERFILES = 40;
+/* Mismos 30 animalitos y mismo orden que Calculi y Lectori (un niño conserva su animal en todas las apps) */
+const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['🦁','#FDE68A'],['🐸','#D9F99D'],['🐙','#F5D0FE'],['🐳','#BAE6FD'],['🦉','#E7D3B5'],
+  ['🐝','#FEF08A'],['🐞','#FECACA'],['🦄','#FBCFE8'],['🐨','#CBD5E1'],['🐶','#FDE2C4'],['🐱','#FFE4B5'],['🐰','#FCE7F3'],['🐻','#E8CBA8'],
+  ['🐯','#FED7AA'],['🐷','#FBCFE8'],['🐮','#E5E7EB'],['🐵','#E7D3B5'],['🐧','#C7D2FE'],['🐤','#FEF3C7'],['🦋','#BFDBFE'],['🐬','#A5F3FC'],
+  ['🦒','#FDE68A'],['🦓','#E5E7EB'],['🐘','#CBD5E1'],['🦔','#E7D3B5'],['🐿️','#FED7AA'],['🦜','#BBF7D0']];
+
+const ss = (s, n) => String(s ?? '').replace(/[<>&"'`]/g, '').trim().slice(0, n);
+const esFecha = d => /^\d{4}-\d\d-\d\d$/.test(d || '');
+function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles: [] }; }
+let EST = estadoVacio();
+
+function limpiarPerfil(p) {
+  if (!p || typeof p !== 'object' || !['doc', 'fam'].includes(p.t)) return null;
+  return { id: /^[a-z0-9]{6,20}$/.test(p.id || '') ? p.id : nid(), t: p.t,
+    n: ss(p.n, 20) || (p.t === 'doc' ? 'Clase' : 'Niño'),
+    av: p.t === 'fam' ? Math.max(0, Math.min(AVATARES.length - 1, p.av | 0)) : 0,
+    c: esFecha(p.c) ? p.c : hoy() };
+}
+/** Sanea cualquier cosa leída del disco (o importada) y la deja en la versión actual. */
+function limpiar(o) {
+  o = o && typeof o === 'object' ? o : {};
+  /* Migraciones: aquí se añadirá un «if (v < 2) {…}» por cada cambio de estructura. Nunca se pierde el progreso. */
+  const vistos = new Set(), perfiles = [];
+  for (const p of Array.isArray(o.perfiles) ? o.perfiles : []) {
+    const q = limpiarPerfil(p); if (!q || vistos.has(q.id) || perfiles.length >= MAX_PERFILES) continue;
+    vistos.add(q.id); perfiles.push(q);
+  }
+  const act = perfiles.find(p => p.id === o.act);
+  return { v: VERSION_DATOS, modo: act ? act.t : (['doc', 'fam'].includes(o.modo) ? o.modo : ''), act: act ? act.id : '', perfiles };
+}
+/** Lee lexi.v1. Si está roto, guarda una copia en lexi.bk antes de empezar de cero; si es de una versión más nueva, no la pisa. */
+function cargar() {
+  let raw = null; try { raw = localStorage.getItem('lexi.v1'); } catch (e) {}
+  EST = estadoVacio(); if (raw == null) return EST;
+  let o; try { o = JSON.parse(raw); } catch (e) { try { localStorage.setItem('lexi.bk', raw); } catch (e2) {} return EST; }
+  EST = limpiar(o); if ((o && o.v | 0) > VERSION_DATOS) EST.bloq = true;
+  return EST;
+}
+function guardar() { if (EST.bloq) return false; return LS.set('v1', { v: EST.v, modo: EST.modo, act: EST.act, perfiles: EST.perfiles }); }
+
+const perfilesDe = t => EST.perfiles.filter(p => p.t === t);
+const perfilAct = () => EST.perfiles.find(p => p.id === EST.act) || null;
+/** Primer animal que no usa ningún niño (si están todos, se repite por orden). */
+function avLibre() { const u = new Set(perfilesDe('fam').map(p => p.av)); for (let i = 0; i < AVATARES.length; i++) if (!u.has(i)) return i; return perfilesDe('fam').length % AVATARES.length; }
+/** Crea un perfil y lo deja activo. Devuelve null si falta el nombre, hay demasiados o el nombre ya existe en ese tipo. */
+function crearPerfil(t, nombre, av) {
+  const n = ss(nombre, 20);
+  if (!n || EST.bloq || EST.perfiles.length >= MAX_PERFILES) return null;
+  if (perfilesDe(t).some(p => p.n.toLowerCase() === n.toLowerCase())) return null;
+  const p = limpiarPerfil({ t, n, av, c: hoy() }); EST.perfiles.push(p); EST.act = p.id; EST.modo = t; guardar(); return p;
+}
+function entrarPerfil(id) { const p = EST.perfiles.find(x => x.id === id); if (!p) return null; EST.act = p.id; EST.modo = p.t; guardar(); return p; }
+
 /* ---- js/40-inicio.js ---- */
-/* Pantalla de inicio (esqueleto): mascota animada + título */
+/* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
+let PANT = 'inicio', MODO = '', NUEVO_AV = null, ERR = '';
+const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre de la clase (1.º A)', crear: 'Crear clase', vacia: 'Aún no hay clases' },
+              fam: { quien: '¿Quién eres?', nuevo: 'Nuevo niño o niña', ph: 'Tu nombre', crear: 'Crear', vacia: 'Aún no hay nadie' } };
+
 function mascotaHTML() {
   return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
     + '<span class="sombra" style="left:15.777%;top:88.977%;width:67.194%;height:10.229%"></span>'
@@ -121,15 +205,60 @@ function mascotaHTML() {
     + '<i class="lid" style="left:26.877%;top:24.603%;width:19.236%;height:25.750%"></i>'
     + '<i class="lid" style="left:52.306%;top:18.871%;width:19.631%;height:26.279%"></i></div></div>';
 }
-function pintarInicio() {
-  $('#app').innerHTML = '<button class="tema" id="bt-tema" aria-label="Cambiar tema">◐</button>'
-    + '<main class="inicio infantil">' + mascotaHTML() + '<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>' + escalaFila() + '</main>';
-  $('#bt-tema').onclick = () => TEMA.alternar();
+const avatarHTML = p => p.t === 'fam'
+  ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`
+  : '<span class="av" style="background:var(--lx-pale)" aria-hidden="true">📚</span>';
+const elegirAnimal = sel => `<div class="animales" role="group" aria-label="Elige un animal">${AVATARES.map(([e, c], i) =>
+  `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="animalNuevo(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
+
+function barra() {
+  return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}`
+    + '<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div>';
+}
+function vistaInicio() {
+  return `<main class="inicio infantil">${mascotaHTML()}<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>
+  <div class="opciones"><button class="btn grande" onclick="elegirModo('doc')">Docente</button><button class="btn grande sec" onclick="elegirModo('fam')">Familias</button></div></main>`;
+}
+function vistaQuien() {
+  const T = TXT[MODO], lista = perfilesDe(MODO);
+  const av = NUEVO_AV ?? avLibre();
+  return `<main class="pantalla infantil"><h1 class="h-pant">${T.quien}</h1>
+  ${lista.length ? `<div class="quien">${lista.map(p => `<button class="qa${p.id === EST.act ? ' on' : ''}" onclick="entrar('${p.id}')">${avatarHTML(p)}<span>${esc(p.n)}</span></button>`).join('')}</div>` : `<p class="mu">${T.vacia}</p>`}
+  <form class="nuevo" onsubmit="crearDesdeForm(event)" novalidate><h2 class="h-sec">${T.nuevo}</h2>
+  <input id="nom" class="campo" maxlength="20" autocomplete="off" placeholder="${T.ph}" aria-label="${T.ph}" value="${esc(NUEVO_NOM)}" oninput="NUEVO_NOM=this.value;ERR=''">
+  ${MODO === 'fam' ? `<p class="mu pq">Elige tu animal</p>${elegirAnimal(av)}` : ''}
+  <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
+}
+function vistaCasa() {
+  const p = perfilAct(); if (!p) { PANT = 'inicio'; return vistaInicio(); }
+  return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
+  <p class="mu">Aquí irá la sesión de hoy.</p>${escalaFila()}
+  <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
+}
+let NUEVO_NOM = '';
+function pintar() {
+  $('#app').innerHTML = barra() + (PANT === 'quien' ? vistaQuien() : PANT === 'casa' ? vistaCasa() : vistaInicio());
+}
+function go(p) { PANT = p; ERR = ''; pintar(); }
+function atras() { if (PANT === 'casa') return go('quien'); NUEVO_NOM = ''; NUEVO_AV = null; go('inicio'); }
+function elegirModo(m) { MODO = m; NUEVO_NOM = ''; NUEVO_AV = null; go('quien'); }
+function animalNuevo(i) { NUEVO_AV = i; pintar(); const f = $('#nom'); if (f) f.focus(); }
+function entrar(id) { if (entrarPerfil(id)) go('casa'); }
+function crearDesdeForm(ev) {
+  ev.preventDefault();
+  const n = ss(NUEVO_NOM, 20);
+  if (!n) ERR = 'Escribe un nombre';
+  else if (perfilesDe(MODO).some(p => p.n.toLowerCase() === n.toLowerCase())) ERR = 'Ese nombre ya existe';
+  else if (EST.bloq) ERR = 'Estos datos son de una versión más nueva de Lexi';
+  else if (!crearPerfil(MODO, n, NUEVO_AV ?? avLibre())) ERR = 'No se ha podido crear';
+  else { NUEVO_NOM = ''; NUEVO_AV = null; return go('casa'); }
+  pintar(); const f = $('#nom'); if (f) f.focus();
 }
 
 /* ---- js/zz-arranque.js ---- */
 TEMA.aplicar(TEMA.inicial());
-pintarInicio();
+cargar();
+pintar();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
 </script>
 </body>

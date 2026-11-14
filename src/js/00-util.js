@@ -8,3 +8,4 @@ const LS = {
   get(k, d) { try { const v = localStorage.getItem('lexi.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem('lexi.' + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
 };
+const nid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);

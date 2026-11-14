@@ -45,10 +45,10 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 ## Fase 1 · Esqueleto · Sonnet, esfuerzo medio
 - [x] Base de Calculi copiada y adaptada (14-11-2026): `tools/build.py`, `sw.js` (`lexi-pwa-1`), manifest (`lexi-app`), `fonts/`, `src/` con paleta, tema y arranque
 - [x] Tema claro y oscuro con la paleta coral; mascota animada en el inicio; iconos enlazados (14-11-2026)
-- [ ] Perfiles Familias y Docente; el perfil es una **clase** (Docente) o un **niño** (Familias)
-- [ ] Guardado en `lexi.v1` con migración versionada
+- [x] Perfiles Familias y Docente (14-11-2026): clase (Docente) o niño con animal de los 30 de Calculi (Familias). Se crean y se eligen; **renombrar y borrar irán en la zona del tutor (con PIN)**. `src/js/20-datos.js` y `src/js/40-inicio.js`
+- [x] Guardado en `lexi.v1` con migración versionada (14-11-2026): sanea al leer, copia en `lexi.bk` si el JSON está roto, no pisa datos de una versión más nueva. `node tests/test_datos.js` (11 pruebas)
 - [ ] Zona del tutor con PIN, Modo Docente, copia de seguridad en JSON
-- [ ] Tests con Node y prueba de humo (perfil, PIN, zona del tutor; claro y oscuro; 390×844 y 768×1024). Ya hay `tests/humo.py` (arranque, tema, botones ≥44 px, sin errores); ampliar cuando existan perfiles y PIN
+- [ ] Tests con Node y prueba de humo (perfil, PIN, zona del tutor; claro y oscuro; 390×844 y 768×1024). `tests/humo.py` ya recorre inicio, clase, niño con animal y recarga; falta ampliarlo con PIN y zona del tutor
 - [ ] Activar GitHub Pages (rama `main`, raíz) y comprobar https://ilinper301-hue.github.io/Lexi/
 
 ## Fase 2 · Prototipo: semana 1 · Sonnet, esfuerzo medio
