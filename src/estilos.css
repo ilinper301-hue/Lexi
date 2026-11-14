@@ -38,6 +38,7 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 :focus-visible{outline:3px solid var(--aci);outline-offset:2px}
 
 .escala{display:block;width:100%;height:auto}
-.escala-fila{display:flex;gap:10px;justify-content:center;align-items:flex-end}
-.escala-fila figure{margin:0;flex:1;max-width:110px;text-align:center}
-.escala-fila figcaption{font:500 1rem var(--fd);margin-top:6px}
+.escala-fila{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:end;width:100%;max-width:520px}
+.escala-fila figure{margin:0;min-width:0;text-align:center}
+.escala-fila figure .escala{max-width:120px;margin:0 auto}
+.escala-fila figcaption{font:500 clamp(.8rem,2.6vw,1.1rem)/1.15 var(--fd);margin-top:6px;overflow-wrap:anywhere}

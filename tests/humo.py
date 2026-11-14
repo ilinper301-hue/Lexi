@@ -21,6 +21,8 @@ try:
                     bb = bt.bounding_box()
                     if bb['width'] < 44 or bb['height'] < 44: fallos.append(f'{tema} {w}: botón pequeño')
                 if pg.evaluate('document.documentElement.scrollWidth') > w: fallos.append(f'{tema} {w}: desborda')
+                an = pg.evaluate("[...document.querySelectorAll('.escala-fila .escala g')].map(g=>g.getBoundingClientRect().width)")
+                if len(an) != 4 or an != sorted(an): fallos.append(f'{tema} {w}: la escala no crece {an}')
                 if errs: fallos.append(f'{tema} {w}x{h}: {errs}')
                 pg.screenshot(path=f'/tmp/lexi-{tema}-{w}.png'); pg.close()
         b.close()
