@@ -54,7 +54,7 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 ## Fase 2 · Prototipo: semana 1 · Sonnet, esfuerzo medio
 - [ ] Pasar `docs/semana-01.md` a `src/js/palabras/` y test de contenido (todas las fichas completas).
   El test puede partir de `tools/validar-docs.js`. Las semanas 2 a 10 se pasan cuando Iván las revise.
-- [ ] Pedir a Iván las 6 imágenes de la petición 1 y subirlas a `img/palabras/`
+- [ ] Imágenes de la petición 1 (14-11-2026): `observar.webp` subida. Faltan `comparar`, `ordenar`, `enorme`, `fragil`, `curioso`: Iván las envió juntas en un collage de baja resolución (no se usa); pedírselas sueltas, una por archivo, apaisadas 4:3
 - [ ] Sesión guiada en pantalla grande: escena, decirla con sílabas, explicación, gesto, contextos
 - [ ] Tareas `sentido`, `ejemplo`, `elige`, `acaba` y `habla`
 - [ ] Valoración del docente: casi todos · la mitad · pocos
