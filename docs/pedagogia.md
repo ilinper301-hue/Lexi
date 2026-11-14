@@ -52,6 +52,8 @@ la respuesta y el porqué.
 
 No hay puntos, vidas, cronómetro ni rachas. El refuerzo es el muro de palabras de la clase, que crece.
 
+Diseño detallado de `gesto` y `relaciona` (pantallas, reglas G y L, tests 58-75): `docs/tareas-gesto-relaciona.md`. *(Propuesta del 14-11-2026, pendiente del sí de Iván.)*
+
 ## 4. Escala única (de la clase, por palabra)
 
 Reglas exactas de la Fase 3 (diseño del 14-11-2026, Fable). Los pasos se numeran del 1 al 4, igual que

@@ -58,6 +58,23 @@ Salieron al diseñar la Fase 3 (14-11-2026). Están escritas como propuesta en `
     en vez de «casi todos · la mitad · pocos»; que el tutor pueda corregir a mano el paso de una
     palabra; que `ejemplo` enseñe un sí y un no seguidos antes de valorar.
 
+Salieron al diseñar las tareas `gesto` y `relaciona` (14-11-2026). Todo está en
+`docs/tareas-gesto-relaciona.md`; **no se programan hasta que Iván conteste a los puntos 13 a 15**:
+
+13. **`relaciona` ya en 1.º.** Estaba prevista para 2.º. Propuesta: usarla desde 1.º, de palabra y
+    con gestos; `familia` sí espera a 2.º. Regla L8.
+14. **El gesto solo no sube de paso.** Para llegar a «La entendemos», al menos uno de los dos días
+    buenos tiene que venir de `sentido`, `ejemplo` o `elige`. Regla G8 y test 65.
+15. **Preguntas de `relaciona`** (tabla del apartado 4): se pregunta al revés, de la palabra fácil a
+    la nuestra («¿Cómo decimos *rápido* con una palabra nuestra?»). Hacen falta 8 textos nuevos
+    (explicar, parecido, sorprendido, áspero, pista, compartir, paciente, paisaje) y pasar 39
+    palabras difíciles o de la misma familia a una lista aparte (`rel.mas`) que no se pregunta.
+16. **Gestos que se parecen entre semanas** (6 grupos, apartado 5): descubrir-oscuro, rodear-repetir,
+    primero-solución, respetar-ser vivo, agotado-tranquilo, observar-pista-paisaje. Propuesta: no
+    tocar ahora y cambiarlos en la revisión de la Fase 4.
+17. **La clase responde primero con gesto o dedos y después con la voz**, en vez de solo a coro, para
+    que el docente pueda ver a todos antes de valorar.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -81,6 +98,17 @@ Salieron al diseñar la Fase 3 (14-11-2026). Están escritas como propuesta en `
 - [x] Valoración del docente: casi todos · la mitad · pocos (14-11-2026). Opcional («Seguir sin valorar» no guarda). Datos a **v3**: `perfil.pal[id].val = [{d, t, v}]` (últimas 30), con migración desde v2. De momento solo se apunta: **no sube el paso de la escala** (Fase 3). `sw.js` → `lexi-pwa-4`
 - [x] Sin voz del navegador (decisión de Iván, 14-11-2026): la app solo muestra texto y el docente lo lee y lo explica
 - [ ] Iván lo prueba en clase; apuntar aquí lo que haya que cambiar
+
+## Tareas `gesto` y `relaciona` · Sonnet, esfuerzo medio
+- [x] **Diseño** (14-11-2026, Fable, esfuerzo alto; sin programar nada): `docs/tareas-gesto-relaciona.md`
+  (pantallas, reglas G1-G9 y L1-L10, tabla de preguntas de las 60 palabras, tests 58-75). La tabla se
+  comprobó contra las 60 fichas: no se pierde ninguna palabra relacionada.
+- [ ] **Iván contesta a los puntos 13 a 15 de «Para decidir con Iván»** (y, si quiere, 16 y 17)
+- [ ] G.1 Fichas: campo `rel.mas`, mover lo marcado con ↷ y añadir los 8 textos nuevos, en
+  `docs/semana-NN.md` y en `src/js/palabras/`. Comprobador y test 75
+- [ ] G.2 Tarea `gesto` con sus dos formas (tests 58-64 y 66). No depende de la Fase 3
+- [ ] G.3 Tarea `relaciona` (tests 67-74). Después del paso 3.2 de la Fase 3
+- [ ] G.4 Regla G8 dentro del paso 3.1 de la Fase 3 (test 65)
 
 ## Fase 3 · Repaso y escala · Sonnet, esfuerzo alto
 - [x] **Diseño** (14-11-2026, Fable, esfuerzo alto; sin programar nada): reglas exactas en
@@ -106,7 +134,7 @@ Salieron al diseñar la Fase 3 (14-11-2026). Están escritas como propuesta en `
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`
 - [ ] Paquete de 2.º: **Iván revisa la lista borrador** (`docs/lista-2-borrador.md`, propuesta de Fable
   del 13-11-2026, sin fichas escritas)
-- [ ] Paquete de 2.º: contenido de las 60 palabras y tareas `relaciona` y `familia`
+- [ ] Paquete de 2.º: contenido de las 60 palabras y tarea `familia` (`relaciona` ya está diseñada: ver arriba)
 
 ## Fase 5 · Aula · Sonnet, esfuerzo medio
 - [ ] Muro de palabras y tarjetas para imprimir
