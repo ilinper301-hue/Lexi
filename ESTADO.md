@@ -88,7 +88,7 @@ Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`.
     sentimos» · «Para convivir» · «El mundo que nos rodea». Regla EX1.
 23. **Texto fijo de la hoja para las familias** (regla FA4) y que la hoja no lleve notas ni progreso.
 
-Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Esperan el sí de Iván:**
+Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Iván dijo «sí» el 15-11-2026: los puntos 24 a 28 están aprobados** tal cual están escritos:
 
 24. **Fusión palabra a palabra.** Calculi se queda con el alumno entero más reciente. En Lexi un
     perfil es toda la clase: si se cambia el nombre desde el móvil mientras la pizarra lleva días sin
@@ -183,7 +183,7 @@ Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Esp
 - [x] **Diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada): `docs/nube.md` (reglas CU, SI,
   FU, PV, BO y VE; datos; reglas de Firestore propuestas; tests 94-117). Leído antes el patrón de
   Calculi (`52-cuenta.js`) y `tabula/firestore.rules`.
-- [ ] Iván decide los puntos 24 a 28
+- [x] Iván aprueba los puntos 24 a 28 (15-11-2026)
 - [ ] 6.1 Marcas (`gmt`, `del`, `mt`, `m`), migración y funciones de fusión, sin red ni pantallas
   (tests 96-105, 113 y 116) · Sonnet, esfuerzo alto. Puede ir junto al paso 3.1
 - [ ] 6.2 Bloque de Lexi en `tabula/firestore.rules`, probado en el simulador · Fable u Opus, esfuerzo
