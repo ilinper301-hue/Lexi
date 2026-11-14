@@ -39,7 +39,7 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
-- [ ] Proponer 3 mascotas y 3 paletas (distintas de Lectori, Barri y Calculi) y esperar la elección de Iván
+- [x] Mascota y paleta elegidas por Iván (14-11-2026): bocadillo coral (imagen suya, sin piernas) y corales #ED7468 / #F2B4A9. Piezas en `img/mascota/` (cuerpo, brazo, css, demo.html); iconos en `icons/` (fondo #FFF1EC). Falta enlazarlos en manifest y en la pantalla de inicio (Fase 1).
 - [ ] Elegir con Iván el dibujo de la escala de 4 pasos (va unido a la mascota)
 
 ## Fase 1 · Esqueleto · Sonnet, esfuerzo medio

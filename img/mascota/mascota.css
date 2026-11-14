@@ -1,0 +1,13 @@
+/* Lexi · mascota por capas (la imagen original, sin redibujar) */
+.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
+.lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
+.lexi-mascota img{left:0;top:0;width:100%;height:100%;display:block}
+.lexi-mascota .sombra{background:var(--lexi-sombra);border-radius:50%;animation:lexi-sombra 4s ease-in-out infinite}
+.lexi-mascota .flota{inset:0;animation:lexi-flota 4s ease-in-out infinite}
+.lexi-mascota .brazo{transform-origin:17.5% 52.2%;animation:lexi-saluda 3.2s ease-in-out infinite}
+.lexi-mascota .lid{background:var(--lexi-coral);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
+@keyframes lexi-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2%)}}
+@keyframes lexi-sombra{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.94)}}
+@keyframes lexi-saluda{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(5deg)}}
+@keyframes lexi-parpadea{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){.lexi-mascota *{animation:none!important}}

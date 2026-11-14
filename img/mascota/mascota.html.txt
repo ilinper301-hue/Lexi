@@ -1,0 +1,4 @@
+<div class="lexi-mascota">
+<span class="sombra" style="left:15.777%;top:88.977%;width:67.194%;height:10.229%"></span>
+<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt=""><img src="img/mascota/cuerpo.png" alt="Lexi, la mascota"><i class="lid" style="left:26.877%;top:24.603%;width:19.236%;height:25.750%"></i><i class="lid" style="left:52.306%;top:18.871%;width:19.631%;height:26.279%"></i></div>
+</div>
