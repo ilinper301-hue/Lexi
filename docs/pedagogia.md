@@ -20,7 +20,7 @@ Un solo botón grande, **«Hoy»**, monta la sesión sola:
 1. **Recordamos** · 2 o 3 palabras de días anteriores. Cada vez con una tarea distinta a la última
    que se hizo con esa palabra.
 2. **Palabra nueva** (1 o 2 por sesión), siempre en este orden:
-   1. Escena: ilustración y texto corto que el docente lee (o la voz del navegador).
+   1. Escena: ilustración y texto corto que el docente lee en voz alta (la app no usa voz: todo va en texto en pantalla y lo explica el docente).
    2. La decimos todos, y otra vez con palmadas por sílabas.
    3. Explicación amigable.
    4. Gesto.

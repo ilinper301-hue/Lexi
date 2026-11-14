@@ -31,6 +31,23 @@ try:
                 an = pg.evaluate("[...document.querySelectorAll('.escala-fila .escala g')].map(g=>g.getBoundingClientRect().width)")
                 if len(an) != 4 or an != sorted(an): fallos.append(f'{et}: la escala no crece {an}')
                 revisa('3casa')
+                # Semana 1: lista y presentación completa de una palabra
+                pg.click('text=Palabras de la semana 1'); pg.wait_for_selector('.palabras .pal'); revisa('3semana')
+                if pg.locator('.palabras .pal').count() != 6: fallos.append(f'{et}: la semana 1 debía tener 6 palabras')
+                if not pg.evaluate("[...document.querySelectorAll('.pal img')].every(i=>i.complete&&i.naturalWidth>0)") and not pg.wait_for_function("[...document.querySelectorAll('.pal img')].every(i=>i.complete&&i.naturalWidth>0)"): pass
+                pg.click('.pal:has-text("observar")'); pg.wait_for_selector('.rotulo')
+                vistos = []
+                for k in range(9):
+                    vistos.append(pg.inner_text('.rotulo'))
+                    if k in (0, 2, 4, 8): revisa(f'4pres{k}')
+                    if k == 0 and not pg.evaluate("(()=>{const i=document.querySelector('.esc-img');return i.complete&&i.naturalWidth>0})()"): fallos.append(f'{et}: la imagen de la escena no carga')
+                    if k < 8: pg.click('text=Siguiente')
+                if vistos[0] != 'Escena' or vistos[-1] != 'Ya la conocemos' or len(set(vistos)) != 9: fallos.append(f'{et}: pasos de la presentación {vistos}')
+                if 'ob' not in pg.inner_text('main') and 'observar' not in pg.inner_text('main'): fallos.append(f'{et}: falta la palabra al final')
+                pg.click('text=Antes'); pg.click('text=Siguiente'); pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
+                if pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.e") != 2: fallos.append(f'{et}: la palabra presentada no quedó en «La conocemos»')
+                if pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.comparar") is not None: fallos.append(f'{et}: se guardó una palabra no presentada')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
                 # recarga: el perfil sigue guardado
                 pg.reload(); pg.wait_for_selector('.opciones'); pg.click('text=Docente'); pg.wait_for_selector('.qa')
                 if '1.º A' not in pg.inner_text('.quien'): fallos.append(f'{et}: no se guardó la clase')

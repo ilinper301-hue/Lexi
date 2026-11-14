@@ -54,10 +54,10 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 ## Fase 2 · Prototipo: semana 1 · Sonnet, esfuerzo medio
 - [x] Semana 1 pasada a `src/js/palabras/s01-<id>.js` (14-11-2026), sin cambiar ni una palabra. `src/js/05-palabras.js` define `PALABRA`, `PALABRAS` y `palabraPorId`; `tools/build.py` incluye la carpeta. Reglas de las fichas en `tools/reglas-ficha.js` (las usan `tools/validar-docs.js` y el test). Test: `node tests/test_contenido.js` (40 comprobaciones: reglas, imagen que existe y pesa <90 KB, y que la ficha es idéntica a `docs/semana-01.md`). Las semanas 2 a 10 se pasan cuando Iván las revise: basta copiar cada bloque a `s02-<id>.js`… y el test las valida solo
 - [x] Imágenes de la petición 1 subidas a `img/palabras/` (14-11-2026): observar, comparar, ordenar, enorme, fragil, curioso (webp 1200×900, <90 KB). `fragil` está recortada a 4:3 y pierde los pies
-- [ ] Sesión guiada en pantalla grande: escena, decirla con sílabas, explicación, gesto, contextos
+- [x] Presentación de la palabra nueva en pantalla grande (14-11-2026): desde la casa del perfil, «Palabras de la semana 1» (6 tarjetas con imagen y su paso de la escala) → 9 pasos con «Siguiente»: escena, la decimos, palmadas (sílabas), explicación, gesto y 3 contextos, y final. Al llegar al final la palabra pasa a «La conocemos» (no baja nunca; en Modo Docente no guarda). `src/js/45-semana.js`. Datos a **v2**: `perfil.pal = {id: {e, pres}}` con migración desde v1 (`lexi.v1`); tests en `tests/test_datos.js` (26) y `tests/humo.py`. El segundo significado (`otro`) NO sale aquí: irá en una sesión de otro día. Pendiente: que Iván la pruebe en clase
 - [ ] Tareas `sentido`, `ejemplo`, `elige`, `acaba` y `habla`
 - [ ] Valoración del docente: casi todos · la mitad · pocos
-- [ ] Voz del navegador para escuchar palabra, explicación y frases
+- [x] Sin voz del navegador (decisión de Iván, 14-11-2026): la app solo muestra texto y el docente lo lee y lo explica
 - [ ] Iván lo prueba en clase; apuntar aquí lo que haya que cambiar
 
 ## Fase 3 · Repaso y escala · Sonnet, esfuerzo alto

@@ -1,6 +1,8 @@
 /* ===== Datos guardados: una sola clave, «lexi.v1» (prefijo propio: se comparte dominio con otras apps) =====
-   Perfil Docente = una CLASE ({t:'doc'}); perfil Familias = un NIÑO ({t:'fam', av}). El progreso va por perfil, no por alumno. */
-const VERSION_DATOS = 1, MAX_PERFILES = 40;
+   Perfil Docente = una CLASE ({t:'doc'}); perfil Familias = un NIÑO ({t:'fam', av}). El progreso va por perfil, no por alumno:
+   perfil.pal = { idPalabra: { e: paso de la escala 1..4 (1 Nueva, 2 La conocemos, 3 La entendemos, 4 La usamos), pres: fecha en que se presentó } }.
+   v1 → v2: se añade «pal» a cada perfil (vacío). */
+const VERSION_DATOS = 2, MAX_PERFILES = 40;
 /* Mismos 30 animalitos y mismo orden que Calculi y Lectori (un niño conserva su animal en todas las apps) */
 const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['🦁','#FDE68A'],['🐸','#D9F99D'],['🐙','#F5D0FE'],['🐳','#BAE6FD'],['🦉','#E7D3B5'],
   ['🐝','#FEF08A'],['🐞','#FECACA'],['🦄','#FBCFE8'],['🐨','#CBD5E1'],['🐶','#FDE2C4'],['🐱','#FFE4B5'],['🐰','#FCE7F3'],['🐻','#E8CBA8'],
@@ -14,17 +16,27 @@ function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles:
 let MODO_DOCENTE = false;
 let EST = estadoVacio();
 
+/** Progreso por palabra: solo ids con forma válida, paso entre 1 y 4 y fecha válida. */
+function limpiarPal(o) {
+  const r = {}; if (!o || typeof o !== 'object') return r;
+  for (const [k, v] of Object.entries(o)) {
+    if (!/^[a-z0-9-]{1,30}$/.test(k) || !v || typeof v !== 'object') continue;
+    r[k] = { e: Math.max(1, Math.min(4, v.e | 0)), pres: esFecha(v.pres) ? v.pres : '' };
+    if (Object.keys(r).length >= 1000) break;
+  }
+  return r;
+}
 function limpiarPerfil(p) {
   if (!p || typeof p !== 'object' || !['doc', 'fam'].includes(p.t)) return null;
   return { id: /^[a-z0-9]{6,20}$/.test(p.id || '') ? p.id : nid(), t: p.t,
     n: ss(p.n, 20) || (p.t === 'doc' ? 'Clase' : 'Niño'),
     av: p.t === 'fam' ? Math.max(0, Math.min(AVATARES.length - 1, p.av | 0)) : 0,
-    c: esFecha(p.c) ? p.c : hoy() };
+    c: esFecha(p.c) ? p.c : hoy(), pal: limpiarPal(p.pal) };
 }
 /** Sanea cualquier cosa leída del disco (o importada) y la deja en la versión actual. */
 function limpiar(o) {
   o = o && typeof o === 'object' ? o : {};
-  /* Migraciones: aquí se añadirá un «if (v < 2) {…}» por cada cambio de estructura. Nunca se pierde el progreso. */
+  /* Migraciones: v1 → v2 añade «pal» a cada perfil (lo hace limpiarPerfil). Un «if (v < N) {…}» más por cada cambio de estructura. Nunca se pierde el progreso. */
   const vistos = new Set(), perfiles = [];
   for (const p of Array.isArray(o.perfiles) ? o.perfiles : []) {
     const q = limpiarPerfil(p); if (!q || vistos.has(q.id) || perfiles.length >= MAX_PERFILES) continue;
@@ -67,12 +79,23 @@ function entrarPerfil(id) { const p = EST.perfiles.find(x => x.id === id); if (!
 
 function renombrarPerfil(id, nombre) { const p = EST.perfiles.find(x => x.id === id); if (!p || EST.bloq || errorNombre(p.t, nombre, id)) return false; p.n = ss(nombre, 20); return guardar() || MODO_DOCENTE; }
 function cambiarAnimal(id, av) { const p = EST.perfiles.find(x => x.id === id); if (!p || p.t !== 'fam' || EST.bloq) return false; p.av = Math.max(0, Math.min(AVATARES.length - 1, av | 0)); guardar(); return true; }
-/** Borra el perfil. (Cuando exista progreso por perfil, también se borra aquí.) */
+/** Borra el perfil (su progreso va dentro, así que se borra con él). */
 function borrarPerfil(id) {
   if (EST.bloq || !EST.perfiles.some(x => x.id === id)) return false;
   EST.perfiles = EST.perfiles.filter(x => x.id !== id);
   if (EST.act === id) { EST.act = ''; EST.modo = ''; }
   guardar(); return true;
+}
+/* ===== Progreso de palabras ===== */
+const estadoPal = (p, id) => (p && p.pal && p.pal[id]) || { e: 1, pres: '' };
+/** La clase (o el niño) acaba de ver la presentación completa: la palabra pasa a «La conocemos». Nunca baja ni se salta pasos.
+    En Modo Docente no guarda nada. Devuelve true si guardó. */
+function presentarPalabra(id) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !/^[a-z0-9-]{1,30}$/.test(id || '')) return false;
+  const a = estadoPal(p, id);
+  p.pal[id] = { e: Math.max(2, a.e), pres: a.pres || hoy() };
+  return guardar();
 }
 const PIN_OK = p => /^\d{4}$/.test(p || '');
 function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; EST.ajustes.pin = pin; guardarAjustes(); return true; }

@@ -101,6 +101,36 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){.pd.mal{animation:none}}
 .tutor .btn{font-family:var(--fi);font-size:1.05rem}
 
+/* ===== Palabras de la semana y presentación ===== */
+.pantalla.ancha{max-width:1100px}
+.palabras{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.pal{display:flex;flex-direction:column;gap:8px;padding:8px;border-radius:18px;border:2px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;text-align:left;box-shadow:var(--sh)}
+.pal:active{border-color:var(--aci)}
+.pal img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:var(--soft)}
+.pal-pie{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 8px;padding:0 4px 2px}
+.pal-n{font:600 clamp(1.3rem,4.5vw,1.8rem)/1.1 var(--fd);overflow-wrap:normal}
+.pal .escala{width:44px;flex:none}
+.pres{gap:18px}
+.rotulo{margin:0;align-self:center;padding:6px 18px;border-radius:20px;background:var(--soft);color:var(--mu);font:600 1.05rem var(--fd)}
+.cuerpo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:38vh}
+.gr{margin:0;font:500 clamp(1.5rem,4vw,2.8rem)/1.3 var(--fd)}
+.gr-p{font-size:1.2rem}
+.pal-ch{margin:0;font:700 clamp(1.3rem,3vw,2rem) var(--fd);color:var(--aci)}
+.palabra-g{margin:0;font:700 clamp(3.5rem,16vw,9rem)/1 var(--fd);overflow-wrap:anywhere}
+.silabas{margin:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
+.sil{display:inline-block;padding:.1em .4em;border-radius:.35em;background:var(--soft);font:700 clamp(2.4rem,11vw,6rem)/1.1 var(--fd)}
+.pt{font:700 clamp(2rem,9vw,5rem) var(--fd);color:var(--ac);font-style:normal}
+.escena{display:grid;gap:14px;width:100%;justify-items:center}
+.esc-img{display:block;width:100%;max-width:720px;aspect-ratio:4/3;object-fit:cover;border-radius:18px;background:var(--soft);box-shadow:var(--sh)}
+@media (min-width:760px) and (orientation:landscape){.escena{grid-template-columns:1.1fr 1fr;align-items:center;text-align:left}}
+.fin-esc{display:flex;align-items:center;gap:10px;font:600 1.4rem var(--fd)}.fin-esc .escala{width:72px}
+.pts{display:flex;justify-content:center;gap:8px}
+.pts i{width:12px;height:12px;border-radius:50%;border:2px solid var(--bd2)}
+.pts i.hecho{background:var(--acs);border-color:var(--acs)}.pts i.on{background:var(--ac);border-color:var(--ac);transform:scale(1.25)}
+.nav{display:grid;grid-template-columns:minmax(128px,1fr) 2fr;gap:12px}.nav .btn{white-space:nowrap}
+.nav .btn{min-height:68px;font-size:1.5rem}
+.top .izq{display:flex;gap:8px;pointer-events:none}.top .izq .tema{pointer-events:auto}
+
 /* Lexi · mascota por capas (la imagen original, sin redibujar) */
 .lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
 .lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
@@ -182,8 +212,10 @@ function escalaFila() {
 
 /* ---- js/20-datos.js ---- */
 /* ===== Datos guardados: una sola clave, «lexi.v1» (prefijo propio: se comparte dominio con otras apps) =====
-   Perfil Docente = una CLASE ({t:'doc'}); perfil Familias = un NIÑO ({t:'fam', av}). El progreso va por perfil, no por alumno. */
-const VERSION_DATOS = 1, MAX_PERFILES = 40;
+   Perfil Docente = una CLASE ({t:'doc'}); perfil Familias = un NIÑO ({t:'fam', av}). El progreso va por perfil, no por alumno:
+   perfil.pal = { idPalabra: { e: paso de la escala 1..4 (1 Nueva, 2 La conocemos, 3 La entendemos, 4 La usamos), pres: fecha en que se presentó } }.
+   v1 → v2: se añade «pal» a cada perfil (vacío). */
+const VERSION_DATOS = 2, MAX_PERFILES = 40;
 /* Mismos 30 animalitos y mismo orden que Calculi y Lectori (un niño conserva su animal en todas las apps) */
 const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['🦁','#FDE68A'],['🐸','#D9F99D'],['🐙','#F5D0FE'],['🐳','#BAE6FD'],['🦉','#E7D3B5'],
   ['🐝','#FEF08A'],['🐞','#FECACA'],['🦄','#FBCFE8'],['🐨','#CBD5E1'],['🐶','#FDE2C4'],['🐱','#FFE4B5'],['🐰','#FCE7F3'],['🐻','#E8CBA8'],
@@ -197,17 +229,27 @@ function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles:
 let MODO_DOCENTE = false;
 let EST = estadoVacio();
 
+/** Progreso por palabra: solo ids con forma válida, paso entre 1 y 4 y fecha válida. */
+function limpiarPal(o) {
+  const r = {}; if (!o || typeof o !== 'object') return r;
+  for (const [k, v] of Object.entries(o)) {
+    if (!/^[a-z0-9-]{1,30}$/.test(k) || !v || typeof v !== 'object') continue;
+    r[k] = { e: Math.max(1, Math.min(4, v.e | 0)), pres: esFecha(v.pres) ? v.pres : '' };
+    if (Object.keys(r).length >= 1000) break;
+  }
+  return r;
+}
 function limpiarPerfil(p) {
   if (!p || typeof p !== 'object' || !['doc', 'fam'].includes(p.t)) return null;
   return { id: /^[a-z0-9]{6,20}$/.test(p.id || '') ? p.id : nid(), t: p.t,
     n: ss(p.n, 20) || (p.t === 'doc' ? 'Clase' : 'Niño'),
     av: p.t === 'fam' ? Math.max(0, Math.min(AVATARES.length - 1, p.av | 0)) : 0,
-    c: esFecha(p.c) ? p.c : hoy() };
+    c: esFecha(p.c) ? p.c : hoy(), pal: limpiarPal(p.pal) };
 }
 /** Sanea cualquier cosa leída del disco (o importada) y la deja en la versión actual. */
 function limpiar(o) {
   o = o && typeof o === 'object' ? o : {};
-  /* Migraciones: aquí se añadirá un «if (v < 2) {…}» por cada cambio de estructura. Nunca se pierde el progreso. */
+  /* Migraciones: v1 → v2 añade «pal» a cada perfil (lo hace limpiarPerfil). Un «if (v < N) {…}» más por cada cambio de estructura. Nunca se pierde el progreso. */
   const vistos = new Set(), perfiles = [];
   for (const p of Array.isArray(o.perfiles) ? o.perfiles : []) {
     const q = limpiarPerfil(p); if (!q || vistos.has(q.id) || perfiles.length >= MAX_PERFILES) continue;
@@ -250,12 +292,23 @@ function entrarPerfil(id) { const p = EST.perfiles.find(x => x.id === id); if (!
 
 function renombrarPerfil(id, nombre) { const p = EST.perfiles.find(x => x.id === id); if (!p || EST.bloq || errorNombre(p.t, nombre, id)) return false; p.n = ss(nombre, 20); return guardar() || MODO_DOCENTE; }
 function cambiarAnimal(id, av) { const p = EST.perfiles.find(x => x.id === id); if (!p || p.t !== 'fam' || EST.bloq) return false; p.av = Math.max(0, Math.min(AVATARES.length - 1, av | 0)); guardar(); return true; }
-/** Borra el perfil. (Cuando exista progreso por perfil, también se borra aquí.) */
+/** Borra el perfil (su progreso va dentro, así que se borra con él). */
 function borrarPerfil(id) {
   if (EST.bloq || !EST.perfiles.some(x => x.id === id)) return false;
   EST.perfiles = EST.perfiles.filter(x => x.id !== id);
   if (EST.act === id) { EST.act = ''; EST.modo = ''; }
   guardar(); return true;
+}
+/* ===== Progreso de palabras ===== */
+const estadoPal = (p, id) => (p && p.pal && p.pal[id]) || { e: 1, pres: '' };
+/** La clase (o el niño) acaba de ver la presentación completa: la palabra pasa a «La conocemos». Nunca baja ni se salta pasos.
+    En Modo Docente no guarda nada. Devuelve true si guardó. */
+function presentarPalabra(id) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !/^[a-z0-9-]{1,30}$/.test(id || '')) return false;
+  const a = estadoPal(p, id);
+  p.pal[id] = { e: Math.max(2, a.e), pres: a.pres || hoy() };
+  return guardar();
 }
 const PIN_OK = p => /^\d{4}$/.test(p || '');
 function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; EST.ajustes.pin = pin; guardarAjustes(); return true; }
@@ -297,7 +350,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="pill-md">${ico('grad', 20)} Modo Docente</span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -316,9 +369,10 @@ SC.quien = function () {
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
 };
 SC.casa = function () {
-  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
   const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
+  <button class="btn grande" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>
   <p class="mu">Aquí irá la sesión de hoy.</p>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
 };
@@ -329,6 +383,8 @@ function pintar() {
 function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
 function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
+  if (PANT === 'pres') return go('semana');
+  if (PANT === 'semana') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
   NUEVO_NOM = ''; NUEVO_AV = null; go('inicio');
@@ -345,6 +401,51 @@ function crearDesdeForm(ev) {
   else if (!crearPerfil(MODO, n, NUEVO_AV ?? avLibre())) ERR = 'No se ha podido crear';
   else { NUEVO_NOM = ''; NUEVO_AV = null; return go('casa'); }
   pintar(); const f = $('#nom'); if (f) f.focus();
+}
+
+/* ---- js/45-semana.js ---- */
+/* ===== Palabras de la semana y presentación de una palabra nueva (la guía el docente; la app solo muestra texto) =====
+   Orden de docs/pedagogia.md: escena · la decimos · palmadas · explicación · gesto · 3 contextos · fin. */
+const SEMANA_ACT = 1;
+let PRES = { id: '', i: 0 };
+const PRES_PASOS = 9;
+const palabrasSemana = n => PALABRAS.filter(p => p.semana === n);
+const imgPal = p => 'img/palabras/' + p.escena.img;
+
+SC.semana = function () {
+  const pr = MODO_DOCENTE ? null : perfilAct(), lista = palabrasSemana(SEMANA_ACT);
+  setTimeout(() => lista.forEach(p => { const im = new Image(); im.src = imgPal(p); }), 0); /* el service worker las guarda para usarlas sin conexión */
+  return `<main class="pantalla infantil ancha"><h1 class="h-pant">Semana ${SEMANA_ACT}</h1>
+  <p class="mu">Toca una palabra para presentarla a la clase.</p>
+  <div class="palabras">${lista.map(p => `<button class="pal" onclick="abrirPalabra('${p.id}')"><img src="${esc(imgPal(p))}" alt="" loading="lazy">
+  <span class="pal-pie"><span class="pal-n">${esc(p.palabra)}</span>${escalaSVG(estadoPal(pr, p.id).e)}</span></button>`).join('')}</div></main>`;
+};
+
+SC.pres = function () {
+  const p = palabraPorId(PRES.id); if (!p) return SC.semana();
+  const i = PRES.i, ult = i === PRES_PASOS - 1;
+  let rot, cuerpo;
+  if (i === 0) { rot = 'Escena'; cuerpo = `<div class="escena"><img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="gr">${esc(p.escena.texto)}</p></div>`; }
+  else if (i === 1) { rot = 'La decimos todos'; cuerpo = `<p class="palabra-g">${esc(p.palabra)}</p><p class="mu gr-p">Todos juntos</p>`; }
+  else if (i === 2) {
+    rot = 'Con palmadas';
+    cuerpo = `<p class="silabas">${p.silabas.map(s => `<span class="sil">${esc(s)}</span>`).join('<i class="pt" aria-hidden="true">·</i>')}</p><p class="mu gr-p">${p.silabas.length} ${p.silabas.length === 1 ? 'palmada' : 'palmadas'}</p>`;
+  }
+  else if (i === 3) { rot = 'Qué quiere decir'; cuerpo = `<p class="pal-ch">${esc(p.palabra)}</p><p class="gr">${esc(p.def)}</p>`; }
+  else if (i === 4) { rot = 'Gesto'; cuerpo = `<p class="pal-ch">${esc(p.palabra)}</p><p class="gr">${esc(p.gesto)}</p>`; }
+  else if (i <= 7) { rot = `Más ejemplos · ${i - 4} de 3`; cuerpo = `<p class="pal-ch">${esc(p.palabra)}</p><p class="gr">${esc(p.contextos[i - 5])}</p>`; }
+  else { rot = 'Ya la conocemos'; cuerpo = `<p class="palabra-g">${esc(p.palabra)}</p><div class="fin-esc">${escalaSVG(2)}<span>${PASOS[1]}</span></div>`; }
+  const pts = Array.from({ length: PRES_PASOS }, (_, k) => `<i class="${k === i ? 'on' : k < i ? 'hecho' : ''}"></i>`).join('');
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${rot}</p>
+  <div class="cuerpo">${cuerpo}</div><div class="pts" aria-hidden="true">${pts}</div>
+  <div class="nav">${i > 0 ? '<button class="btn sec" onclick="presMover(-1)">← Antes</button>' : '<span></span>'}
+  ${ult ? '<button class="btn" onclick="atras()">Terminar</button>' : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}</div></main>`;
+};
+function abrirPalabra(id) { PRES = { id, i: 0 }; go('pres'); }
+function presMover(d) {
+  PRES.i = Math.max(0, Math.min(PRES_PASOS - 1, PRES.i + d));
+  if (PRES.i === PRES_PASOS - 1) presentarPalabra(PRES.id); /* al llegar al final se da por presentada (en Modo Docente no se guarda) */
+  pintar(); window.scrollTo(0, 0);
 }
 
 /* ---- js/50-tutor.js ---- */

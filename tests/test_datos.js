@@ -5,7 +5,7 @@ const codigo = ['00-util.js', '20-datos.js'].map(f => fs.readFileSync(path.join(
 function nuevo(almacen = {}) {
   const ls = { getItem: k => (k in almacen ? almacen[k] : null), setItem: (k, v) => { almacen[k] = String(v); }, removeItem: k => { delete almacen[k]; } };
   const ctx = vm.createContext({ localStorage: ls, console });
-  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilesDe,perfilAct,avLibre,limpiar,errorNombre,renombrarPerfil,cambiarAnimal,borrarPerfil,fijarPin,exportarTexto,leerCopia,aplicarCopia,AVATARES,MAX_PERFILES,get EST(){return EST},set MODO_DOCENTE(v){MODO_DOCENTE=v}})', ctx);
+  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilesDe,perfilAct,avLibre,limpiar,errorNombre,renombrarPerfil,cambiarAnimal,borrarPerfil,fijarPin,exportarTexto,leerCopia,aplicarCopia,presentarPalabra,estadoPal,AVATARES,MAX_PERFILES,get EST(){return EST},set MODO_DOCENTE(v){MODO_DOCENTE=v}})', ctx);
   return { api, almacen };
 }
 let n = 0; const t = (nombre, f) => { f(); n++; console.log('  ok', nombre); };
@@ -105,5 +105,41 @@ t('restaurar guarda antes lo anterior en lexi.bk', () => {
 t('restaurar sobre datos de versión más nueva los conserva en lexi.bk', () => {
   const orig = JSON.stringify({ v: 9, perfiles: [] }); const { api, almacen } = nuevo({ 'lexi.v1': orig }); api.cargar(); assert(api.EST.bloq);
   api.aplicarCopia(api.leerCopia(JSON.stringify({ app: 'lexi', v: 1, perfiles: [] })).datos); assert.strictEqual(almacen['lexi.bk'], orig); assert(!api.EST.bloq);
+});
+t('migra v1 → v2: los perfiles antiguos conservan todo y reciben «pal» vacío', () => {
+  const viejo = JSON.stringify({ v: 1, modo: 'doc', act: 'abcdef12', perfiles: [{ id: 'abcdef12', t: 'doc', n: '1.º A', av: 0, c: '2026-11-01' }], ajustes: { pin: '4321' } });
+  const { api, almacen } = nuevo({ 'lexi.v1': viejo }); api.cargar();
+  assert.strictEqual(api.EST.v, 2); assert.strictEqual(api.perfilAct().n, '1.º A'); assert.strictEqual(api.EST.ajustes.pin, '4321');
+  assert.strictEqual(JSON.stringify(api.perfilAct().pal), JSON.stringify({})); assert(!api.EST.bloq); assert.strictEqual(almacen['lexi.v1'], viejo);
+});
+t('presentar una palabra: pasa a «La conocemos» (2), guarda fecha y no baja ni se repite', () => {
+  const { api, almacen } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A');
+  assert.strictEqual(api.estadoPal(api.perfilAct(), 'observar').e, 1);
+  assert(api.presentarPalabra('observar')); const a = api.perfilAct().pal.observar;
+  assert.strictEqual(a.e, 2); assert(/^\d{4}-\d\d-\d\d$/.test(a.pres));
+  api.perfilAct().pal.observar = { e: 3, pres: '2026-11-01' }; api.presentarPalabra('observar');
+  assert.strictEqual(JSON.stringify(api.perfilAct().pal.observar), JSON.stringify({ e: 3, pres: '2026-11-01' }));
+  const { api: b } = nuevo(almacen); b.cargar(); assert.strictEqual(b.perfilAct().pal.observar.e, 3);
+});
+t('el progreso es por perfil y se borra con el perfil', () => {
+  const { api } = nuevo(); api.cargar(); const c = api.crearPerfil('doc', '1.º A'); api.presentarPalabra('comparar');
+  const k = api.crearPerfil('fam', 'Lucía', 2); assert.strictEqual(api.estadoPal(api.perfilAct(), 'comparar').e, 1);
+  api.entrarPerfil(c.id); assert.strictEqual(api.estadoPal(api.perfilAct(), 'comparar').e, 2);
+  api.borrarPerfil(c.id); assert.strictEqual(api.perfilesDe('doc').length, 0);
+});
+t('en Modo Docente no guarda progreso; con datos bloqueados tampoco', () => {
+  const { api, almacen } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A'); const antes = almacen['lexi.v1'];
+  api.MODO_DOCENTE = true; assert.strictEqual(api.presentarPalabra('enorme'), false); assert.strictEqual(almacen['lexi.v1'], antes);
+  const { api: b, almacen: al } = nuevo({ 'lexi.v1': JSON.stringify({ v: 9, perfiles: [{ id: 'abcdef12', t: 'doc', n: 'X' }], act: 'abcdef12' }) }); b.cargar();
+  assert.strictEqual(b.presentarPalabra('enorme'), false); assert.strictEqual(JSON.parse(al['lexi.v1']).v, 9);
+});
+t('sanea el progreso: ids raros, pasos fuera de rango y fechas malas', () => {
+  const { api } = nuevo(); const o = api.limpiar({ perfiles: [{ t: 'doc', n: 'A', pal: { 'ok-1': { e: 9, pres: 'ayer' }, '<x>': { e: 2 }, malo: 5, fragil: { e: 0, pres: '2026-11-14' } } }] });
+  assert.strictEqual(JSON.stringify(o.perfiles[0].pal), JSON.stringify({ 'ok-1': { e: 4, pres: '' }, fragil: { e: 1, pres: '2026-11-14' } }));
+});
+t('la copia de seguridad lleva el progreso y una copia v1 se restaura', () => {
+  const { api } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A'); api.presentarPalabra('fragil');
+  const r = api.leerCopia(api.exportarTexto()); assert(r.datos); assert.strictEqual(r.datos.perfiles[0].pal.fragil.e, 2);
+  const v1 = api.leerCopia(JSON.stringify({ app: 'lexi', v: 1, perfiles: [{ t: 'doc', n: 'Vieja' }] })); assert.strictEqual(JSON.stringify(v1.datos.perfiles[0].pal), JSON.stringify({}));
 });
 console.log(n + ' pruebas correctas');
