@@ -36,8 +36,8 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 6. La semana 5 no tiene palabra de «sentir» (lleva `proteger`) y la 10 es entera de Conocimiento del
    Medio. Es así en la lista; solo se avisa.
 
-Salieron al diseñar la Fase 3 (14-11-2026). Están escritas como propuesta en `docs/pedagogia.md`;
-**la Fase 3 no se programa hasta que Iván conteste a los puntos 7 y 8**:
+Salieron al diseñar la Fase 3 (14-11-2026). Están escritas en `docs/pedagogia.md`.
+**Iván dijo «sí a todo» el 15-11-2026: los puntos 7 a 12 están aprobados** (incluidas las ideas del 12) tal cual están escritos:
 
 7. **«Pocos» en una tarea de usar** (`acaba`, `habla`): propuesta, que solo baje de paso si la palabra
    estaba en «La usamos». En «La entendemos» se queda (pierde sus días buenos de usar y vuelve mañana
@@ -59,7 +59,7 @@ Salieron al diseñar la Fase 3 (14-11-2026). Están escritas como propuesta en `
     palabra; que `ejemplo` enseñe un sí y un no seguidos antes de valorar.
 
 Salieron al diseñar las tareas `gesto` y `relaciona` (14-11-2026). Todo está en
-`docs/tareas-gesto-relaciona.md`; **no se programan hasta que Iván conteste a los puntos 13 a 15**:
+`docs/tareas-gesto-relaciona.md`. **Iván dijo «sí a todo» el 15-11-2026: los puntos 13 a 17 están aprobados** tal cual están escritos:
 
 13. **`relaciona` ya en 1.º.** Estaba prevista para 2.º. Propuesta: usarla desde 1.º, de palabra y
     con gestos; `familia` sí espera a 2.º. Regla L8.
@@ -116,7 +116,7 @@ Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`.
 - [x] **Diseño** (14-11-2026, Fable, esfuerzo alto; sin programar nada): `docs/tareas-gesto-relaciona.md`
   (pantallas, reglas G1-G9 y L1-L10, tabla de preguntas de las 60 palabras, tests 58-75). La tabla se
   comprobó contra las 60 fichas: no se pierde ninguna palabra relacionada.
-- [ ] **Iván contesta a los puntos 13 a 15 de «Para decidir con Iván»** (y, si quiere, 16 y 17)
+- [x] Iván aprueba los puntos 13 a 17 (15-11-2026)
 - [ ] G.1 Fichas: campo `rel.mas`, mover lo marcado con ↷ y añadir los 8 textos nuevos, en
   `docs/semana-NN.md` y en `src/js/palabras/`. Comprobador y test 75
 - [ ] G.2 Tarea `gesto` con sus dos formas (tests 58-64 y 66). No depende de la Fase 3
@@ -128,7 +128,7 @@ Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`.
   `docs/pedagogia.md`: apartado 4 (escala, E1-E11), 5 (repaso R1-R9, tarea y frase T1-T7), 10 (botón
   «Hoy», H1-H10), 11 (casos de ejemplo), 12 (57 tests que deben pasar) y 13 (datos v4 y notas). Las
   reglas se comprobaron con una simulación antes de escribirlas (tabla del apartado 10).
-- [ ] **Iván contesta a los puntos 7 y 8 de «Para decidir con Iván»** (y, si quiere, 9 a 12)
+- [x] Iván aprueba los puntos 7 a 12 (15-11-2026)
 - [ ] 3.1 Datos v4 con migración desde v3, fecha local y funciones de escala y cajas (reglas E y R).
   Tests 1-31 y 54-57. Sin pantallas nuevas: las valoraciones de «Jugamos» ya mueven la escala
 - [ ] 3.2 Elección de tarea y de frase (reglas T), campos `orden` y `sep` en las fichas, `elige` solo
