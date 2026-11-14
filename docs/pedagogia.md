@@ -226,6 +226,8 @@ de Iván** (ver `ESTADO.md`, fase 4).
 - Resumen para Tabula (formato v2, que es por alumno).
 - Explorar: mapas y familias de palabras proyectados.
 - «La hemos encontrado»: la clase apunta cuándo oyó o usó la palabra fuera de la sesión.
+- Muro, «La hemos encontrado», Explorar, tarjetas y hoja para las familias ya están diseñados en
+  `docs/aula.md` (reglas MU, EN, EX, TA, FA, RE y AT; tests 76-93). *(Propuesta del 14-11-2026.)*
 - Paquete de 2.º, con familias de palabras, prefijos y sufijos sencillos.
 
 ## 10. Botón «Hoy»: cómo se monta la sesión

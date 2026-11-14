@@ -75,6 +75,19 @@ Salieron al diseñar las tareas `gesto` y `relaciona` (14-11-2026). Todo está e
 17. **La clase responde primero con gesto o dedos y después con la voz**, en vez de solo a coro, para
     que el docente pueda ver a todos antes de valorar.
 
+Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`. Ninguno frena los pasos
+5.1 a 5.3; **el 23 hay que contestarlo antes de programar la hoja para las familias (5.2)**:
+
+18. **«Ya son 14» en el muro.** Una cuenta de las palabras de la clase, sin metas. ¿Vale, o lo ves
+    como puntos? Regla MU3.
+19. **El muro no enseña huecos** de las palabras que faltan. Regla MU1.
+20. **«Una al azar»** para ratos sueltos, que no guarda ni valora nada. Regla MU5.
+21. **«La hemos encontrado» no mueve la escala** y se pregunta al empezar «Hoy» (se puede quitar en
+    la zona del tutor). Reglas EN1 y EN5.
+22. **Títulos de los grupos de Explorar:** «Para pensar» · «Cómo son las cosas» · «Cómo nos
+    sentimos» · «Para convivir» · «El mundo que nos rodea». Regla EX1.
+23. **Texto fijo de la hoja para las familias** (regla FA4) y que la hoja no lleve notas ni progreso.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -123,7 +136,7 @@ Salieron al diseñar las tareas `gesto` y `relaciona` (14-11-2026). Todo está e
 - [ ] 3.3 Botón «Hoy» (reglas H1-H4, H7-H10) con el ajuste «Palabras nuevas por sesión» en la zona del
   tutor. Tests 40-49 y 51-53, y prueba de humo
 - [ ] 3.4 Cierre y segundo significado (H5, H6). Test 50
-- [ ] 3.5 Muro de palabras de la clase con el paso de cada una
+- [ ] 3.5 Muro de palabras de la clase con el paso de cada una (diseñado en `docs/aula.md`: es el paso 5.4)
 
 ## Fase 4 · Contenido de 1.º y 2.º · Fable u Opus, esfuerzo alto
 - [x] Escribir las semanas 2 a 10 (54 palabras) y sus peticiones de imágenes (13-11-2026, Fable)
@@ -137,11 +150,17 @@ Salieron al diseñar las tareas `gesto` y `relaciona` (14-11-2026). Todo está e
 - [ ] Paquete de 2.º: contenido de las 60 palabras y tarea `familia` (`relaciona` ya está diseñada: ver arriba)
 
 ## Fase 5 · Aula · Sonnet, esfuerzo medio
-- [ ] Muro de palabras y tarjetas para imprimir
-- [ ] «La hemos encontrado»
-- [ ] Palabras de la semana para las familias (informe imprimible)
-- [ ] Explorar: mapa de palabras proyectado
-- [ ] Pantalla completa y atajos de teclado o mando en la sesión
+- [x] **Diseño** (14-11-2026, Fable, esfuerzo medio; sin programar nada): `docs/aula.md` (reglas MU,
+  EN, EX, TA, FA, RE y AT; datos; tests 76-93)
+- [ ] Iván contesta a los puntos 18 a 23 de «Para decidir con Iván»
+- [ ] 5.1 Tarjetas para imprimir, grandes y pequeñas (tests 90 y 93). Se puede hacer ya
+- [ ] 5.2 Hoja para las familias «Nuestras palabras de la semana» (test 89). Se puede hacer ya, con el sí al punto 23
+- [ ] 5.3 Pantalla completa y atajos de teclado o mando (test 92). Se puede hacer ya
+- [ ] 5.4 Muro «Nuestras palabras» con «Una al azar» y ficha de consulta (tests 76-80). Después del
+  paso 3.1; sustituye al 3.5
+- [ ] 5.5 «La hemos encontrado» (tests 81-85)
+- [ ] 5.6 Resumen «Cómo va la clase» (test 91)
+- [ ] 5.7 Explorar: por grupos, parejas y dos al azar (tests 86-88). Después del paso G.1
 
 ## Fase 6 · Nube y ecosistema · Fable u Opus, esfuerzo alto
 - [ ] Firebase opcional: colección `lexico/{uid}`, subcolección `alu` (un documento por perfil), fusión como Calculi
