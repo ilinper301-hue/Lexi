@@ -10,6 +10,7 @@ SC.semana = function () {
   const pr = MODO_DOCENTE ? null : perfilAct(), lista = palabrasSemana(SEMANA_ACT);
   setTimeout(() => lista.forEach(p => { const im = new Image(); im.src = imgPal(p); }), 0); /* el service worker las guarda para usarlas sin conexión */
   return `<main class="pantalla infantil ancha"><h1 class="h-pant">Semana ${SEMANA_ACT}</h1>
+  ${lista.some(x => MODO_DOCENTE || estadoPal(pr, x.id).e >= 2) ? '<button class="btn grande" onclick="empezarJuego()">Jugamos</button>' : '<p class="mu">Presenta alguna palabra para poder jugar con ella.</p>'}
   <p class="mu">Toca una palabra para presentarla a la clase.</p>
   <div class="palabras">${lista.map(p => `<button class="pal" onclick="abrirPalabra('${p.id}')"><img src="${esc(imgPal(p))}" alt="" loading="lazy">
   <span class="pal-pie"><span class="pal-n">${esc(p.palabra)}</span>${escalaSVG(estadoPal(pr, p.id).e)}</span></button>`).join('')}</div></main>`;

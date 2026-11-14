@@ -47,6 +47,21 @@ try:
                 pg.click('text=Antes'); pg.click('text=Siguiente'); pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
                 if pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.e") != 2: fallos.append(f'{et}: la palabra presentada no quedó en «La conocemos»')
                 if pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.comparar") is not None: fallos.append(f'{et}: se guardó una palabra no presentada')
+                # Jugamos: con una sola palabra presentada sale una tarea; se ve la respuesta, se valora y se guarda
+                pg.click('button:text-is("Jugamos")'); pg.wait_for_selector('.rotulo:has-text("Jugamos")'); revisa('5juego')
+                tarea = pg.inner_text('.rotulo')
+                if '1 de 1' not in tarea: fallos.append(f'{et}: debía haber 1 tarea {tarea}')
+                if pg.locator('text=Ver la respuesta').count():
+                    pg.click('text=Ver la respuesta'); pg.wait_for_selector('.veredicto'); revisa('5juegoresp')
+                pg.click('button:text-is("La mitad")'); pg.wait_for_selector('text=¡Hecho!'); revisa('5juegofin')
+                val = pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.val")
+                if len(val) != 1 or val[0]['v'] != 'mitad': fallos.append(f'{et}: la valoración no se guardó {val}')
+                pg.click('text=Otra vez'); pg.wait_for_selector('.rotulo:has-text("Jugamos")')
+                pg.click('text=Seguir sin valorar'if not pg.locator('text=Ver la respuesta').count() else 'text=Ver la respuesta')
+                if pg.locator('text=Seguir sin valorar').count() == 0: pg.wait_for_selector('text=Seguir sin valorar')
+                pg.click('text=Seguir sin valorar'); pg.wait_for_selector('text=¡Hecho!')
+                if len(pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.val")) != 1: fallos.append(f'{et}: «seguir sin valorar» no debía guardar')
+                pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
                 pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
                 # recarga: el perfil sigue guardado
                 pg.reload(); pg.wait_for_selector('.opciones'); pg.click('text=Docente'); pg.wait_for_selector('.qa')

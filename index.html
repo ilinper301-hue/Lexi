@@ -131,6 +131,15 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .nav .btn{min-height:68px;font-size:1.5rem}
 .top .izq{display:flex;gap:8px;pointer-events:none}.top .izq .tema{pointer-events:auto}
 
+/* ===== Jugamos ===== */
+.vals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.vals .btn{min-height:68px;padding:10px 6px;font-size:clamp(1.05rem,4vw,1.5rem)}
+.veredicto{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 20px;border-radius:16px;font:500 clamp(1.2rem,3vw,1.8rem)/1.3 var(--fd);text-align:center}
+.veredicto b{font-weight:700}.veredicto.si{background:var(--okbg);color:var(--ok)}.veredicto.no{background:var(--nobg);color:var(--no)}
+.opcs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:720px}
+.opc{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:16px;border:3px solid var(--bd);background:var(--card);font:700 clamp(1.2rem,4.5vw,2rem) var(--fd);overflow-wrap:anywhere}
+.opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
+.opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+
 /* Lexi · mascota por capas (la imagen original, sin redibujar) */
 .lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
 .lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
@@ -214,8 +223,10 @@ function escalaFila() {
 /* ===== Datos guardados: una sola clave, «lexi.v1» (prefijo propio: se comparte dominio con otras apps) =====
    Perfil Docente = una CLASE ({t:'doc'}); perfil Familias = un NIÑO ({t:'fam', av}). El progreso va por perfil, no por alumno:
    perfil.pal = { idPalabra: { e: paso de la escala 1..4 (1 Nueva, 2 La conocemos, 3 La entendemos, 4 La usamos), pres: fecha en que se presentó } }.
-   v1 → v2: se añade «pal» a cada perfil (vacío). */
-const VERSION_DATOS = 2, MAX_PERFILES = 40;
+   v1 → v2: se añade «pal» a cada perfil (vacío).
+   v2 → v3: cada palabra puede llevar «val» = valoraciones del docente [{d: fecha, t: tarea, v: 'todos'|'mitad'|'pocos'}] (las últimas 30). */
+const VERSION_DATOS = 3, MAX_VAL = 30,
+  TAREAS_ID = ['sentido', 'ejemplo', 'elige', 'acaba', 'habla'], VALORES = ['todos', 'mitad', 'pocos'], MAX_PERFILES = 40;
 /* Mismos 30 animalitos y mismo orden que Calculi y Lectori (un niño conserva su animal en todas las apps) */
 const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['🦁','#FDE68A'],['🐸','#D9F99D'],['🐙','#F5D0FE'],['🐳','#BAE6FD'],['🦉','#E7D3B5'],
   ['🐝','#FEF08A'],['🐞','#FECACA'],['🦄','#FBCFE8'],['🐨','#CBD5E1'],['🐶','#FDE2C4'],['🐱','#FFE4B5'],['🐰','#FCE7F3'],['🐻','#E8CBA8'],
@@ -229,12 +240,17 @@ function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles:
 let MODO_DOCENTE = false;
 let EST = estadoVacio();
 
+/** Valoraciones del docente: solo tarea y valor conocidos y fecha válida; se quedan las últimas MAX_VAL. */
+function limpiarVal(a) {
+  return (Array.isArray(a) ? a : []).filter(x => x && typeof x === 'object' && esFecha(x.d) && TAREAS_ID.includes(x.t) && VALORES.includes(x.v))
+    .map(x => ({ d: x.d, t: x.t, v: x.v })).slice(-MAX_VAL);
+}
 /** Progreso por palabra: solo ids con forma válida, paso entre 1 y 4 y fecha válida. */
 function limpiarPal(o) {
   const r = {}; if (!o || typeof o !== 'object') return r;
   for (const [k, v] of Object.entries(o)) {
     if (!/^[a-z0-9-]{1,30}$/.test(k) || !v || typeof v !== 'object') continue;
-    r[k] = { e: Math.max(1, Math.min(4, v.e | 0)), pres: esFecha(v.pres) ? v.pres : '' };
+    r[k] = { e: Math.max(1, Math.min(4, v.e | 0)), pres: esFecha(v.pres) ? v.pres : '', val: limpiarVal(v.val) };
     if (Object.keys(r).length >= 1000) break;
   }
   return r;
@@ -249,7 +265,7 @@ function limpiarPerfil(p) {
 /** Sanea cualquier cosa leída del disco (o importada) y la deja en la versión actual. */
 function limpiar(o) {
   o = o && typeof o === 'object' ? o : {};
-  /* Migraciones: v1 → v2 añade «pal» a cada perfil (lo hace limpiarPerfil). Un «if (v < N) {…}» más por cada cambio de estructura. Nunca se pierde el progreso. */
+  /* Migraciones: v1 → v2 añade «pal» y v2 → v3 añade «val» (lo hace limpiarPal, que rellena lo que falta). Un «if (v < N) {…}» más por cada cambio de estructura. Nunca se pierde el progreso. */
   const vistos = new Set(), perfiles = [];
   for (const p of Array.isArray(o.perfiles) ? o.perfiles : []) {
     const q = limpiarPerfil(p); if (!q || vistos.has(q.id) || perfiles.length >= MAX_PERFILES) continue;
@@ -300,14 +316,23 @@ function borrarPerfil(id) {
   guardar(); return true;
 }
 /* ===== Progreso de palabras ===== */
-const estadoPal = (p, id) => (p && p.pal && p.pal[id]) || { e: 1, pres: '' };
+const estadoPal = (p, id) => (p && p.pal && p.pal[id]) || { e: 1, pres: '', val: [] };
 /** La clase (o el niño) acaba de ver la presentación completa: la palabra pasa a «La conocemos». Nunca baja ni se salta pasos.
     En Modo Docente no guarda nada. Devuelve true si guardó. */
 function presentarPalabra(id) {
   const p = perfilAct();
   if (MODO_DOCENTE || !p || EST.bloq || !/^[a-z0-9-]{1,30}$/.test(id || '')) return false;
   const a = estadoPal(p, id);
-  p.pal[id] = { e: Math.max(2, a.e), pres: a.pres || hoy() };
+  p.pal[id] = { e: Math.max(2, a.e), pres: a.pres || hoy(), val: a.val || [] };
+  return guardar();
+}
+/** El docente valora una tarea hecha con la clase («todos», «mitad» o «pocos»). No cambia el paso de la escala (eso es la Fase 3).
+    En Modo Docente no guarda. Devuelve true si guardó. */
+function valorarTarea(id, tarea, valor) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !/^[a-z0-9-]{1,30}$/.test(id || '') || !TAREAS_ID.includes(tarea) || !VALORES.includes(valor)) return false;
+  const a = estadoPal(p, id);
+  p.pal[id] = { e: a.e, pres: a.pres, val: [...(a.val || []), { d: hoy(), t: tarea, v: valor }].slice(-MAX_VAL) };
   return guardar();
 }
 const PIN_OK = p => /^\d{4}$/.test(p || '');
@@ -350,7 +375,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -383,7 +408,7 @@ function pintar() {
 function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
 function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
-  if (PANT === 'pres') return go('semana');
+  if (PANT === 'pres' || PANT === 'juego') return go('semana');
   if (PANT === 'semana') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
@@ -416,6 +441,7 @@ SC.semana = function () {
   const pr = MODO_DOCENTE ? null : perfilAct(), lista = palabrasSemana(SEMANA_ACT);
   setTimeout(() => lista.forEach(p => { const im = new Image(); im.src = imgPal(p); }), 0); /* el service worker las guarda para usarlas sin conexión */
   return `<main class="pantalla infantil ancha"><h1 class="h-pant">Semana ${SEMANA_ACT}</h1>
+  ${lista.some(x => MODO_DOCENTE || estadoPal(pr, x.id).e >= 2) ? '<button class="btn grande" onclick="empezarJuego()">Jugamos</button>' : '<p class="mu">Presenta alguna palabra para poder jugar con ella.</p>'}
   <p class="mu">Toca una palabra para presentarla a la clase.</p>
   <div class="palabras">${lista.map(p => `<button class="pal" onclick="abrirPalabra('${p.id}')"><img src="${esc(imgPal(p))}" alt="" loading="lazy">
   <span class="pal-pie"><span class="pal-n">${esc(p.palabra)}</span>${escalaSVG(estadoPal(pr, p.id).e)}</span></button>`).join('')}</div></main>`;
@@ -447,6 +473,76 @@ function presMover(d) {
   if (PRES.i === PRES_PASOS - 1) presentarPalabra(PRES.id); /* al llegar al final se da por presentada (en Modo Docente no se guarda) */
   pintar(); window.scrollTo(0, 0);
 }
+
+/* ---- js/48-tareas.js ---- */
+/* ===== «Jugamos»: 2 tareas con palabras de la semana (la guía el docente; la clase responde con pulgares, dedos o hablando) =====
+   Tareas: sentido, ejemplo, elige, acaba, habla (ver docs/pedagogia.md, apartado 3). Tras cada una, el docente valora: casi todos · la mitad · pocos.
+   La valoración es opcional y por ahora solo se apunta (valorarTarea); la subida de pasos de la escala llega en la Fase 3. */
+let JUEGO = null, JUEGO_N = 0;
+const NJUEGO = 2;
+const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
+const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, acaba: false, habla: false };
+const VAL_TXT = { todos: 'Casi todos', mitad: 'La mitad', pocos: 'Pocos' };
+
+/** Palabras con las que se puede jugar: las ya presentadas (en Modo Docente, todas las de la semana). */
+function palabrasJugables(pr) { return palabrasSemana(SEMANA_ACT).filter(p => MODO_DOCENTE || estadoPal(pr, p.id).e >= 2); }
+/** Monta la cola: las palabras con menos valoraciones primero; cada una con una tarea distinta de su última y de la otra de la sesión. */
+function montarJuego(pr, n = NJUEGO, vuelta = JUEGO_N) {
+  const lista = palabrasJugables(pr).map((p, i) => ({ p, i, v: (estadoPal(pr, p.id).val || []).length }))
+    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n), usadas = [], cola = [];
+  lista.forEach(({ p, v }, k) => {
+    const val = estadoPal(pr, p.id).val || [], ult = val.length ? val[val.length - 1].t : '', off = v + k + vuelta;
+    const orden = TAREAS_ID.map((_, j) => TAREAS_ID[(off + j) % TAREAS_ID.length]);
+    const t = orden.find(x => x !== ult && !usadas.includes(x)) || orden.find(x => x !== ult) || orden[0];
+    usadas.push(t); cola.push({ id: p.id, t, k: v + vuelta, rev: false });
+  });
+  return cola;
+}
+function empezarJuego() {
+  const cola = montarJuego(MODO_DOCENTE ? null : perfilAct()); JUEGO_N++;
+  if (!cola.length) return;
+  JUEGO = { cola, i: 0 }; go('juego');
+}
+function juegoRevelar() { JUEGO.cola[JUEGO.i].rev = true; pintar(); }
+function juegoValorar(v) { const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); JUEGO.i++; pintar(); window.scrollTo(0, 0); }
+
+/** Contenido de una tarea: devuelve {cuerpo, res} (res = lo que se enseña al tocar «Ver la respuesta»). */
+function tareaHTML(q, p) {
+  const pal = `<p class="pal-ch">${esc(p.palabra)}</p>`;
+  if (q.t === 'sentido') {
+    const s = p.sentido[q.k % p.sentido.length];
+    return { cuerpo: `${pal}<p class="gr">${esc(s.t)}</p><p class="mu gr-p">Pulgar arriba o abajo</p>`,
+      res: `<div class="veredicto ${s.ok ? 'si' : 'no'}"><b>${s.ok ? '👍 Sí tiene sentido' : '👎 No tiene sentido'}</b><span>${esc(s.por)}</span></div>` };
+  }
+  if (q.t === 'ejemplo') {
+    const e = p.ejemplos[q.k % p.ejemplos.length];
+    return { cuerpo: `<p class="pal-ch">¿Es un ejemplo de «${esc(p.palabra)}»?</p><p class="gr">${esc(e.t)}</p><p class="mu gr-p">Pulgar arriba o abajo</p>`,
+      res: `<div class="veredicto ${e.ok ? 'si' : 'no'}"><b>${e.ok ? '👍 Sí es' : '👎 No es'}</b></div>` };
+  }
+  if (q.t === 'elige') {
+    const otras = palabrasSemana(p.semana).filter(x => x.id !== p.id), a = otras[q.k % otras.length], b = otras[(q.k + 1) % otras.length];
+    const op = [p, a, b], r = q.k % 3, orden = [op[r], op[(r + 1) % 3], op[(r + 2) % 3]];
+    const html = orden.map((x, j) => `<div class="opc${q.rev && x.id === p.id ? ' on' : ''}"><i>${j + 1}</i><span>${esc(x.palabra)}</span></div>`).join('');
+    return { cuerpo: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="mu gr-p">Dedos: 1, 2 o 3</p><div class="opcs">${html}</div>`,
+      res: `<div class="veredicto si"><b>La palabra es «${esc(p.palabra)}»</b></div>` };
+  }
+  if (q.t === 'acaba') return { cuerpo: `${pal}<p class="gr">${esc(p.acaba[q.k % p.acaba.length])}</p><p class="mu gr-p">Dos o tres voluntarios</p>`, res: '' };
+  return { cuerpo: `${pal}<p class="gr">${esc(p.habla)}</p><p class="mu gr-p">Por parejas · un minuto</p>`, res: '' };
+}
+SC.juego = function () {
+  const j = JUEGO; if (!j || !j.cola.length) return SC.semana();
+  if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos</p>
+    <div class="cuerpo"><p class="palabra-g">¡Hecho!</p><p class="mu gr-p">${j.cola.map(q => esc(palabraPorId(q.id).palabra)).join(' · ')}</p></div>
+    <div class="nav"><button class="btn sec" onclick="empezarJuego()">Otra vez</button><button class="btn" onclick="atras()">Terminar</button></div></main>`;
+  const q = j.cola[j.i], p = palabraPorId(q.id), t = tareaHTML(q, p);
+  const pts = j.cola.map((_, k) => `<i class="${k === j.i ? 'on' : k < j.i ? 'hecho' : ''}"></i>`).join('');
+  const valorar = !CON_RESPUESTA[q.t] || q.rev;
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${TAREA_ROT[q.t]}</p>
+  <div class="cuerpo">${t.cuerpo}${q.rev ? t.res : ''}</div><div class="pts" aria-hidden="true">${pts}</div>
+  ${valorar ? `<p class="mu gr-p" style="text-align:center;margin:0">¿Cuántos lo han hecho bien?</p><div class="vals">${Object.keys(VAL_TXT).map(v => `<button class="btn" onclick="juegoValorar('${v}')">${VAL_TXT[v]}</button>`).join('')}</div>
+  <button class="btn sec" onclick="juegoValorar('')">Seguir sin valorar</button>`
+    : '<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>'}</main>`;
+};
 
 /* ---- js/50-tutor.js ---- */
 /* ===== Zona del tutor (sobria, letra Inter), protegida con PIN de 4 cifras ===== */

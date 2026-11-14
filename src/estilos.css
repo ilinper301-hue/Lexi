@@ -117,3 +117,12 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .nav{display:grid;grid-template-columns:minmax(128px,1fr) 2fr;gap:12px}.nav .btn{white-space:nowrap}
 .nav .btn{min-height:68px;font-size:1.5rem}
 .top .izq{display:flex;gap:8px;pointer-events:none}.top .izq .tema{pointer-events:auto}
+
+/* ===== Jugamos ===== */
+.vals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.vals .btn{min-height:68px;padding:10px 6px;font-size:clamp(1.05rem,4vw,1.5rem)}
+.veredicto{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 20px;border-radius:16px;font:500 clamp(1.2rem,3vw,1.8rem)/1.3 var(--fd);text-align:center}
+.veredicto b{font-weight:700}.veredicto.si{background:var(--okbg);color:var(--ok)}.veredicto.no{background:var(--nobg);color:var(--no)}
+.opcs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:720px}
+.opc{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:16px;border:3px solid var(--bd);background:var(--card);font:700 clamp(1.2rem,4.5vw,2rem) var(--fd);overflow-wrap:anywhere}
+.opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
+.opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
