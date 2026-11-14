@@ -75,8 +75,8 @@ Salieron al diseñar las tareas `gesto` y `relaciona` (14-11-2026). Todo está e
 17. **La clase responde primero con gesto o dedos y después con la voz**, en vez de solo a coro, para
     que el docente pueda ver a todos antes de valorar.
 
-Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`. Ninguno frena los pasos
-5.1 a 5.3; **el 23 hay que contestarlo antes de programar la hoja para las familias (5.2)**:
+Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`.
+**Iván dijo «sí a todo» el 15-11-2026: los puntos 18 a 23 están aprobados** tal cual están escritos:
 
 18. **«Ya son 14» en el muro.** Una cuenta de las palabras de la clase, sin metas. ¿Vale, o lo ves
     como puntos? Regla MU3.
@@ -152,9 +152,9 @@ Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`. Ningu
 ## Fase 5 · Aula · Sonnet, esfuerzo medio
 - [x] **Diseño** (14-11-2026, Fable, esfuerzo medio; sin programar nada): `docs/aula.md` (reglas MU,
   EN, EX, TA, FA, RE y AT; datos; tests 76-93)
-- [ ] Iván contesta a los puntos 18 a 23 de «Para decidir con Iván»
+- [x] Iván aprueba los puntos 18 a 23 (15-11-2026)
 - [ ] 5.1 Tarjetas para imprimir, grandes y pequeñas (tests 90 y 93). Se puede hacer ya
-- [ ] 5.2 Hoja para las familias «Nuestras palabras de la semana» (test 89). Se puede hacer ya, con el sí al punto 23
+- [ ] 5.2 Hoja para las familias «Nuestras palabras de la semana» (test 89). Se puede hacer ya
 - [ ] 5.3 Pantalla completa y atajos de teclado o mando (test 92). Se puede hacer ya
 - [ ] 5.4 Muro «Nuestras palabras» con «Una al azar» y ficha de consulta (tests 76-80). Después del
   paso 3.1; sustituye al 3.5
