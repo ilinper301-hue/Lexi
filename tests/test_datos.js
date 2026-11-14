@@ -5,7 +5,7 @@ const codigo = ['00-util.js', '20-datos.js'].map(f => fs.readFileSync(path.join(
 function nuevo(almacen = {}) {
   const ls = { getItem: k => (k in almacen ? almacen[k] : null), setItem: (k, v) => { almacen[k] = String(v); }, removeItem: k => { delete almacen[k]; } };
   const ctx = vm.createContext({ localStorage: ls, console });
-  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilesDe,perfilAct,avLibre,limpiar,errorNombre,renombrarPerfil,cambiarAnimal,borrarPerfil,fijarPin,exportarTexto,leerCopia,aplicarCopia,presentarPalabra,estadoPal,AVATARES,MAX_PERFILES,get EST(){return EST},set MODO_DOCENTE(v){MODO_DOCENTE=v}})', ctx);
+  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilesDe,perfilAct,avLibre,limpiar,errorNombre,renombrarPerfil,cambiarAnimal,borrarPerfil,fijarPin,exportarTexto,leerCopia,aplicarCopia,presentarPalabra,estadoPal,valorarTarea,AVATARES,MAX_PERFILES,get EST(){return EST},set MODO_DOCENTE(v){MODO_DOCENTE=v}})', ctx);
   return { api, almacen };
 }
 let n = 0; const t = (nombre, f) => { f(); n++; console.log('  ok', nombre); };
@@ -106,10 +106,10 @@ t('restaurar sobre datos de versión más nueva los conserva en lexi.bk', () => 
   const orig = JSON.stringify({ v: 9, perfiles: [] }); const { api, almacen } = nuevo({ 'lexi.v1': orig }); api.cargar(); assert(api.EST.bloq);
   api.aplicarCopia(api.leerCopia(JSON.stringify({ app: 'lexi', v: 1, perfiles: [] })).datos); assert.strictEqual(almacen['lexi.bk'], orig); assert(!api.EST.bloq);
 });
-t('migra v1 → v2: los perfiles antiguos conservan todo y reciben «pal» vacío', () => {
+t('migra v1 → v3: los perfiles antiguos conservan todo y reciben «pal» vacío', () => {
   const viejo = JSON.stringify({ v: 1, modo: 'doc', act: 'abcdef12', perfiles: [{ id: 'abcdef12', t: 'doc', n: '1.º A', av: 0, c: '2026-11-01' }], ajustes: { pin: '4321' } });
   const { api, almacen } = nuevo({ 'lexi.v1': viejo }); api.cargar();
-  assert.strictEqual(api.EST.v, 2); assert.strictEqual(api.perfilAct().n, '1.º A'); assert.strictEqual(api.EST.ajustes.pin, '4321');
+  assert.strictEqual(api.EST.v, 3); assert.strictEqual(api.perfilAct().n, '1.º A'); assert.strictEqual(api.EST.ajustes.pin, '4321');
   assert.strictEqual(JSON.stringify(api.perfilAct().pal), JSON.stringify({})); assert(!api.EST.bloq); assert.strictEqual(almacen['lexi.v1'], viejo);
 });
 t('presentar una palabra: pasa a «La conocemos» (2), guarda fecha y no baja ni se repite', () => {
@@ -117,8 +117,8 @@ t('presentar una palabra: pasa a «La conocemos» (2), guarda fecha y no baja ni
   assert.strictEqual(api.estadoPal(api.perfilAct(), 'observar').e, 1);
   assert(api.presentarPalabra('observar')); const a = api.perfilAct().pal.observar;
   assert.strictEqual(a.e, 2); assert(/^\d{4}-\d\d-\d\d$/.test(a.pres));
-  api.perfilAct().pal.observar = { e: 3, pres: '2026-11-01' }; api.presentarPalabra('observar');
-  assert.strictEqual(JSON.stringify(api.perfilAct().pal.observar), JSON.stringify({ e: 3, pres: '2026-11-01' }));
+  api.perfilAct().pal.observar = { e: 3, pres: '2026-11-01', val: [] }; api.presentarPalabra('observar');
+  assert.strictEqual(JSON.stringify(api.perfilAct().pal.observar), JSON.stringify({ e: 3, pres: '2026-11-01', val: [] }));
   const { api: b } = nuevo(almacen); b.cargar(); assert.strictEqual(b.perfilAct().pal.observar.e, 3);
 });
 t('el progreso es por perfil y se borra con el perfil', () => {
@@ -135,11 +135,33 @@ t('en Modo Docente no guarda progreso; con datos bloqueados tampoco', () => {
 });
 t('sanea el progreso: ids raros, pasos fuera de rango y fechas malas', () => {
   const { api } = nuevo(); const o = api.limpiar({ perfiles: [{ t: 'doc', n: 'A', pal: { 'ok-1': { e: 9, pres: 'ayer' }, '<x>': { e: 2 }, malo: 5, fragil: { e: 0, pres: '2026-11-14' } } }] });
-  assert.strictEqual(JSON.stringify(o.perfiles[0].pal), JSON.stringify({ 'ok-1': { e: 4, pres: '' }, fragil: { e: 1, pres: '2026-11-14' } }));
+  assert.strictEqual(JSON.stringify(o.perfiles[0].pal), JSON.stringify({ 'ok-1': { e: 4, pres: '', val: [] }, fragil: { e: 1, pres: '2026-11-14', val: [] } }));
 });
 t('la copia de seguridad lleva el progreso y una copia v1 se restaura', () => {
   const { api } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A'); api.presentarPalabra('fragil');
   const r = api.leerCopia(api.exportarTexto()); assert(r.datos); assert.strictEqual(r.datos.perfiles[0].pal.fragil.e, 2);
   const v1 = api.leerCopia(JSON.stringify({ app: 'lexi', v: 1, perfiles: [{ t: 'doc', n: 'Vieja' }] })); assert.strictEqual(JSON.stringify(v1.datos.perfiles[0].pal), JSON.stringify({}));
+});
+t('migra v2 → v3: el progreso de v2 se conserva y recibe «val» vacío', () => {
+  const viejo = JSON.stringify({ v: 2, modo: 'doc', act: 'abcdef12', perfiles: [{ id: 'abcdef12', t: 'doc', n: '1.º A', av: 0, c: '2026-11-01', pal: { observar: { e: 3, pres: '2026-11-05' } } }], ajustes: { pin: '4321' } });
+  const { api, almacen } = nuevo({ 'lexi.v1': viejo }); api.cargar();
+  assert.strictEqual(api.EST.v, 3); assert.strictEqual(api.estadoPal(api.perfilAct(), 'observar').e, 3); assert.strictEqual(api.perfilAct().pal.observar.pres, '2026-11-05');
+  assert.strictEqual(api.perfilAct().pal.observar.val.length, 0); assert.strictEqual(almacen['lexi.v1'], viejo);
+});
+t('valorar una tarea: se apunta día, tarea y valor; no cambia el paso; solo valores conocidos', () => {
+  const { api, almacen } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A'); api.presentarPalabra('observar');
+  assert(api.valorarTarea('observar', 'sentido', 'mitad')); const a = api.perfilAct().pal.observar;
+  assert.strictEqual(a.e, 2); assert.strictEqual(a.val.length, 1); assert.strictEqual(a.val[0].t, 'sentido'); assert.strictEqual(a.val[0].v, 'mitad'); assert(/^\d{4}-\d\d-\d\d$/.test(a.val[0].d));
+  assert.strictEqual(api.valorarTarea('observar', 'gesto', 'todos'), false); assert.strictEqual(api.valorarTarea('observar', 'sentido', 'genial'), false); assert.strictEqual(api.valorarTarea('<x>', 'sentido', 'todos'), false);
+  const { api: b } = nuevo(almacen); b.cargar(); assert.strictEqual(b.perfilAct().pal.observar.val[0].v, 'mitad');
+});
+t('valoraciones: máximo 30, las últimas; las inválidas se descartan al leer; en Modo Docente no guarda', () => {
+  const { api } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A'); api.presentarPalabra('observar');
+  for (let i = 0; i < 35; i++) api.valorarTarea('observar', i % 2 ? 'habla' : 'acaba', 'pocos');
+  assert.strictEqual(api.perfilAct().pal.observar.val.length, 30);
+  const o = api.limpiar({ perfiles: [{ t: 'doc', n: 'A', pal: { fragil: { e: 2, val: [{ d: '2026-11-14', t: 'sentido', v: 'todos' }, { d: 'x', t: 'sentido', v: 'todos' }, { d: '2026-11-14', t: 'otra', v: 'todos' }, 7] } } }] });
+  assert.strictEqual(o.perfiles[0].pal.fragil.val.length, 1);
+  const { api: c, almacen } = nuevo(); c.cargar(); c.crearPerfil('doc', '1.º A'); c.presentarPalabra('observar'); const antes = almacen['lexi.v1'];
+  c.MODO_DOCENTE = true; assert.strictEqual(c.valorarTarea('observar', 'sentido', 'todos'), false); assert.strictEqual(almacen['lexi.v1'], antes);
 });
 console.log(n + ' pruebas correctas');
