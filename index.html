@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lexi: vocabulario</title>
+<meta name="description" content="Palabras nuevas para la clase, con Lexi.">
+<meta name="theme-color" content="#FFF1EC">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="icons/favicon-48.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>@font-face{font-family:'Fredoka';src:url(fonts/fredoka.woff) format('woff');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Fredoka';src:url(fonts/fredoka-ext.woff) format('woff');font-weight:400 600;font-display:swap;unicode-range:U+0131,U+0152-0153,U+2122,U+2212}
+@font-face{font-family:'Inter';src:url(fonts/inter-400.woff) format('woff');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-500.woff) format('woff');font-weight:500;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-600.woff) format('woff');font-weight:600 700;font-display:swap}
+
+/* ================= Colores: ÚNICO sitio (corales de Lexi) ================= */
+:root{
+  --bg:#FFF1EC;--card:#fff;--soft:#FCE4DD;--bd:#F2CFC6;--bd2:#E7B5A9;--tx:#2E1A17;--mu:#6E4F49;
+  --ac:#ED7468;--acx:#D95A4D;--acs:#F2B4A9;--aci:#B03A2E;--on:#2E1A17;
+  --ok:#15803D;--okbg:#DCFCE7;--no:#DC2626;--nobg:#FEE2E2;
+  --md:linear-gradient(135deg,#ED7468,#F2B4A9);
+  --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
+  --lexi-sombra:rgba(110,60,50,.16);
+}
+:root[data-theme="dark"]{
+  --bg:#231413;--card:#321D1B;--soft:#40262A;--bd:#52302D;--bd2:#6A403B;--tx:#FBEAE6;--mu:#D0A8A0;
+  --ac:#F2B4A9;--acx:#ED7468;--acs:rgba(237,116,104,.2);--aci:#F2B4A9;--on:#2E1A17;
+  --ok:#4ADE80;--okbg:rgba(74,222,128,.15);--no:#F87171;--nobg:rgba(248,113,113,.15);
+  --sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.3);
+  --lexi-sombra:rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--tx)}
+body{font-family:var(--fi);-webkit-text-size-adjust:100%}
+.infantil{font-family:var(--fd)}
+#app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px}
+.inicio{width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.inicio h1{font:700 clamp(2.2rem,8vw,3.4rem)/1.1 var(--fd);margin:0}
+.inicio p{margin:0;color:var(--mu);font-size:1.1rem}
+.btn{min-height:56px;min-width:44px;padding:12px 28px;border:0;border-radius:18px;background:var(--ac);color:var(--on);font:600 1.3rem var(--fd);cursor:pointer;box-shadow:var(--sh)}
+.btn:active{background:var(--acx)}
+.btn.sec{background:var(--soft);color:var(--tx)}
+.tema{position:fixed;top:12px;right:12px;min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.3rem;cursor:pointer}
+:focus-visible{outline:3px solid var(--aci);outline-offset:2px}
+
+/* Lexi · mascota por capas (la imagen original, sin redibujar) */
+.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
+.lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
+.lexi-mascota img{left:0;top:0;width:100%;height:100%;display:block}
+.lexi-mascota .sombra{background:var(--lexi-sombra);border-radius:50%;animation:lexi-sombra 4s ease-in-out infinite}
+.lexi-mascota .flota{inset:0;animation:lexi-flota 4s ease-in-out infinite}
+.lexi-mascota .brazo{transform-origin:17.5% 52.2%;animation:lexi-saluda 3.2s ease-in-out infinite}
+.lexi-mascota .lid{background:var(--lexi-coral);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
+@keyframes lexi-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2%)}}
+@keyframes lexi-sombra{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.94)}}
+@keyframes lexi-saluda{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(5deg)}}
+@keyframes lexi-parpadea{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){.lexi-mascota *{animation:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>/* ---- js/00-util.js ---- */
+'use strict';
+/* ===== Utilidades comunes ===== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hoy = () => new Date().toISOString().slice(0, 10);
+/* Almacén propio: todas las claves con prefijo «lexi.» (se comparte dominio con otras apps) */
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem('lexi.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('lexi.' + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+};
+
+/* ---- js/10-tema.js ---- */
+/* Tema claro/oscuro (clave lexi.th) */
+const TEMA = {
+  aplicar(t) { document.documentElement.dataset.theme = t; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = t === 'dark' ? '#231413' : '#FFF1EC'; },
+  inicial() { const g = LS.get('th', null); return g || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); },
+  alternar() { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; LS.set('th', t); this.aplicar(t); }
+};
+
+/* ---- js/40-inicio.js ---- */
+/* Pantalla de inicio (esqueleto): mascota animada + título */
+function mascotaHTML() {
+  return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
+    + '<span class="sombra" style="left:15.777%;top:88.977%;width:67.194%;height:10.229%"></span>'
+    + '<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt="">'
+    + '<img src="img/mascota/cuerpo.png" alt="">'
+    + '<i class="lid" style="left:26.877%;top:24.603%;width:19.236%;height:25.750%"></i>'
+    + '<i class="lid" style="left:52.306%;top:18.871%;width:19.631%;height:26.279%"></i></div></div>';
+}
+function pintarInicio() {
+  $('#app').innerHTML = '<button class="tema" id="bt-tema" aria-label="Cambiar tema">◐</button>'
+    + '<main class="inicio infantil">' + mascotaHTML() + '<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p></main>';
+  $('#bt-tema').onclick = () => TEMA.alternar();
+}
+
+/* ---- js/zz-arranque.js ---- */
+TEMA.aplicar(TEMA.inicial());
+pintarInicio();
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
+</script>
+</body>
+</html>

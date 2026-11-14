@@ -1,0 +1,37 @@
+@font-face{font-family:'Fredoka';src:url(fonts/fredoka.woff) format('woff');font-weight:400 700;font-display:swap}
+@font-face{font-family:'Fredoka';src:url(fonts/fredoka-ext.woff) format('woff');font-weight:400 600;font-display:swap;unicode-range:U+0131,U+0152-0153,U+2122,U+2212}
+@font-face{font-family:'Inter';src:url(fonts/inter-400.woff) format('woff');font-weight:400;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-500.woff) format('woff');font-weight:500;font-display:swap}
+@font-face{font-family:'Inter';src:url(fonts/inter-600.woff) format('woff');font-weight:600 700;font-display:swap}
+
+/* ================= Colores: ÚNICO sitio (corales de Lexi) ================= */
+:root{
+  --bg:#FFF1EC;--card:#fff;--soft:#FCE4DD;--bd:#F2CFC6;--bd2:#E7B5A9;--tx:#2E1A17;--mu:#6E4F49;
+  --ac:#ED7468;--acx:#D95A4D;--acs:#F2B4A9;--aci:#B03A2E;--on:#2E1A17;
+  --ok:#15803D;--okbg:#DCFCE7;--no:#DC2626;--nobg:#FEE2E2;
+  --md:linear-gradient(135deg,#ED7468,#F2B4A9);
+  --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
+  --lexi-sombra:rgba(110,60,50,.16);
+}
+:root[data-theme="dark"]{
+  --bg:#231413;--card:#321D1B;--soft:#40262A;--bd:#52302D;--bd2:#6A403B;--tx:#FBEAE6;--mu:#D0A8A0;
+  --ac:#F2B4A9;--acx:#ED7468;--acs:rgba(237,116,104,.2);--aci:#F2B4A9;--on:#2E1A17;
+  --ok:#4ADE80;--okbg:rgba(74,222,128,.15);--no:#F87171;--nobg:rgba(248,113,113,.15);
+  --sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.3);
+  --lexi-sombra:rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--tx)}
+body{font-family:var(--fi);-webkit-text-size-adjust:100%}
+.infantil{font-family:var(--fd)}
+#app{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px}
+.inicio{width:100%;max-width:560px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.inicio h1{font:700 clamp(2.2rem,8vw,3.4rem)/1.1 var(--fd);margin:0}
+.inicio p{margin:0;color:var(--mu);font-size:1.1rem}
+.btn{min-height:56px;min-width:44px;padding:12px 28px;border:0;border-radius:18px;background:var(--ac);color:var(--on);font:600 1.3rem var(--fd);cursor:pointer;box-shadow:var(--sh)}
+.btn:active{background:var(--acx)}
+.btn.sec{background:var(--soft);color:var(--tx)}
+.tema{position:fixed;top:12px;right:12px;min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.3rem;cursor:pointer}
+:focus-visible{outline:3px solid var(--aci);outline-offset:2px}

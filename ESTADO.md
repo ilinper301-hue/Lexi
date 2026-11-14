@@ -43,12 +43,12 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 - [ ] Elegir con Iván el dibujo de la escala de 4 pasos (va unido a la mascota)
 
 ## Fase 1 · Esqueleto · Sonnet, esfuerzo medio
-- [ ] Copiar la base de Calculi: `src/`, `tools/build.py`, `sw.js` (`lexi-pwa-1`), manifest (`lexi-app`), `fonts/`
-- [ ] Tema claro y oscuro con la paleta elegida; mascota animada en el inicio; iconos de la app
+- [x] Base de Calculi copiada y adaptada (14-11-2026): `tools/build.py`, `sw.js` (`lexi-pwa-1`), manifest (`lexi-app`), `fonts/`, `src/` con paleta, tema y arranque
+- [x] Tema claro y oscuro con la paleta coral; mascota animada en el inicio; iconos enlazados (14-11-2026)
 - [ ] Perfiles Familias y Docente; el perfil es una **clase** (Docente) o un **niño** (Familias)
 - [ ] Guardado en `lexi.v1` con migración versionada
 - [ ] Zona del tutor con PIN, Modo Docente, copia de seguridad en JSON
-- [ ] Tests con Node y prueba de humo (perfil, PIN, zona del tutor; claro y oscuro; 390×844 y 768×1024)
+- [ ] Tests con Node y prueba de humo (perfil, PIN, zona del tutor; claro y oscuro; 390×844 y 768×1024). Ya hay `tests/humo.py` (arranque, tema, botones ≥44 px, sin errores); ampliar cuando existan perfiles y PIN
 - [ ] Activar GitHub Pages (rama `main`, raíz) y comprobar https://ilinper301-hue.github.io/Lexi/
 
 ## Fase 2 · Prototipo: semana 1 · Sonnet, esfuerzo medio
