@@ -52,8 +52,7 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 - [x] GitHub Pages activado por Iván (14-11-2026); pendiente que Iván confirme que se ve en el móvil: https://ilinper301-hue.github.io/Lexi/
 
 ## Fase 2 · Prototipo: semana 1 · Sonnet, esfuerzo medio
-- [ ] Pasar `docs/semana-01.md` a `src/js/palabras/` y test de contenido (todas las fichas completas).
-  El test puede partir de `tools/validar-docs.js`. Las semanas 2 a 10 se pasan cuando Iván las revise.
+- [x] Semana 1 pasada a `src/js/palabras/s01-<id>.js` (14-11-2026), sin cambiar ni una palabra. `src/js/05-palabras.js` define `PALABRA`, `PALABRAS` y `palabraPorId`; `tools/build.py` incluye la carpeta. Reglas de las fichas en `tools/reglas-ficha.js` (las usan `tools/validar-docs.js` y el test). Test: `node tests/test_contenido.js` (40 comprobaciones: reglas, imagen que existe y pesa <90 KB, y que la ficha es idéntica a `docs/semana-01.md`). Las semanas 2 a 10 se pasan cuando Iván las revise: basta copiar cada bloque a `s02-<id>.js`… y el test las valida solo
 - [x] Imágenes de la petición 1 subidas a `img/palabras/` (14-11-2026): observar, comparar, ordenar, enorme, fragil, curioso (webp 1200×900, <90 KB). `fragil` está recortada a 4:3 y pierde los pies
 - [ ] Sesión guiada en pantalla grande: escena, decirla con sílabas, explicación, gesto, contextos
 - [ ] Tareas `sentido`, `ejemplo`, `elige`, `acaba` y `habla`
