@@ -40,7 +40,7 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
 - [x] Mascota y paleta elegidas por Iván (14-11-2026): bocadillo coral (imagen suya, sin piernas) y corales #ED7468 / #F2B4A9. Piezas en `img/mascota/` (cuerpo, brazo, css, demo.html); iconos en `icons/` (fondo #FFF1EC). Falta enlazarlos en manifest y en la pantalla de inicio (Fase 1).
-- [ ] Elegir con Iván el dibujo de la escala de 4 pasos (va unido a la mascota)
+- [x] Dibujo de la escala de 4 pasos (14-11-2026): bocadillo de Lexi que crece y se llena (opciones 1+2). Componente `escalaSVG(paso)` y `escalaFila()` en `src/js/15-escala.js`; de momento se ve en el inicio como vista previa
 
 ## Fase 1 · Esqueleto · Sonnet, esfuerzo medio
 - [x] Base de Calculi copiada y adaptada (14-11-2026): `tools/build.py`, `sw.js` (`lexi-pwa-1`), manifest (`lexi-app`), `fonts/`, `src/` con paleta, tema y arranque

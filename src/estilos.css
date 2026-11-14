@@ -13,6 +13,7 @@
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
   --lexi-sombra:rgba(110,60,50,.16);
+  --lx-coral:#ED7468;--lx-rosa:#F2B4A9;--lx-pale:#F7D3CC;--lx-blanco:#fff;
 }
 :root[data-theme="dark"]{
   --bg:#231413;--card:#321D1B;--soft:#40262A;--bd:#52302D;--bd2:#6A403B;--tx:#FBEAE6;--mu:#D0A8A0;
@@ -35,3 +36,8 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .btn.sec{background:var(--soft);color:var(--tx)}
 .tema{position:fixed;top:12px;right:12px;min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.3rem;cursor:pointer}
 :focus-visible{outline:3px solid var(--aci);outline-offset:2px}
+
+.escala{display:block;width:100%;height:auto}
+.escala-fila{display:flex;gap:10px;justify-content:center;align-items:flex-end}
+.escala-fila figure{margin:0;flex:1;max-width:110px;text-align:center}
+.escala-fila figcaption{font:500 1rem var(--fd);margin-top:6px}

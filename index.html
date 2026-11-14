@@ -26,6 +26,7 @@
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
   --lexi-sombra:rgba(110,60,50,.16);
+  --lx-coral:#ED7468;--lx-rosa:#F2B4A9;--lx-pale:#F7D3CC;--lx-blanco:#fff;
 }
 :root[data-theme="dark"]{
   --bg:#231413;--card:#321D1B;--soft:#40262A;--bd:#52302D;--bd2:#6A403B;--tx:#FBEAE6;--mu:#D0A8A0;
@@ -48,6 +49,11 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .btn.sec{background:var(--soft);color:var(--tx)}
 .tema{position:fixed;top:12px;right:12px;min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:1.3rem;cursor:pointer}
 :focus-visible{outline:3px solid var(--aci);outline-offset:2px}
+
+.escala{display:block;width:100%;height:auto}
+.escala-fila{display:flex;gap:10px;justify-content:center;align-items:flex-end}
+.escala-fila figure{margin:0;flex:1;max-width:110px;text-align:center}
+.escala-fila figcaption{font:500 1rem var(--fd);margin-top:6px}
 
 /* Lexi · mascota por capas (la imagen original, sin redibujar) */
 .lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
@@ -86,6 +92,24 @@ const TEMA = {
   alternar() { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; LS.set('th', t); this.aplicar(t); }
 };
 
+/* ---- js/15-escala.js ---- */
+/* Escala de 4 pasos de cada palabra: el bocadillo de Lexi crece y se llena (elegido por Iván, 14-11-2026).
+   1 Nueva · 2 La conocemos · 3 La entendemos · 4 La usamos */
+const PASOS = ['Nueva', 'La conocemos', 'La entendemos', 'La usamos'];
+const BOCADILLO = 'M-16 88 H16 Q28 88 28 100 V114 Q28 126 16 126 H-12 L-22 138 L-20 126 Q-28 126 -28 114 V100 Q-28 88 -16 88 Z';
+function escalaSVG(paso) {
+  const p = Math.max(1, Math.min(4, paso | 0)), k = [.62, .76, .9, 1][p - 1];
+  const raya = (y, w) => `<rect x="-16" y="${y}" width="${w}" height="5" rx="2.5" fill="var(--lx-blanco)"/>`;
+  const fondo = [`fill="none" stroke="var(--lx-coral)" stroke-width="3" stroke-dasharray="6 5"`, `fill="var(--lx-pale)"`, `fill="var(--lx-rosa)"`, `fill="var(--lx-coral)"`][p - 1];
+  const dentro = [``, `<circle cx="0" cy="107" r="4" fill="var(--lx-blanco)"/>`, raya(98, 32) + raya(110, 20),
+    raya(97, 32) + raya(107, 32) + raya(117, 18) + `<path d="M34 84 L40 76 M38 92 L46 90 M30 78 L30 70" stroke="var(--lx-coral)" stroke-width="2.5" stroke-linecap="round" fill="none"/>`][p - 1];
+  return `<svg class="escala" viewBox="-34 62 84 84" role="img" aria-label="Paso ${p} de 4: ${PASOS[p - 1]}">`
+    + `<g transform="translate(0,138) scale(${k}) translate(0,-138)"><path d="${BOCADILLO}" ${fondo}/>${dentro}</g></svg>`;
+}
+function escalaFila() {
+  return '<div class="escala-fila">' + PASOS.map((n, i) => `<figure>${escalaSVG(i + 1)}<figcaption>${n}</figcaption></figure>`).join('') + '</div>';
+}
+
 /* ---- js/40-inicio.js ---- */
 /* Pantalla de inicio (esqueleto): mascota animada + título */
 function mascotaHTML() {
@@ -98,7 +122,7 @@ function mascotaHTML() {
 }
 function pintarInicio() {
   $('#app').innerHTML = '<button class="tema" id="bt-tema" aria-label="Cambiar tema">◐</button>'
-    + '<main class="inicio infantil">' + mascotaHTML() + '<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p></main>';
+    + '<main class="inicio infantil">' + mascotaHTML() + '<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>' + escalaFila() + '</main>';
   $('#bt-tema').onclick = () => TEMA.alternar();
 }
 

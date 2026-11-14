@@ -9,6 +9,6 @@ function mascotaHTML() {
 }
 function pintarInicio() {
   $('#app').innerHTML = '<button class="tema" id="bt-tema" aria-label="Cambiar tema">◐</button>'
-    + '<main class="inicio infantil">' + mascotaHTML() + '<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p></main>';
+    + '<main class="inicio infantil">' + mascotaHTML() + '<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>' + escalaFila() + '</main>';
   $('#bt-tema').onclick = () => TEMA.alternar();
 }
