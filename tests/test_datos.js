@@ -5,7 +5,7 @@ const codigo = ['00-util.js', '20-datos.js'].map(f => fs.readFileSync(path.join(
 function nuevo(almacen = {}) {
   const ls = { getItem: k => (k in almacen ? almacen[k] : null), setItem: (k, v) => { almacen[k] = String(v); }, removeItem: k => { delete almacen[k]; } };
   const ctx = vm.createContext({ localStorage: ls, console });
-  const api = vm.runInContext(codigo + '\n;({cargar,guardar,crearPerfil,entrarPerfil,perfilesDe,perfilAct,avLibre,limpiar,AVATARES,MAX_PERFILES,get EST(){return EST}})', ctx);
+  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilesDe,perfilAct,avLibre,limpiar,errorNombre,renombrarPerfil,cambiarAnimal,borrarPerfil,fijarPin,exportarTexto,leerCopia,aplicarCopia,AVATARES,MAX_PERFILES,get EST(){return EST},set MODO_DOCENTE(v){MODO_DOCENTE=v}})', ctx);
   return { api, almacen };
 }
 let n = 0; const t = (nombre, f) => { f(); n++; console.log('  ok', nombre); };
@@ -56,5 +56,54 @@ t('saneado: ids repetidos, tipos raros, act inexistente y tope', () => {
 t('limpiar es idempotente', () => {
   const { api } = nuevo(); api.cargar(); api.crearPerfil('fam', 'Ana', 5);
   const a = JSON.stringify(api.limpiar(api.EST)); assert.strictEqual(JSON.stringify(api.limpiar(JSON.parse(a))), a);
+});
+
+t('PIN: solo 4 cifras, se guarda y se conserva', () => {
+  const { api, almacen } = nuevo(); api.cargar();
+  for (const mal of ['123', '12345', 'abcd', '', '12 4']) assert.strictEqual(api.fijarPin(mal), false);
+  assert(api.fijarPin('0427')); const { api: b } = nuevo(almacen); b.cargar(); assert.strictEqual(b.EST.ajustes.pin, '0427');
+  assert.strictEqual(b.limpiar({ ajustes: { pin: 'zz' } }).ajustes.pin, '');
+});
+t('renombrar: valida vacío y repetido, permite el propio nombre', () => {
+  const { api } = nuevo(); api.cargar(); const a = api.crearPerfil('fam', 'Ana', 0), b = api.crearPerfil('fam', 'Beto', 1);
+  assert.strictEqual(api.renombrarPerfil(b.id, 'ana'), false); assert.strictEqual(api.renombrarPerfil(b.id, ' '), false);
+  assert(api.renombrarPerfil(a.id, 'ANA')); assert.strictEqual(api.EST.perfiles[0].n, 'ANA'); assert(api.renombrarPerfil(b.id, 'Beatriz'));
+  assert.strictEqual(api.errorNombre('fam', 'beatriz'), 'Ese nombre ya existe'); assert.strictEqual(api.errorNombre('doc', 'beatriz'), '');
+});
+t('cambiar animal: solo niños y dentro de rango', () => {
+  const { api } = nuevo(); api.cargar(); const k = api.crearPerfil('fam', 'Ana', 0), c = api.crearPerfil('doc', 'Clase');
+  assert(api.cambiarAnimal(k.id, 7)); assert.strictEqual(api.perfilesDe('fam')[0].av, 7); api.cambiarAnimal(k.id, 500); assert.strictEqual(api.perfilesDe('fam')[0].av, 29);
+  assert.strictEqual(api.cambiarAnimal(c.id, 3), false);
+});
+t('borrar: quita el perfil y deja sin activo si era el activo', () => {
+  const { api, almacen } = nuevo(); api.cargar(); const a = api.crearPerfil('fam', 'Ana', 0); api.crearPerfil('fam', 'Beto', 1);
+  const act = api.EST.act; assert(api.borrarPerfil(act)); assert.strictEqual(api.EST.act, ''); assert.strictEqual(api.perfilesDe('fam').length, 1);
+  assert.strictEqual(api.borrarPerfil('nadie123'), false); assert.strictEqual(JSON.parse(almacen['lexi.v1']).perfiles.length, 1);
+});
+t('Modo Docente no guarda progreso, pero los ajustes sí', () => {
+  const { api, almacen } = nuevo(); api.cargar(); api.crearPerfil('doc', 'Clase'); const antes = almacen['lexi.v1'];
+  api.MODO_DOCENTE = true; api.EST.perfiles[0].n = 'Cambiado'; assert.strictEqual(api.guardar(), false); assert.strictEqual(almacen['lexi.v1'], antes);
+  api.fijarPin('1234'); assert.strictEqual(JSON.parse(almacen['lexi.v1']).ajustes.pin, '1234');
+});
+t('copia: exportar → importar devuelve lo mismo', () => {
+  const { api } = nuevo(); api.cargar(); api.crearPerfil('doc', '1.º A'); api.crearPerfil('fam', 'Lucía', 3); api.fijarPin('4321');
+  const txt = api.exportarTexto(); assert.strictEqual(JSON.parse(txt).app, 'lexi');
+  const { api: b, almacen } = nuevo(); b.cargar(); const r = b.leerCopia(txt); assert(r.datos); assert(b.aplicarCopia(r.datos));
+  assert.strictEqual(b.EST.perfiles.length, 2); assert.strictEqual(b.EST.ajustes.pin, '4321'); assert.strictEqual(b.perfilAct().n, 'Lucía');
+  assert.strictEqual(JSON.parse(almacen['lexi.v1']).perfiles.length, 2);
+});
+t('copia: rechaza basura, otras apps y versiones nuevas sin tocar nada', () => {
+  const { api, almacen } = nuevo(); api.cargar(); api.crearPerfil('fam', 'Ana', 0); const antes = almacen['lexi.v1'];
+  for (const mal of ['no json', '[]', '{"app":"calculi","perfiles":[]}', '{"app":"lexi"}', 'null']) assert(api.leerCopia(mal).error, mal);
+  assert(api.leerCopia(JSON.stringify({ app: 'lexi', v: 99, perfiles: [] })).error.includes('más nueva')); assert.strictEqual(almacen['lexi.v1'], antes);
+});
+t('restaurar guarda antes lo anterior en lexi.bk', () => {
+  const { api, almacen } = nuevo(); api.cargar(); api.crearPerfil('fam', 'Ana', 0); const antes = almacen['lexi.v1'];
+  api.aplicarCopia(api.leerCopia(JSON.stringify({ app: 'lexi', v: 1, perfiles: [{ t: 'doc', n: 'Otra' }] })).datos);
+  assert.strictEqual(almacen['lexi.bk'], antes); assert.strictEqual(api.EST.perfiles[0].n, 'Otra');
+});
+t('restaurar sobre datos de versión más nueva los conserva en lexi.bk', () => {
+  const orig = JSON.stringify({ v: 9, perfiles: [] }); const { api, almacen } = nuevo({ 'lexi.v1': orig }); api.cargar(); assert(api.EST.bloq);
+  api.aplicarCopia(api.leerCopia(JSON.stringify({ app: 'lexi', v: 1, perfiles: [] })).datos); assert.strictEqual(almacen['lexi.bk'], orig); assert(!api.EST.bloq);
 });
 console.log(n + ' pruebas correctas');

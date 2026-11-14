@@ -47,7 +47,7 @@ Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se progra
 - [x] Tema claro y oscuro con la paleta coral; mascota animada en el inicio; iconos enlazados (14-11-2026)
 - [x] Perfiles Familias y Docente (14-11-2026): clase (Docente) o niño con animal de los 30 de Calculi (Familias). Se crean y se eligen; **renombrar y borrar irán en la zona del tutor (con PIN)**. `src/js/20-datos.js` y `src/js/40-inicio.js`
 - [x] Guardado en `lexi.v1` con migración versionada (14-11-2026): sanea al leer, copia en `lexi.bk` si el JSON está roto, no pisa datos de una versión más nueva. `node tests/test_datos.js` (11 pruebas)
-- [ ] Zona del tutor con PIN, Modo Docente, copia de seguridad en JSON
+- [x] Zona del tutor con PIN, Modo Docente, copia de seguridad en JSON (14-11-2026). PIN de 4 cifras (5 min de gracia, en `lexi.v1` ajustes); el candado de arriba abre la zona. Dentro: renombrar, cambiar animal y borrar perfiles (con confirmación), Modo Docente (degradado común, no guarda), guardar/restaurar copia (`lexi-copia-AAAA-MM-DD.json`; antes de restaurar lo anterior se guarda en `lexi.bk`), cambiar PIN. Si se olvida el PIN: restaurar una copia (trae su PIN); nunca «borrar datos del sitio». `src/js/50-tutor.js`, `12-iconos.js`. Tests: `node tests/test_datos.js` (20) y `tests/humo.py` (recorrido completo)
 - [ ] Tests con Node y prueba de humo (perfil, PIN, zona del tutor; claro y oscuro; 390×844 y 768×1024). `tests/humo.py` ya recorre inicio, clase, niño con animal y recarga; falta ampliarlo con PIN y zona del tutor
 - [ ] Activar GitHub Pages (rama `main`, raíz) y comprobar https://ilinper301-hue.github.io/Lexi/
 

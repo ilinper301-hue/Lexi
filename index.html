@@ -22,7 +22,7 @@
   --bg:#FFF1EC;--card:#fff;--soft:#FCE4DD;--bd:#F2CFC6;--bd2:#E7B5A9;--tx:#2E1A17;--mu:#6E4F49;
   --ac:#ED7468;--acx:#D95A4D;--acs:#F2B4A9;--aci:#B03A2E;--on:#2E1A17;
   --ok:#15803D;--okbg:#DCFCE7;--no:#DC2626;--nobg:#FEE2E2;
-  --md:linear-gradient(135deg,#ED7468,#F2B4A9);
+  --md:linear-gradient(135deg,#7C3AED,#14B8A6);
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
   --lexi-sombra:rgba(110,60,50,.16);
@@ -78,6 +78,29 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .animales button.on{outline:4px solid var(--tx);outline-offset:1px}
 .error{color:var(--no);font:500 1rem var(--fi);margin:0;min-height:1.2em}
 
+.dcha{display:flex;gap:8px;pointer-events:none}.dcha .tema{pointer-events:auto}
+.pill-md{pointer-events:auto;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px;border-radius:22px;background:var(--md);color:#fff;font:600 1.05rem var(--fd);border:0}
+.pill-md.salir{cursor:pointer}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:12px 20px;border-radius:14px;font:500 1rem var(--fi);z-index:20;box-shadow:var(--sh)}
+.tutor{font-family:var(--fi);text-align:left}
+.h-t{font:600 1.7rem/1.2 var(--fi);margin:0}.h-s{font:600 1rem var(--fi);margin:8px 0 0;color:var(--mu)}
+.lista{display:flex;flex-direction:column;gap:8px}
+.fila-t{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:10px 14px;border-radius:14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:500 1rem var(--fi);text-align:left;cursor:pointer;position:relative}
+.fila-t .tx2{flex:1;display:flex;flex-direction:column}.fila-t small{color:var(--mu);font-size:.85rem}
+.fila-t input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.tarjeta{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:16px;background:var(--card);border:1px solid var(--bd);box-shadow:var(--sh)}
+.tutor .tarjeta p{margin:0}
+.aviso{margin:0;padding:12px 14px;border-radius:12px;background:var(--nobg);color:var(--no)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn.peligro{background:var(--no);color:#fff}.btn.peligro.sec{background:var(--nobg);color:var(--no)}
+.btn.peligro{font-family:var(--fi);font-size:1.05rem}
+.pinw{align-items:center;text-align:center}.pinw h2{margin:0;font:600 1.4rem var(--fi)}.pinw .lk{color:var(--aci)}
+.pd{display:flex;gap:14px;justify-content:center;margin:6px 0}.pd i{width:18px;height:18px;border-radius:50%;border:2px solid var(--bd2)}.pd i.f{background:var(--aci);border-color:var(--aci)}
+.pd.mal{animation:sacude .35s}@keyframes sacude{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pk{display:grid;grid-template-columns:repeat(3,72px);gap:10px;justify-content:center}.pk button{min-height:64px;border-radius:50%;border:1px solid var(--bd);background:var(--soft);color:var(--tx);font:600 1.5rem var(--fi);cursor:pointer;display:grid;place-items:center}
+@media (prefers-reduced-motion:reduce){.pd.mal{animation:none}}
+.tutor .btn{font-family:var(--fi);font-size:1.05rem}
+
 /* Lexi · mascota por capas (la imagen original, sin redibujar) */
 .lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
 .lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
@@ -116,6 +139,22 @@ const TEMA = {
   alternar() { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; LS.set('th', t); this.aplicar(t); }
 };
 
+/* ---- js/12-iconos.js ---- */
+/* Iconos de línea (mismo estilo que Calculi, Lectori y Barri) */
+const ICP = {
+  lock: '<rect x="4" y="11" width="16" height="10" rx="2.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  download: '<path d="M12 4v11M7 10l5 5 5-5M4 20h16"/>',
+  upload: '<path d="M12 16V5M7 10l5-5 5 5M4 20h16"/>',
+  trash: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M14 6l4 4"/>',
+  grad: '<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
+  key: '<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>',
+  chev: '<path d="M9 5l7 7-7 7"/>',
+  backspace: '<path d="M21 5H9l-6 7 6 7h12z"/><path d="M17 9l-5 6M12 9l5 6"/>'
+};
+const ico = (n, s = 22) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICP[n] || ''}</svg>`;
+function toast(m) { const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
+
 /* ---- js/15-escala.js ---- */
 /* Escala de 4 pasos de cada palabra: el bocadillo de Lexi crece y se llena (elegido por Iván, 14-11-2026).
    1 Nueva · 2 La conocemos · 3 La entendemos · 4 La usamos */
@@ -146,7 +185,9 @@ const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['�
 
 const ss = (s, n) => String(s ?? '').replace(/[<>&"'`]/g, '').trim().slice(0, n);
 const esFecha = d => /^\d{4}-\d\d-\d\d$/.test(d || '');
-function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles: [] }; }
+function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles: [], ajustes: { pin: '' } }; }
+/* Modo Docente: todo abierto y NO se guarda progreso (los ajustes sí, con guardarAjustes) */
+let MODO_DOCENTE = false;
 let EST = estadoVacio();
 
 function limpiarPerfil(p) {
@@ -166,7 +207,8 @@ function limpiar(o) {
     vistos.add(q.id); perfiles.push(q);
   }
   const act = perfiles.find(p => p.id === o.act);
-  return { v: VERSION_DATOS, modo: act ? act.t : (['doc', 'fam'].includes(o.modo) ? o.modo : ''), act: act ? act.id : '', perfiles };
+  const aj = o.ajustes && typeof o.ajustes === 'object' ? o.ajustes : {};
+  return { v: VERSION_DATOS, modo: act ? act.t : (['doc', 'fam'].includes(o.modo) ? o.modo : ''), act: act ? act.id : '', perfiles, ajustes: { pin: /^\d{4}$/.test(aj.pin || '') ? aj.pin : '' } };
 }
 /** Lee lexi.v1. Si está roto, guarda una copia en lexi.bk antes de empezar de cero; si es de una versión más nueva, no la pisa. */
 function cargar() {
@@ -176,24 +218,60 @@ function cargar() {
   EST = limpiar(o); if ((o && o.v | 0) > VERSION_DATOS) EST.bloq = true;
   return EST;
 }
-function guardar() { if (EST.bloq) return false; return LS.set('v1', { v: EST.v, modo: EST.modo, act: EST.act, perfiles: EST.perfiles }); }
+function guardar() { if (EST.bloq || MODO_DOCENTE) return false; return LS.set('v1', { v: EST.v, modo: EST.modo, act: EST.act, perfiles: EST.perfiles, ajustes: EST.ajustes }); }
+/** Los ajustes (PIN) se guardan también en Modo Docente; el progreso no. */
+function guardarAjustes() { const m = MODO_DOCENTE; MODO_DOCENTE = false; const r = guardar(); MODO_DOCENTE = m; return r; }
 
 const perfilesDe = t => EST.perfiles.filter(p => p.t === t);
 const perfilAct = () => EST.perfiles.find(p => p.id === EST.act) || null;
 /** Primer animal que no usa ningún niño (si están todos, se repite por orden). */
 function avLibre() { const u = new Set(perfilesDe('fam').map(p => p.av)); for (let i = 0; i < AVATARES.length; i++) if (!u.has(i)) return i; return perfilesDe('fam').length % AVATARES.length; }
+/** Texto de error para un nombre de perfil, o '' si vale. idExcluir: el propio perfil al renombrar. */
+function errorNombre(t, nombre, idExcluir = '') {
+  const n = ss(nombre, 20);
+  if (!n) return 'Escribe un nombre';
+  if (perfilesDe(t).some(p => p.id !== idExcluir && p.n.toLowerCase() === n.toLowerCase())) return 'Ese nombre ya existe';
+  return '';
+}
 /** Crea un perfil y lo deja activo. Devuelve null si falta el nombre, hay demasiados o el nombre ya existe en ese tipo. */
 function crearPerfil(t, nombre, av) {
   const n = ss(nombre, 20);
-  if (!n || EST.bloq || EST.perfiles.length >= MAX_PERFILES) return null;
-  if (perfilesDe(t).some(p => p.n.toLowerCase() === n.toLowerCase())) return null;
+  if (EST.bloq || EST.perfiles.length >= MAX_PERFILES || errorNombre(t, n)) return null;
   const p = limpiarPerfil({ t, n, av, c: hoy() }); EST.perfiles.push(p); EST.act = p.id; EST.modo = t; guardar(); return p;
 }
 function entrarPerfil(id) { const p = EST.perfiles.find(x => x.id === id); if (!p) return null; EST.act = p.id; EST.modo = p.t; guardar(); return p; }
 
+function renombrarPerfil(id, nombre) { const p = EST.perfiles.find(x => x.id === id); if (!p || EST.bloq || errorNombre(p.t, nombre, id)) return false; p.n = ss(nombre, 20); return guardar() || MODO_DOCENTE; }
+function cambiarAnimal(id, av) { const p = EST.perfiles.find(x => x.id === id); if (!p || p.t !== 'fam' || EST.bloq) return false; p.av = Math.max(0, Math.min(AVATARES.length - 1, av | 0)); guardar(); return true; }
+/** Borra el perfil. (Cuando exista progreso por perfil, también se borra aquí.) */
+function borrarPerfil(id) {
+  if (EST.bloq || !EST.perfiles.some(x => x.id === id)) return false;
+  EST.perfiles = EST.perfiles.filter(x => x.id !== id);
+  if (EST.act === id) { EST.act = ''; EST.modo = ''; }
+  guardar(); return true;
+}
+const PIN_OK = p => /^\d{4}$/.test(p || '');
+function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; EST.ajustes.pin = pin; guardarAjustes(); return true; }
+
+/* ===== Copia de seguridad ===== */
+function exportarTexto() { return JSON.stringify({ app: 'lexi', v: EST.v, exportado: hoy(), modo: EST.modo, act: EST.act, perfiles: EST.perfiles, ajustes: EST.ajustes }, null, 1); }
+/** Comprueba un texto de copia. Devuelve {datos} o {error}. No toca nada. */
+function leerCopia(texto) {
+  let o; try { o = JSON.parse(texto); } catch (e) { return { error: 'Ese archivo no es una copia de Lexi' }; }
+  if (!o || typeof o !== 'object' || o.app !== 'lexi' || !Array.isArray(o.perfiles)) return { error: 'Ese archivo no es una copia de Lexi' };
+  if ((o.v | 0) > VERSION_DATOS) return { error: 'Esta copia es de una versión más nueva de Lexi' };
+  return { datos: limpiar(o) };
+}
+/** Sustituye los datos por los de la copia. Antes guarda lo que hubiera en «lexi.bk» para no perder nada. */
+function aplicarCopia(datos) {
+  try { const ant = localStorage.getItem('lexi.v1'); if (ant != null) localStorage.setItem('lexi.bk', ant); } catch (e) {}
+  EST = datos; const m = MODO_DOCENTE; MODO_DOCENTE = false; const r = guardar(); MODO_DOCENTE = m; return r;
+}
+
 /* ---- js/40-inicio.js ---- */
 /* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
 let PANT = 'inicio', MODO = '', NUEVO_AV = null, ERR = '';
+const SC = {};
 const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre de la clase (1.º A)', crear: 'Crear clase', vacia: 'Aún no hay clases' },
               fam: { quien: '¿Quién eres?', nuevo: 'Nuevo niño o niña', ph: 'Tu nombre', crear: 'Crear', vacia: 'Aún no hay nadie' } };
 
@@ -208,18 +286,19 @@ function mascotaHTML() {
 const avatarHTML = p => p.t === 'fam'
   ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`
   : '<span class="av" style="background:var(--lx-pale)" aria-hidden="true">📚</span>';
-const elegirAnimal = sel => `<div class="animales" role="group" aria-label="Elige un animal">${AVATARES.map(([e, c], i) =>
-  `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="animalNuevo(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
+const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="group" aria-label="Elige un animal">${AVATARES.map(([e, c], i) =>
+  `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}`
-    + '<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div>';
+  if (MODO_DOCENTE) return `<div class="top"><span class="pill-md">${ico('grad', 20)} Modo Docente</span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
+  return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
+  <div class="dcha">${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
-function vistaInicio() {
+SC.inicio = function () {
   return `<main class="inicio infantil">${mascotaHTML()}<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>
   <div class="opciones"><button class="btn grande" onclick="elegirModo('doc')">Docente</button><button class="btn grande sec" onclick="elegirModo('fam')">Familias</button></div></main>`;
-}
-function vistaQuien() {
+};
+SC.quien = function () {
   const T = TXT[MODO], lista = perfilesDe(MODO);
   const av = NUEVO_AV ?? avLibre();
   return `<main class="pantalla infantil"><h1 class="h-pant">${T.quien}</h1>
@@ -228,32 +307,123 @@ function vistaQuien() {
   <input id="nom" class="campo" maxlength="20" autocomplete="off" placeholder="${T.ph}" aria-label="${T.ph}" value="${esc(NUEVO_NOM)}" oninput="NUEVO_NOM=this.value;ERR=''">
   ${MODO === 'fam' ? `<p class="mu pq">Elige tu animal</p>${elegirAnimal(av)}` : ''}
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
-}
-function vistaCasa() {
-  const p = perfilAct(); if (!p) { PANT = 'inicio'; return vistaInicio(); }
+};
+SC.casa = function () {
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
   <p class="mu">Aquí irá la sesión de hoy.</p>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
-}
+};
 let NUEVO_NOM = '';
 function pintar() {
-  $('#app').innerHTML = barra() + (PANT === 'quien' ? vistaQuien() : PANT === 'casa' ? vistaCasa() : vistaInicio());
+  $('#app').innerHTML = barra() + (SC[PANT] || SC.inicio)();
 }
-function go(p) { PANT = p; ERR = ''; pintar(); }
-function atras() { if (PANT === 'casa') return go('quien'); NUEVO_NOM = ''; NUEVO_AV = null; go('inicio'); }
+function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
+function atras() {
+  if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
+  if (PANT === 'casa') return go('quien');
+  if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
+  NUEVO_NOM = ''; NUEVO_AV = null; go('inicio');
+}
+function salirDocente() { MODO_DOCENTE = false; go('inicio'); }
 function elegirModo(m) { MODO = m; NUEVO_NOM = ''; NUEVO_AV = null; go('quien'); }
 function animalNuevo(i) { NUEVO_AV = i; pintar(); const f = $('#nom'); if (f) f.focus(); }
 function entrar(id) { if (entrarPerfil(id)) go('casa'); }
 function crearDesdeForm(ev) {
   ev.preventDefault();
-  const n = ss(NUEVO_NOM, 20);
-  if (!n) ERR = 'Escribe un nombre';
-  else if (perfilesDe(MODO).some(p => p.n.toLowerCase() === n.toLowerCase())) ERR = 'Ese nombre ya existe';
+  const n = ss(NUEVO_NOM, 20), e = errorNombre(MODO, n);
+  if (e) ERR = e;
   else if (EST.bloq) ERR = 'Estos datos son de una versión más nueva de Lexi';
   else if (!crearPerfil(MODO, n, NUEVO_AV ?? avLibre())) ERR = 'No se ha podido crear';
   else { NUEVO_NOM = ''; NUEVO_AV = null; return go('casa'); }
   pintar(); const f = $('#nom'); if (f) f.focus();
 }
+
+/* ---- js/50-tutor.js ---- */
+/* ===== Zona del tutor (sobria, letra Inter), protegida con PIN de 4 cifras ===== */
+const TZ = { fase: '', pin: '', pin1: '', hasta: 0, destino: 'tz', sub: '', borrar: '', imp: null, origen: 'pin' };
+
+function abrirTutor(destino = 'tz') {
+  TZ.destino = destino; TZ.pin = ''; TZ.sub = ''; TZ.borrar = ''; TZ.imp = null;
+  if (Date.now() < TZ.hasta && EST.ajustes.pin) return irDestino();
+  TZ.fase = EST.ajustes.pin ? 'pedir' : 'crear'; go('pin');
+}
+function irDestino() { if (TZ.destino === 'docente') entrarDocente(); else go('tz'); }
+function entrarDocente() { MODO_DOCENTE = true; go('casa'); }
+
+const botonArchivo = (txt, icono = 'upload') => `<label class="fila-t arch">${ico(icono, 22)}<span class="tx2"><b>${txt}</b></span><input type="file" id="fi" accept="application/json,.json" onchange="leerArchivo(this)"></label>`;
+SC.pin = function () {
+  const T = { crear: ['Crea un PIN de 4 cifras', 'Se pedirá para entrar en la zona del tutor y en el Modo Docente. Tras escribirlo, no se vuelve a pedir durante 5 minutos.'],
+    repetir: ['Repite el PIN', 'Escríbelo otra vez para confirmarlo.'], nuevo: ['Nuevo PIN', 'Escribe el PIN nuevo de 4 cifras.'], pedir: ['Zona del tutor', 'Escribe el PIN de 4 cifras.'] }[TZ.fase];
+  const k = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button onclick="pinTecla('${n}')">${n}</button>`).join('');
+  return `<main class="pantalla tutor"><div class="tarjeta pinw"><span class="lk">${ico('lock', 26)}</span><h2>${T[0]}</h2><p class="mu">${T[1]}</p>
+  <div class="pd" id="pd" role="img" aria-label="${TZ.pin.length} de 4 cifras">${[0, 1, 2, 3].map(i => `<i class="${i < TZ.pin.length ? 'f' : ''}"></i>`).join('')}</div>
+  <div class="pk">${k}<span></span><button onclick="pinTecla('0')">0</button><button onclick="pinTecla('b')" aria-label="Borrar">${ico('backspace', 22)}</button></div>
+  ${TZ.fase === 'pedir' ? `<p class="mu pq">¿Lo has olvidado? No hace falta borrar nada: restaura una copia de seguridad, que trae su PIN.</p>${botonArchivo('Restaurar copia')}` : ''}</div></main>`;
+};
+function pinTecla(t) {
+  if (t === 'b') TZ.pin = TZ.pin.slice(0, -1); else if (TZ.pin.length < 4) TZ.pin += t;
+  pintar(); if (TZ.pin.length < 4) return;
+  setTimeout(() => {
+    if (TZ.fase === 'crear' || TZ.fase === 'nuevo') { TZ.pin1 = TZ.pin; TZ.pin = ''; TZ.fase = 'repetir'; pintar(); }
+    else if (TZ.fase === 'repetir') {
+      if (TZ.pin === TZ.pin1) { fijarPin(TZ.pin); TZ.hasta = Date.now() + 3e5; toast('PIN guardado'); irDestino(); }
+      else { TZ.pin = ''; TZ.fase = EST.ajustes.pin ? 'nuevo' : 'crear'; mal(); }
+    } else { if (TZ.pin === EST.ajustes.pin) { TZ.hasta = Date.now() + 3e5; irDestino(); } else { TZ.pin = ''; mal(); } }
+  }, 180);
+  function mal() { pintar(); const d = $('#pd'); if (d) d.classList.add('mal'); }
+}
+
+const fila = (icono, t, sub, fn) => `<button class="fila-t" onclick="${fn}">${ico(icono, 22)}<span class="tx2"><b>${t}</b>${sub ? `<small>${sub}</small>` : ''}</span>${ico('chev', 18)}</button>`;
+SC.tz = function () {
+  if (TZ.sub.startsWith('p:')) { const p = EST.perfiles.find(x => x.id === TZ.sub.slice(2)); if (p) return vistaPerfilTZ(p); TZ.sub = ''; }
+  const fila_p = p => `<button class="fila-t" onclick="TZ.sub='p:${p.id}';TZ.borrar='';ERR='';pintar()">${avatarHTML(p)}<span class="tx2"><b>${esc(p.n)}</b><small>${p.t === 'doc' ? 'Clase' : 'Niño o niña'}${p.id === EST.act ? ' · activo' : ''}</small></span>${ico('chev', 18)}</button>`;
+  const doc = perfilesDe('doc'), fam = perfilesDe('fam');
+  return `<main class="pantalla tutor"><h1 class="h-t">Zona del tutor</h1>
+  ${EST.bloq ? '<p class="aviso">Estos datos son de una versión más nueva de Lexi: no se modifican desde aquí.</p>' : ''}
+  <h2 class="h-s">Clases</h2><div class="lista">${doc.length ? doc.map(fila_p).join('') : '<p class="mu">Aún no hay clases.</p>'}</div>
+  <h2 class="h-s">Niños y niñas</h2><div class="lista">${fam.length ? fam.map(fila_p).join('') : '<p class="mu">Aún no hay niños.</p>'}</div>
+  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}</div>
+  <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
+  <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;
+};
+function vistaPerfilTZ(p) {
+  const T = TXT[p.t];
+  return `<main class="pantalla tutor"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-t" style="margin:0">${esc(p.n)}</h1></div>
+  <form class="tarjeta" onsubmit="renombrarTZ(event,'${p.id}')" novalidate><h2 class="h-s">Nombre</h2>
+  <input id="nom" class="campo" maxlength="20" autocomplete="off" value="${esc(NUEVO_NOM || p.n)}" aria-label="Nombre" oninput="NUEVO_NOM=this.value;ERR=''">
+  <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">Guardar nombre</button></form>
+  ${p.t === 'fam' ? `<div class="tarjeta"><h2 class="h-s">Animal</h2>${elegirAnimal(p.av, `animalTZ`)}</div>` : ''}
+  <div class="tarjeta">${TZ.borrar === p.id
+    ? `<p><b>¿Borrar «${esc(p.n)}»?</b> Se pierde todo lo suyo y no se puede deshacer. Puedes guardar antes una copia de seguridad.</p><div class="dos"><button class="btn peligro" onclick="borrarTZ('${p.id}')">Sí, borrar</button><button class="btn sec" onclick="TZ.borrar='';pintar()">No</button></div>`
+    : `<button class="btn peligro sec" onclick="TZ.borrar='${p.id}';pintar()">${ico('trash', 20)} Borrar ${p.t === 'doc' ? 'esta clase' : 'este perfil'}</button>`}</div></main>`;
+}
+function renombrarTZ(ev, id) {
+  ev.preventDefault(); const p = EST.perfiles.find(x => x.id === id); if (!p) return;
+  const e = errorNombre(p.t, NUEVO_NOM || p.n, id);
+  if (e) { ERR = e; pintar(); return; }
+  renombrarPerfil(id, NUEVO_NOM || p.n); NUEVO_NOM = ''; ERR = ''; pintar(); toast('Nombre guardado');
+}
+function animalTZ(i) { const id = TZ.sub.slice(2); cambiarAnimal(id, i); pintar(); }
+function borrarTZ(id) { borrarPerfil(id); TZ.sub = ''; TZ.borrar = ''; NUEVO_NOM = ''; pintar(); toast('Perfil borrado'); }
+
+function exportar() {
+  const b = new Blob([exportarTexto()], { type: 'application/json' }), u = URL.createObjectURL(b), l = document.createElement('a');
+  l.href = u; l.download = `lexi-copia-${hoy()}.json`; document.body.appendChild(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 2000); toast('Copia descargada');
+}
+function leerArchivo(inp) {
+  const f = inp.files[0]; if (!f) return;
+  f.text().then(t => { const r = leerCopia(t); TZ.origen = PANT === 'pin' ? 'pin' : 'tz'; TZ.imp = r.datos || null; const e = r.error || ''; go('imp'); ERR = e; pintar(); });
+}
+SC.imp = function () {
+  if (!TZ.imp) return `<main class="pantalla tutor"><h1 class="h-t">Restaurar copia</h1><p class="aviso" role="alert">${esc(ERR || 'No se pudo leer la copia')}</p><button class="btn sec" onclick="ERR='';go(TZ.origen)">Volver</button></main>`;
+  const n = TZ.imp.perfiles.length;
+  return `<main class="pantalla tutor"><h1 class="h-t">Restaurar copia</h1>
+  <p>La copia tiene <b>${n} ${n === 1 ? 'perfil' : 'perfiles'}</b>. Si sigues, sustituye los datos actuales (se guardan antes por si acaso).</p>
+  <div class="dos"><button class="btn" onclick="confirmarCopia()">Sustituir</button><button class="btn sec" onclick="TZ.imp=null;go(TZ.origen)">Cancelar</button></div></main>`;
+};
+function confirmarCopia() { aplicarCopia(TZ.imp); TZ.imp = null; TZ.sub = ''; TZ.hasta = 0; toast('Copia restaurada'); go('inicio'); }
 
 /* ---- js/zz-arranque.js ---- */
 TEMA.aplicar(TEMA.inicial());
