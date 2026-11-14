@@ -88,6 +88,23 @@ Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`.
     sentimos» · «Para convivir» · «El mundo que nos rodea». Regla EX1.
 23. **Texto fijo de la hoja para las familias** (regla FA4) y que la hoja no lleve notas ni progreso.
 
+Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Esperan el sí de Iván:**
+
+24. **Fusión palabra a palabra.** Calculi se queda con el alumno entero más reciente. En Lexi un
+    perfil es toda la clase: si se cambia el nombre desde el móvil mientras la pizarra lleva días sin
+    sincronizar, se perdería el progreso de esos días. Propuesta: dentro de cada perfil, cada palabra
+    se queda con su versión más reciente. Regla FU4.
+25. **Primera vez con datos en los dos lados:** pantalla con «Juntar» (recomendado, no borra nada),
+    «Usar solo lo de la cuenta» (lo del dispositivo se guarda antes en `lexi.bk`) y «Ahora no».
+    Calculi pregunta «bajar o subir» y una de las dos borra. Regla PV3.
+26. **Dónde está «Entrar con Google»:** en la zona del tutor y, además, un enlace «Ya uso Lexi en otro
+    dispositivo» en el inicio solo cuando no hay ningún perfil. ¿O solo en la zona del tutor? Regla CU2.
+27. **Cerrar sesión:** cierra Google en todas las apps de ese dispositivo (ya pasa en Calculi) y
+    pregunta si las clases se quedan o se quitan de ese dispositivo (pensado para el ordenador
+    compartido del aula). Reglas CU5 y CU6.
+28. **Con sesión iniciada, borrar un perfil lo borra en todos los dispositivos, y restaurar una copia
+    hace que la copia mande en todos.** Las dos pantallas lo avisan. Reglas BO1 y BO2.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -163,9 +180,21 @@ Salieron al diseñar la Fase 5 (14-11-2026). Todo está en `docs/aula.md`.
 - [ ] 5.7 Explorar: por grupos, parejas y dos al azar (tests 86-88). Después del paso G.1
 
 ## Fase 6 · Nube y ecosistema · Fable u Opus, esfuerzo alto
-- [ ] Firebase opcional: colección `lexico/{uid}`, subcolección `alu` (un documento por perfil), fusión como Calculi
-- [ ] Reglas en `tabula/firestore.rules` (cada docente, solo lo suyo)
-- [ ] Añadir Lexi a la tabla de `ECOSISTEMA.md` (copia de `tabula`) y copiarlo a todos los repos
+- [x] **Diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada): `docs/nube.md` (reglas CU, SI,
+  FU, PV, BO y VE; datos; reglas de Firestore propuestas; tests 94-117). Leído antes el patrón de
+  Calculi (`52-cuenta.js`) y `tabula/firestore.rules`.
+- [ ] Iván decide los puntos 24 a 28
+- [ ] 6.1 Marcas (`gmt`, `del`, `mt`, `m`), migración y funciones de fusión, sin red ni pantallas
+  (tests 96-105, 113 y 116) · Sonnet, esfuerzo alto. Puede ir junto al paso 3.1
+- [ ] 6.2 Bloque de Lexi en `tabula/firestore.rules`, probado en el simulador · Fable u Opus, esfuerzo
+  medio. **Iván publica las reglas en Firebase antes del paso 6.3**
+- [ ] 6.3 `src/js/52-cuenta.js`, tarjeta «Cuenta» y sincronización (tests 94, 95, 109, 112, 114, 115 y
+  117) · Sonnet, esfuerzo alto
+- [ ] 6.4 Primera vez, cerrar sesión, borrar y restaurar con cuenta (tests 106-108, 110 y 111) ·
+  Sonnet, esfuerzo alto
+- [ ] 6.5 Iván lo prueba con dos dispositivos (lista en `docs/nube.md`, apartado 13)
+- [ ] 6.6 Añadir Lexi a `ECOSISTEMA.md` (copia de `tabula`) y copiarlo a los siete repos;
+  `docs/firebase.md` · Haiku, esfuerzo bajo
 
 ## Más adelante
 - [ ] Modo autónomo y dominio por alumno
