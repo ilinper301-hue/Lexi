@@ -153,6 +153,29 @@ dice que no a alguno, se cambia:
 46. **`imaginar` (1.º, semana 6)** tiene «inventar» como pregunta de `relaciona`, y ahora «inventar»
     es palabra de 2.º. Propuesta: pasarla a `rel.mas` de `imaginar`. **No se ha tocado**: espera el sí.
 
+Salieron al escribir las semanas 5 y 6 de 2.º (15-11-2026). Están aplicados en las fichas; si Iván
+dice que no a alguno, se cambia:
+
+47. **Dos parejas más comparten protagonista:** `cercano`-`lejano` (Vega: su colegio y el pueblo de
+    sus abuelos) y `húmedo`-`seco` (la toalla de Guille). Sus imágenes deben mostrar a los mismos niños.
+48. **Segundos significados (`otro`):** `cercano` (una persona de confianza), `lejano` (tiempos
+    lejanos), `organizar` (los datos de un enunciado, en una tabla o lista), `húmedo` y `seco` (el
+    clima de un sitio).
+49. **Sin tarea `familia`:** mientras, en cambio, por eso (son enlaces, regla F10) y húmedo. **Van 23
+    de 36**; a este ritmo saldrán unas 38 de 60 (punto 43).
+50. **Pieza enlaces:** sale cuando están presentados los tres enlaces de la semana. Sus seis ejemplos
+    (los tres de 1.º y los tres nuevos) cuentan seguidos una misma historia, la comida. En esta
+    pieza el campo `b` dice para qué sirve cada enlace.
+51. **Pieza `re-`:** a releer, rehacer, reordenar y recontar se suma **reescribir**. La palabra ancla
+    es `revisar`, aunque no es ejemplo de la pieza (no se desmonta).
+52. **`comprobar` (1.º, semana 7)** tiene «revisar» como pregunta de `relaciona`, y ahora «revisar» es
+    palabra de 2.º. Propuesta: pasarla a `rel.mas` de `comprobar` (mismo caso que el punto 46).
+    **No se ha tocado**: espera el sí.
+53. **Preguntas de `ejemplo` para los tres enlaces** (campo `pregunta`, punto 3): «¿Pueden pasar a la
+    vez?» (mientras), «¿Está bien dicho con "en cambio"?» y «¿Está bien dicho con "por eso"?». Y para
+    `cercano` y `lejano`: «¿Es cercano (o lejano) para nosotros, aquí?». Están en las notas de la
+    semana 5; se escribirán en las fichas cuando se programe el campo.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -240,7 +263,10 @@ dice que no a alguno, se cambia:
     (pieza `parecidas`); peticiones de imágenes 13 y 14. Llevan `fam` 7 de las 12 (sin ella: rígido,
     generoso, consultar, transparente, opaco). El comprobador pasa: 84 palabras y 4 piezas.
     **Pendiente de la revisión de Iván** (ver «Para decidir», puntos 41 a 46)
-  - [ ] Semanas 5 y 6 (piezas enlaces y `re-`)
+  - [x] Semanas 5 y 6 (15-11-2026, Fable): `docs/2-semana-05.md` (pieza `enlaces`) y `docs/2-semana-06.md`
+    (pieza `re`); peticiones de imágenes 15 y 16. Llevan `fam` 8 de las 12 (sin ella: mientras, en
+    cambio, por eso, húmedo). El comprobador pasa: 96 palabras y 6 piezas.
+    **Pendiente de la revisión de Iván** (ver «Para decidir», puntos 47 a 53)
   - [ ] Semanas 7 y 8 (piezas `des-` e `in-, im-`)
   - [ ] Semanas 9 y 10 (piezas `-oso` y `-ero, -era`)
 - [ ] 2.2 `curso` y `pie` en los datos, dentro del paso 3.1 (tests 118-120) · Sonnet, esfuerzo alto
