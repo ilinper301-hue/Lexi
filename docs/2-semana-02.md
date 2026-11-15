@@ -4,7 +4,7 @@ Seis palabras y la pieza de la semana, escritas con las normas de `docs/pedagogi
 `docs/segundo.md`. Al programar, cada ficha pasa tal cual a `src/js/palabras/2s02-<id>.js` y la pieza
 a `src/js/piezas/2s02-cion.js`.
 
-**Pendiente de la revisión de Iván.**
+**Aprobada por Iván el 15-11-2026.**
 
 ## Las seis palabras
 

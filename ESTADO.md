@@ -120,9 +120,8 @@ Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segund
 35. **Entre 40 y 45 de las 60 palabras de 2.º tendrán `familia`**; los enlaces y las que no tengan
     familia clara se quedan sin ella (les quedan `acaba`, `habla` y `relaciona`).
 
-## Para decidir
-Salieron al escribir las semanas 1 y 2 de 2.º (15-11-2026). Están aplicados en las fichas; si Iván
-dice que no a alguno, se cambia:
+Salieron al escribir las semanas 1 y 2 de 2.º (15-11-2026). Están aplicados en las fichas.
+**Iván dijo «sí» el 15-11-2026: las 12 fichas, las 2 piezas y los puntos 36 a 40 están aprobados** tal cual están escritos:
 
 36. **Dos parejas comparten historia y niño:** `ancho`-`estrecho` (la excursión de Bruno) y
     `preocupado`-`aliviado` (la excursión de Pablo y la lluvia; una en cada semana). Sus imágenes
@@ -213,8 +212,8 @@ dice que no a alguno, se cambia:
   y su petición de imágenes · Fable u Opus, esfuerzo alto
   - [x] Semanas 1 y 2 (15-11-2026, Fable): `docs/2-semana-01.md` (pieza `contrarias`) y
     `docs/2-semana-02.md` (pieza `cion`); peticiones de imágenes 11 y 12 en `docs/imagenes.md`.
-    Llevan `fam` 8 de las 12 (sin ella: resolver, estrecho, estimar, exacto). **Pendiente de la
-    revisión de Iván** (ver «Para decidir», puntos 36 a 40)
+    Llevan `fam` 8 de las 12 (sin ella: resolver, estrecho, estimar, exacto). **Aprobadas por Iván
+    el 15-11-2026** (puntos 36 a 40). Faltan sus imágenes (peticiones 11 y 12)
   - [x] Comprobador ampliado (15-11-2026): `tools/validar-docs.js` lee también `docs/2-semana-NN.md`
     (curso, una pieza por semana, `fam`, piezas, ids únicos entre cursos). Reglas en
     `tools/reglas-ficha.js` (`revisaFam`, `revisaPieza`, `idsRepetidos`). Tests 135-137 en
