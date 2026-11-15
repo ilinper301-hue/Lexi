@@ -179,15 +179,38 @@ Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
 | `opaco` | **La misma niña** de `transparente` girando entre las manos una lata metálica cerrada, con cara de intriga, sin poder ver lo de dentro; su hermano pequeño, al lado. |
 | `avergonzado` | Un niño en el comedor del colegio, con las mejillas rojas y la mirada baja, junto a una bandeja caída en el suelo; otros niños lo miran sin burlarse. |
 
+### Petición 15 · 2.º, semana 5
+
+| id | Qué debe verse |
+|---|---|
+| `mientras` | Una cocina a la hora de la cena: al fondo, un padre friendo croquetas en una sartén; delante, a la vez, una niña colocando vasos y platos en la mesa. Los dos se ven bien en la misma imagen. |
+| `en-cambio` | Una niña y su hermano delante de una heladería, cada uno con su helado: ella, de fresa (rosa); él, de chocolate (marrón). Se nota bien que son distintos. Sin carteles con letras. |
+| `por-eso` | Un niño en la mesa del desayuno, bostezando y con los ojos medio cerrados; a su lado, un libro abierto boca abajo. Su abuela lo mira con cariño. |
+| `cercano` | Una niña con mochila saliendo del portal de su casa; a muy pocos pasos, en la misma calle, se ve la puerta del colegio con otros niños entrando. Sin letras. |
+| `lejano` | **La misma niña** de `cercano` mirando por la ventanilla de un coche en una carretera larga; muy al fondo, pequeñito, un pueblo entre montañas. Atardece. |
+| `agradecido` | En un pasillo del colegio, un niño con la mochila rota sonríe a una niña que, agachada, le ayuda a recoger sus cosas del suelo y le tiende una bolsa. |
+
+### Petición 16 · 2.º, semana 6
+
+| id | Qué debe verse |
+|---|---|
+| `predecir` | Una maestra enseñando a la clase la portada de un cuento con un lobo que lleva gorro de cocinero (sin título ni letras); una niña, con el dedo levantado, piensa su respuesta. |
+| `organizar` | Una niña sentada a la mesa con una lista hecha con dibujitos (un globo, una tarta, un teléfono) y casillas al lado, sin letras; alrededor, globos sin inflar y un gorro de fiesta. |
+| `revisar` | Un niño en su pupitre repasando con el dedo, renglón a renglón, una hoja escrita (garabatos, sin letras que se puedan leer), muy concentrado, con el lápiz en la otra mano. |
+| `humedo` | Un niño sacando de la mochila de la piscina una toalla arrugada, hecha una bola; la toca con cara de «está fría». Se ven unas gafas de bucear. |
+| `seco` | **El mismo niño y la misma toalla** de `humedo`: la toalla está tendida y bien estirada al sol en un tendedero; el niño la toca con la mano abierta, contento. |
+| `decepcionado` | Un niño saliendo de un cine con un cubo de palomitas casi lleno, los hombros caídos y cara de chasco; detrás, un cartel con el dibujo de un dragón, sin letras. |
+
 ### Peticiones siguientes
 
-Se añaden aquí, una tabla por semana, cuando se escriba su contenido (semanas 5 a 10 de 2.º).
+Se añaden aquí, una tabla por semana, cuando se escriba su contenido (semanas 7 a 10 de 2.º).
 
 ## Avisos para todas
 
 - Las nubes de pensamiento (`describir`, `imaginar`, `recordar`, `aproximado`) y los bocadillos
   (`repetir`) van **sin letras**, solo con dibujo.
 - Parejas que comparten historia y deben mostrar a los mismos niños: `problema`-`solucion`,
-  `ancho`-`estrecho`, `preocupado`-`aliviado`, `flexible`-`rigido` y `transparente`-`opaco`.
+  `ancho`-`estrecho`, `preocupado`-`aliviado`, `flexible`-`rigido`, `transparente`-`opaco`,
+  `cercano`-`lejano` y `humedo`-`seco`.
 - Si la otra IA mete texto o números en la imagen, mejor repetirla que arreglarla.
 - Si Iván cambia alguna palabra de la lista, se cambia también su fila aquí.
