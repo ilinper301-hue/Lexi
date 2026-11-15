@@ -46,5 +46,6 @@ primero las palabras de los enunciados, parejas de contrarias y 6 por semana.
 
 ## Antes de escribir las fichas
 
-- Decidir cómo se guarda la «pieza de la semana» en los datos (hoy solo existe `rel.familia`).
-- Diseñar la tarea `familia` (`relaciona` ya está diseñada en `docs/tareas-gesto-relaciona.md`).
+- Diseño hecho el 15-11-2026 en `docs/segundo.md` (pieza de la semana, tarea `familia`, curso del
+  perfil). Propone cambiar los ejemplos de las piezas de las semanas 2, 6, 9 y 10 (su apartado 4).
+  **Pendiente del sí de Iván** (puntos 29 a 35 de `ESTADO.md`).

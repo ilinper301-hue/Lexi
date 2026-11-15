@@ -98,6 +98,27 @@ Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Iv�
 28. **Con sesión iniciada, borrar un perfil lo borra en todos los dispositivos, y restaurar una copia
     hace que la copia mande en todos.** Las dos pantallas lo avisan. Reglas BO1 y BO2.
 
+Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segundo.md`.
+**Pendientes del sí de Iván (puntos 29 a 35):**
+
+29. **La pieza de la semana no tiene escala ni valoración.** Se presenta una vez (unos 3 minutos, en
+    «Hoy», después de «Palabra nueva», cuando sus palabras ancla ya están presentadas) y ese día
+    «Jugamos» tiene 1 tarea en vez de 2. Vuelve dentro de las tareas de sus palabras y en Explorar →
+    «Familias». Reglas P1-P8.
+30. **Tarea `familia` con dos formas que se alternan:** «La intrusa» (dos de la familia y una que se
+    ha colado; dedos 1, 2 o 3) y «Saca la palabra» (frase con hueco). Las dos acaban con una frase.
+    Solo con el perfil en 2.º. Reglas F1-F10.
+31. **Ajustes a los ejemplos de cuatro piezas** para que se puedan desmontar (`docs/segundo.md`,
+    apartado 4): `-ción` sin *solución*; `re-` con releer, rehacer, reordenar y recontar (sin revisar
+    ni repetir); `-oso` sin *curioso*; `-ero` sin *bombero*. Las 60 palabras no cambian.
+32. **Curso del perfil** (1.º o 2.º): se elige al crear el perfil y se cambia en la zona del tutor.
+    «Hoy» presenta palabras de ese curso; «Recordamos» repasa todas. Cambiar no borra nada. Reglas C1-C4.
+33. **En pantalla se dice «pieza»**, nunca «prefijo» ni «sufijo».
+34. **Añadir `fam` a unas 12 palabras de 1.º** que las piezas recuperan (observar, proteger, ordenar…),
+    sin tocar ningún texto que ya tengan. Solo se vería con el perfil en 2.º.
+35. **Entre 40 y 45 de las 60 palabras de 2.º tendrán `familia`**; los enlaces y las que no tengan
+    familia clara se quedan sin ella (les quedan `acaba`, `habla` y `relaciona`).
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -161,10 +182,17 @@ Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Iv�
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus
   imágenes (peticiones 2 a 10): Iván las enviará más adelante
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
-- [ ] Paquete de 2.º, diseño (Fable u Opus, esfuerzo alto): tarea `familia` y cómo se guarda la «pieza
-  de la semana» en los datos. Plan corto y esperar el sí de Iván
-- [ ] Paquete de 2.º, contenido: las 60 fichas (`docs/2-semana-NN.md` o como se decida en el diseño) y
-  sus peticiones de imágenes (Fable u Opus, esfuerzo alto; de dos en dos semanas)
+- [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
+  `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,
+  C1-C4; datos; tests 118-140)
+- [ ] Iván aprueba los puntos 29 a 35
+- [ ] 2.1 Contenido: `docs/2-semana-NN.md`, de dos en dos semanas, cada una con sus 6 fichas, su pieza
+  y su petición de imágenes; ampliar el comprobador (tests 135-137) · Fable u Opus, esfuerzo alto
+- [ ] 2.2 `curso` y `pie` en los datos, dentro del paso 3.1 (tests 118-120) · Sonnet, esfuerzo alto
+- [ ] 2.3 Pieza: `PIEZA`, presentación, su sitio en «Hoy» y séptima tarjeta (tests 121-127), después
+  del paso 3.3 · Sonnet, esfuerzo medio
+- [ ] 2.4 Tarea `familia` (tests 128-133), después de los pasos 3.2 y G.3 · Sonnet, esfuerzo medio
+- [ ] 2.5 Elegir curso, hoja de familias y Explorar → «Familias» (tests 138-140) · Sonnet, esfuerzo medio
 
 ## Fase 5 · Aula · Sonnet, esfuerzo medio
 - [x] **Diseño** (14-11-2026, Fable, esfuerzo medio; sin programar nada): `docs/aula.md` (reglas MU,
