@@ -249,7 +249,7 @@ de Iván** (ver `ESTADO.md`, fase 4).
 - Muro, «La hemos encontrado», Explorar, tarjetas y hoja para las familias ya están diseñados en
   `docs/aula.md` (reglas MU, EN, EX, TA, FA, RE y AT; tests 76-93). *(Propuesta del 14-11-2026.)*
 - Paquete de 2.º, con familias de palabras, prefijos y sufijos sencillos: diseñado en `docs/segundo.md`;
-  lista en `docs/lista-2-borrador.md`; fichas en `docs/2-semana-NN.md` (escritas las semanas 1 y 2).
+  lista en `docs/lista-2-borrador.md`; fichas en `docs/2-semana-NN.md` (escritas las semanas 1 a 4).
 
 ## 10. Botón «Hoy»: cómo se monta la sesión
 

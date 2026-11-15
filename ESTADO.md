@@ -135,6 +135,24 @@ Salieron al escribir las semanas 1 y 2 de 2.º (15-11-2026). Están aplicados en
 40. **«indicación» y «preocupación»** (semana 1) llevan la pieza `-ción` de la semana 2: hasta que se
     presente esa pieza, `indicar` y `preocupado` no tienen tarea `familia`.
 
+## Para decidir
+Salieron al escribir las semanas 3 y 4 de 2.º (15-11-2026). Están aplicados en las fichas; si Iván
+dice que no a alguno, se cambia:
+
+41. **Dos parejas más comparten historia y niño:** `flexible`-`rígido` (las reglas de Lucas) y
+    `transparente`-`opaco` (los tesoros de Carla). Sus imágenes deben mostrar a los mismos niños.
+42. **Segundos significados (`otro`):** `inventar` (decir algo que no es verdad), `flexible` (una
+    persona que sabe cambiar de planes) y `anotar` (meter un gol o una canasta).
+43. **Sin tarea `familia`:** rígido, generoso, consultar, transparente y opaco. **Van 15 de 24.** El
+    cálculo del punto 35 era de 40 a 45 de 60; a este ritmo saldrán unas 38. No se han forzado
+    palabras que un niño de 7 años no haya oído (rigidez, opacidad, transparencia).
+44. **Pieza `-or, -ora`:** a inventor, observador y protector se suman pintora, jugador y
+    calculadora, para enseñar que vale para personas y para máquinas.
+45. **Pieza parecidas:** a investigar-averiguar-descubrir y anotar-apuntar se suman
+    consultar-preguntar e indicar-señalar.
+46. **`imaginar` (1.º, semana 6)** tiene «inventar» como pregunta de `relaciona`, y ahora «inventar»
+    es palabra de 2.º. Propuesta: pasarla a `rel.mas` de `imaginar`. **No se ha tocado**: espera el sí.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -218,7 +236,10 @@ Salieron al escribir las semanas 1 y 2 de 2.º (15-11-2026). Están aplicados en
     (curso, una pieza por semana, `fam`, piezas, ids únicos entre cursos). Reglas en
     `tools/reglas-ficha.js` (`revisaFam`, `revisaPieza`, `idsRepetidos`). Tests 135-137 en
     `node tests/test_docs.js` (27 comprobaciones). Normas de 2.º añadidas a `docs/pedagogia.md` (apartado 7)
-  - [ ] Semanas 3 y 4 (piezas `-or, -ora` y parecidas)
+  - [x] Semanas 3 y 4 (15-11-2026, Fable): `docs/2-semana-03.md` (pieza `or`) y `docs/2-semana-04.md`
+    (pieza `parecidas`); peticiones de imágenes 13 y 14. Llevan `fam` 7 de las 12 (sin ella: rígido,
+    generoso, consultar, transparente, opaco). El comprobador pasa: 84 palabras y 4 piezas.
+    **Pendiente de la revisión de Iván** (ver «Para decidir», puntos 41 a 46)
   - [ ] Semanas 5 y 6 (piezas enlaces y `re-`)
   - [ ] Semanas 7 y 8 (piezas `des-` e `in-, im-`)
   - [ ] Semanas 9 y 10 (piezas `-oso` y `-ero, -era`)

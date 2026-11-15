@@ -1,7 +1,8 @@
 # Paquete de 2.º · lista aprobada (60 palabras)
 
-**Lista aprobada por Iván el 15-11-2026.** Fichas escritas: semanas 1 y 2 (`docs/2-semana-01.md` y
-`docs/2-semana-02.md`, aprobadas el 15-11-2026). Faltan las semanas 3 a 10.
+**Lista aprobada por Iván el 15-11-2026.** Fichas escritas: semanas 1 a 4
+(`docs/2-semana-01.md` … `docs/2-semana-04.md`; la 1 y la 2, aprobadas el 15-11-2026; la 3 y la 4,
+pendientes de su revisión). Faltan las semanas 5 a 10.
 Propuesta de Fable (13-11-2026), revisada con Iván el 15-11-2026. Mismos criterios que 1.º: nivel 2,
 primero las palabras de los enunciados, parejas de contrarias y 6 por semana.
 
