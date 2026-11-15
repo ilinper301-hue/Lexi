@@ -249,8 +249,12 @@ dice que no a alguno, se cambia:
 - [x] Iván aprueba los puntos 24 a 28 (15-11-2026)
 - [ ] 6.1 Marcas (`gmt`, `del`, `mt`, `m`), migración y funciones de fusión, sin red ni pantallas
   (tests 96-105, 113 y 116) · Sonnet, esfuerzo alto. Puede ir junto al paso 3.1
-- [ ] 6.2 Bloque de Lexi en `tabula/firestore.rules`, probado en el simulador · Fable u Opus, esfuerzo
-  medio. **Iván publica las reglas en Firebase antes del paso 6.3**
+- [x] 6.2 Bloque de Lexi en `tabula/firestore.rules` (15-11-2026, Fable): el de `docs/nube.md` tal cual,
+  delante del de Tabula; prueba de estructura en `tabula/tests/reglas.test.mjs`. **No se pudo probar en el
+  simulador** (está en la consola de Firebase y aquí no hay emulador): revisadas a mano.
+- [ ] 6.2b **Iván publica las reglas** (Firebase → Firestore → Reglas: pegar `tabula/firestore.rules` entero
+  y Publicar) y prueba en la «Zona de pruebas de reglas» los 5 casos de `docs/nube.md`, apartado 10.
+  **Antes del paso 6.3**
 - [ ] 6.3 `src/js/52-cuenta.js`, tarjeta «Cuenta» y sincronización (tests 94, 95, 109, 112, 114, 115 y
   117) · Sonnet, esfuerzo alto
 - [ ] 6.4 Primera vez, cerrar sesión, borrar y restaurar con cuenta (tests 106-108, 110 y 111) ·
