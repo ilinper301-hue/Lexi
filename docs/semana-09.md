@@ -129,34 +129,34 @@ PALABRA({
 });
 
 PALABRA({
-  id: 'distinto', palabra: 'distinto', silabas: ['dis', 'tin', 'to'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, bloque: 'como-son',
-  def: 'Algo es distinto cuando no es igual que otra cosa o no es el mismo de antes.',
+  id: 'amable', palabra: 'amable', silabas: ['a', 'ma', 'ble'],
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, bloque: 'convivir',
+  def: 'Alguien es amable cuando habla con cariño y ayuda a los demás con una sonrisa.',
   otro: null,
-  escena: { img: 'distinto.webp', texto: 'Enzo vuelve de la peluquería con el pelo muy corto. Su perro lo mira raro y lo olfatea. «¡Que soy yo!», dice Enzo riéndose. Hoy Enzo está distinto.' },
+  escena: { img: 'amable.webp', texto: 'Un niño nuevo llega al cole y no conoce a nadie. Marta se acerca, sonríe y le pregunta: «¿Quieres jugar con nosotros?». Luego le enseña dónde está el baño. Marta es amable.' },
   contextos: [
-    'Hoy hemos ido al cole por un camino distinto.',
-    'Mi letra es distinta de la tuya.',
-    'Cada día de la semana tiene un nombre distinto.'
+    'Mi hermano es amable: me pregunta cómo estoy cuando llego a casa.',
+    'Mi compañera fue amable: me prestó el borrador y me sonrió.',
+    'La vecina es muy amable: siempre nos saluda con una sonrisa.'
   ],
-  gesto: 'Enseña una mano con la palma hacia arriba y la otra con la palma hacia abajo.',
+  gesto: 'Sonríe y saluda con la mano, despacio, hacia un lado.',
   sentido: [
-    { t: 'Probé un sabor distinto: siempre pido fresa y hoy pedí limón.', ok: true, por: 'No es el de siempre.' },
-    { t: 'Me puse un jersey distinto: el mismo de ayer.', ok: false, por: 'Si es el mismo, no es distinto.' },
-    { t: 'Los gemelos llevan gorros distintos para que sepamos quién es quién.', ok: true, por: 'Los gorros no son iguales.' },
-    { t: 'Estos dos números son distintos: el 4 y el 4.', ok: false, por: 'El 4 y el 4 son iguales.' }
+    { t: 'Lucas fue amable y me ayudó a levantarme cuando me caí.', ok: true, por: 'Ayudó con cariño.' },
+    { t: 'Fue muy amable: me gritó que me apartara y me empujó.', ok: false, por: 'Gritar y empujar no es tratar con cariño.' },
+    { t: 'La panadera es amable: nos saluda y nos sonríe.', ok: true, por: 'Habla bien y sonríe.' },
+    { t: 'Fue amable con su amiga: no le contestó y le dio la espalda.', ok: false, por: 'Ignorar a alguien no es ser amable.' }
   ],
   ejemplos: [
-    { t: 'Un zapato y una bota', ok: true },
-    { t: 'El 3 y el 8', ok: true },
-    { t: 'Tu voz y la de tu maestra', ok: true },
-    { t: 'El 5 y el 5', ok: false },
-    { t: 'Dos cromos repetidos', ok: false },
-    { t: 'El camino de todos los días', ok: false }
+    { t: 'Decir «buenos días» con una sonrisa', ok: true },
+    { t: 'Ayudar a llevar la mochila a un compañero', ok: true },
+    { t: 'Decir «por favor» y «gracias»', ok: true },
+    { t: 'Contestar de mala manera', ok: false },
+    { t: 'Poner mala cara a quien te saluda', ok: false },
+    { t: 'Decirle «¡quítate!» a un compañero', ok: false }
   ],
-  acaba: ['Hoy he hecho algo distinto: …', 'Mi casa es distinta de la de mi amigo porque…'],
-  habla: 'Dile a tu compañero algo distinto que te gustaría hacer este fin de semana.',
-  rel: { parecida: ['diferente'], contraria: ['igual', 'mismo'], familia: ['distinguir'] }
+  acaba: ['Soy amable cuando…', 'Me siento bien cuando alguien es amable conmigo porque…'],
+  habla: '¿Qué puedes hacer o decir hoy para ser amable con alguien?',
+  rel: { parecida: ['cariñoso', 'educado'], contraria: ['antipático'], familia: ['amabilidad'] }
 });
 
 PALABRA({
@@ -193,11 +193,9 @@ PALABRA({
 
 ## Notas para quien programe
 
-- `compartir`, `colaborar` y `respetar` van en el bloque `convivir` (como `proteger`, semana 5). Son
-  las palabras de las normas de clase: conviene que salgan también en la asamblea.
-- `distinto` significa lo mismo que `diferente` (semana 3). La ficha lo enfoca por otro lado: lo que
-  **ya no es como antes** (el pelo de Enzo, un camino distinto). En el repaso, usarlas juntas:
-  «distinto es otra forma de decir diferente». Ver la propuesta de cambio en `ESTADO.md`.
-- `distinto`: los ejemplos son **parejas**, como en `parecido` y `diferente`.
+- `compartir`, `colaborar`, `respetar` y `amable` van en el bloque `convivir` (como `proteger`,
+  semana 5). Son las palabras de las normas de clase: conviene que salgan también en la asamblea.
+- `amable` sustituye a `distinto` (decisión de Iván, 15-11-2026; ficha aprobada por él). `distinto`
+  queda solo como palabra parecida de `diferente` (semana 3), sin ficha propia.
 - `paciente` tiene segundo significado (`otro`): el paciente del médico.
 - `cuidadoso` enlaza con `frágil` (semana 1) y `delicado` (semana 8).

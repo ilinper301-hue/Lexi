@@ -14,27 +14,20 @@ modelo + esfuerzo + motivo.
 - [x] Comprobador de fichas: `node tools/validar-docs.js docs` (6 por semana, sílabas, definición de
   18 palabras como mucho, 2 sí + 2 no, 3 sí + 3 no, gestos sin repetir, escena que acaba en la palabra)
 
-## Para decidir con Iván (salió al escribir las semanas 2 a 10)
-Nada de esto está cambiado: son propuestas. Hasta que Iván conteste, se programa con lo que hay.
+## Decidido con Iván
+**Iván aprobó los puntos 1 a 6 el 15-11-2026** (salieron al escribir las semanas 2 a 10):
 
-1. **`distinto` (semana 9) significa lo mismo que `diferente` (semana 3).** Está escrita, enfocada a
-   «ya no es como antes». Propuesta: cambiarla por **`amable`**, que encaja con compartir, colaborar y
-   respetar, y dejar «distinto» como palabra parecida de `diferente`. Si se cambia: reescribir una
-   ficha y una fila de imágenes.
-2. **`delicado` (semana 8) queda muy cerca de `frágil` (semana 1).** Se mantiene con el matiz «se
-   estropea y pide suavidad». Alternativa si Iván prefiere algo más distinto: `flexible`.
-3. **Pregunta de la tarea `ejemplo` según el tipo de palabra.** «¿Es o no es…?» no sirve para todo:
-   - `enlace` (primero, después, finalmente): «¿Va primero?», «¿Es lo último?».
-   - `nombre` (problema, pista, ser vivo…): hace falta artículo, «¿Es una pista?».
-   - parejas (parecido, diferente, distinto): «¿Son parecidos?».
-   - `necesario` y `necesitar`: «¿Es necesario?», «¿Lo necesita de verdad?».
-   Propuesta técnica: campo opcional `pregunta` en la ficha; si falta, se usa la de siempre.
-4. **Bloques nuevos** en las fichas: `convivir` (proteger, compartir, colaborar, respetar) y `medio`
-   (las seis de la semana 10). Solo agrupan; no cambian la sesión.
-5. **`ser vivo`**: la definición dice «muere» (ciclo de la vida, contenido de 1.º). Si Iván prefiere
-   evitarlo: «Un ser vivo es todo lo que nace, crece y se alimenta: personas, animales y plantas».
-6. La semana 5 no tiene palabra de «sentir» (lleva `proteger`) y la 10 es entera de Conocimiento del
-   Medio. Es así en la lista; solo se avisa.
+1. **`distinto` (semana 9) se cambia por `amable`.** Hecho el 15-11-2026: ficha nueva en
+   `docs/semana-09.md` (aprobada por Iván), fila nueva en `docs/imagenes.md` y tabla de
+   `docs/tareas-gesto-relaciona.md`. «Distinto» queda como palabra parecida de `diferente`.
+2. **`delicado` (semana 8) se mantiene**, con el matiz «se estropea y pide suavidad».
+3. **Campo opcional `pregunta` en la ficha** para la tarea `ejemplo` (enlaces, nombres con artículo,
+   parejas, `necesario` y `necesitar`); si falta, se usa la de siempre. **Pendiente de programar** y
+   de escribir las preguntas en las fichas que lo necesitan.
+4. **Bloques** `convivir` (proteger, compartir, colaborar, respetar, amable) y `medio` (las seis de la
+   semana 10). Solo agrupan; no cambian la sesión.
+5. **`ser vivo`** se queda como está (la definición dice «muere»).
+6. La semana 5 no tiene palabra de «sentir» y la 10 es entera de Conocimiento del Medio: aceptado.
 
 Salieron al diseñar la Fase 3 (14-11-2026). Están escritas en `docs/pedagogia.md`.
 **Iván dijo «sí a todo» el 15-11-2026: los puntos 7 a 12 están aprobados** (incluidas las ideas del 12) tal cual están escritos:
@@ -157,14 +150,21 @@ Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Iv�
 
 ## Fase 4 · Contenido de 1.º y 2.º · Fable u Opus, esfuerzo alto
 - [x] Escribir las semanas 2 a 10 (54 palabras) y sus peticiones de imágenes (13-11-2026, Fable)
-- [ ] **Iván revisa las semanas 2 a 10** (palabras y fichas) y contesta a «Para decidir con Iván»
+- [x] Iván revisa las semanas 2 a 10 y contesta a los puntos 1 a 6 (15-11-2026): único cambio,
+  `distinto` → `amable`. El comprobador pasa (60 palabras, sin errores)
 - [ ] Revisión independiente de las 54 fichas por otro modelo que no las haya escrito (Sonnet,
   esfuerzo medio): frases que un niño de 6 años no entienda, no-ejemplos dudosos, gestos que se
-  confundan entre semanas. Solo propone; los cambios los aprueba Iván.
-- [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`
-- [ ] Paquete de 2.º: **Iván revisa la lista borrador** (`docs/lista-2-borrador.md`, propuesta de Fable
-  del 13-11-2026, sin fichas escritas)
-- [ ] Paquete de 2.º: contenido de las 60 palabras y tarea `familia` (`relaciona` ya está diseñada: ver arriba)
+  confundan entre semanas (punto 16). Incluye `amable`, que escribió Sonnet. Solo propone; los
+  cambios los aprueba Iván.
+- [ ] Campo `pregunta` (punto 3): escribir las preguntas en las fichas que lo necesitan (Fable u Opus,
+  esfuerzo medio) y programarlo en `ejemplo`, comprobador y test (Sonnet, esfuerzo medio)
+- [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus
+  imágenes (peticiones 2 a 10): Iván las enviará más adelante
+- [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
+- [ ] Paquete de 2.º, diseño (Fable u Opus, esfuerzo alto): tarea `familia` y cómo se guarda la «pieza
+  de la semana» en los datos. Plan corto y esperar el sí de Iván
+- [ ] Paquete de 2.º, contenido: las 60 fichas (`docs/2-semana-NN.md` o como se decida en el diseño) y
+  sus peticiones de imágenes (Fable u Opus, esfuerzo alto; de dos en dos semanas)
 
 ## Fase 5 · Aula · Sonnet, esfuerzo medio
 - [x] **Diseño** (14-11-2026, Fable, esfuerzo medio; sin programar nada): `docs/aula.md` (reglas MU,

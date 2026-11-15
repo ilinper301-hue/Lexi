@@ -93,7 +93,7 @@ que sale en pantalla.
 - **L6 · Acaba usando la palabra.** La respuesta pide siempre una frase con la palabra. Es lo que
   la hace tarea de usar y no una adivinanza.
 - **L7 · «También vale».** Si otra palabra ya presentada tiene la misma pregunta («lo contrario de
-  *igual*»: diferente y distinto; «lo contrario de *resistente*»: frágil y delicado), la respuesta
+  *resistente*»: frágil y delicado), la respuesta
   lo dice: «También vale: …». El docente da por buenas las dos.
 - **L8 · Cuándo sale.** Como las demás tareas de usar: con la palabra en «La entendemos» o «La
   usamos» (regla T1). No hace falta ninguna regla nueva. Propuesta: **ya en 1.º**, no esperar a 2.º
@@ -124,7 +124,7 @@ Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; 
 | 3 | elegir | escoger | — | |
 | 3 | clasificar | agrupar · separar por grupos | — | ↷ mezclar (es de `ordenar`) |
 | 3 | parecido | ✎ casi igual | diferente\* | ↷ semejante |
-| 3 | diferente | distinto\* | igual · parecido\* | |
+| 3 | diferente | distinto | igual · parecido\* | |
 | 3 | sorprendido | ✎ que no se lo esperaba | — | ↷ asombrado |
 | 4 | rodear | encerrar en un círculo | — | |
 | 4 | unir | juntar | separar | ↷ conectar |
@@ -160,7 +160,7 @@ Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; 
 | 9 | colaborar | trabajar en equipo | — | ↷ cooperar |
 | 9 | respetar | tratar bien | molestar | ↷ cumplir, faltar al respeto |
 | 9 | cuidadoso | atento | — | ↷ descuidado |
-| 9 | distinto | diferente\* | igual · mismo | |
+| 9 | amable | cariñoso · educado | antipático | |
 | 9 | paciente | ✎ que sabe esperar | — | ↷ tranquilo, calmado (son de `tranquilo`), impaciente |
 | 10 | ser vivo | — | — | ↷ cosa sin vida |
 | 10 | alimento | comida | — | |
@@ -173,9 +173,8 @@ Resumen: 8 textos nuevos (✎), 39 palabras o expresiones que pasan a `rel.mas`,
 paquete cambia. Si Iván no quiere los ✎, se quedan sin `relaciona` explicar, sorprendido, pista,
 paciente y paisaje (51 de 60 en vez de 56).
 
-Se nota aquí lo que ya decía `ESTADO.md` (puntos 1 y 2): `distinto` repite las preguntas de
-`diferente`, y `delicado` casi las de `frágil`. La regla L7 lo resuelve en pantalla, pero es otro
-motivo para decidir esos dos puntos.
+El 15-11-2026 Iván cambió `distinto` por `amable` (semana 9) y mantuvo `delicado`, que casi repite
+las preguntas de `frágil`: la regla L7 lo resuelve en pantalla.
 
 ## 5. Gestos que se parecen entre semanas *(decidir, punto 16)*
 
@@ -230,7 +229,7 @@ una palabra de cada pareja. Mientras tanto, esta lista se guarda como dato para 
 69. Orden de preguntas de `enorme`: gigante, diminuto, muy grande; si `diminuto` no está presentada: gigante, muy grande (L4).
 70. Nunca la misma pregunta dos veces seguidas si la palabra tiene más de una (L4, T7).
 71. Antes de «Ver la respuesta» el HTML no contiene la palabra ni su imagen; con «Una pista», la imagen sí (L5).
-72. «Lo contrario de igual» con `diferente` y `distinto` presentadas: la respuesta añade «También vale» (L7).
+72. «Lo contrario de resistente» con `frágil` y `delicado` presentadas: la respuesta añade «También vale» (L7).
 73. Ningún elemento de `rel.mas` sale nunca como pregunta (L2).
 74. `relaciona` cuenta como tarea de usar para E3, E5 y E8, y `gesto` como tarea de entender (G9, L9).
 75. Contenido: ningún gesto contiene su palabra; ningún elemento de `parecida` o `contraria` comparte las 5 primeras letras con su palabra.

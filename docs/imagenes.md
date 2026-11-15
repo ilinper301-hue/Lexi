@@ -117,7 +117,7 @@ lista, Iván las envía por el chat y Claude las convierte y las sube al reposit
 | `colaborar` | Cuatro niños y niñas levantando juntos una mesa grande, cada uno por una esquina. |
 | `respetar` | Varios niños haciendo cola en un columpio; un niño se coloca tranquilamente al final de la fila. |
 | `cuidadoso` | Una niña caminando despacio con un vaso lleno de agua entre las dos manos, sin dejar de mirarlo. |
-| `distinto` | Un niño con el pelo recién cortado, muy corto, riéndose; su perro lo mira extrañado, con la cabeza ladeada. |
+| `amable` | Una niña sonriendo y acercándose a un niño nuevo, con la mochila a la espalda y cara de vergüenza; la niña le ofrece la mano con un gesto simpático. Al fondo, otros niños jugando en el patio. |
 | `paciente` | Una niña sentada con su abuelo a la orilla de un lago, con la caña de pescar, quieta y tranquila. |
 
 ## Petición 10 · semana 10

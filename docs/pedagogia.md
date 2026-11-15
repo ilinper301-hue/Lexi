@@ -184,7 +184,8 @@ PALABRA({
 - **`id`**: sin tildes ni ñ y con guion si son dos palabras (`senalar`, `aspero`, `ser-vivo`).
 - **`bloque`**: `pensar`, `como-son`, `sentir`, `convivir` (desde la semana 5) y `medio` (semana 10).
   Sirve para agrupar las palabras en «Explorar»; no cambia la sesión.
-- **`ejemplos` según el tipo** (pendiente de decidir cómo se programa, ver `ESTADO.md`): en los
+- **`ejemplos` según el tipo** (aprobado el 15-11-2026: campo opcional `pregunta` en la ficha; si
+  falta, se usa la pregunta de siempre. Pendiente de programar, ver `ESTADO.md`): en los
   `enlace` y en algunas cualidades los ejemplos son situaciones o parejas, y en los `nombre` la pregunta
   necesita artículo. Cada `docs/semana-NN.md` lo explica en sus notas.
 
@@ -217,7 +218,7 @@ de Iván** (ver `ESTADO.md`, fase 4).
 | 6 | imaginar, recordar, preguntar | brillante, oscuro | orgulloso |
 | 7 | repetir, cambiar, comprobar | necesario, sencillo | tranquilo |
 | 8 | problema, solución, pista | resistente, delicado | nervioso |
-| 9 | compartir, colaborar, respetar | cuidadoso, distinto | paciente |
+| 9 | compartir, colaborar, respetar | cuidadoso, amable | paciente |
 | 10 | ser vivo, alimento, paisaje | crecer, necesitar | estación |
 
 ## 9. Para más adelante
