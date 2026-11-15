@@ -131,13 +131,41 @@ lista, Iván las envía por el chat y Claude las convierte y las sube al reposit
 | `necesitar` | Un niño regando una planta de hojas caídas en una maceta con la tierra seca. |
 | `estacion` | Una niña mirando un árbol de su calle con las hojas amarillas, que caen. |
 
-## Peticiones siguientes
+## Paquete de 2.º
 
-Se añaden aquí, una tabla por semana, cuando se escriba su contenido (paquete de 2.º).
+Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
+
+### Petición 11 · 2.º, semana 1
+
+| id | Qué debe verse |
+|---|---|
+| `subrayar` | Primer plano de un cuaderno con renglones de garabatos (sin letras que se puedan leer) y la mano de una niña que, con regla y lápiz, traza una raya debajo de uno de los renglones. |
+| `indicar` | Un niño en la calle hablando con una señora mayor; con el brazo estirado y la mano abierta le muestra por dónde ir. Al fondo, una esquina. Sin carteles con letras. |
+| `resolver` | Un niño sentado a su mesa, contento, con el lápiz en alto; en el cuaderno hay nueve manzanas dibujadas. Sin números ni letras. |
+| `ancho` | Seis niños y niñas caminando uno al lado del otro por un paseo muy amplio junto a un río; sobra sitio a los lados. Uno de ellos, con jersey rojo, lleva los brazos abiertos. |
+| `estrecho` | **Los mismos niños** de `ancho`, ahora en fila de uno por un callejón de pueblo con paredes blancas; el niño del jersey rojo toca las dos paredes con las manos. |
+| `preocupado` | Un niño mirando por la ventana con cara de preocupación; fuera llueve mucho. A su lado, una mochila de excursión preparada. |
+
+### Petición 12 · 2.º, semana 2
+
+| id | Qué debe verse |
+|---|---|
+| `medir` | Un niño muy recto, de espaldas a la pared, con un libro sobre la cabeza; su padre estira una cinta métrica desde el suelo. Sin números que se puedan leer. |
+| `calcular` | Una niña en un puesto de libros con dos cuentos en una mano (portadas sin letras) y unas monedas en la otra; mira hacia arriba, pensando. |
+| `estimar` | Un niño mirando muy de cerca, con un ojo guiñado, un bote grande de cristal lleno de canicas y cerrado con su tapa. |
+| `exacto` | Una niña con muchos cromos de animales puestos en una fila larga sobre la mesa, tocándolos uno a uno con el dedo. Cromos sin letras ni números. |
+| `aproximado` | Un niño hablando con su madre en la puerta de casa, con la mano abierta en el gesto de «más o menos»; sobre él, una nube de pensamiento con un grupo de niños en una fiesta, algo difuminado. |
+| `aliviado` | **El mismo niño y la misma ventana** de `preocupado`: ha dejado de llover y sale el sol; el niño sonríe y suelta el aire, con la mochila ya puesta. |
+
+### Peticiones siguientes
+
+Se añaden aquí, una tabla por semana, cuando se escriba su contenido (semanas 3 a 10 de 2.º).
 
 ## Avisos para todas
 
-- Las nubes de pensamiento (`describir`, `imaginar`, `recordar`) y los bocadillos (`repetir`) van
-  **sin letras**, solo con dibujo.
+- Las nubes de pensamiento (`describir`, `imaginar`, `recordar`, `aproximado`) y los bocadillos
+  (`repetir`) van **sin letras**, solo con dibujo.
+- Parejas que comparten historia y deben mostrar a los mismos niños: `problema`-`solucion`,
+  `ancho`-`estrecho` y `preocupado`-`aliviado`.
 - Si la otra IA mete texto o números en la imagen, mejor repetirla que arreglarla.
 - Si Iván cambia alguna palabra de la lista, se cambia también su fila aquí.
