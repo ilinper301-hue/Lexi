@@ -157,15 +157,37 @@ Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
 | `aproximado` | Un niño hablando con su madre en la puerta de casa, con la mano abierta en el gesto de «más o menos»; sobre él, una nube de pensamiento con un grupo de niños en una fiesta, algo difuminado. |
 | `aliviado` | **El mismo niño y la misma ventana** de `preocupado`: ha dejado de llover y sale el sol; el niño sonríe y suelta el aire, con la mochila ya puesta. |
 
+### Petición 13 · 2.º, semana 3
+
+| id | Qué debe verse |
+|---|---|
+| `relacionar` | Primer plano de una ficha con tres animales a la izquierda (conejo, mono y ratón) y tres comidas a la derecha (zanahoria, plátano y queso); la mano de una niña traza con lápiz una flecha del conejo a la zanahoria. Sin letras. |
+| `sustituir` | En un campo de fútbol infantil, una niña cansada sale hacia el banquillo y choca la mano con un niño que entra a jugar; el entrenador, al lado. Camisetas sin números ni letras. |
+| `inventar` | Una niña en su mesa enseñando, orgullosa, un sujetalápices hecho con cartón doblado y una goma elástica, con varios lápices bien sujetos. |
+| `flexible` | Un niño doblando en arco una regla de goma de color, hasta que casi se tocan las puntas. Sin números. |
+| `rigido` | **El mismo niño** de `flexible` intentando doblar una regla de madera que no cede; su hermana mayor, al lado, le hace un gesto de «cuidado». Sin números. |
+| `generoso` | Una niña con una caja de rotuladores nuevos abierta, ofreciéndosela a un niño que no tiene ninguno; los dos sonríen. Al fondo, un mural a medio hacer. |
+
+### Petición 14 · 2.º, semana 4
+
+| id | Qué debe verse |
+|---|---|
+| `investigar` | Una niña mirando muy de cerca una planta de hojas amarillas en una maceta; a su lado, un libro de plantas abierto y una libreta. Sin letras que se puedan leer. |
+| `anotar` | Una niña en su pupitre escribiendo en una agenda abierta; al fondo, la maestra hablando a la clase. Sin letras que se puedan leer. |
+| `consultar` | Un niño con un diccionario grande abierto sobre la mesa, siguiendo un renglón con el dedo; al lado, su cuaderno y un lápiz. Sin letras que se puedan leer. |
+| `transparente` | Una niña sosteniendo un bote de cristal en el que se ven conchas, canicas y un botón dorado. |
+| `opaco` | **La misma niña** de `transparente` girando entre las manos una lata metálica cerrada, con cara de intriga, sin poder ver lo de dentro; su hermano pequeño, al lado. |
+| `avergonzado` | Un niño en el comedor del colegio, con las mejillas rojas y la mirada baja, junto a una bandeja caída en el suelo; otros niños lo miran sin burlarse. |
+
 ### Peticiones siguientes
 
-Se añaden aquí, una tabla por semana, cuando se escriba su contenido (semanas 3 a 10 de 2.º).
+Se añaden aquí, una tabla por semana, cuando se escriba su contenido (semanas 5 a 10 de 2.º).
 
 ## Avisos para todas
 
 - Las nubes de pensamiento (`describir`, `imaginar`, `recordar`, `aproximado`) y los bocadillos
   (`repetir`) van **sin letras**, solo con dibujo.
 - Parejas que comparten historia y deben mostrar a los mismos niños: `problema`-`solucion`,
-  `ancho`-`estrecho` y `preocupado`-`aliviado`.
+  `ancho`-`estrecho`, `preocupado`-`aliviado`, `flexible`-`rigido` y `transparente`-`opaco`.
 - Si la otra IA mete texto o números en la imagen, mejor repetirla que arreglarla.
 - Si Iván cambia alguna palabra de la lista, se cambia también su fila aquí.
