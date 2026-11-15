@@ -32,7 +32,7 @@ PALABRA({
   ],
   acaba: ['Imagino que puedo volar y entonces…', 'Cuando cierro los ojos, me gusta imaginar…'],
   habla: 'Imagina un animal que no existe. Descríbeselo a tu compañero.',
-  rel: { parecida: ['inventar', 'fantasear'], contraria: [], familia: ['imaginación', 'imaginario'] }
+  rel: { parecida: ['inventar'], contraria: [], familia: ['imaginación', 'imaginario'], mas: ['fantasear'] }
 });
 
 PALABRA({
@@ -125,7 +125,7 @@ PALABRA({
   ],
   acaba: ['Vi algo brillante en el suelo y era…', 'De noche, lo más brillante del cielo es…'],
   habla: '¿Qué cosas brillantes hay en tu casa? Dile tres a tu compañero.',
-  rel: { parecida: ['reluciente', 'luminoso'], contraria: ['apagado', 'oscuro'], familia: ['brillo', 'brillar'] }
+  rel: { parecida: [], contraria: ['apagado', 'oscuro'], familia: ['brillo', 'brillar'], mas: ['reluciente', 'luminoso'] }
 });
 
 PALABRA({
@@ -156,7 +156,7 @@ PALABRA({
   ],
   acaba: ['Cuando mi cuarto está oscuro, yo…', 'Para ver en un sitio oscuro necesito…'],
   habla: '¿Qué sitios oscuros conoces? ¿Qué haces para ver en ellos?',
-  rel: { parecida: ['sin luz'], contraria: ['claro', 'luminoso', 'brillante'], familia: ['oscuridad', 'oscurecer'] }
+  rel: { parecida: ['sin luz'], contraria: ['claro', 'brillante'], familia: ['oscuridad', 'oscurecer'], mas: ['luminoso'] }
 });
 
 PALABRA({
@@ -187,7 +187,7 @@ PALABRA({
   ],
   acaba: ['Estoy orgulloso de mí cuando…', 'Mi familia se sintió orgullosa cuando yo…'],
   habla: '¿De qué estás orgulloso este curso? Cuéntaselo a tu compañero.',
-  rel: { parecida: ['satisfecho', 'contento de sí mismo'], contraria: ['avergonzado'], familia: ['orgullo'] }
+  rel: { parecida: ['contento de sí mismo'], contraria: [], familia: ['orgullo'], mas: ['satisfecho', 'avergonzado'] }
 });
 ```
 

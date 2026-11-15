@@ -34,7 +34,7 @@ PALABRA({
   ],
   acaba: ['Un problema que tuve fue…', 'Cuando tengo un problema, primero…'],
   habla: 'Cuenta un problema pequeño que tuviste y cómo lo arreglaste.',
-  rel: { parecida: ['dificultad', 'lío'], contraria: ['solución'], familia: [] }
+  rel: { parecida: ['lío'], contraria: ['solución'], familia: [], mas: ['dificultad'] }
 });
 
 PALABRA({
@@ -65,7 +65,7 @@ PALABRA({
   ],
   acaba: ['Si se me olvida el bocadillo, una solución es…', 'Para encontrar la solución de un problema de mates, yo…'],
   habla: 'Dos amigos quieren jugar a cosas distintas. Buscad juntos una solución.',
-  rel: { parecida: ['respuesta', 'arreglo'], contraria: ['problema'], familia: ['solucionar'] }
+  rel: { parecida: ['arreglo', 'respuesta'], contraria: ['problema'], familia: ['solucionar'] }
 });
 
 PALABRA({
@@ -96,7 +96,7 @@ PALABRA({
   ],
   acaba: ['Te doy una pista de mi animal favorito: …', 'Vi unas migas en el suelo; esa pista me dice que…'],
   habla: 'Piensa en un animal y dale tres pistas a tu compañero para que lo adivine.',
-  rel: { parecida: ['señal', 'ayuda'], contraria: [], familia: ['despistar', 'despistado'] }
+  rel: { parecida: ['una ayuda para adivinar'], contraria: [], familia: ['despistar', 'despistado'], mas: ['señal', 'ayuda'] }
 });
 
 PALABRA({
@@ -158,7 +158,7 @@ PALABRA({
   ],
   acaba: ['Hay que tocar con cuidado las cosas delicadas porque…', 'Algo delicado que conozco es…'],
   habla: '¿Qué cosa delicada has tenido en las manos? ¿Cómo la cogiste?',
-  rel: { parecida: ['fino', 'frágil'], contraria: ['resistente', 'fuerte'], familia: ['delicadeza'] }
+  rel: { parecida: ['frágil'], contraria: ['resistente', 'fuerte'], familia: ['delicadeza'], mas: ['fino'] }
 });
 
 PALABRA({
@@ -189,7 +189,7 @@ PALABRA({
   ],
   acaba: ['Me pongo nervioso cuando…', 'Si estoy nervioso, me ayuda…'],
   habla: '¿Cuándo te pones nervioso? ¿Qué haces para calmarte?',
-  rel: { parecida: ['inquieto', 'intranquilo'], contraria: ['tranquilo', 'calmado'], familia: ['nervios', 'nerviosismo'] }
+  rel: { parecida: ['inquieto'], contraria: ['tranquilo', 'calmado'], familia: ['nervios', 'nerviosismo'], mas: ['intranquilo'] }
 });
 ```
 

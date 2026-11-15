@@ -45,5 +45,19 @@ mala.ejemplos = mala.ejemplos.slice(0, 4); mala.silabas = ['no'];
 const errs = []; revisa(mala, 1, new Set(), t => errs.push(t));
 ok(errs.length >= 2, 'el comprobador no detecta una ficha rota');
 
+// 5. Test 75: ningún gesto nombra su palabra; nada de parecida o contraria es de su familia; rel.mas bien formado
+const base = () => JSON.parse(JSON.stringify(Object.values(porSemana)[0].find(p => p.id === 'ordenar')));
+const falla = (cambia, trozo, msg) => {
+  const p = base(); cambia(p); const er = []; revisa(p, 1, new Set(), t => er.push(t));
+  ok(er.some(t => t.includes(trozo)), msg);
+};
+{ const er = []; revisa(base(), 1, new Set(), t => er.push(t)); ok(er.length === 0, 'ordenar debería pasar sin errores: ' + er.join(' | ')); }
+ok(base().rel.mas.includes('desordenar') && !base().rel.contraria.includes('desordenar'), 'ordenar: «desordenar» debe estar en rel.mas y no en contraria');
+falla(p => { p.gesto = 'Haz como que ordenas la mesa.'; }, 'el gesto nombra', 'test 75: no detecta un gesto que nombra la palabra');
+falla(p => { p.rel.parecida.push('ordenado'); }, 'misma familia', 'test 75: no detecta una parecida de la misma familia');
+falla(p => { p.rel.parecida.push('mezclar'); }, 'parecida y contraria', 'no detecta la misma palabra en parecida y contraria');
+falla(p => { p.rel.mas = []; }, 'rel.mas', 'no detecta un rel.mas vacío');
+falla(p => { p.rel.mas.push('colocar'); }, 'también en rel.mas', 'no detecta una palabra repetida en rel.mas');
+
 console.log(`${hechas} comprobaciones, ${fallos.length} fallos`);
 if (fallos.length) { console.log(fallos.join('\n')); process.exit(1); }

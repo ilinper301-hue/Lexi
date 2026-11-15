@@ -177,11 +177,14 @@ PALABRA({
   ejemplos: [{ t: '…', ok: true }],            // 6: tres sí y tres no
   acaba: ['…', '…'],
   habla: '…',
-  rel: { parecida: [], contraria: [], familia: [] }
+  rel: { parecida: [], contraria: [], familia: [], mas: [] }   // `mas` es opcional
 });
 ```
 
 - **`id`**: sin tildes ni ñ y con guion si son dos palabras (`senalar`, `aspero`, `ser-vivo`).
+- **`rel`**: `parecida` y `contraria` son las preguntas de la tarea `relaciona`. `mas` (opcional) guarda
+  las palabras relacionadas que no se preguntan (más difíciles o de la misma familia); solo las ve el
+  docente en la ficha. Detalle en `docs/tareas-gesto-relaciona.md`.
 - **`bloque`**: `pensar`, `como-son`, `sentir`, `convivir` (desde la semana 5) y `medio` (semana 10).
   Sirve para agrupar las palabras en «Explorar»; no cambia la sesión.
 - **`ejemplos` según el tipo** (aprobado el 15-11-2026: campo opcional `pregunta` en la ficha; si
@@ -199,6 +202,11 @@ PALABRA({
 - **No-ejemplos cercanos:** mejor «contar cuántos hay» que «cantar una canción» para *comparar*.
 - **Acaba la frase:** el final tiene que demostrar que se ha entendido.
 - **Gesto:** un solo movimiento, que se pueda hacer sentado. Sin repetir gestos entre palabras de la misma semana.
+- **El gesto no nombra la palabra** ni ninguna de su familia, porque en «¿Qué palabra es?» se ve en la pizarra.
+- **`rel.parecida` y `rel.contraria`:** solo palabras de todos los días o palabras del paquete. Nunca
+  una palabra de la misma familia que la que se enseña. Las demás, a `rel.mas`.
+- **Una pregunta, una respuesta:** dos palabras del paquete no comparten la misma pregunta de
+  `relaciona`, salvo que de verdad signifiquen casi lo mismo (la app avisa con «También vale»).
 - Español de España, frases de 1.º, nombres variados, sin marcas ni personajes conocidos.
 - Cada imagen se pide a Iván según `docs/imagenes.md`.
 

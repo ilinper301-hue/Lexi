@@ -26,5 +26,5 @@ PALABRA({
   ],
   acaba: ['Para ordenar estos números de menor a mayor, empiezo por…', 'Si ordeno a mi familia del más joven al más mayor, primero va…'],
   habla: '¿Cómo ordenarías tus juguetes: por tamaño, por color…? Cuéntaselo a tu compañero.',
-  rel: { parecida: ['colocar'], contraria: ['desordenar', 'mezclar'], familia: ['orden', 'ordenado', 'desordenar'] }
+  rel: { parecida: ['colocar'], contraria: ['mezclar'], familia: ['orden', 'ordenado', 'desordenar'], mas: ['desordenar'] }
 });

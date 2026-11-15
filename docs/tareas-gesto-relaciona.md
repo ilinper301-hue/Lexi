@@ -103,6 +103,8 @@ que sale en pantalla.
 
 ## 4. Preguntas de `relaciona` para las 60 palabras *(decidir, punto 15)*
 
+**Aplicada a las 60 fichas el 15-11-2026** (paso G.1): las fichas de `docs/semana-NN.md` ya están así.
+
 Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; no se pierde).
 **✎** texto nuevo que propongo. **\*** palabra del paquete: solo vale cuando esté presentada.
 

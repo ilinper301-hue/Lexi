@@ -35,7 +35,7 @@ PALABRA({
   ],
   acaba: ['Sé que un perro es un ser vivo porque…', 'Una piedra no es un ser vivo porque…'],
   habla: 'Di tres seres vivos que hayas visto hoy. Tu compañero dice otros tres.',
-  rel: { parecida: [], contraria: ['cosa sin vida'], familia: ['vida', 'vivir'] }
+  rel: { parecida: [], contraria: [], familia: ['vida', 'vivir'], mas: ['cosa sin vida'] }
 });
 
 PALABRA({
@@ -97,7 +97,7 @@ PALABRA({
   ],
   acaba: ['Desde mi ventana, el paisaje tiene…', 'El paisaje que más me gusta es… porque…'],
   habla: 'Describe a tu compañero un paisaje que te guste. ¿Qué se ve?',
-  rel: { parecida: ['vista'], contraria: [], familia: [] }
+  rel: { parecida: ['lo que ves a lo lejos'], contraria: [], familia: [], mas: ['vista'] }
 });
 
 PALABRA({
@@ -128,7 +128,7 @@ PALABRA({
   ],
   acaba: ['Sé que he crecido porque…', 'Para crecer, una planta necesita…'],
   habla: '¿En qué notas que has crecido desde el curso pasado?',
-  rel: { parecida: ['hacerse mayor', 'aumentar'], contraria: ['encoger'], familia: ['crecimiento', 'crecido'] }
+  rel: { parecida: ['hacerse mayor'], contraria: ['encoger'], familia: ['crecimiento', 'crecido'], mas: ['aumentar'] }
 });
 
 PALABRA({

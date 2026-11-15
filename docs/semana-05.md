@@ -159,7 +159,7 @@ PALABRA({
   ],
   acaba: ['Un invento moderno que uso es…', 'Los coches modernos no son como los antiguos porque…'],
   habla: '¿Qué cosa moderna hay en tu casa que tus abuelos no tenían de pequeños?',
-  rel: { parecida: ['actual', 'nuevo'], contraria: ['antiguo'], familia: ['modernizar'] }
+  rel: { parecida: ['nuevo'], contraria: ['antiguo'], familia: ['modernizar'], mas: ['actual'] }
 });
 
 PALABRA({

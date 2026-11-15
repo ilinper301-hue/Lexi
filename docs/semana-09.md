@@ -32,7 +32,7 @@ PALABRA({
   ],
   acaba: ['Me gusta compartir… con…', 'Cuando alguien comparte conmigo, yo me siento…'],
   habla: '¿Qué te gusta compartir y qué te cuesta más compartir?',
-  rel: { parecida: ['repartir', 'dar una parte'], contraria: ['guardarse'], familia: ['parte'] }
+  rel: { parecida: ['repartir', 'dar una parte'], contraria: ['quedárselo todo'], familia: ['parte'], mas: ['guardarse'] }
 });
 
 PALABRA({
@@ -63,7 +63,7 @@ PALABRA({
   ],
   acaba: ['En mi casa colaboro cuando…', 'Colaborando es más fácil… porque…'],
   habla: '¿En qué has colaborado esta semana, en casa o en el cole?',
-  rel: { parecida: ['cooperar', 'trabajar en equipo'], contraria: [], familia: ['colaboración', 'colaborador'] }
+  rel: { parecida: ['trabajar en equipo'], contraria: [], familia: ['colaboración', 'colaborador'], mas: ['cooperar'] }
 });
 
 PALABRA({
@@ -94,7 +94,7 @@ PALABRA({
   ],
   acaba: ['Respeto a mis compañeros cuando…', 'Hay que respetar las normas del patio porque…'],
   habla: '¿Qué norma de la clase te parece más importante respetar? ¿Por qué?',
-  rel: { parecida: ['tratar bien', 'cumplir'], contraria: ['molestar', 'faltar al respeto'], familia: ['respeto', 'respetuoso'] }
+  rel: { parecida: ['tratar bien'], contraria: ['molestar'], familia: ['respeto', 'respetuoso'], mas: ['cumplir', 'faltar al respeto'] }
 });
 
 PALABRA({
@@ -125,7 +125,7 @@ PALABRA({
   ],
   acaba: ['Soy cuidadoso cuando…', 'Con las cosas frágiles hay que ser cuidadoso porque…'],
   habla: '¿Con qué cosas eres muy cuidadoso? ¿Por qué?',
-  rel: { parecida: ['atento'], contraria: ['descuidado'], familia: ['cuidado', 'cuidar'] }
+  rel: { parecida: ['atento'], contraria: [], familia: ['cuidado', 'cuidar'], mas: ['descuidado'] }
 });
 
 PALABRA({
@@ -187,7 +187,7 @@ PALABRA({
   ],
   acaba: ['Tengo que ser paciente cuando…', 'Para aprender a leer hay que ser paciente porque…'],
   habla: '¿Qué es lo que más te cuesta esperar? ¿Qué haces mientras esperas?',
-  rel: { parecida: ['tranquilo', 'calmado'], contraria: ['impaciente'], familia: ['paciencia', 'impaciente'] }
+  rel: { parecida: ['que sabe esperar'], contraria: [], familia: ['paciencia', 'impaciente'], mas: ['tranquilo', 'calmado', 'impaciente'] }
 });
 ```
 

@@ -4,7 +4,7 @@ const path = require('path');
 const dir = process.argv[2];
 const errores = [];
 const todas = [];
-const { revisa } = require('./reglas-ficha.js');
+const { revisa, preguntasRepetidas } = require('./reglas-ficha.js');
 
 for (const f of fs.readdirSync(dir).filter(f => /^semana-\d+\.md$/.test(f)).sort()) {
   const md = fs.readFileSync(path.join(dir, f), 'utf8');
@@ -26,6 +26,8 @@ const ids = todas.map(p => p.id);
 ids.forEach((id, i) => { if (ids.indexOf(id) !== i) errores.push('id repetido: ' + id); });
 console.log(todas.length + ' palabras leídas');
 console.log(errores.length ? errores.join('\n') : 'Sin errores');
+const avisos = preguntasRepetidas(todas);
+if (avisos.length) console.log('Avisos (misma pregunta de «relaciona» en dos palabras; la app dirá «También vale»):\n' + avisos.join('\n'));
 if (process.argv[3] === 'lista') {
   const porSem = {};
   todas.forEach(p => (porSem[p.semana] = porSem[p.semana] || []).push(p.palabra));

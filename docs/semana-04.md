@@ -63,7 +63,7 @@ PALABRA({
   ],
   acaba: ['Para unir dos trozos de papel puedo usar…', 'Si uno el perro con lo que come, lo uno con…'],
   habla: '¿Qué cosas se pueden unir con pegamento? ¿Y con una cuerda? Pensadlo juntos.',
-  rel: { parecida: ['juntar', 'conectar'], contraria: ['separar'], familia: ['unión', 'unido'] }
+  rel: { parecida: ['juntar'], contraria: ['separar'], familia: ['unión', 'unido'], mas: ['conectar'] }
 });
 
 PALABRA({
@@ -94,7 +94,7 @@ PALABRA({
   ],
   acaba: ['Un día descubrí que…', 'Si miro debajo de una piedra, puedo descubrir…'],
   habla: '¿Qué has descubierto este curso que antes no sabías?',
-  rel: { parecida: ['encontrar', 'averiguar'], contraria: ['esconder'], familia: ['descubrimiento'] }
+  rel: { parecida: ['encontrar'], contraria: ['esconder'], familia: ['descubrimiento'], mas: ['averiguar'] }
 });
 
 PALABRA({
@@ -156,7 +156,7 @@ PALABRA({
   ],
   acaba: ['Toqué algo áspero y noté que…', 'Una cosa áspera que conozco es…'],
   habla: '¿Qué prefieres tocar: algo suave o algo áspero? ¿Por qué?',
-  rel: { parecida: ['rasposo', 'rugoso'], contraria: ['suave', 'liso'], familia: ['aspereza'] }
+  rel: { parecida: ['que raspa'], contraria: ['suave', 'liso'], familia: ['aspereza'], mas: ['rasposo', 'rugoso'] }
 });
 
 PALABRA({
@@ -187,7 +187,7 @@ PALABRA({
   ],
   acaba: ['Me quedé agotado después de…', 'Cuando estoy agotado, lo que necesito es…'],
   habla: '¿Cuándo fue la última vez que acabaste agotado? ¿Qué habías hecho?',
-  rel: { parecida: ['muy cansado', 'rendido'], contraria: ['descansado'], familia: ['agotar', 'agotador'] }
+  rel: { parecida: ['muy cansado'], contraria: ['descansado'], familia: ['agotar', 'agotador'], mas: ['rendido'] }
 });
 ```
 

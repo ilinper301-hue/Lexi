@@ -32,7 +32,7 @@ PALABRA({
   ],
   acaba: ['Te explico cómo se juega al pilla-pilla: primero…', 'Cuando no entiendo algo, pido que me lo expliquen porque…'],
   habla: 'Explica a tu compañero cómo te lavas los dientes, paso a paso.',
-  rel: { parecida: ['aclarar'], contraria: [], familia: ['explicación'] }
+  rel: { parecida: ['contar para que se entienda'], contraria: [], familia: ['explicación'], mas: ['aclarar'] }
 });
 
 PALABRA({
@@ -94,7 +94,7 @@ PALABRA({
   ],
   acaba: ['Puedo clasificar mis juguetes por…', 'Si clasifico los animales por dónde viven, el pez va con…'],
   habla: '¿Cómo clasificarías lo que hay en tu estuche? Cuéntaselo a tu compañero.',
-  rel: { parecida: ['agrupar', 'separar por grupos'], contraria: ['mezclar'], familia: ['clasificación', 'clase'] }
+  rel: { parecida: ['agrupar', 'separar por grupos'], contraria: [], familia: ['clasificación', 'clase'], mas: ['mezclar'] }
 });
 
 PALABRA({
@@ -125,7 +125,7 @@ PALABRA({
   ],
   acaba: ['Mi mochila es parecida a la de… porque las dos…', 'Un caballo y una cebra son parecidos porque…'],
   habla: '¿A quién de tu familia te pareces? ¿En qué?',
-  rel: { parecida: ['semejante'], contraria: ['diferente'], familia: ['parecerse'] }
+  rel: { parecida: ['casi igual'], contraria: ['diferente'], familia: ['parecerse'], mas: ['semejante'] }
 });
 
 PALABRA({
@@ -187,7 +187,7 @@ PALABRA({
   ],
   acaba: ['Me quedé sorprendido cuando…', 'Mi madre se quedaría sorprendida si yo…'],
   habla: '¿Qué es lo último que te ha sorprendido? Cuéntaselo a tu compañero.',
-  rel: { parecida: ['asombrado'], contraria: [], familia: ['sorpresa', 'sorprender'] }
+  rel: { parecida: ['que no se lo esperaba'], contraria: [], familia: ['sorpresa', 'sorprender'], mas: ['asombrado'] }
 });
 ```
 

@@ -148,8 +148,14 @@ Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segund
   (pantallas, reglas G1-G9 y L1-L10, tabla de preguntas de las 60 palabras, tests 58-75). La tabla se
   comprobó contra las 60 fichas: no se pierde ninguna palabra relacionada.
 - [x] Iván aprueba los puntos 13 a 17 (15-11-2026)
-- [ ] G.1 Fichas: campo `rel.mas`, mover lo marcado con ↷ y añadir los 8 textos nuevos, en
-  `docs/semana-NN.md` y en `src/js/palabras/`. Comprobador y test 75
+- [x] G.1 Fichas (15-11-2026): campo opcional `rel.mas` en las 60 fichas de `docs/semana-NN.md` y en
+  `src/js/palabras/` (39 palabras movidas, 8 textos nuevos, ninguna relacionada perdida; el orden de
+  `parecida` y `contraria` es el de la tabla). Comprobador (`tools/reglas-ficha.js`): el gesto no
+  nombra la palabra, nada de `parecida`/`contraria` empieza como la palabra, `rel.mas` bien formado;
+  `validar-docs.js` avisa de preguntas repetidas (solo «lo contrario de resistente»: frágil y
+  delicado, regla L7). Test 75 en `tests/test_contenido.js` (47 comprobaciones). Normas añadidas a
+  `docs/pedagogia.md` (apartados 6 y 7). Nada cambia en pantalla todavía. **Para la revisión de la
+  Fase 4:** «al final» es pregunta de `finalmente` y casi dice la respuesta; valorar si pasa a `rel.mas`
 - [ ] G.2 Tarea `gesto` con sus dos formas (tests 58-64 y 66). No depende de la Fase 3
 - [ ] G.3 Tarea `relaciona` (tests 67-74). Después del paso 3.2 de la Fase 3
 - [ ] G.4 Regla G8 dentro del paso 3.1 de la Fase 3 (test 65)

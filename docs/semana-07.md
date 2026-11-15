@@ -125,7 +125,7 @@ PALABRA({
   ],
   acaba: ['Para dibujar es necesario…', 'Dormir es necesario porque…'],
   habla: '¿Qué cosas son necesarias para ir de excursión? Pensad tres.',
-  rel: { parecida: ['imprescindible', 'que hace falta'], contraria: ['innecesario'], familia: ['necesitar', 'necesidad'] }
+  rel: { parecida: ['que hace falta'], contraria: [], familia: ['necesitar', 'necesidad'], mas: ['imprescindible', 'innecesario'] }
 });
 
 PALABRA({
@@ -156,7 +156,7 @@ PALABRA({
   ],
   acaba: ['Para mí es sencillo…', 'Antes me costaba y ahora me parece sencillo…'],
   habla: '¿Qué es sencillo para ti y qué te cuesta más? Cuéntaselo a tu compañero.',
-  rel: { parecida: ['fácil', 'simple'], contraria: ['difícil', 'complicado'], familia: ['sencillez'] }
+  rel: { parecida: ['fácil'], contraria: ['difícil', 'complicado'], familia: ['sencillez'], mas: ['simple'] }
 });
 
 PALABRA({
@@ -187,7 +187,7 @@ PALABRA({
   ],
   acaba: ['Me siento tranquilo cuando…', 'Si estoy enfadado, para quedarme tranquilo…'],
   habla: '¿Qué haces tú para tranquilizarte cuando estás enfadado o con miedo?',
-  rel: { parecida: ['calmado', 'sereno'], contraria: ['nervioso', 'inquieto'], familia: ['tranquilidad', 'tranquilizar'] }
+  rel: { parecida: ['calmado'], contraria: ['nervioso', 'inquieto'], familia: ['tranquilidad', 'tranquilizar'], mas: ['sereno'] }
 });
 ```
 

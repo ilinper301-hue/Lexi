@@ -24,8 +24,25 @@ function revisa(p, sem, gestos, e) {
     if (gestos.has(p.gesto)) e('gesto repetido en la semana');
     gestos.add(p.gesto);
     for (const k of ['parecida', 'contraria', 'familia']) if (!Array.isArray(p.rel[k])) e('rel.' + k);
+    // Normas de `gesto` y `relaciona` (docs/tareas-gesto-relaciona.md, apartado 6; test 75)
+    if (p.rel.mas !== undefined && (!Array.isArray(p.rel.mas) || !p.rel.mas.length)) e('rel.mas: si está, es una lista con algo');
+    const raices = sinTilde(p.palabra).split(' ').filter(w => w.length >= 4).map(w => w.slice(0, 5));
+    const nombra = t => sinTilde(t).split(/[^a-zñ]+/).some(w => raices.some(r => w.startsWith(r)));
+    if (nombra(p.gesto)) e('el gesto nombra la palabra o una de su familia');
+    for (const k of ['parecida', 'contraria']) for (const x of p.rel[k] || []) {
+      if (raices.some(r => sinTilde(x).startsWith(r))) e('rel.' + k + ': «' + x + '» empieza como la palabra: es de su misma familia (va en rel.mas)');
+      if ((p.rel.mas || []).includes(x)) e('rel.' + k + ': «' + x + '» está también en rel.mas');
+    }
+    if (new Set([...p.rel.parecida, ...p.rel.contraria]).size !== p.rel.parecida.length + p.rel.contraria.length) e('rel: la misma palabra en parecida y contraria, o repetida');
     const textos = [p.def, p.otro || '', p.escena.texto, ...p.contextos, p.gesto, p.habla, ...p.acaba,
       ...p.sentido.flatMap(s => [s.t, s.por]), ...p.ejemplos.map(x => x.t)];
     if (new Set(textos.filter(Boolean)).size !== textos.filter(Boolean).length) e('hay un texto repetido');
 }
-module.exports = { revisa, sinTilde, nPal };
+/* preguntasRepetidas(lista): avisos de dos palabras con la misma pregunta de `relaciona` (regla L7: «También vale») */
+function preguntasRepetidas(lista) {
+    const m = {};
+    for (const p of lista) for (const k of ['parecida', 'contraria']) for (const x of p.rel[k] || [])
+      (m[k + ' · ' + x] = m[k + ' · ' + x] || []).push(p.palabra);
+    return Object.entries(m).filter(([, v]) => v.length > 1).map(([q, v]) => q + ': ' + v.join(' y '));
+}
+module.exports = { revisa, sinTilde, nPal, preguntasRepetidas };

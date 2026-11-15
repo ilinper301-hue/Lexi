@@ -32,7 +32,7 @@ PALABRA({
   ],
   acaba: ['Mi amiga no veía el nido, así que yo…', 'En la ficha señalé con una cruz…'],
   habla: 'Señala tres cosas de la clase sin hablar. Tu compañero dice cómo se llaman.',
-  rel: { parecida: ['indicar', 'marcar'], contraria: [], familia: ['señal'] }
+  rel: { parecida: ['marcar'], contraria: [], familia: ['señal'], mas: ['indicar'] }
 });
 
 PALABRA({
@@ -125,7 +125,7 @@ PALABRA({
   ],
   acaba: ['Con la lupa vi algo diminuto: era…', 'Si yo fuera diminuto, podría…'],
   habla: '¿Qué cosa diminuta conoces? ¿Dónde la viste?',
-  rel: { parecida: ['minúsculo', 'muy pequeño'], contraria: ['enorme'], familia: [] }
+  rel: { parecida: ['muy pequeño'], contraria: ['enorme'], familia: [], mas: ['minúsculo'] }
 });
 
 PALABRA({
@@ -187,7 +187,7 @@ PALABRA({
   ],
   acaba: ['Fui valiente cuando…', 'Una persona valiente, aunque tenga miedo, …'],
   habla: 'Cuenta una vez que fuiste valiente. ¿Qué te daba miedo?',
-  rel: { parecida: ['atrevido'], contraria: ['cobarde', 'miedoso'], familia: ['valentía', 'valor'] }
+  rel: { parecida: ['atrevido'], contraria: ['miedoso', 'cobarde'], familia: ['valentía', 'valor'] }
 });
 ```
 
