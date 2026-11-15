@@ -99,7 +99,7 @@ Salieron al diseñar la Fase 6 (15-11-2026). Todo está en `docs/nube.md`. **Iv�
     hace que la copia mande en todos.** Las dos pantallas lo avisan. Reglas BO1 y BO2.
 
 Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segundo.md`.
-**Pendientes del sí de Iván (puntos 29 a 35):**
+**Iván dijo «sí» el 15-11-2026: los puntos 29 a 35 están aprobados** tal cual están escritos:
 
 29. **La pieza de la semana no tiene escala ni valoración.** Se presenta una vez (unos 3 minutos, en
     «Hoy», después de «Palabra nueva», cuando sus palabras ancla ya están presentadas) y ese día
@@ -191,7 +191,7 @@ Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segund
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
   `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,
   C1-C4; datos; tests 118-140)
-- [ ] Iván aprueba los puntos 29 a 35
+- [x] Iván aprueba los puntos 29 a 35 (15-11-2026)
 - [ ] 2.1 Contenido: `docs/2-semana-NN.md`, de dos en dos semanas, cada una con sus 6 fichas, su pieza
   y su petición de imágenes; ampliar el comprobador (tests 135-137) · Fable u Opus, esfuerzo alto
 - [ ] 2.2 `curso` y `pie` en los datos, dentro del paso 3.1 (tests 118-120) · Sonnet, esfuerzo alto
