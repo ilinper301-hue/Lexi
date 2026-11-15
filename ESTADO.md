@@ -13,6 +13,7 @@ modelo + esfuerzo + motivo.
 - [x] Peticiones de imágenes 2 a 10 (`docs/imagenes.md`)
 - [x] Comprobador de fichas: `node tools/validar-docs.js docs` (6 por semana, sílabas, definición de
   18 palabras como mucho, 2 sí + 2 no, 3 sí + 3 no, gestos sin repetir, escena que acaba en la palabra)
+  Desde el 15-11-2026 revisa también 2.º (`docs/2-semana-NN.md`): `node tests/test_docs.js`
 
 ## Decidido con Iván
 **Iván aprobó los puntos 1 a 6 el 15-11-2026** (salieron al escribir las semanas 2 a 10):
@@ -119,6 +120,22 @@ Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segund
 35. **Entre 40 y 45 de las 60 palabras de 2.º tendrán `familia`**; los enlaces y las que no tengan
     familia clara se quedan sin ella (les quedan `acaba`, `habla` y `relaciona`).
 
+## Para decidir
+Salieron al escribir las semanas 1 y 2 de 2.º (15-11-2026). Están aplicados en las fichas; si Iván
+dice que no a alguno, se cambia:
+
+36. **Dos parejas comparten historia y niño:** `ancho`-`estrecho` (la excursión de Bruno) y
+    `preocupado`-`aliviado` (la excursión de Pablo y la lluvia; una en cada semana). Sus imágenes
+    deben mostrar a los mismos niños.
+37. **`medir`:** la definición nombra la regla y los palmos, y lleva un «también» (`otro`) para el
+    peso y el tiempo.
+38. **Sin tarea `familia`:** resolver, estrecho, estimar y exacto (no tienen dos palabras de su
+    familia que un niño de 7 años haya oído). Les quedan `acaba`, `habla` y `relaciona`.
+39. **`preocupado` no tiene contraria** («tranquilo» ya es la de `nervioso`); `aliviado` sí tiene a
+    `preocupado` como contraria.
+40. **«indicación» y «preocupación»** (semana 1) llevan la pieza `-ción` de la semana 2: hasta que se
+    presente esa pieza, `indicar` y `preocupado` no tienen tarea `familia`.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -193,7 +210,19 @@ Salieron al diseñar el paquete de 2.º (15-11-2026). Todo está en `docs/segund
   C1-C4; datos; tests 118-140)
 - [x] Iván aprueba los puntos 29 a 35 (15-11-2026)
 - [ ] 2.1 Contenido: `docs/2-semana-NN.md`, de dos en dos semanas, cada una con sus 6 fichas, su pieza
-  y su petición de imágenes; ampliar el comprobador (tests 135-137) · Fable u Opus, esfuerzo alto
+  y su petición de imágenes · Fable u Opus, esfuerzo alto
+  - [x] Semanas 1 y 2 (15-11-2026, Fable): `docs/2-semana-01.md` (pieza `contrarias`) y
+    `docs/2-semana-02.md` (pieza `cion`); peticiones de imágenes 11 y 12 en `docs/imagenes.md`.
+    Llevan `fam` 8 de las 12 (sin ella: resolver, estrecho, estimar, exacto). **Pendiente de la
+    revisión de Iván** (ver «Para decidir», puntos 36 a 40)
+  - [x] Comprobador ampliado (15-11-2026): `tools/validar-docs.js` lee también `docs/2-semana-NN.md`
+    (curso, una pieza por semana, `fam`, piezas, ids únicos entre cursos). Reglas en
+    `tools/reglas-ficha.js` (`revisaFam`, `revisaPieza`, `idsRepetidos`). Tests 135-137 en
+    `node tests/test_docs.js` (27 comprobaciones). Normas de 2.º añadidas a `docs/pedagogia.md` (apartado 7)
+  - [ ] Semanas 3 y 4 (piezas `-or, -ora` y parecidas)
+  - [ ] Semanas 5 y 6 (piezas enlaces y `re-`)
+  - [ ] Semanas 7 y 8 (piezas `des-` e `in-, im-`)
+  - [ ] Semanas 9 y 10 (piezas `-oso` y `-ero, -era`)
 - [ ] 2.2 `curso` y `pie` en los datos, dentro del paso 3.1 (tests 118-120) · Sonnet, esfuerzo alto
 - [ ] 2.3 Pieza: `PIEZA`, presentación, su sitio en «Hoy» y séptima tarjeta (tests 121-127), después
   del paso 3.3 · Sonnet, esfuerzo medio

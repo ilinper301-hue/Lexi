@@ -1,7 +1,7 @@
 # Lexi · diseño del paquete de 2.º: la pieza de la semana y la tarea `familia`
 
-Diseño del 15-11-2026 (Fable, esfuerzo alto). **Nada de esto está programado ni hay ninguna ficha de
-2.º escrita.** **Iván aprobó el 15-11-2026 todo lo marcado con *(decidir)*** (puntos 29 a 35 de
+Diseño del 15-11-2026 (Fable, esfuerzo alto). **Nada de esto está programado.** Las fichas de 2.º se
+van escribiendo en `docs/2-semana-NN.md` (ver `ESTADO.md`, paso 2.1). **Iván aprobó el 15-11-2026 todo lo marcado con *(decidir)*** (puntos 29 a 35 de
 `ESTADO.md`). Encaja con las reglas E, R, T y H de `docs/pedagogia.md` y con `relaciona`
 (`docs/tareas-gesto-relaciona.md`); aquí solo se añade lo propio de 2.º.
 

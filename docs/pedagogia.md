@@ -210,6 +210,17 @@ PALABRA({
 - Español de España, frases de 1.º, nombres variados, sin marcas ni personajes conocidos.
 - Cada imagen se pide a Iván según `docs/imagenes.md`.
 
+Solo para 2.º (aprobadas el 15-11-2026; detalle en `docs/segundo.md`):
+
+- **`fam.si`:** palabras que un niño de 7 años ha oído, y que comparten forma y significado con la
+  palabra. Cada una con una frase de hueco en la que solo encaje ella.
+- **`fam.no` (intrusas):** empiezan o suenan parecido, las conocen de sobra y **no son parientes ni de
+  lejos** (para *medir*: médico, medio; nunca una pariente de verdad disfrazada). Con su porqué.
+- **Pieza:** ejemplos que se pueden desmontar (P6). En `prueba`, los «no» son palabras que llevan
+  esas letras sin llevar la pieza (*reloj* no es «re + loj»; *oso* no es «-oso»).
+- **Idea de la pieza:** una frase con palabras de todos los días; nunca «prefijo» ni «sufijo» en
+  pantalla. Se dice «pieza».
+
 ## 8. Paquete de 1.º (10 semanas, 60 palabras)
 
 Las diez semanas están escritas enteras en `docs/semana-01.md` … `docs/semana-10.md`. De la 2 a la 10
@@ -237,7 +248,8 @@ de Iván** (ver `ESTADO.md`, fase 4).
 - «La hemos encontrado»: la clase apunta cuándo oyó o usó la palabra fuera de la sesión.
 - Muro, «La hemos encontrado», Explorar, tarjetas y hoja para las familias ya están diseñados en
   `docs/aula.md` (reglas MU, EN, EX, TA, FA, RE y AT; tests 76-93). *(Propuesta del 14-11-2026.)*
-- Paquete de 2.º, con familias de palabras, prefijos y sufijos sencillos.
+- Paquete de 2.º, con familias de palabras, prefijos y sufijos sencillos: diseñado en `docs/segundo.md`;
+  lista en `docs/lista-2-borrador.md`; fichas en `docs/2-semana-NN.md` (escritas las semanas 1 y 2).
 
 ## 10. Botón «Hoy»: cómo se monta la sesión
 
