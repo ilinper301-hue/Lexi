@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lexi: vocabulario</title>
 <meta name="description" content="Palabras nuevas para la clase, con Lexi.">
-<meta name="theme-color" content="#FFF1EC">
+<meta name="theme-color" content="#FBF9F1">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,23 +17,24 @@
 @font-face{font-family:'Inter';src:url(fonts/inter-500.woff) format('woff');font-weight:500;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter-600.woff) format('woff');font-weight:600 700;font-display:swap}
 
-/* ================= Colores: ÚNICO sitio (corales de Lexi) ================= */
+/* ================= Colores: ÚNICO sitio (verdes de Lexi, 16-11-2026) ================= */
 :root{
-  --bg:#FFF1EC;--card:#fff;--soft:#FCE4DD;--bd:#F2CFC6;--bd2:#E7B5A9;--tx:#2E1A17;--mu:#6E4F49;
-  --ac:#ED7468;--acx:#D95A4D;--acs:#F2B4A9;--aci:#B03A2E;--on:#2E1A17;
+  --bg:#FBF9F1;--card:#fff;--soft:#E6F3E2;--bd:#D2E7CE;--bd2:#B4D6B1;--tx:#1A1E29;--mu:#4F5F55;
+  --ac:#4CAF66;--acx:#3F9A5A;--acs:#A7D9A7;--aci:#2E7D4F;--on:#1A1E29;
   --ok:#15803D;--okbg:#DCFCE7;--no:#DC2626;--nobg:#FEE2E2;
   --md:linear-gradient(135deg,#7C3AED,#14B8A6);
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
-  --lexi-sombra:rgba(110,60,50,.16);
-  --lx-coral:#ED7468;--lx-rosa:#F2B4A9;--lx-pale:#F7D3CC;--lx-blanco:#fff;
+  --sh:0 1px 2px rgba(26,30,41,.05),0 4px 14px rgba(26,30,41,.07);
+  --lexi-sombra:rgba(26,50,35,.14);
+  --lx-hoja:#4CAF66;--lx-prof:#2E7D4F;--lx-claro:#A7D9A7;--lx-flor:#FF6B6B;--lx-tinta:#1A1E29;--lx-blanco:#fff;
 }
 :root[data-theme="dark"]{
-  --bg:#231413;--card:#321D1B;--soft:#40262A;--bd:#52302D;--bd2:#6A403B;--tx:#FBEAE6;--mu:#D0A8A0;
-  --ac:#F2B4A9;--acx:#ED7468;--acs:rgba(237,116,104,.2);--aci:#F2B4A9;--on:#2E1A17;
+  --bg:#111A14;--card:#1B2820;--soft:#243629;--bd:#2F4636;--bd2:#40604B;--tx:#EAF5EA;--mu:#A8C2AE;
+  --ac:#A7D9A7;--acx:#4CAF66;--acs:rgba(76,175,102,.22);--aci:#A7D9A7;--on:#1A1E29;
   --ok:#4ADE80;--okbg:rgba(74,222,128,.15);--no:#F87171;--nobg:rgba(248,113,113,.15);
   --sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.3);
   --lexi-sombra:rgba(0,0,0,.35);
+  --lx-prof:#3E9A58;--lx-tinta:#A7D9A7;
 }
 
 *{box-sizing:border-box}
@@ -140,14 +141,14 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
 .opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
 
-/* Lexi · mascota por capas (la imagen original, sin redibujar) */
-.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:759/567;--lexi-coral:#FF6D60;--lexi-sombra:rgba(110,80,140,.16)}
+/* Lexi · mascota por capas (la imagen verde de Iván, 16-11-2026, sin redibujar) */
+.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:760/522;--lexi-cuerpo:#5BAD66;--lexi-sombra:rgba(26,50,35,.14)}
 .lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
 .lexi-mascota img{left:0;top:0;width:100%;height:100%;display:block}
 .lexi-mascota .sombra{background:var(--lexi-sombra);border-radius:50%;animation:lexi-sombra 4s ease-in-out infinite}
 .lexi-mascota .flota{inset:0;animation:lexi-flota 4s ease-in-out infinite}
-.lexi-mascota .brazo{transform-origin:17.5% 52.2%;animation:lexi-saluda 3.2s ease-in-out infinite}
-.lexi-mascota .lid{background:var(--lexi-coral);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
+.lexi-mascota .brazo{transform-origin:17.3% 50.3%;animation:lexi-saluda 3.2s ease-in-out infinite}
+.lexi-mascota .lid{background:var(--lexi-cuerpo);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
 @keyframes lexi-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2%)}}
 @keyframes lexi-sombra{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.94)}}
 @keyframes lexi-saluda{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(5deg)}}
@@ -180,7 +181,7 @@ const palabraPorId = id => PALABRAS.find(p => p.id === id);
 /* ---- js/10-tema.js ---- */
 /* Tema claro/oscuro (clave lexi.th) */
 const TEMA = {
-  aplicar(t) { document.documentElement.dataset.theme = t; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = t === 'dark' ? '#231413' : '#FFF1EC'; },
+  aplicar(t) { document.documentElement.dataset.theme = t; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = t === 'dark' ? '#111A14' : '#FBF9F1'; },
   inicial() { const g = LS.get('th', null); return g || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); },
   alternar() { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; LS.set('th', t); this.aplicar(t); }
 };
@@ -202,18 +203,28 @@ const ico = (n, s = 22) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" 
 function toast(m) { const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
 
 /* ---- js/15-escala.js ---- */
-/* Escala de 4 pasos de cada palabra: el bocadillo de Lexi crece y se llena (elegido por Iván, 14-11-2026).
-   1 Nueva · 2 La conocemos · 3 La entendemos · 4 La usamos */
+/* Escala de 4 pasos de cada palabra: una planta que crece (decidido por Iván, 16-11-2026; antes, el bocadillo de Lexi).
+   1 Nueva = semilla · 2 La conocemos = brote · 3 La entendemos = planta con hojas · 4 La usamos = planta con flor */
 const PASOS = ['Nueva', 'La conocemos', 'La entendemos', 'La usamos'];
-const BOCADILLO = 'M-16 88 H16 Q28 88 28 100 V114 Q28 126 16 126 H-12 L-22 138 L-20 126 Q-28 126 -28 114 V100 Q-28 88 -16 88 Z';
+function hojaSVG(y, s, color, lado) {
+  const L = 18 * s;
+  return `<path transform="scale(${lado},1)" d="M0 ${y} Q${-L * .5} ${y - L * .8} ${-L} ${y - L * .3} Q${-L * .55} ${y + L * .3} 0 ${y} Z" fill="${color}"/>`;
+}
 function escalaSVG(paso) {
-  const p = Math.max(1, Math.min(4, paso | 0)), k = [.62, .76, .9, 1][p - 1];
-  const raya = (y, w) => `<rect x="-16" y="${y}" width="${w}" height="5" rx="2.5" fill="var(--lx-blanco)"/>`;
-  const fondo = [`fill="none" stroke="var(--lx-coral)" stroke-width="3" stroke-dasharray="6 5"`, `fill="var(--lx-pale)"`, `fill="var(--lx-rosa)"`, `fill="var(--lx-coral)"`][p - 1];
-  const dentro = [``, `<circle cx="0" cy="107" r="4" fill="var(--lx-blanco)"/>`, raya(98, 32) + raya(110, 20),
-    raya(97, 32) + raya(107, 32) + raya(117, 18) + `<path d="M34 84 L40 76 M38 92 L46 90 M30 78 L30 70" stroke="var(--lx-coral)" stroke-width="2.5" stroke-linecap="round" fill="none"/>`][p - 1];
-  return `<svg class="escala" viewBox="-34 62 84 84" role="img" aria-label="Paso ${p} de 4: ${PASOS[p - 1]}">`
-    + `<g transform="translate(0,138) scale(${k}) translate(0,-138)"><path d="${BOCADILLO}" ${fondo}/>${dentro}</g></svg>`;
+  const p = Math.max(1, Math.min(4, paso | 0)), k = [.85, .9, .95, 1][p - 1];
+  const tallo = y => `<path d="M0 134 V${y}" stroke="var(--lx-prof)" stroke-width="4.5" stroke-linecap="round" fill="none"/>`;
+  const par = (y, s, c) => hojaSVG(y, s, c, 1) + hojaSVG(y, s, c, -1);
+  const suelo = `<path d="M-26 138 Q-20 130 0 130 Q20 130 26 138 Z" fill="var(--lx-prof)"/>`;
+  const planta = [
+    `<ellipse cx="0" cy="127" rx="6.5" ry="4.6" fill="var(--lx-tinta)" transform="rotate(-25 0 127)"/><circle cx="-2" cy="125.4" r="1.4" fill="var(--lx-blanco)"/>`,
+    tallo(118) + par(118, .8, 'var(--lx-hoja)'),
+    tallo(98) + par(120, 1.05, 'var(--lx-hoja)') + par(108, .9, 'var(--lx-claro)') + par(98, .6, 'var(--lx-hoja)'),
+    tallo(92) + par(121, 1.15, 'var(--lx-hoja)') + par(110, 1, 'var(--lx-claro)') + par(100, .75, 'var(--lx-hoja)')
+      + [0, 72, 144, 216, 288].map(a => `<circle cx="${(Math.sin(a * Math.PI / 180) * 7.5).toFixed(2)}" cy="${(84 - Math.cos(a * Math.PI / 180) * 7.5).toFixed(2)}" r="6" fill="var(--lx-flor)"/>`).join('')
+      + `<circle cx="0" cy="84" r="4.4" fill="var(--lx-blanco)"/>`
+  ][p - 1];
+  return `<svg class="escala" viewBox="-42 62 84 84" role="img" aria-label="Paso ${p} de 4: ${PASOS[p - 1]}">`
+    + `<g transform="translate(0,138) scale(${k}) translate(0,-138)">${suelo}${planta}</g></svg>`;
 }
 function escalaFila() {
   return '<div class="escala-fila">' + PASOS.map((n, i) => `<figure>${escalaSVG(i + 1)}<figcaption>${n}</figcaption></figure>`).join('') + '</div>';
@@ -362,15 +373,15 @@ const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre d
 
 function mascotaHTML() {
   return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
-    + '<span class="sombra" style="left:15.777%;top:88.977%;width:67.194%;height:10.229%"></span>'
+    + '<span class="sombra" style="left:25.96%;top:89.09%;width:52.88%;height:9.09%"></span>'
     + '<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt="">'
     + '<img src="img/mascota/cuerpo.png" alt="">'
-    + '<i class="lid" style="left:26.877%;top:24.603%;width:19.236%;height:25.750%"></i>'
-    + '<i class="lid" style="left:52.306%;top:18.871%;width:19.631%;height:26.279%"></i></div></div>';
+    + '<i class="lid" style="left:29.52%;top:28.25%;width:18.27%;height:26.01%"></i>'
+    + '<i class="lid" style="left:55.96%;top:22.38%;width:18.85%;height:26.57%"></i></div></div>';
 }
 const avatarHTML = p => p.t === 'fam'
   ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`
-  : '<span class="av" style="background:var(--lx-pale)" aria-hidden="true">📚</span>';
+  : '<span class="av" style="background:var(--lx-claro)" aria-hidden="true">📚</span>';
 const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="group" aria-label="Elige un animal">${AVATARES.map(([e, c], i) =>
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 

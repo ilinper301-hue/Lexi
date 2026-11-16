@@ -6,15 +6,15 @@ const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre d
 
 function mascotaHTML() {
   return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
-    + '<span class="sombra" style="left:15.777%;top:88.977%;width:67.194%;height:10.229%"></span>'
+    + '<span class="sombra" style="left:25.96%;top:89.09%;width:52.88%;height:9.09%"></span>'
     + '<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt="">'
     + '<img src="img/mascota/cuerpo.png" alt="">'
-    + '<i class="lid" style="left:26.877%;top:24.603%;width:19.236%;height:25.750%"></i>'
-    + '<i class="lid" style="left:52.306%;top:18.871%;width:19.631%;height:26.279%"></i></div></div>';
+    + '<i class="lid" style="left:29.52%;top:28.25%;width:18.27%;height:26.01%"></i>'
+    + '<i class="lid" style="left:55.96%;top:22.38%;width:18.85%;height:26.57%"></i></div></div>';
 }
 const avatarHTML = p => p.t === 'fam'
   ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`
-  : '<span class="av" style="background:var(--lx-pale)" aria-hidden="true">📚</span>';
+  : '<span class="av" style="background:var(--lx-claro)" aria-hidden="true">📚</span>';
 const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="group" aria-label="Elige un animal">${AVATARES.map(([e, c], i) =>
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 

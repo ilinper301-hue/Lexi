@@ -106,8 +106,9 @@ Reglas:
 
 Acertar una vez no es saberla: por eso hacen falta días distintos y tareas distintas.
 
-Representación visual: el bocadillo de Lexi, que crece y se llena en 4 estados (`escalaSVG`), igual en
-la ficha, el muro de palabras y la zona del tutor.
+Representación visual: una planta que crece en 4 estados (semilla, brote, planta con hojas, planta con flor;
+`escalaSVG`), igual en la ficha, el muro de palabras y la zona del tutor. (Decidido por Iván el 16-11-2026;
+antes era el bocadillo de Lexi.)
 
 ## 5. Repaso
 

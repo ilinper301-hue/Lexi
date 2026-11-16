@@ -180,7 +180,9 @@ dice que no a alguno, se cambia:
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
 - [x] Mascota y paleta elegidas por Iván (14-11-2026): bocadillo coral (imagen suya, sin piernas) y corales #ED7468 / #F2B4A9. Piezas en `img/mascota/` (cuerpo, brazo, css, demo.html); iconos en `icons/` (fondo #FFF1EC). Falta enlazarlos en manifest y en la pantalla de inicio (Fase 1).
-- [x] Dibujo de la escala de 4 pasos (14-11-2026): bocadillo de Lexi que crece y se llena (opciones 1+2). Componente `escalaSVG(paso)` y `escalaFila()` en `src/js/15-escala.js`; de momento se ve en el inicio como vista previa
+- [x] **Cambio de color y mascota (16-11-2026, Sonnet):** mascota verde con brazos (imagen de Iván) y paleta verde: #4CAF66 hoja, #2E7D4F profundo, #A7D9A7 claro, #FF6B6B coral solo para la lengua y la flor, #1A1E29 azul marino; fondo crema #FBF9F1 (oscuro #111A14). Variables en `src/estilos.css`; capas en `img/mascota/`; iconos nuevos; `sw.js` = `lexi-pwa-5`. Sustituye a los corales del 14-11.
+- [x] **La escala de 4 pasos pasa a ser una planta (16-11-2026):** semilla, brote, planta con hojas, planta con flor (`escalaSVG` en `src/js/15-escala.js`). Sustituye al bocadillo que crecía y se llenaba (14-11-2026, opciones 1+2).
+- [x] (antes) Dibujo de la escala de 4 pasos (14-11-2026): bocadillo de Lexi que crece y se llena (opciones 1+2). Componente `escalaSVG(paso)` y `escalaFila()` en `src/js/15-escala.js`; de momento se ve en el inicio como vista previa
 
 ## Fase 1 · Esqueleto · Sonnet, esfuerzo medio
 - [x] Base de Calculi copiada y adaptada (14-11-2026): `tools/build.py`, `sw.js` (`lexi-pwa-1`), manifest (`lexi-app`), `fonts/`, `src/` con paleta, tema y arranque

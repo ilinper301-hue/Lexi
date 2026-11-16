@@ -4,23 +4,24 @@
 @font-face{font-family:'Inter';src:url(fonts/inter-500.woff) format('woff');font-weight:500;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter-600.woff) format('woff');font-weight:600 700;font-display:swap}
 
-/* ================= Colores: ÚNICO sitio (corales de Lexi) ================= */
+/* ================= Colores: ÚNICO sitio (verdes de Lexi, 16-11-2026) ================= */
 :root{
-  --bg:#FFF1EC;--card:#fff;--soft:#FCE4DD;--bd:#F2CFC6;--bd2:#E7B5A9;--tx:#2E1A17;--mu:#6E4F49;
-  --ac:#ED7468;--acx:#D95A4D;--acs:#F2B4A9;--aci:#B03A2E;--on:#2E1A17;
+  --bg:#FBF9F1;--card:#fff;--soft:#E6F3E2;--bd:#D2E7CE;--bd2:#B4D6B1;--tx:#1A1E29;--mu:#4F5F55;
+  --ac:#4CAF66;--acx:#3F9A5A;--acs:#A7D9A7;--aci:#2E7D4F;--on:#1A1E29;
   --ok:#15803D;--okbg:#DCFCE7;--no:#DC2626;--nobg:#FEE2E2;
   --md:linear-gradient(135deg,#7C3AED,#14B8A6);
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --sh:0 1px 2px rgba(46,26,23,.05),0 4px 14px rgba(46,26,23,.07);
-  --lexi-sombra:rgba(110,60,50,.16);
-  --lx-coral:#ED7468;--lx-rosa:#F2B4A9;--lx-pale:#F7D3CC;--lx-blanco:#fff;
+  --sh:0 1px 2px rgba(26,30,41,.05),0 4px 14px rgba(26,30,41,.07);
+  --lexi-sombra:rgba(26,50,35,.14);
+  --lx-hoja:#4CAF66;--lx-prof:#2E7D4F;--lx-claro:#A7D9A7;--lx-flor:#FF6B6B;--lx-tinta:#1A1E29;--lx-blanco:#fff;
 }
 :root[data-theme="dark"]{
-  --bg:#231413;--card:#321D1B;--soft:#40262A;--bd:#52302D;--bd2:#6A403B;--tx:#FBEAE6;--mu:#D0A8A0;
-  --ac:#F2B4A9;--acx:#ED7468;--acs:rgba(237,116,104,.2);--aci:#F2B4A9;--on:#2E1A17;
+  --bg:#111A14;--card:#1B2820;--soft:#243629;--bd:#2F4636;--bd2:#40604B;--tx:#EAF5EA;--mu:#A8C2AE;
+  --ac:#A7D9A7;--acx:#4CAF66;--acs:rgba(76,175,102,.22);--aci:#A7D9A7;--on:#1A1E29;
   --ok:#4ADE80;--okbg:rgba(74,222,128,.15);--no:#F87171;--nobg:rgba(248,113,113,.15);
   --sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.3);
   --lexi-sombra:rgba(0,0,0,.35);
+  --lx-prof:#3E9A58;--lx-tinta:#A7D9A7;
 }
 
 *{box-sizing:border-box}
