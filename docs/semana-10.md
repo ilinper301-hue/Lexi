@@ -33,6 +33,7 @@ PALABRA({
     { t: 'Un coche', ok: false },
     { t: 'Un muñeco', ok: false }
   ],
+  pregunta: '¿Es un ser vivo?',
   acaba: ['Sé que un perro es un ser vivo porque…', 'Una piedra no es un ser vivo porque…'],
   habla: 'Di tres seres vivos que hayas visto hoy. Tu compañero dice otros tres.',
   rel: { parecida: [], contraria: [], familia: ['vida', 'vivir'], mas: ['cosa sin vida'] }
@@ -64,6 +65,7 @@ PALABRA({
     { t: 'Una piedra', ok: false },
     { t: 'Un lápiz', ok: false }
   ],
+  pregunta: '¿Es un alimento?',
   acaba: ['Mi alimento favorito es… porque…', 'Necesitamos alimentos para…'],
   habla: '¿Qué alimentos has tomado hoy en el desayuno? Cuéntaselo a tu compañero.',
   rel: { parecida: ['comida'], contraria: [], familia: ['alimentar', 'alimentación'] }
@@ -95,6 +97,7 @@ PALABRA({
     { t: 'Una hormiga vista con lupa', ok: false },
     { t: 'El interior de un cajón', ok: false }
   ],
+  pregunta: '¿Es un paisaje?',
   acaba: ['Desde mi ventana, el paisaje tiene…', 'El paisaje que más me gusta es… porque…'],
   habla: 'Describe a tu compañero un paisaje que te guste. ¿Qué se ve?',
   rel: { parecida: ['lo que ves a lo lejos'], contraria: [], familia: [], mas: ['vista'] }
@@ -157,6 +160,7 @@ PALABRA({
     { t: 'Un pez, zapatos', ok: false },
     { t: 'Un gato, una tele', ok: false }
   ],
+  pregunta: '¿Lo necesita de verdad?',
   acaba: ['Para vivir, los seres vivos necesitan…', 'Para hacer mi dibujo necesito…'],
   habla: 'Piensa en una mascota. ¿Qué necesita para estar bien? Díselo a tu compañero.',
   rel: { parecida: ['hacer falta'], contraria: [], familia: ['necesario', 'necesidad'] }
@@ -188,6 +192,7 @@ PALABRA({
     { t: 'Enero', ok: false },
     { t: 'La mañana', ok: false }
   ],
+  pregunta: '¿Es una estación?',
   acaba: ['Mi estación favorita es… porque…', 'En invierno, la estación más fría, yo…'],
   habla: '¿En qué estación es tu cumpleaños? ¿Qué tiempo suele hacer?',
   rel: { parecida: [], contraria: [], familia: [] }

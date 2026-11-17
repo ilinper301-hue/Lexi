@@ -23,6 +23,9 @@ function revisa(p, sem, gestos, e) {
     if (p.sentido.some(s => !s.por)) e('sentido sin porqué');
     if (p.ejemplos.length !== 6 || p.ejemplos.filter(s => s.ok).length !== 3) e('ejemplos: deben ser 3 sí y 3 no');
     if (p.acaba.length !== 2 || p.acaba.some(a => !a.includes('…'))) e('acaba: 2 frases con «…»');
+    // `pregunta` (opcional): la pregunta de la tarea `ejemplo` cuando la de siempre no se lee bien
+    if (p.pregunta !== undefined && !(typeof p.pregunta === 'string' && /^¿[^?]+\?$/.test(p.pregunta) && nPal(p.pregunta) <= 7))
+      e('pregunta: una sola pregunta con «¿…?», de 7 palabras como mucho');
     if (!p.habla) e('falta habla');
     if (!p.gesto) e('falta gesto');
     if (gestos.has(p.gesto)) e('gesto repetido en la semana');

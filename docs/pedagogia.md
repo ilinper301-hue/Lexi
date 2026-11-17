@@ -192,8 +192,9 @@ PALABRA({
   Son campos técnicos: no son texto de pantalla.
 - **`bloque`**: `pensar`, `como-son`, `sentir`, `convivir` (desde la semana 5) y `medio` (semana 10).
   Sirve para agrupar las palabras en «Explorar»; no cambia la sesión.
-- **`ejemplos` según el tipo** (aprobado el 15-11-2026: campo opcional `pregunta` en la ficha; si
-  falta, se usa la pregunta de siempre. Pendiente de programar, ver `ESTADO.md`): en los
+- **`ejemplos` según el tipo** (aprobado el 15-11-2026; hecho el 18-11-2026): campo opcional `pregunta`
+  en la ficha, una sola pregunta «¿…?» de 7 palabras como mucho; si falta, se usa «¿Es un ejemplo de
+  «palabra»?». En 1.º la llevan los enlaces, los nombres, `parecido`, `diferente`, `necesario` y `necesitar`. En los
   `enlace` y en algunas cualidades los ejemplos son situaciones o parejas, y en los `nombre` la pregunta
   necesita artículo. Cada `docs/semana-NN.md` lo explica en sus notas.
 

@@ -33,6 +33,7 @@ PALABRA({
     { t: 'Al calzarte: atarte los cordones', ok: false },
     { t: 'En un cuento: «…y colorín colorado»', ok: false }
   ],
+  pregunta: '¿Va primero?',
   acaba: ['Cuando me levanto, primero…', 'Para hacer un dibujo, primero…'],
   habla: 'Cuenta a tu compañero qué haces primero cuando llegas a casa.',
   rel: { parecida: ['para empezar', 'antes de nada'], contraria: ['finalmente', 'por último'], familia: ['primer', 'primera'] }
@@ -64,6 +65,7 @@ PALABRA({
     { t: 'Mojarte las manos después de secártelas', ok: false },
     { t: 'Abrir el libro después de leerlo', ok: false }
   ],
+  pregunta: '¿Está bien dicho con «después»?',
   acaba: ['Después del recreo, en mi clase…', 'Me lavo las manos y después…'],
   habla: '¿Qué vas a hacer después del cole? Cuéntaselo a tu compañero.',
   rel: { parecida: ['luego', 'más tarde'], contraria: ['antes'], familia: [] }
@@ -95,6 +97,7 @@ PALABRA({
     { t: 'En el comedor: coger la bandeja vacía', ok: false },
     { t: 'En una función: abrir el telón', ok: false }
   ],
+  pregunta: '¿Es lo último?',
   acaba: ['Me levanté, desayuné, me vestí y, finalmente, …', 'Esperamos mucho rato en la parada y, finalmente, …'],
   habla: 'Cuenta tres cosas que haces antes de dormir. Usa «primero», «después» y «finalmente».',
   rel: { parecida: ['por último', 'al final', 'por fin'], contraria: ['primero'], familia: ['final', 'finalizar'] }

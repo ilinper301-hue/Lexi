@@ -1019,8 +1019,10 @@ function tareaHTML(q, p) {
   }
   if (q.t === 'ejemplo') {
     const e = fraseDe(p, 'ejemplo', q.k);
-    return { cuerpo: `<p class="pal-ch">¿Es un ejemplo de «${esc(p.palabra)}»?</p><p class="gr">${esc(e.t)}</p><p class="mu gr-p">Pulgar arriba o abajo</p>`,
-      res: `<div class="veredicto ${e.ok ? 'si' : 'no'}"><b>${e.ok ? '👍 Sí es' : '👎 No es'}</b></div>` };
+    /* `pregunta` (opcional en la ficha): para enlaces, nombres, parejas… Si falta, la de siempre */
+    const preg = p.pregunta || `¿Es un ejemplo de «${p.palabra}»?`;
+    return { cuerpo: `<p class="pal-ch">${esc(preg)}</p><p class="gr">${esc(e.t)}</p><p class="mu gr-p">Pulgar arriba o abajo</p>`,
+      res: `<div class="veredicto ${e.ok ? 'si' : 'no'}"><b>${p.pregunta ? (e.ok ? '👍 Sí' : '👎 No') : (e.ok ? '👍 Sí es' : '👎 No es')}</b></div>` };
   }
   if (q.t === 'elige') {
     const otras = (q.otras ? q.otras.map(palabraPorId) : distractoresElige(p, fichasPresentadas(MODO_DOCENTE ? null : perfilAct()), q.k)), a = otras[0] || p, b = otras[1] || p;

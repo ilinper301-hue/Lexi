@@ -99,4 +99,13 @@ t('«relaciona» sale en «Jugamos» (Modo Docente: paso 4, alterna) y la cola l
   assert(vistas.has('relaciona'), [...vistas].join());
 });
 
+t('«ejemplo» usa la `pregunta` de la ficha si la tiene; si no, la de siempre (punto 3)', () => {
+  const a = nuevo(), p = a.palabraPorId('enorme');
+  const sin = a.tareaHTML({ id: 'enorme', t: 'ejemplo', k: 0, rev: true }, p);
+  assert(sin.cuerpo.includes('¿Es un ejemplo de «enorme»?') && sin.res.includes('Sí es'));
+  const con = Object.assign({}, p, { pregunta: '¿Es muy grande?' });
+  const h = a.tareaHTML({ id: 'enorme', t: 'ejemplo', k: 0, rev: true }, con);
+  assert(h.cuerpo.includes('¿Es muy grande?') && !h.cuerpo.includes('ejemplo de') && /👍 Sí<|👎 No</.test(h.res), h.cuerpo + h.res);
+});
+
 console.log(n + ' pruebas correctas');

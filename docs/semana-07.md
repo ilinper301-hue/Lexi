@@ -123,6 +123,7 @@ PALABRA({
     { t: 'Una pelota para dormir', ok: false },
     { t: 'Un caramelo después de comer', ok: false }
   ],
+  pregunta: '¿Es necesario?',
   acaba: ['Para dibujar es necesario…', 'Dormir es necesario porque…'],
   habla: '¿Qué cosas son necesarias para ir de excursión? Pensad tres.',
   rel: { parecida: ['que hace falta'], contraria: [], familia: ['necesitar', 'necesidad'], mas: ['imprescindible', 'innecesario'] }

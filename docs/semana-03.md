@@ -123,6 +123,7 @@ PALABRA({
     { t: 'Un zapato y un árbol', ok: false },
     { t: 'Un pez y un paraguas', ok: false }
   ],
+  pregunta: '¿Son parecidos?',
   acaba: ['Mi mochila es parecida a la de… porque las dos…', 'Un caballo y una cebra son parecidos porque…'],
   habla: '¿A quién de tu familia te pareces? ¿En qué?',
   rel: { parecida: ['casi igual'], contraria: ['diferente'], familia: ['parecerse'], mas: ['semejante'] }
@@ -154,6 +155,7 @@ PALABRA({
     { t: 'Dos cromos repetidos', ok: false },
     { t: 'Dos gotas de agua', ok: false }
   ],
+  pregunta: '¿Son diferentes?',
   acaba: ['Mi compañero y yo somos diferentes en…', 'Un gato y un pájaro son diferentes porque…'],
   habla: 'Busca con tu compañero una cosa en la que sois parecidos y otra en la que sois diferentes.',
   rel: { parecida: ['distinto'], contraria: ['igual', 'parecido'], familia: ['diferencia', 'diferenciar'] }

@@ -301,8 +301,12 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   en `docs/semana-02` a `10` y en las peticiones 2, 3, 4, 6 y 10 de `docs/imagenes.md` (29 cambios; comprobador y
   `test_contenido` sin fallos). Salvo dos retoques: `elegir` → «Solo quedaba un yogur y elegí cuál quería» (la
   propuesta no era un uso de la palabra) y gesto de `ser vivo` → mano en la barriga (el de abrir brazos era el de `enorme`)
-- [ ] Campo `pregunta` (punto 3): escribir las preguntas en las fichas que lo necesitan (Fable u Opus,
-  esfuerzo medio) y programarlo en `ejemplo`, comprobador y test (Sonnet, esfuerzo medio)
+- [x] Campo `pregunta` (punto 3) (18-11-2026, Opus): 14 fichas en `docs/semana-NN.md` — primero «¿Va primero?»,
+  después «¿Está bien dicho con «después»?», finalmente «¿Es lo último?», parecido/diferente «¿Son parecidos?» /
+  «¿Son diferentes?», necesario «¿Es necesario?», necesitar «¿Lo necesita de verdad?» y los 7 nombres «¿Es un/una…?»
+  (las que proponían las notas de cada semana). `ejemplo` la usa y su respuesta dice «Sí» / «No»
+  (`48-tareas.js`); comprobador en `tools/reglas-ficha.js`; tests en `test_docs.js` y `test_tareas.js`. `sw.js` =
+  `lexi-pwa-19`. Se verá en pantalla cuando las semanas 2 a 10 pasen a `src/js/palabras/` (la semana 1 no la necesita)
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus
   imágenes (peticiones 2 a 10): Iván las enviará más adelante
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`

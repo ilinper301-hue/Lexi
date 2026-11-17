@@ -32,6 +32,7 @@ PALABRA({
     { t: 'Que todo funcione bien', ok: false },
     { t: 'Tener la merienda preparada', ok: false }
   ],
+  pregunta: '¿Es un problema?',
   acaba: ['Un problema que tuve fue…', 'Cuando tengo un problema, primero…'],
   habla: 'Cuenta un problema pequeño que tuviste y cómo lo arreglaste.',
   rel: { parecida: ['lío'], contraria: ['solución'], familia: [], mas: ['dificultad'] }
@@ -63,6 +64,7 @@ PALABRA({
     { t: 'Esconder lo que se ha roto', ok: false },
     { t: 'Quedarte parado sin hacer nada', ok: false }
   ],
+  pregunta: '¿Es una solución?',
   acaba: ['Si se me olvida el bocadillo, una solución es…', 'Para encontrar la solución de un problema de mates, yo…'],
   habla: 'Dos amigos quieren jugar a cosas distintas. Buscad juntos una solución.',
   rel: { parecida: ['arreglo', 'respuesta'], contraria: ['problema'], familia: ['solucionar'] }
@@ -94,6 +96,7 @@ PALABRA({
     { t: 'No decir nada', ok: false },
     { t: 'Tapar el dibujo para que no se vea', ok: false }
   ],
+  pregunta: '¿Es una pista?',
   acaba: ['Te doy una pista de mi animal favorito: …', 'Vi unas migas en el suelo; esa pista me dice que…'],
   habla: 'Piensa en un animal y dale tres pistas a tu compañero para que lo adivine.',
   rel: { parecida: ['una ayuda para adivinar'], contraria: [], familia: ['despistar', 'despistado'], mas: ['señal', 'ayuda'] }
