@@ -295,10 +295,10 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
 - [x] Escribir las semanas 2 a 10 (54 palabras) y sus peticiones de imágenes (13-11-2026, Fable)
 - [x] Iván revisa las semanas 2 a 10 y contesta a los puntos 1 a 6 (15-11-2026): único cambio,
   `distinto` → `amable`. El comprobador pasa (60 palabras, sin errores)
-- [ ] Revisión independiente de las 54 fichas por otro modelo que no las haya escrito (Sonnet,
-  esfuerzo medio): frases que un niño de 6 años no entienda, no-ejemplos dudosos, gestos que se
-  confundan entre semanas (punto 16). Incluye `amable`, que escribió Sonnet. Solo propone; los
-  cambios los aprueba Iván.
+- [x] Revisión independiente de las 54 fichas (17-11-2026, Sonnet, esfuerzo medio): propuesta en
+  `docs/revision-fichas.md` (5 fallos de redacción, 11 palabras difíciles, 5 frases a simplificar,
+  5 grupos nuevos de gestos que se confunden). **No se ha cambiado ninguna ficha: espera el sí de
+  Iván** (sección 6 del documento). Después, aplicar los cambios y pasar el comprobador
 - [ ] Campo `pregunta` (punto 3): escribir las preguntas en las fichas que lo necesitan (Fable u Opus,
   esfuerzo medio) y programarlo en `ejemplo`, comprobador y test (Sonnet, esfuerzo medio)
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus
