@@ -135,7 +135,7 @@ Salieron al escribir las semanas 1 y 2 de 2.º (15-11-2026). Están aplicados en
 40. **«indicación» y «preocupación»** (semana 1) llevan la pieza `-ción` de la semana 2: hasta que se
     presente esa pieza, `indicar` y `preocupado` no tienen tarea `familia`.
 
-## Para decidir
+## Para decidir (2.º: apartado hasta el curso 2027-28)
 Salieron al escribir las semanas 3 y 4 de 2.º (15-11-2026). Están aplicados en las fichas; si Iván
 dice que no a alguno, se cambia:
 
@@ -253,6 +253,8 @@ dice que no a alguno, se cambia:
   `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,
   C1-C4; datos; tests 118-140)
 - [x] Iván aprueba los puntos 29 a 35 (15-11-2026)
+**Apartado hasta el curso 2027-28 (decisión de Iván, 17-11-2026):** 1.º está listo y 2.º no se toca hasta
+el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonces.
 - [ ] 2.1 Contenido: `docs/2-semana-NN.md`, de dos en dos semanas, cada una con sus 6 fichas, su pieza
   y su petición de imágenes · Fable u Opus, esfuerzo alto
   - [x] Semanas 1 y 2 (15-11-2026, Fable): `docs/2-semana-01.md` (pieza `contrarias`) y
