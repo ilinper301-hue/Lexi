@@ -21,7 +21,7 @@ try:
                         if bb and (bb['width'] < 44 or bb['height'] < 44): fallos.append(f'{et} {que}: control pequeño {bb}')
                     if pg.evaluate('document.documentElement.scrollWidth') > w: fallos.append(f'{et} {que}: desborda')
                     pg.screenshot(path=f'/tmp/lexi-{tema}-{w}-{que}.png')
-                pg.goto('http://localhost:8765/index.html'); pg.wait_for_selector('.lexi-mascota img')
+                pg.goto('http://localhost:8765/index.html'); pg.wait_for_selector('.lexi-mascota svg')
                 if pg.evaluate('document.documentElement.dataset.theme') != tema: fallos.append(f'{et}: tema')
                 revisa('1inicio')
                 # Docente: error sin nombre, crear clase

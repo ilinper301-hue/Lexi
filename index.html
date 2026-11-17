@@ -26,6 +26,7 @@
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
   --sh:0 1px 2px rgba(17,60,44,.05),0 4px 14px rgba(17,60,44,.07);
   --lexi-sombra:rgba(26,50,35,.14);
+  --m1:#5FA757;--m2:#79BC67;--m3:#2F7A3E;--mbr:#4A9450;--mojo:#113C2C;--mboca:#0F3B2C;--mlengua:#E8776A;
   --lx-hoja:#5FA757;--lx-prof:#1D5637;--lx-claro:#A9D69A;--lx-flor:#E8776A;--lx-tinta:#113C2C;--lx-blanco:#fff;
 }
 :root[data-theme="dark"]{
@@ -141,19 +142,22 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
 .opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
 
-/* Lexi · mascota por capas (la imagen verde de Iván, 17-11-2026, sin redibujar) */
-.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:760/520;--lexi-cuerpo:#6AAF5E;--lexi-sombra:rgba(26,50,35,.14)}
-.lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
-.lexi-mascota img{left:0;top:0;width:100%;height:100%;display:block}
-.lexi-mascota .sombra{background:var(--lexi-sombra);border-radius:50%;animation:lexi-sombra 4s ease-in-out infinite}
-.lexi-mascota .flota{inset:0;animation:lexi-flota 4s ease-in-out infinite}
-.lexi-mascota .brazo{transform-origin:16.4% 52.2%;animation:lexi-saluda 3.2s ease-in-out infinite}
-.lexi-mascota .lid{background:var(--lexi-cuerpo);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
-@keyframes lexi-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2%)}}
-@keyframes lexi-sombra{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.94)}}
-@keyframes lexi-saluda{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(5deg)}}
-@keyframes lexi-parpadea{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
-@media (prefers-reduced-motion:reduce){.lexi-mascota *{animation:none!important}}
+/* Lexi · mascota en vectores (14-mascota.js), con el mismo movimiento que Calculi */
+.lexi-mascota{width:100%;max-width:440px;display:grid;place-items:center}
+.lexi-mascota .mas{width:100%;height:auto}
+.mas{overflow:visible;color:var(--tx)}
+.mas .cuerpo{animation:lexi-flota 3.4s ease-in-out infinite alternate;transform-origin:50% 90%;transform-box:fill-box}
+.mas .sombra{animation:lexi-sombra 3.4s ease-in-out infinite alternate;transform-origin:50% 50%;transform-box:fill-box}
+.mas .ojo{animation:lexi-parpadea 5.2s infinite;transform-origin:50% 50%;transform-box:fill-box}
+.mas .brazo-i{animation:lexi-saluda 1.6s ease-in-out infinite alternate;transform-origin:60px 105px}
+.mas .brazo-d{animation:lexi-mece 3.4s ease-in-out infinite alternate;transform-origin:196px 85px}
+.mas.quieta *{animation:none!important}
+@keyframes lexi-flota{from{transform:translateY(0) rotate(-1.5deg)}to{transform:translateY(-6px) rotate(1.5deg)}}
+@keyframes lexi-sombra{from{transform:scaleX(1);opacity:.14}to{transform:scaleX(.85);opacity:.08}}
+@keyframes lexi-parpadea{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+@keyframes lexi-saluda{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}
+@keyframes lexi-mece{from{transform:rotate(-4deg)}to{transform:rotate(5deg)}}
+@media (prefers-reduced-motion:reduce){.mas *{animation:none!important}}
 </style>
 </head>
 <body>
@@ -201,6 +205,34 @@ const ICP = {
 };
 const ico = (n, s = 22) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICP[n] || ''}</svg>`;
 function toast(m) { const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); }
+
+/* ---- js/14-mascota.js ---- */
+/* ===== Mascota de Lexi: un bocadillo de palabras (diseño de Iván, 17-11-2026) =====
+   Dibujada en vectores, como las de Calculi, Lectori y Barri: se ve nítida a cualquier tamaño.
+   Flota, parpadea y saluda con el brazo izquierdo. Los brazos son piezas aparte que nacen
+   dentro del cuerpo: al girar nunca se abre un hueco. Colores en --m1…--mlengua (estilos.css). */
+function mascota(tam = 240, quieta = false) {
+  const ojo = (cx, cy, r) => `<g class="ojo"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#fff"/>`
+    + `<circle cx="${cx + 3.5}" cy="${cy + 1.5}" r="${(r * .6).toFixed(1)}" fill="var(--mojo)"/>`
+    + `<circle cx="${cx + 8}" cy="${cy - 4}" r="${(r * .22).toFixed(1)}" fill="#fff"/></g>`;
+  const borde = 'M70 38C110 30 150 24 172 26C192 28 202 44 204 70C206 96 204 116 194 126C182 138 150 141 120 142C104 143 92 143 84 142C76 148 66 152 58 154C52 156 50 151 52 146C54 141 57 137 58 132C50 124 48 108 48 86C48 60 52 44 70 38Z';
+  return `<svg class="mas${quieta ? ' quieta' : ''}" width="${tam}" height="${Math.round(tam * 176 / 240)}" viewBox="0 0 240 176" role="img" aria-label="Lexi, la mascota">
+  <defs><linearGradient id="lexi-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--m2)"/><stop offset=".75" style="stop-color:var(--m1)"/></linearGradient></defs>
+  <ellipse class="sombra" cx="124" cy="166" rx="56" ry="6" fill="currentColor" opacity=".12"/>
+  <g class="cuerpo">
+    <g class="brazo-d"><path d="M194 84C216 86 228 106 214 128" fill="none" stroke="var(--mbr)" stroke-width="20" stroke-linecap="round"/>
+      <path d="M204 88C212 92 215 98 215 104" fill="none" stroke="var(--m3)" stroke-width="9" stroke-linecap="round" opacity=".5"/></g>
+    <g class="brazo-i"><path d="M62 106C44 104 31 95 26 80" fill="none" stroke="var(--mbr)" stroke-width="25" stroke-linecap="round"/>
+      <path d="M53 94C48 99 48 108 51 114" fill="none" stroke="var(--m3)" stroke-width="11" stroke-linecap="round" opacity=".55"/></g>
+    <path d="${borde}" fill="url(#lexi-g)"/>
+    <path d="M50 112C56 132 84 138 120 137C152 136 184 132 200 114C199 120 197 123 194 126C182 138 150 141 120 142C104 143 92 143 84 142C70 140 54 132 50 112Z" fill="var(--m3)" opacity=".4"/>
+    <path d="M77 66Q87 54 99 59M146 46Q158 40 168 49" fill="none" stroke="var(--mojo)" stroke-width="5.5" stroke-linecap="round"/>
+    ${ojo(95, 86, 23)}${ojo(158, 77, 24)}
+    <path d="M107 104C120 109 134 107 146 99C148 114 139 124 126 124C115 124 107 117 107 104Z" fill="var(--mboca)"/>
+    <path d="M113 119C120 112 134 111 141 115C137 121 132 124 126 124C120 124 116 122 113 119Z" fill="var(--mlengua)"/>
+  </g>
+</svg>`;
+}
 
 /* ---- js/15-escala.js ---- */
 /* Escala de 4 pasos de cada palabra: una planta que crece (decidido por Iván, 16-11-2026; antes, el bocadillo de Lexi).
@@ -372,12 +404,7 @@ const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre d
               fam: { quien: '¿Quién eres?', nuevo: 'Nuevo niño o niña', ph: 'Tu nombre', crear: 'Crear', vacia: 'Aún no hay nadie' } };
 
 function mascotaHTML() {
-  return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
-    + '<span class="sombra" style="left:25.71%;top:89.5%;width:52.5%;height:9.29%"></span>'
-    + '<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt="">'
-    + '<img src="img/mascota/cuerpo.png" alt="">'
-    + '<i class="lid" style="left:28.45%;top:27.13%;width:19.52%;height:28%;background:#64A75A"></i>'
-    + '<i class="lid" style="left:55.83%;top:20.87%;width:19.88%;height:28.7%;background:#72B662"></i></div></div>';
+  return `<div class="lexi-mascota">${mascota(440)}</div>`;
 }
 const avatarHTML = p => p.t === 'fam'
   ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`

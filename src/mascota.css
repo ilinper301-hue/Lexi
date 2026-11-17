@@ -1,13 +1,16 @@
-/* Lexi · mascota por capas (la imagen verde de Iván, 17-11-2026, sin redibujar) */
-.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:760/520;--lexi-cuerpo:#6AAF5E;--lexi-sombra:rgba(26,50,35,.14)}
-.lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
-.lexi-mascota img{left:0;top:0;width:100%;height:100%;display:block}
-.lexi-mascota .sombra{background:var(--lexi-sombra);border-radius:50%;animation:lexi-sombra 4s ease-in-out infinite}
-.lexi-mascota .flota{inset:0;animation:lexi-flota 4s ease-in-out infinite}
-.lexi-mascota .brazo{transform-origin:16.4% 52.2%;animation:lexi-saluda 3.2s ease-in-out infinite}
-.lexi-mascota .lid{background:var(--lexi-cuerpo);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
-@keyframes lexi-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2%)}}
-@keyframes lexi-sombra{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.94)}}
-@keyframes lexi-saluda{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(5deg)}}
-@keyframes lexi-parpadea{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
-@media (prefers-reduced-motion:reduce){.lexi-mascota *{animation:none!important}}
+/* Lexi · mascota en vectores (14-mascota.js), con el mismo movimiento que Calculi */
+.lexi-mascota{width:100%;max-width:440px;display:grid;place-items:center}
+.lexi-mascota .mas{width:100%;height:auto}
+.mas{overflow:visible;color:var(--tx)}
+.mas .cuerpo{animation:lexi-flota 3.4s ease-in-out infinite alternate;transform-origin:50% 90%;transform-box:fill-box}
+.mas .sombra{animation:lexi-sombra 3.4s ease-in-out infinite alternate;transform-origin:50% 50%;transform-box:fill-box}
+.mas .ojo{animation:lexi-parpadea 5.2s infinite;transform-origin:50% 50%;transform-box:fill-box}
+.mas .brazo-i{animation:lexi-saluda 1.6s ease-in-out infinite alternate;transform-origin:60px 105px}
+.mas .brazo-d{animation:lexi-mece 3.4s ease-in-out infinite alternate;transform-origin:196px 85px}
+.mas.quieta *{animation:none!important}
+@keyframes lexi-flota{from{transform:translateY(0) rotate(-1.5deg)}to{transform:translateY(-6px) rotate(1.5deg)}}
+@keyframes lexi-sombra{from{transform:scaleX(1);opacity:.14}to{transform:scaleX(.85);opacity:.08}}
+@keyframes lexi-parpadea{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
+@keyframes lexi-saluda{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}
+@keyframes lexi-mece{from{transform:rotate(-4deg)}to{transform:rotate(5deg)}}
+@media (prefers-reduced-motion:reduce){.mas *{animation:none!important}}
