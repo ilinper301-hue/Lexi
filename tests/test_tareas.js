@@ -82,4 +82,21 @@ t('«gesto» sale en «Jugamos»: forma 1 la primera vez y forma 2 la segunda si
     a.valorarTarea(q.id, q.t, 'todos');
   }
 });
+t('71. «relaciona»: antes de «Ver la respuesta» no sale la palabra ni su imagen; con «Una pista» sale la imagen; después, todo (L5, L6)', () => {
+  const a = nuevo(); a.MODO_DOCENTE = true; const p = a.palabraPorId('enorme');
+  const ant = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 0, rev: false }, p);
+  assert(ant.cuerpo.includes('gigante') && !ant.cuerpo.includes('enorme'), ant.cuerpo);
+  const pista = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 0, rev: false, pista: true }, p);
+  assert(pista.cuerpo.includes('enorme.webp') && !pista.cuerpo.includes('>enorme<'));
+  const fin = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 0, rev: true }, p);
+  assert(fin.res.includes('Enorme se parece a gigante') && fin.res.includes('¿Quién dice una frase con «enorme»?') && fin.res.includes('enorme.webp'));
+  const c = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 1, rev: true }, p);
+  assert(c.cuerpo.includes('muy grande') && !c.cuerpo.includes('diminuto'), 'diminuto aún no está presentada: ' + c.cuerpo);
+});
+t('«relaciona» sale en «Jugamos» (Modo Docente: paso 4, alterna) y la cola lleva su pregunta', () => {
+  const a = nuevo(); a.MODO_DOCENTE = true; const vistas = new Set();
+  for (let i = 0; i < 14; i++) a.montarJuego(null).forEach(q => { vistas.add(q.t); if (q.t === 'relaciona') assert(q.rel && q.rel.q && q.rel.tipo); a.anotarDocente(q.id, q.t); });
+  assert(vistas.has('relaciona'), [...vistas].join());
+});
+
 console.log(n + ' pruebas correctas');

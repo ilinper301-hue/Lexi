@@ -48,11 +48,11 @@ function jugamosHoy(pal, dia, { rec = [], nuevas = [] } = {}, palabras = PALABRA
 function colaTareas(fichas, reg, pres, dia) {
   const evitar = [], cola = [];
   fichas.forEach(p => {
-    const a = reg(p.id), t = elegirTarea(a, p, dia, { otras: pres.filter(x => x.id !== p.id).length, evitar });
+    const a = reg(p.id), t = elegirTarea(a, p, dia, { otras: pres.filter(x => x.id !== p.id).length, pres, evitar });
     if (!t) return;
     const k = a.u[t] | 0, g = t === 'gesto' ? formaGesto(p, pres, k) : null; /* T7 y G2: la frase y la forma salen de k */
     evitar.push(t);
-    cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
+    cola.push({ rel: t === 'relaciona' ? preguntaRelaciona(p, pres, k) : null, pista: false, id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
   });
   return cola;
 }

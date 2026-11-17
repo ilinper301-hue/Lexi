@@ -3,8 +3,8 @@
    La valoración es opcional: valorarTarea apunta y mueve la escala y el repaso (reglas E y R, 30-escala-logica.js); «Seguir sin valorar» solo anota que la tarea salió. */
 let JUEGO = null;
 const NJUEGO = 2;
-const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', gesto: 'Haz el gesto', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
-const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, gesto: true, acaba: false, habla: false };
+const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', gesto: 'Haz el gesto', acaba: 'Acaba la frase', relaciona: 'Se parece a…', habla: 'Cuéntaselo a tu compañero' };
+const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, gesto: true, relaciona: true, acaba: false, habla: false };
 const VAL_TXT = { todos: 'Casi todos', mitad: 'La mitad', pocos: 'Pocos' };
 
 /** Palabras con las que se puede jugar: las ya presentadas (en Modo Docente, todas las de la semana). */
@@ -29,6 +29,7 @@ function empezarJuego() {
   if (!cola.length) return;
   JUEGO = { cola, i: 0 }; go('juego');
 }
+function juegoPista() { JUEGO.cola[JUEGO.i].pista = true; pintar(); }
 function juegoRevelar() { JUEGO.cola[JUEGO.i].rev = true; pintar(); }
 function juegoValorar(v) {
   const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); else tareaSinValorar(q.id, q.t);
@@ -63,6 +64,14 @@ function tareaHTML(q, p) {
   }
   if (q.t === 'gesto') return { cuerpo: `${pal}<p class="mu gr-p">Todos a la vez: una, dos y tres</p>`,
     res: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="gr">${esc(p.gesto)}</p><p class="mu gr-p">¿Por qué es ese su gesto?</p>` };
+  if (q.t === 'relaciona') { /* L5: sin palabra ni imagen hasta «Ver la respuesta» (la imagen, antes, solo con «Una pista») */
+    const r = q.rel || preguntaRelaciona(p, fichasPresentadas(MODO_DOCENTE ? null : perfilAct()), q.k); if (!r) return { cuerpo: pal, res: '' };
+    const par = r.tipo === 'parecida', mayus = p.palabra.charAt(0).toUpperCase() + p.palabra.slice(1);
+    const pregunta = par ? `¿Cómo decimos <b>${esc(r.q)}</b> con una palabra nuestra?` : `¿Qué palabra nuestra es lo contrario de <b>${esc(r.q)}</b>?`;
+    const img = `<img class="esc-img" src="${esc(imgPal(p))}" alt="">`;
+    return { cuerpo: `<p class="nota-g">${par ? 'Se parece a…' : 'Lo contrario de…'}</p><p class="gr">${pregunta}</p><p class="mu gr-p">Piensa, haz su gesto en silencio… y a la de tres la decimos</p>${q.pista && !q.rev ? img : ''}`,
+      res: `<div class="veredicto si"><b>${esc(mayus)} ${par ? 'se parece a' : 'es lo contrario de'} ${esc(r.q)}</b>${r.tambien && r.tambien.length ? `<span>También vale: ${r.tambien.map(x => '«' + esc(x) + '»').join(', ')}</span>` : ''}</div>${img}<p class="gr">¿Quién dice una frase con «${esc(p.palabra)}»?</p>` };
+  }
   if (q.t === 'acaba') return { cuerpo: `${pal}<p class="gr">${esc(fraseDe(p, 'acaba', q.k))}</p><p class="mu gr-p">Dos o tres voluntarios</p>`, res: '' };
   return { cuerpo: `${pal}<p class="gr">${esc(p.habla)}</p><p class="mu gr-p">Por parejas · un minuto</p>`, res: '' };
 }
@@ -75,10 +84,10 @@ SC.juego = function () {
   const q = j.cola[j.i], p = palabraPorId(q.id), t = tareaHTML(q, p);
   const pts = j.cola.map((_, k) => `<i class="${k === j.i ? 'on' : k < j.i ? 'hecho' : ''}"></i>`).join('');
   const valorar = !CON_RESPUESTA[q.t] || q.rev;
-  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'} · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'} · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : q.t === 'relaciona' && q.rel && q.rel.tipo === 'contraria' ? 'Lo contrario de…' : TAREA_ROT[q.t]}</p>
   <div class="cuerpo">${t.cuerpo}${q.rev ? t.res : ''}</div><div class="pts" aria-hidden="true">${pts}</div>
   ${valorar ? `<p class="mu gr-p" style="text-align:center;margin:0">¿Cuántos lo han hecho bien?</p><div class="vals">${Object.keys(VAL_TXT).map(v => `<button class="btn" onclick="juegoValorar('${v}')">${VAL_TXT[v]}</button>`).join('')}</div>
   <button class="btn sec" onclick="juegoValorar('')">Seguir sin valorar</button>`
-    : '<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>'}
+    : `${q.t === 'relaciona' && !q.pista ? '<button class="btn sec" onclick="juegoPista()">Una pista</button>' : ''}<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>`}
   ${j.hoy ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
 };

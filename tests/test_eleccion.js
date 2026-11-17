@@ -5,7 +5,7 @@ const fs = require('fs'), vm = require('vm'), path = require('path'), assert = r
 const R = path.join(__dirname, '..', 'src', 'js');
 const arch = ['00-util.js', '05-palabras.js', ...fs.readdirSync(path.join(R, 'palabras')).sort().map(f => 'palabras/' + f), '30-escala-logica.js', '32-eleccion.js'];
 const codigo = arch.map(f => fs.readFileSync(path.join(R, f), 'utf8')).join('\n');
-const A = vm.runInContext(codigo + '\n;({presentarRegistro,valorarPalabra,tareaHecha,palabraNueva,sumarDias,PALABRAS,palabraPorId,TAREAS_ENTENDER,TAREAS_USAR,elegirTarea,grupoQueToca,grupoDe,fraseDe,tareasDisponibles,distractoresElige,ordenPaquete,formaGesto,GESTOS_PARECIDOS})', vm.createContext({ console }));
+const A = vm.runInContext(codigo + '\n;({presentarRegistro,valorarPalabra,tareaHecha,palabraNueva,sumarDias,PALABRAS,palabraPorId,TAREAS_ENTENDER,TAREAS_USAR,elegirTarea,grupoQueToca,grupoDe,fraseDe,tareasDisponibles,distractoresElige,ordenPaquete,formaGesto,GESTOS_PARECIDOS,preguntasRelaciona,preguntaRelaciona,PAQUETE_1})', vm.createContext({ console }));
 const { presentarRegistro, valorarPalabra: valorar, tareaHecha, palabraNueva, sumarDias, elegirTarea, grupoQueToca, grupoDe, fraseDe, tareasDisponibles, distractoresElige, ordenPaquete, formaGesto } = A;
 const d = n => sumarDias('2026-11-16', n - 16), L16 = d(16);
 const pres = () => presentarRegistro(palabraNueva(), L16);
@@ -67,17 +67,17 @@ t('34. nunca la misma tarea que la última de esa palabra, valorada o no (300 pa
   }
 });
 
-t('35. rotación: paso 2 sentido, ejemplo, elige, sentido…; paso 3 acaba, habla, acaba… (T5)', () => {
+t('35. rotación: paso 2 sentido, ejemplo, elige, sentido…; paso 3 acaba, habla, relaciona, acaba… (T5)', () => {
   let a = reg(2), v = [];
   for (let i = 0; i < 7; i++) { const x = elegirTarea(a, FRAGIL, d(17), { otras: 2 }); v.push(x); a = tareaHecha(a, x); }
   igual(v, ['sentido', 'ejemplo', 'elige', 'gesto', 'sentido', 'ejemplo', 'elige']);
   a = reg(3); v = [];
   for (let i = 0; i < 6; i++) { const x = elegirTarea(a, FRAGIL, d(17), { otras: 2 }); v.push(x); a = tareaHecha(a, x); }
-  igual(v, ['acaba', 'habla', 'acaba', 'habla', 'acaba', 'habla']);
+  igual(v, ['acaba', 'habla', 'relaciona', 'acaba', 'habla', 'relaciona']);
   /* gana la que menos veces se ha hecho; a igualdad, el orden fijo */
   assert.strictEqual(elegirTarea(reg(2, { sentido: 3, ejemplo: 1, elige: 2, gesto: 2 }, 'elige'), FRAGIL, d(17), { otras: 2 }), 'ejemplo');
   assert.strictEqual(elegirTarea(reg(2, { sentido: 1, ejemplo: 1, elige: 1, gesto: 1 }, 'sentido'), FRAGIL, d(17), { otras: 2 }), 'ejemplo');
-  assert.strictEqual(elegirTarea(reg(3, { acaba: 2, habla: 1 }, ''), FRAGIL, d(17), { otras: 2 }), 'habla');
+  assert.strictEqual(elegirTarea(reg(3, { acaba: 2, habla: 1, relaciona: 1 }, ''), FRAGIL, d(17), { otras: 2 }), 'habla');
   assert.strictEqual(elegirTarea(reg(2, { sentido: 1, ejemplo: 1, elige: 1 }, 'sentido'), FRAGIL, d(17), { otras: 2 }), 'gesto'); /* la que menos veces se ha hecho */
 });
 
@@ -145,7 +145,7 @@ t('39. si del grupo que toca solo queda la última tarea hecha, se coge una del 
   /* en el otro grupo también se prefiere variar */
   assert.strictEqual(elegirTarea(a, solo, d(17), { otras: 0, evitar: ['acaba'] }), 'habla');
   /* T3 no se rompe nunca: si lo único posible es la última tarea, no hay tarea */
-  const unica = { ...FRAGIL, ejemplos: [], acaba: [], habla: '', gesto: '' };
+  const unica = { ...FRAGIL, ejemplos: [], acaba: [], habla: '', gesto: '', rel: { parecida: [], contraria: [] } };
   assert.strictEqual(elegirTarea(reg(2, { sentido: 1 }, 'sentido'), unica, d(17), { otras: 0 }), null);
 });
 
@@ -197,6 +197,55 @@ t('66. «pocos» en `gesto` baja un paso y borra los días buenos, como en cualq
   let a = valorar(valorar(reg(2), 'sentido', 'todos', d(17)), 'ejemplo', 'todos', d(18)); assert.strictEqual(a.e, 3);
   a = valorar(a, 'gesto', 'pocos', d(19)); assert.strictEqual(a.e, 2); igual([a.dA, a.dB], [[], []]);
   assert.strictEqual(valorar(reg(2), 'gesto', 'pocos', d(17)).e, 2);
+});
+
+const preguntasRelaciona_ = (p, pr, q) => { const l = A.preguntasRelaciona(p, pr); return preguntaRelaciona(p, pr, l.findIndex(x => x.q === q)); };
+/* ---- `relaciona` (tests 67-74 de docs/tareas-gesto-relaciona.md) ---- */
+const { preguntaRelaciona } = A;
+const R_ = (id, palabra, rel) => ({ ...JSON.parse(JSON.stringify(A.palabraPorId('observar'))), id, palabra, rel: { parecida: [], contraria: [], familia: [], ...rel } });
+const DIM = R_('diminuto', 'diminuto', { parecida: ['muy pequeño'], contraria: ['enorme'] });
+const DEL = R_('delicado', 'delicado', { parecida: ['frágil'], contraria: ['resistente', 'fuerte'] });
+const RES = R_('resistente', 'resistente', { parecida: ['fuerte', 'duro'], contraria: ['frágil', 'delicado'] });
+const sinT = x => x.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(), ENORME = ficha('enorme'), qs = (p, pr) => A.preguntasRelaciona(p, pr).map(x => x.q);
+t('67. `relaciona` no está disponible para comparar, curioso, ser vivo ni estación (L3)', () => {
+  for (const id of ['comparar', 'curioso']) assert(!tareasDisponibles(ficha(id), 2, A.PALABRAS).includes('relaciona'), id);
+  for (const p of [R_('ser-vivo', 'ser vivo', {}), R_('estacion', 'estación', {})]) assert(!tareasDisponibles(p, 2, [p]).includes('relaciona'), p.id);
+  assert(tareasDisponibles(ENORME, 2, []).includes('relaciona'));
+});
+t('68. `frágil`: solo vale «duro»; con delicado y resistente presentadas valen las tres (L2)', () => {
+  igual(qs(FRAGIL, [FRAGIL]), ['duro']);
+  igual(qs(FRAGIL, [FRAGIL, DEL, RES]).sort(), ['delicado', 'duro', 'resistente']);
+});
+t('69. orden de `enorme`: gigante, diminuto, muy grande; sin `diminuto` presentada: gigante, muy grande (L4)', () => {
+  igual(qs(ENORME, [ENORME, DIM]), ['gigante', 'diminuto', 'muy grande']); igual(qs(ENORME, [ENORME]), ['gigante', 'muy grande']);
+  igual(A.preguntasRelaciona(ENORME, [ENORME, DIM]).map(x => x.tipo), ['parecida', 'contraria', 'parecida']);
+});
+t('70. nunca la misma pregunta dos veces seguidas si la palabra tiene más de una (L4, T7)', () => {
+  for (const [p, pr] of [[ENORME, [ENORME, DIM]], [ENORME, [ENORME]], [FRAGIL, [FRAGIL, DEL, RES]]])
+    for (let k = 0; k < 12; k++) assert.notStrictEqual(preguntaRelaciona(p, pr, k).q, preguntaRelaciona(p, pr, k + 1).q);
+});
+t('71. la pregunta no lleva la palabra que se trabaja (L5)', () => {
+  for (const p of A.PALABRAS) for (let k = 0; k < 6; k++) { const r = preguntaRelaciona(p, A.PALABRAS, k); if (r) assert(!sinT(r.q).includes(sinT(p.palabra)), p.id + ': ' + r.q); }
+});
+t('72. «lo contrario de resistente» con frágil y delicado presentadas: añade «También vale» (L7)', () => {
+  const pr = [FRAGIL, DEL, RES], r = preguntasRelaciona_(FRAGIL, pr, 'resistente');
+  igual(r.tambien, ['delicado']); igual(preguntasRelaciona_(DEL, pr, 'resistente').tambien, ['frágil']);
+  igual(preguntasRelaciona_(ENORME, [ENORME, DIM], 'gigante').tambien, []);
+});
+t('73. ningún elemento de `rel.mas` sale nunca como pregunta (L2)', () => {
+  const p = R_('x', 'equis', { parecida: ['rápido'], mas: ['minúsculo', 'semejante'] }), pr = [p];
+  for (let k = 0; k < 6; k++) assert.strictEqual(preguntaRelaciona(p, pr, k).q, 'rápido');
+});
+t('74. `relaciona` es tarea de usar: cuenta como día bueno de usar (E3) y «pocos» baja un paso (E8) (G9, L9)', () => {
+  assert.strictEqual(grupoDe('relaciona'), 'usar');
+  let a = valorar(valorar(pres(), 'ejemplo', 'todos', d(17)), 'sentido', 'todos', d(18)); assert.strictEqual(a.e, 3);
+  a = valorar(a, 'relaciona', 'todos', d(19)); igual(a.dB, [d(19)]); assert.strictEqual(a.e, 3);
+  a = valorar(a, 'relaciona', 'todos', d(30)); assert.strictEqual(a.e, 4, 'dos días buenos de usar: sube');
+  a = valorar(a, 'relaciona', 'pocos', d(40)); assert.strictEqual(a.e, 3, 'pocos en La usamos baja un paso');
+});
+t('el listado PAQUETE_1 es el de las 60 palabras de 1.º de docs/', () => {
+  const { leerDocs } = require('../tools/validar-docs.js'), doc = leerDocs(path.resolve(__dirname, '..', 'docs')).todas.filter(p => p.curso === 1).map(p => sinT(p.palabra));
+  igual([...A.PAQUETE_1].sort(), doc.sort());
 });
 
 console.log(n + ' pruebas correctas');

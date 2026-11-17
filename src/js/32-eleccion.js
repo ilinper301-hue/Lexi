@@ -8,9 +8,11 @@ const otroGrupo = g => (g === 'entender' ? 'usar' : 'entender');
     `otras` = cuántas palabras presentadas, distintas de ésta, hay para ponerle a `elige` sus opciones. */
 const CONTENIDO_TAREA = {
   sentido: p => !!(p.sentido && p.sentido.length), ejemplo: p => !!(p.ejemplos && p.ejemplos.length),
-  elige: (p, otras) => otras >= 2, gesto: p => !!p.gesto, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla
+  elige: (p, otras) => otras >= 2, gesto: p => !!p.gesto, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla,
+  relaciona: (p, otras, pres) => preguntasRelaciona(p, pres).length > 0 /* L3: algún elemento de la ficha vale hoy */
 };
-const tareasDisponibles = (p, otras = 0) => ORDEN_TAREAS.filter(t => CONTENIDO_TAREA[t] && CONTENIDO_TAREA[t](p, otras));
+/** `pres` = fichas presentadas (solo lo necesita `relaciona`, L2). */
+const tareasDisponibles = (p, otras = 0, pres = []) => ORDEN_TAREAS.filter(t => CONTENIDO_TAREA[t] && CONTENIDO_TAREA[t](p, otras, pres));
 
 /** T1 · Grupo de tareas que toca hoy: «entender» o «usar».
     (a) Si la última valoración fue «pocos»: entender. (b) Si no: paso 2, entender; paso 3, usar; paso 4, el contrario al de su última tarea
@@ -33,7 +35,7 @@ const menosHecha = (a, lista) => lista.slice().sort((x, y) => ((a.u[x] | 0) - (a
 function elegirTarea(a, p, dia, op = {}) {
   a = a || palabraNueva();
   const evitar = op.evitar || [], g = grupoQueToca(a, dia);
-  const libres = tareasDisponibles(p, op.otras | 0).filter(t => t !== a.ut);
+  const libres = tareasDisponibles(p, op.otras | 0, op.pres || []).filter(t => t !== a.ut);
   for (const [grupo, variedad] of [[g, true], [g, false], [otroGrupo(g), true], [otroGrupo(g), false]]) {
     const c = libres.filter(t => grupoDe(t) === grupo && !(variedad && evitar.includes(t)));
     if (c.length) return menosHecha(a, c);
@@ -84,4 +86,30 @@ function formaGesto(p, presentadas, k = 0) {
   if (k % 2 === 0 || cand.length < 2) return { forma: 1, otras: [], pos: 0 };
   const v = (k - 1) / 2, rota = l => l.map((_, i) => l[(i + v) % l.length]);
   return { forma: 2, otras: [...rota(mismas), ...rota(antes)].slice(0, 2), pos: v % 3 };
+}
+
+/* ===== `relaciona` (docs/tareas-gesto-relaciona.md, apartado 3: reglas L1-L7) ===== */
+const sinTildes = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+/** L2 · Las 60 palabras de 1.º (sin tildes). Un elemento de `parecida` o `contraria` que sea una de ellas solo vale si ya está presentada;
+    los demás (rápido, lento, muy cansado) son palabras de todos los días y valen siempre. Un test la compara con docs/. */
+const PAQUETE_1 = ['observar', 'comparar', 'ordenar', 'enorme', 'fragil', 'curioso', 'senalar', 'completar', 'describir', 'diminuto', 'veloz', 'valiente', 'explicar', 'elegir', 'clasificar', 'parecido', 'diferente', 'sorprendido', 'rodear', 'unir', 'descubrir', 'suave', 'aspero', 'agotado', 'primero', 'despues', 'finalmente', 'antiguo', 'moderno', 'proteger', 'imaginar', 'recordar', 'preguntar', 'brillante', 'oscuro', 'orgulloso', 'repetir', 'cambiar', 'comprobar', 'necesario', 'sencillo', 'tranquilo', 'problema', 'solucion', 'pista', 'resistente', 'delicado', 'nervioso', 'compartir', 'colaborar', 'respetar', 'cuidadoso', 'amable', 'paciente', 'ser vivo', 'alimento', 'paisaje', 'crecer', 'necesitar', 'estacion'];
+/** L1 + L2 + L4 · Preguntas que valen hoy para una palabra, en el orden de L4: primera parecida, primera contraria, segunda parecida…
+    (`rel.mas` no se mira nunca). `pres` = fichas presentadas. Devuelve [{tipo: 'parecida'|'contraria', q}]. */
+function preguntasRelaciona(p, pres = []) {
+  const rel = p.rel || {}, presN = new Set(pres.map(x => sinTildes(x.palabra))), lista = [];
+  const vale = e => !PAQUETE_1.includes(sinTildes(e)) || presN.has(sinTildes(e));
+  const A = (rel.parecida || []).filter(vale), C = (rel.contraria || []).filter(vale);
+  for (let i = 0; i < Math.max(A.length, C.length); i++) {
+    if (i < A.length) lista.push({ tipo: 'parecida', q: A[i] });
+    if (i < C.length) lista.push({ tipo: 'contraria', q: C[i] });
+  }
+  return lista;
+}
+/** L4 + L7 · La pregunta que sale la vez número `k` (k = veces que ya se hizo `relaciona` con la palabra) y las otras palabras presentadas
+    que tienen la misma pregunta («También vale»). Devuelve {tipo, q, tambien: [palabras]} o null si no hay pregunta. */
+function preguntaRelaciona(p, pres, k = 0) {
+  const l = preguntasRelaciona(p, pres); if (!l.length) return null;
+  const x = l[Math.max(0, k | 0) % l.length];
+  const tambien = pres.filter(o => o.id !== p.id && ((o.rel || {})[x.tipo] || []).some(e => sinTildes(e) === sinTildes(x.q))).map(o => o.palabra);
+  return { ...x, tambien };
 }
