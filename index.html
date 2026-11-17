@@ -428,6 +428,10 @@ function tareaSinValorar(id, tarea) {
   return guardar();
 }
 const PIN_OK = p => /^\d{4}$/.test(p || '');
+/** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
+function fijarNuevas(n) { if (EST.bloq) return false; EST.ajustes.nuevas = n === 1 ? 1 : 2; return guardarAjustes(); }
+/** H7 · Se ha terminado una sesión «Hoy»: se apunta el día. En Modo Docente no guarda nada. */
+function terminarSesionHoy() { const p = perfilAct(); if (MODO_DOCENTE || !p || EST.bloq) return false; p.ses = hoy(); return guardar(); }
 function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; EST.ajustes.pin = pin; guardarAjustes(); return true; }
 
 /* ===== Copia de seguridad ===== */
@@ -615,6 +619,66 @@ function formaGesto(p, presentadas, k = 0) {
   return { forma: 2, otras: [...rota(mismas), ...rota(antes)].slice(0, 2), pos: v % 3 };
 }
 
+/* ---- js/34-hoy.js ---- */
+/* ===== Botón «Hoy»: qué entra en cada parte de la sesión (reglas H1-H4 de docs/pedagogia.md, apartado 10) =====
+   Funciones PURAS: reciben el registro de palabras `pal` ({id: registro}), el día y las fichas (`palabras`), y no cambian nada.
+   Cada parte se monta al entrar en ella (así «Jugamos» ya ve las palabras que se acaban de presentar). */
+const MAX_SEMANA = 6;
+const lunesDe = d => sumarDias(d, -((new Date(diaNum(d) * 864e5).getUTCDay() + 6) % 7));
+const regDe = (pal, id) => (pal && pal[id]) || palabraNueva();
+const presentadaEn = (pal, id) => regDe(pal, id).e >= 2;
+const fichaDe = (palabras, id) => palabras.find(p => p.id === id);
+
+/** H3 · Cuántas palabras nuevas caben hoy: el ajuste (1 o 2) menos las presentadas hoy, y nunca más de 6 en la misma semana natural (lunes a domingo). */
+function cupoNuevas(pal, dia, ajuste = 2) {
+  const ids = Object.keys(pal || {}).filter(id => pal[id].e >= 2 && fechaOK(pal[id].pres));
+  const hoyN = ids.filter(id => pal[id].pres === dia).length, semN = ids.filter(id => lunesDe(pal[id].pres) === lunesDe(dia)).length;
+  return Math.max(0, Math.min((ajuste === 1 ? 1 : 2) - hoyN, MAX_SEMANA - semN));
+}
+/** H3 · Las siguientes palabras sin presentar, por semana y en el orden de la ficha. Dos con la misma marca `sep` no van el mismo día
+    (tampoco si una ya se presentó hoy): la segunda es la siguiente que no choque. Devuelve fichas. */
+function nuevasPorPresentar(pal, dia, ajuste = 2, palabras = PALABRAS) {
+  const cupo = cupoNuevas(pal, dia, ajuste), res = [];
+  const usados = new Set(palabras.filter(p => p.sep && presentadaEn(pal, p.id) && regDe(pal, p.id).pres === dia).map(p => p.sep));
+  for (const id of ordenPaquete(palabras)) {
+    if (res.length >= cupo) break;
+    const p = fichaDe(palabras, id);
+    if (presentadaEn(pal, id) || (p.sep && usados.has(p.sep))) continue;
+    res.push(p); if (p.sep) usados.add(p.sep);
+  }
+  return res;
+}
+/** H2 · «Recordamos»: las de la regla R9 (como mucho 3). Devuelve fichas. */
+function recordamosHoy(pal, dia, palabras = PALABRAS) {
+  return pendientes(pal, dia, ordenPaquete(palabras)).map(id => fichaDe(palabras, id)).filter(Boolean);
+}
+/** H4 · «Jugamos»: 2 palabras ya presentadas de la semana en curso (la de la última presentada) que hoy no hayan salido en «Recordamos» ni se hayan valorado ya hoy
+    (salvo las nuevas de esta sesión, `nuevas`). Primero las pendientes, luego las presentadas antes de hoy, luego las menos valoradas y, por último, el orden del paquete.
+    Si no hay 2, se completa con pendientes de otras semanas; si aun así no hay, se juega con las que haya. Devuelve fichas. */
+function jugamosHoy(pal, dia, { rec = [], nuevas = [] } = {}, palabras = PALABRAS, n = 2) {
+  const libres = palabras.filter(p => presentadaEn(pal, p.id) && !rec.includes(p.id) && (nuevas.includes(p.id) || !regDe(pal, p.id).val.some(x => x.d === dia)));
+  const ultima = palabras.filter(p => presentadaEn(pal, p.id)).sort((x, y) => (regDe(pal, y.id).pres > regDe(pal, x.id).pres ? 1 : regDe(pal, y.id).pres < regDe(pal, x.id).pres ? -1 : 0) || lugarPaquete(y) - lugarPaquete(x))[0];
+  if (!ultima) return [];
+  const clave = p => { const a = regDe(pal, p.id); return [estaPendiente(a, dia) ? 0 : 1, a.pres < dia ? 0 : 1, a.val.length, lugarPaquete(p)]; };
+  const orden = (x, y) => { const a = clave(x), b = clave(y); for (let i = 0; i < 4; i++) if (a[i] !== b[i]) return a[i] - b[i]; return 0; };
+  const res = libres.filter(p => p.semana === ultima.semana).sort(orden).slice(0, n);
+  if (res.length < n) res.push(...libres.filter(p => p.semana !== ultima.semana && estaPendiente(regDe(pal, p.id), dia)).sort(orden).slice(0, n - res.length));
+  return res;
+}
+/** Monta la cola de tareas de una parte: a cada ficha, la tarea y la frase que tocan (T1-T7), con tipos distintos entre sí (T4).
+    `reg(id)` da el registro de la palabra y `pres` son las fichas presentadas (`elige` y `gesto` sacan de ahí sus otras palabras). */
+function colaTareas(fichas, reg, pres, dia) {
+  const evitar = [], cola = [];
+  fichas.forEach(p => {
+    const a = reg(p.id), t = elegirTarea(a, p, dia, { otras: pres.filter(x => x.id !== p.id).length, evitar });
+    if (!t) return;
+    const k = a.u[t] | 0, g = t === 'gesto' ? formaGesto(p, pres, k) : null; /* T7 y G2: la frase y la forma salen de k */
+    evitar.push(t);
+    cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
+  });
+  return cola;
+}
+
 /* ---- js/40-inicio.js ---- */
 /* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
 let PANT = 'inicio', MODO = '', NUEVO_AV = null, ERR = '';
@@ -632,7 +696,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -651,11 +715,11 @@ SC.quien = function () {
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
 };
 SC.casa = function () {
-  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
   const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
-  <button class="btn grande" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>
-  <p class="mu">Aquí irá la sesión de hoy.</p>${escalaFila()}
+  <button class="btn grande" onclick="empezarHoy()">${p.ses === hoy() ? 'Hoy · hecha' : 'Hoy'}</button>
+  <button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
 };
 let NUEVO_NOM = '';
@@ -665,6 +729,7 @@ function pintar() {
 function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
 function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
+  if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre')) { HOY = null; return go('casa'); }
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
   if (PANT === 'semana') return go('casa');
   if (PANT === 'casa') return go('quien');
@@ -723,7 +788,8 @@ SC.pres = function () {
   return `<main class="pantalla infantil ancha pres"><p class="rotulo">${rot}</p>
   <div class="cuerpo">${cuerpo}</div><div class="pts" aria-hidden="true">${pts}</div>
   <div class="nav">${i > 0 ? '<button class="btn sec" onclick="presMover(-1)">← Antes</button>' : '<span></span>'}
-  ${ult ? '<button class="btn" onclick="atras()">Terminar</button>' : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}</div></main>`;
+  ${ult ? (HOY ? '<button class="btn" onclick="hoyNuevaSiguiente()">Seguir →</button>' : '<button class="btn" onclick="atras()">Terminar</button>') : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}</div>
+  ${HOY ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
 };
 function abrirPalabra(id) { PRES = { id, i: 0 }; go('pres'); }
 function presMover(d) {
@@ -731,6 +797,57 @@ function presMover(d) {
   if (PRES.i === PRES_PASOS - 1) presentarPalabra(PRES.id); /* al llegar al final se da por presentada (en Modo Docente no se guarda) */
   pintar(); window.scrollTo(0, 0);
 }
+
+/* ---- js/46-hoy.js ---- */
+/* ===== Botón «Hoy»: la sesión guiada (reglas H1-H4 y H7-H10; qué entra en cada parte: 34-hoy.js) =====
+   Orden fijo: Recordamos → Palabra nueva → Jugamos → Cierre. Cada parte se monta al entrar en ella y tiene «Saltar esta parte».
+   Nada de la sesión se guarda aparte: lo presentado y lo valorado ya está guardado (H8); solo se apunta el día en que se termina (H7).
+   Las partes de tareas reutilizan la pantalla «juego» y la de presentación «pres». */
+let HOY = null;
+const PARTES_HOY = ['rec', 'nueva', 'jug', 'cierre'];
+
+function empezarHoy() { HOY = { parte: '', rec: [], nuevas: [] , j: 0 }; hoyAvanzar(); }
+function hoyAvanzar() {
+  if (!HOY) return go('casa');
+  const sig = PARTES_HOY[PARTES_HOY.indexOf(HOY.parte) + 1];
+  if (!sig) return hoyTerminar();
+  HOY.parte = sig; hoyEntrar();
+}
+function hoyTerminar() { terminarSesionHoy(); HOY = null; go('casa'); toast('Sesión terminada'); }
+function hoyCola(fichas, pr, titulo) {
+  const cola = colaTareas(fichas, id => registroJuego(pr, id), fichasPresentadas(pr), hoy());
+  if (!cola.length) return false;
+  JUEGO = { cola, i: 0, hoy: titulo }; go('juego'); return true;
+}
+function hoyEntrar() {
+  const pr = MODO_DOCENTE ? null : perfilAct(), pal = pr ? pr.pal : {}, dia = hoy();
+  const muestra = MODO_DOCENTE ? palabrasSemana(SEMANA_ACT) : null; /* H9: 2 + 1 + 2 de la semana elegida; no lee ni guarda nada */
+  if (HOY.parte === 'rec') {
+    const f = muestra ? muestra.slice(0, 2) : recordamosHoy(pal, dia, PALABRAS);
+    HOY.rec = f.map(p => p.id); if (!hoyCola(f, pr, 'Recordamos')) hoyAvanzar();
+  } else if (HOY.parte === 'nueva') {
+    const f = muestra ? muestra.slice(2, 3) : nuevasPorPresentar(pal, dia, EST.ajustes.nuevas, PALABRAS);
+    if (!f.length) return hoyAvanzar();
+    HOY.nuevas = f.map(p => p.id); HOY.j = 0; abrirPalabra(HOY.nuevas[0]);
+  } else if (HOY.parte === 'jug') {
+    const f = muestra ? muestra.slice(3, 5) : jugamosHoy(pal, dia, { rec: HOY.rec, nuevas: HOY.nuevas }, PALABRAS);
+    if (!hoyCola(f, pr, 'Jugamos')) hoyAvanzar();
+  } else if (!HOY.nuevas.length) hoyTerminar();
+  else go('cierre');
+}
+/** Al final de la presentación de una palabra nueva: la siguiente de hoy, o la parte siguiente. */
+function hoyNuevaSiguiente() {
+  HOY.j++;
+  if (HOY.j < HOY.nuevas.length) { PRES = { id: HOY.nuevas[HOY.j], i: 0 }; pintar(); window.scrollTo(0, 0); } else hoyAvanzar();
+}
+/** H5 (primera versión) · Cierre: se dicen por última vez las palabras nuevas de hoy, con su gesto. */
+SC.cierre = function () {
+  if (!HOY) return SC.casa();
+  const pr = MODO_DOCENTE ? null : perfilAct(), l = HOY.nuevas.map(palabraPorId).filter(p => p && (MODO_DOCENTE || estadoPal(pr, p.id).e >= 2));
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Cierre · la decimos otra vez</p>
+  <div class="cuerpo">${l.map(p => `<p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.gesto)}</p>`).join('')}</div>
+  <div class="nav"><span></span><button class="btn" onclick="hoyTerminar()">Terminar</button></div></main>`;
+};
 
 /* ---- js/48-tareas.js ---- */
 /* ===== «Jugamos»: 2 tareas con palabras de la semana (la guía el docente; la clase responde con pulgares, dedos o hablando) =====
@@ -756,16 +873,8 @@ function anotarDocente(id, tarea) { if (MODO_DOCENTE) DOC_REG[id] = tareaHecha(r
     y con tareas de tipo distinto entre sí (T4). `elige` lleva sus otras 2 opciones, siempre palabras presentadas. */
 function montarJuego(pr, n = NJUEGO) {
   const lista = palabrasJugables(pr).map((p, i) => ({ p, i, v: (estadoPal(pr, p.id).val || []).length }))
-    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n), pres = fichasPresentadas(pr), dia = hoy(), evitar = [], cola = [];
-  lista.forEach(({ p }) => {
-    const a = registroJuego(pr, p.id), nOtras = pres.filter(x => x.id !== p.id).length;
-    const t = elegirTarea(a, p, dia, { otras: nOtras, evitar });
-    if (!t) return;
-    const k = a.u[t] | 0; /* T7: cuántas veces se ha hecho; de ahí sale la frase */
-    const g = t === 'gesto' ? formaGesto(p, pres, k) : null; /* G2: la forma de `gesto` sale de k */
-    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
-  });
-  return cola;
+    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n).map(x => x.p);
+  return colaTareas(lista, id => registroJuego(pr, id), fichasPresentadas(pr), hoy());
 }
 function empezarJuego() {
   const cola = montarJuego(MODO_DOCENTE ? null : perfilAct());
@@ -811,17 +920,19 @@ function tareaHTML(q, p) {
 }
 SC.juego = function () {
   const j = JUEGO; if (!j || !j.cola.length) return SC.semana();
-  if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos</p>
+  if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'}</p>
     <div class="cuerpo"><p class="palabra-g">¡Hecho!</p><p class="mu gr-p">${j.cola.map(q => esc(palabraPorId(q.id).palabra)).join(' · ')}</p></div>
-    <div class="nav"><button class="btn sec" onclick="empezarJuego()">Otra vez</button><button class="btn" onclick="atras()">Terminar</button></div></main>`;
+    ${j.hoy ? '<div class="nav"><span></span><button class="btn" onclick="hoyAvanzar()">Seguir →</button></div>'
+      : '<div class="nav"><button class="btn sec" onclick="empezarJuego()">Otra vez</button><button class="btn" onclick="atras()">Terminar</button></div>'}</main>`;
   const q = j.cola[j.i], p = palabraPorId(q.id), t = tareaHTML(q, p);
   const pts = j.cola.map((_, k) => `<i class="${k === j.i ? 'on' : k < j.i ? 'hecho' : ''}"></i>`).join('');
   const valorar = !CON_RESPUESTA[q.t] || q.rev;
-  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'} · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
   <div class="cuerpo">${t.cuerpo}${q.rev ? t.res : ''}</div><div class="pts" aria-hidden="true">${pts}</div>
   ${valorar ? `<p class="mu gr-p" style="text-align:center;margin:0">¿Cuántos lo han hecho bien?</p><div class="vals">${Object.keys(VAL_TXT).map(v => `<button class="btn" onclick="juegoValorar('${v}')">${VAL_TXT[v]}</button>`).join('')}</div>
   <button class="btn sec" onclick="juegoValorar('')">Seguir sin valorar</button>`
-    : '<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>'}</main>`;
+    : '<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>'}
+  ${j.hoy ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
 };
 
 /* ---- js/50-tutor.js ---- */
@@ -868,6 +979,9 @@ SC.tz = function () {
   ${EST.bloq ? '<p class="aviso">Estos datos son de una versión más nueva de Lexi: no se modifican desde aquí.</p>' : ''}
   <h2 class="h-s">Clases</h2><div class="lista">${doc.length ? doc.map(fila_p).join('') : '<p class="mu">Aún no hay clases.</p>'}</div>
   <h2 class="h-s">Niños y niñas</h2><div class="lista">${fam.length ? fam.map(fila_p).join('') : '<p class="mu">Aún no hay niños.</p>'}</div>
+  <h2 class="h-s">Sesión «Hoy»</h2><div class="tarjeta"><b>Palabras nuevas por sesión</b>
+  <div class="dos"><button class="btn${EST.ajustes.nuevas === 1 ? '' : ' sec'}" onclick="nuevasTZ(1)" aria-pressed="${EST.ajustes.nuevas === 1}">1</button><button class="btn${EST.ajustes.nuevas === 1 ? ' sec' : ''}" onclick="nuevasTZ(2)" aria-pressed="${EST.ajustes.nuevas !== 1}">2</button></div>
+  <p class="mu pq">Nunca más de 6 palabras nuevas por semana. Con sesión todos los días van bien 2; con 3 o 4 sesiones a la semana conviene 1.</p></div>
   <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}</div>
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
   <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;
@@ -889,6 +1003,7 @@ function renombrarTZ(ev, id) {
   if (e) { ERR = e; pintar(); return; }
   renombrarPerfil(id, NUEVO_NOM || p.n); NUEVO_NOM = ''; ERR = ''; pintar(); toast('Nombre guardado');
 }
+function nuevasTZ(n) { fijarNuevas(n); pintar(); toast(n === 1 ? '1 palabra nueva por sesión' : '2 palabras nuevas por sesión'); }
 function animalTZ(i) { const id = TZ.sub.slice(2); cambiarAnimal(id, i); pintar(); }
 function borrarTZ(id) { borrarPerfil(id); TZ.sub = ''; TZ.borrar = ''; NUEVO_NOM = ''; pintar(); toast('Perfil borrado'); }
 

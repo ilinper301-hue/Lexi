@@ -154,6 +154,10 @@ function tareaSinValorar(id, tarea) {
   return guardar();
 }
 const PIN_OK = p => /^\d{4}$/.test(p || '');
+/** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
+function fijarNuevas(n) { if (EST.bloq) return false; EST.ajustes.nuevas = n === 1 ? 1 : 2; return guardarAjustes(); }
+/** H7 · Se ha terminado una sesión «Hoy»: se apunta el día. En Modo Docente no guarda nada. */
+function terminarSesionHoy() { const p = perfilAct(); if (MODO_DOCENTE || !p || EST.bloq) return false; p.ses = hoy(); return guardar(); }
 function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; EST.ajustes.pin = pin; guardarAjustes(); return true; }
 
 /* ===== Copia de seguridad ===== */

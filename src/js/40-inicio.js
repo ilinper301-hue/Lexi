@@ -14,7 +14,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -33,11 +33,11 @@ SC.quien = function () {
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
 };
 SC.casa = function () {
-  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
   const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
-  <button class="btn grande" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>
-  <p class="mu">Aquí irá la sesión de hoy.</p>${escalaFila()}
+  <button class="btn grande" onclick="empezarHoy()">${p.ses === hoy() ? 'Hoy · hecha' : 'Hoy'}</button>
+  <button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
 };
 let NUEVO_NOM = '';
@@ -47,6 +47,7 @@ function pintar() {
 function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
 function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
+  if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre')) { HOY = null; return go('casa'); }
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
   if (PANT === 'semana') return go('casa');
   if (PANT === 'casa') return go('quien');

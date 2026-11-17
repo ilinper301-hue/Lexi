@@ -1,7 +1,7 @@
 /* Lógica de «Jugamos»: qué palabras y qué tareas toca, y que cada tarea se dibuja con su ficha. Uso: node tests/test_tareas.js */
 const fs = require('fs'), vm = require('vm'), path = require('path'), assert = require('assert');
 const R = path.join(__dirname, '..', 'src', 'js');
-const arch = ['00-util.js', '05-palabras.js', ...fs.readdirSync(path.join(R, 'palabras')).sort().map(f => 'palabras/' + f), '20-datos.js', '30-escala-logica.js', '32-eleccion.js', '45-semana.js', '48-tareas.js'];
+const arch = ['00-util.js', '05-palabras.js', ...fs.readdirSync(path.join(R, 'palabras')).sort().map(f => 'palabras/' + f), '20-datos.js', '30-escala-logica.js', '32-eleccion.js', '34-hoy.js', '45-semana.js', '48-tareas.js'];
 const codigo = 'const SC = {};\n' + arch.map(f => fs.readFileSync(path.join(R, f), 'utf8')).join('\n');
 function nuevo() {
   const al = {}, ls = { getItem: k => (k in al ? al[k] : null), setItem: (k, v) => { al[k] = String(v); }, removeItem: k => { delete al[k]; } };

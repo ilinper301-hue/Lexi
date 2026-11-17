@@ -41,6 +41,9 @@ SC.tz = function () {
   ${EST.bloq ? '<p class="aviso">Estos datos son de una versión más nueva de Lexi: no se modifican desde aquí.</p>' : ''}
   <h2 class="h-s">Clases</h2><div class="lista">${doc.length ? doc.map(fila_p).join('') : '<p class="mu">Aún no hay clases.</p>'}</div>
   <h2 class="h-s">Niños y niñas</h2><div class="lista">${fam.length ? fam.map(fila_p).join('') : '<p class="mu">Aún no hay niños.</p>'}</div>
+  <h2 class="h-s">Sesión «Hoy»</h2><div class="tarjeta"><b>Palabras nuevas por sesión</b>
+  <div class="dos"><button class="btn${EST.ajustes.nuevas === 1 ? '' : ' sec'}" onclick="nuevasTZ(1)" aria-pressed="${EST.ajustes.nuevas === 1}">1</button><button class="btn${EST.ajustes.nuevas === 1 ? ' sec' : ''}" onclick="nuevasTZ(2)" aria-pressed="${EST.ajustes.nuevas !== 1}">2</button></div>
+  <p class="mu pq">Nunca más de 6 palabras nuevas por semana. Con sesión todos los días van bien 2; con 3 o 4 sesiones a la semana conviene 1.</p></div>
   <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}</div>
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
   <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;
@@ -62,6 +65,7 @@ function renombrarTZ(ev, id) {
   if (e) { ERR = e; pintar(); return; }
   renombrarPerfil(id, NUEVO_NOM || p.n); NUEVO_NOM = ''; ERR = ''; pintar(); toast('Nombre guardado');
 }
+function nuevasTZ(n) { fijarNuevas(n); pintar(); toast(n === 1 ? '1 palabra nueva por sesión' : '2 palabras nuevas por sesión'); }
 function animalTZ(i) { const id = TZ.sub.slice(2); cambiarAnimal(id, i); pintar(); }
 function borrarTZ(id) { borrarPerfil(id); TZ.sub = ''; TZ.borrar = ''; NUEVO_NOM = ''; pintar(); toast('Perfil borrado'); }
 

@@ -278,8 +278,14 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   `docs/semana-NN.md`; `orden` en las 60 fichas de `docs/` y en `src/js/palabras/`, `sep` en las 9 palabras de las semanas 3, 4, 5 y 8
   (comprobador en `tools/reglas-ficha.js`). Sin datos nuevos: no hay migración. `sw.js` = `lexi-pwa-13`.
   Tests: `node tests/test_eleccion.js` (32-39), `node tests/test_tareas.js`, `node tests/test_contenido.js` y `python3 tests/humo.py`
-- [ ] 3.3 Botón «Hoy» (reglas H1-H4, H7-H10) con el ajuste «Palabras nuevas por sesión» en la zona del
-  tutor. Tests 40-49 y 51-53, y prueba de humo
+- [x] 3.3 Botón «Hoy» (reglas H1-H4, H7-H10) con el ajuste «Palabras nuevas por sesión» en la zona del
+  tutor. Tests 40-49 y 51-53, y prueba de humo (17-11-2026, Sonnet): el botón «Hoy» (o «Hoy · hecha») está en la casa del perfil y en Modo Docente.
+  Orden fijo Recordamos → Palabra nueva → Jugamos → Cierre; cada parte se monta al entrar y tiene «Saltar esta parte». Qué entra en cada parte (funciones puras
+  `cupoNuevas`, `nuevasPorPresentar`, `recordamosHoy`, `jugamosHoy`, `colaTareas`) en `src/js/34-hoy.js`; el recorrido en `src/js/46-hoy.js`; las tareas y la
+  presentación reutilizan sus pantallas (`48-tareas.js`, `45-semana.js`). `montarJuego` (botón «Jugamos» de la semana) usa ahora `colaTareas`. Modo Docente: muestra de 2 + 1 + 2 y no guarda.
+  Zona del tutor: «Palabras nuevas por sesión» (1 o 2) → `ajustes.nuevas`. Al terminar se apunta `perfil.ses`. Con la semana de ejemplo de `docs/pedagogia.md` sale día a día lo mismo que dice la tabla.
+  Cierre = **primera versión**: solo las palabras nuevas de hoy con su gesto (falta lo de enseñar las que han subido de paso, paso 3.4). `sw.js` = `lexi-pwa-15`.
+  Tests: `node tests/test_hoy.js` (40-49, 52 y 53; usa las 60 fichas de `docs/`) y `tests/humo.py` (sesión completa con valoración, en Docente, Familias y Modo Docente). **Para probar:** en una clase, pulsa «Hoy»; el primer día salen 2 palabras nuevas. Hasta que se pasen las semanas 2 a 10 a `src/js/palabras/` solo existen las 6 de la semana 1; con ellas la sesión se queda corta
 - [ ] 3.4 Cierre y segundo significado (H5, H6). Test 50
 - [ ] 3.5 Muro de palabras de la clase con el paso de cada una (diseñado en `docs/aula.md`: es el paso 5.4)
 

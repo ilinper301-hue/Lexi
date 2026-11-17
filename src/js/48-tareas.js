@@ -21,16 +21,8 @@ function anotarDocente(id, tarea) { if (MODO_DOCENTE) DOC_REG[id] = tareaHecha(r
     y con tareas de tipo distinto entre sí (T4). `elige` lleva sus otras 2 opciones, siempre palabras presentadas. */
 function montarJuego(pr, n = NJUEGO) {
   const lista = palabrasJugables(pr).map((p, i) => ({ p, i, v: (estadoPal(pr, p.id).val || []).length }))
-    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n), pres = fichasPresentadas(pr), dia = hoy(), evitar = [], cola = [];
-  lista.forEach(({ p }) => {
-    const a = registroJuego(pr, p.id), nOtras = pres.filter(x => x.id !== p.id).length;
-    const t = elegirTarea(a, p, dia, { otras: nOtras, evitar });
-    if (!t) return;
-    const k = a.u[t] | 0; /* T7: cuántas veces se ha hecho; de ahí sale la frase */
-    const g = t === 'gesto' ? formaGesto(p, pres, k) : null; /* G2: la forma de `gesto` sale de k */
-    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
-  });
-  return cola;
+    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n).map(x => x.p);
+  return colaTareas(lista, id => registroJuego(pr, id), fichasPresentadas(pr), hoy());
 }
 function empezarJuego() {
   const cola = montarJuego(MODO_DOCENTE ? null : perfilAct());
@@ -76,15 +68,17 @@ function tareaHTML(q, p) {
 }
 SC.juego = function () {
   const j = JUEGO; if (!j || !j.cola.length) return SC.semana();
-  if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos</p>
+  if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'}</p>
     <div class="cuerpo"><p class="palabra-g">¡Hecho!</p><p class="mu gr-p">${j.cola.map(q => esc(palabraPorId(q.id).palabra)).join(' · ')}</p></div>
-    <div class="nav"><button class="btn sec" onclick="empezarJuego()">Otra vez</button><button class="btn" onclick="atras()">Terminar</button></div></main>`;
+    ${j.hoy ? '<div class="nav"><span></span><button class="btn" onclick="hoyAvanzar()">Seguir →</button></div>'
+      : '<div class="nav"><button class="btn sec" onclick="empezarJuego()">Otra vez</button><button class="btn" onclick="atras()">Terminar</button></div>'}</main>`;
   const q = j.cola[j.i], p = palabraPorId(q.id), t = tareaHTML(q, p);
   const pts = j.cola.map((_, k) => `<i class="${k === j.i ? 'on' : k < j.i ? 'hecho' : ''}"></i>`).join('');
   const valorar = !CON_RESPUESTA[q.t] || q.rev;
-  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'} · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
   <div class="cuerpo">${t.cuerpo}${q.rev ? t.res : ''}</div><div class="pts" aria-hidden="true">${pts}</div>
   ${valorar ? `<p class="mu gr-p" style="text-align:center;margin:0">¿Cuántos lo han hecho bien?</p><div class="vals">${Object.keys(VAL_TXT).map(v => `<button class="btn" onclick="juegoValorar('${v}')">${VAL_TXT[v]}</button>`).join('')}</div>
   <button class="btn sec" onclick="juegoValorar('')">Seguir sin valorar</button>`
-    : '<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>'}</main>`;
+    : '<button class="btn grande" onclick="juegoRevelar()">Ver la respuesta</button>'}
+  ${j.hoy ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
 };

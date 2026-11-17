@@ -21,6 +21,24 @@ try:
                         if bb and (bb['width'] < 44 or bb['height'] < 44): fallos.append(f'{et} {que}: control pequeño {bb}')
                     if pg.evaluate('document.documentElement.scrollWidth') > w: fallos.append(f'{et} {que}: desborda')
                     pg.screenshot(path=f'/tmp/lexi-{tema}-{w}-{que}.png')
+                def hoy_completo(nombre):
+                    """Pulsa «Hoy» y recorre la sesión valorando todo «casi todos»; devuelve las partes vistas."""
+                    pg.click('button:text-is("Hoy")'); partes = []
+                    for _ in range(80):
+                        pg.wait_for_timeout(80)
+                        if pg.locator('.rotulo').count() == 0: break
+                        r = pg.inner_text('.rotulo'); parte = r.split(' · ')[0]
+                        if parte not in partes and parte in ('Recordamos', 'Jugamos', 'Cierre'): partes.append(parte)
+                        if parte == 'Cierre': revisa(f'{nombre}cierre'); pg.click('text=Terminar')
+                        elif parte in ('Recordamos', 'Jugamos'):
+                            if pg.locator('text=¡Hecho!').count(): pg.click('text=Seguir')
+                            elif pg.locator('text=Ver la respuesta').count(): pg.click('text=Ver la respuesta')
+                            else: pg.click('button:text-is("Casi todos")')
+                        else:
+                            if 'Palabra nueva' not in partes: partes.append('Palabra nueva'); revisa(f'{nombre}nueva')
+                            pg.click('text=Siguiente' if pg.locator('text=Siguiente').count() else 'text=Seguir')
+                    else: fallos.append(f'{et}: la sesión «Hoy» no termina')
+                    return partes
                 pg.goto('http://localhost:8765/index.html'); pg.wait_for_selector('.lexi-mascota svg')
                 if pg.evaluate('document.documentElement.dataset.theme') != tema: fallos.append(f'{et}: tema')
                 revisa('1inicio')
@@ -63,6 +81,12 @@ try:
                 if len(pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.val")) != 1: fallos.append(f'{et}: «seguir sin valorar» no debía guardar')
                 pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
                 pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
+                # «Hoy»: observar ya estaba presentada hoy → no hay «Recordamos»; entra 1 palabra nueva (comparar), se juega y se cierra; queda «hecha»
+                revisa('5casahoy'); partes = hoy_completo('6hoy'); pg.wait_for_selector('.casa-cab')
+                if partes != ['Palabra nueva', 'Jugamos', 'Cierre']: fallos.append(f'{et}: partes de «Hoy» {partes}')
+                dat = pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A')")
+                if dat['pal']['comparar']['e'] < 2 or not dat['ses']: fallos.append(f'{et}: «Hoy» no guardó la palabra nueva ni el día {dat["ses"]}')
+                if 'Hoy · hecha' not in pg.inner_text('main'): fallos.append(f'{et}: falta «Hoy · hecha»')
                 # recarga: el perfil sigue guardado
                 pg.reload(); pg.wait_for_selector('.opciones'); pg.click('text=Docente'); pg.wait_for_selector('.qa')
                 if '1.º A' not in pg.inner_text('.quien'): fallos.append(f'{et}: no se guardó la clase')
@@ -116,6 +140,8 @@ try:
                 # Modo Docente: no guarda
                 antes = pg.evaluate("localStorage.getItem('lexi.v1')")
                 pg.click('text=Modo Docente'); pg.wait_for_selector('.pill-md.salir'); revisa('10docente')
+                pg.wait_for_selector('button:text-is("Hoy")'); partes = hoy_completo('11hoydoc'); pg.wait_for_selector('.pill-md.salir')
+                if partes != ['Recordamos', 'Palabra nueva', 'Jugamos', 'Cierre']: fallos.append(f'{et}: «Hoy» en Modo Docente {partes}')
                 if pg.evaluate("localStorage.getItem('lexi.v1')") != antes: fallos.append(f'{et}: Modo Docente escribió datos')
                 pg.click('text=Salir'); pg.wait_for_selector('.opciones')
                 claves = pg.evaluate('Object.keys(localStorage)')
