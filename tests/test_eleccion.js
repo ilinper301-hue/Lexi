@@ -5,8 +5,8 @@ const fs = require('fs'), vm = require('vm'), path = require('path'), assert = r
 const R = path.join(__dirname, '..', 'src', 'js');
 const arch = ['00-util.js', '05-palabras.js', ...fs.readdirSync(path.join(R, 'palabras')).sort().map(f => 'palabras/' + f), '30-escala-logica.js', '32-eleccion.js'];
 const codigo = arch.map(f => fs.readFileSync(path.join(R, f), 'utf8')).join('\n');
-const A = vm.runInContext(codigo + '\n;({presentarRegistro,valorarPalabra,tareaHecha,palabraNueva,sumarDias,PALABRAS,palabraPorId,TAREAS_ENTENDER,TAREAS_USAR,elegirTarea,grupoQueToca,grupoDe,fraseDe,tareasDisponibles,distractoresElige,ordenPaquete})', vm.createContext({ console }));
-const { presentarRegistro, valorarPalabra: valorar, tareaHecha, palabraNueva, sumarDias, elegirTarea, grupoQueToca, grupoDe, fraseDe, tareasDisponibles, distractoresElige, ordenPaquete } = A;
+const A = vm.runInContext(codigo + '\n;({presentarRegistro,valorarPalabra,tareaHecha,palabraNueva,sumarDias,PALABRAS,palabraPorId,TAREAS_ENTENDER,TAREAS_USAR,elegirTarea,grupoQueToca,grupoDe,fraseDe,tareasDisponibles,distractoresElige,ordenPaquete,formaGesto,GESTOS_PARECIDOS})', vm.createContext({ console }));
+const { presentarRegistro, valorarPalabra: valorar, tareaHecha, palabraNueva, sumarDias, elegirTarea, grupoQueToca, grupoDe, fraseDe, tareasDisponibles, distractoresElige, ordenPaquete, formaGesto } = A;
 const d = n => sumarDias('2026-11-16', n - 16), L16 = d(16);
 const pres = () => presentarRegistro(palabraNueva(), L16);
 const ficha = id => JSON.parse(JSON.stringify(A.palabraPorId(id)));
@@ -70,14 +70,15 @@ t('34. nunca la misma tarea que la última de esa palabra, valorada o no (300 pa
 t('35. rotación: paso 2 sentido, ejemplo, elige, sentido…; paso 3 acaba, habla, acaba… (T5)', () => {
   let a = reg(2), v = [];
   for (let i = 0; i < 7; i++) { const x = elegirTarea(a, FRAGIL, d(17), { otras: 2 }); v.push(x); a = tareaHecha(a, x); }
-  igual(v, ['sentido', 'ejemplo', 'elige', 'sentido', 'ejemplo', 'elige', 'sentido']);
+  igual(v, ['sentido', 'ejemplo', 'elige', 'gesto', 'sentido', 'ejemplo', 'elige']);
   a = reg(3); v = [];
   for (let i = 0; i < 6; i++) { const x = elegirTarea(a, FRAGIL, d(17), { otras: 2 }); v.push(x); a = tareaHecha(a, x); }
   igual(v, ['acaba', 'habla', 'acaba', 'habla', 'acaba', 'habla']);
   /* gana la que menos veces se ha hecho; a igualdad, el orden fijo */
-  assert.strictEqual(elegirTarea(reg(2, { sentido: 3, ejemplo: 1, elige: 2 }, 'elige'), FRAGIL, d(17), { otras: 2 }), 'ejemplo');
-  assert.strictEqual(elegirTarea(reg(2, { sentido: 1, ejemplo: 1, elige: 1 }, 'sentido'), FRAGIL, d(17), { otras: 2 }), 'ejemplo');
+  assert.strictEqual(elegirTarea(reg(2, { sentido: 3, ejemplo: 1, elige: 2, gesto: 2 }, 'elige'), FRAGIL, d(17), { otras: 2 }), 'ejemplo');
+  assert.strictEqual(elegirTarea(reg(2, { sentido: 1, ejemplo: 1, elige: 1, gesto: 1 }, 'sentido'), FRAGIL, d(17), { otras: 2 }), 'ejemplo');
   assert.strictEqual(elegirTarea(reg(3, { acaba: 2, habla: 1 }, ''), FRAGIL, d(17), { otras: 2 }), 'habla');
+  assert.strictEqual(elegirTarea(reg(2, { sentido: 1, ejemplo: 1, elige: 1 }, 'sentido'), FRAGIL, d(17), { otras: 2 }), 'gesto'); /* la que menos veces se ha hecho */
 });
 
 t('36. «elige» no sale si no hay otras 2 palabras presentadas y sus opciones son siempre presentadas (T2)', () => {
@@ -133,24 +134,69 @@ t('38. frases: 12 veces `sentido` recorre las 4 sin repetir seguidas; `ejemplo` 
 });
 
 t('39. si del grupo que toca solo queda la última tarea hecha, se coge una del otro grupo; antes se olvida T4 (T6, T3)', () => {
-  const solo = JSON.parse(JSON.stringify(FRAGIL)); solo.ejemplos = []; /* entender sin `ejemplo` y sin `elige` (otras 0): solo `sentido` */
+  const solo = JSON.parse(JSON.stringify(FRAGIL)); solo.ejemplos = []; solo.gesto = ''; /* entender sin `ejemplo` y sin `elige` (otras 0): solo `sentido` */
   const a = reg(2, { sentido: 1 }, 'sentido');
   igual(tareasDisponibles(solo, 0).filter(x => ENT.includes(x)), ['sentido']);
   const x = elegirTarea(a, solo, d(17), { otras: 0 }); assert(USA.includes(x), 'sale una de usar: ' + x);
   /* T6: antes de dejar el grupo se olvida la variedad de T4 */
-  assert.strictEqual(elegirTarea(reg(2, { sentido: 1 }, 'sentido'), FRAGIL, d(17), { otras: 0, evitar: ['ejemplo'] }), 'ejemplo');
+  assert.strictEqual(elegirTarea(reg(2, { sentido: 1 }, 'sentido'), { ...FRAGIL, gesto: '' }, d(17), { otras: 0, evitar: ['ejemplo'] }), 'ejemplo');
   /* T4 sí se respeta mientras haya otra opción en el grupo */
   assert.strictEqual(elegirTarea(reg(3, {}, ''), FRAGIL, d(17), { otras: 0, evitar: ['acaba'] }), 'habla');
   /* en el otro grupo también se prefiere variar */
   assert.strictEqual(elegirTarea(a, solo, d(17), { otras: 0, evitar: ['acaba'] }), 'habla');
   /* T3 no se rompe nunca: si lo único posible es la última tarea, no hay tarea */
-  const unica = { ...FRAGIL, ejemplos: [], acaba: [], habla: '' };
+  const unica = { ...FRAGIL, ejemplos: [], acaba: [], habla: '', gesto: '' };
   assert.strictEqual(elegirTarea(reg(2, { sentido: 1 }, 'sentido'), unica, d(17), { otras: 0 }), null);
 });
 
 t('orden del paquete: el de docs/semana-01.md, no el alfabético', () => {
   igual(ordenPaquete().filter(id => A.palabraPorId(id).semana === 1), ['observar', 'comparar', 'ordenar', 'enorme', 'fragil', 'curioso']);
   igual(ordenPaquete([{ id: 'x', semana: 2, orden: 1 }, { id: 'y', semana: 1, orden: 6 }, { id: 'z', semana: 1, orden: 2 }]), ['z', 'y', 'x']);
+});
+
+/* ---- Tarea `gesto` (tests 58-63 y 66 de docs/tareas-gesto-relaciona.md, apartado 8; el 64 está en test_tareas.js y el 65 en test_escala.js) ---- */
+const G = (id, semana, orden) => ({ id, semana, orden, gesto: 'gesto de ' + id });
+const ids = f => f.otras.map(x => x.id);
+t('58. `gesto` está disponible para cualquier palabra presentada con ficha (G1)', () => {
+  A.PALABRAS.forEach(p => assert(tareasDisponibles(p, 0).includes('gesto'), p.id));
+  assert(!tareasDisponibles({ ...FRAGIL, gesto: '' }, 0).includes('gesto'));
+});
+t('59. primera vez forma 1, segunda forma 2, tercera forma 1 (G2)', () => {
+  const p = G('p', 2, 3), pr = [p, G('a', 2, 1), G('b', 2, 2), G('c', 2, 4)];
+  assert.deepStrictEqual([0, 1, 2, 3, 4].map(k => formaGesto(p, pr, k).forma), [1, 2, 1, 2, 1]);
+});
+t('60. forma 2 con una sola palabra más en su semana y ninguna en la anterior: sale la forma 1 (G2, G3)', () => {
+  const p = G('p', 2, 3);
+  assert.strictEqual(formaGesto(p, [p, G('a', 2, 1)], 1).forma, 1);
+  assert.strictEqual(formaGesto(p, [p, G('a', 2, 1), G('z', 3, 1)], 1).forma, 1, 'las de semanas posteriores no valen');
+  assert.strictEqual(formaGesto(p, [p], 1).forma, 1);
+});
+t('61. forma 2: las otras dos son de su semana y presentadas; si faltan, de la anterior (G3)', () => {
+  const p = G('p', 2, 3), todas = [p, G('a', 2, 1), G('b', 2, 2), G('c', 2, 4), G('x', 1, 5), G('y', 1, 6), G('z', 3, 1)];
+  for (let k = 1; k < 12; k += 2) { const f = formaGesto(p, todas, k); assert.strictEqual(f.forma, 2); f.otras.forEach(o => assert(['a', 'b', 'c'].includes(o.id), o.id)); assert.notStrictEqual(f.otras[0].id, f.otras[1].id); }
+  const f = formaGesto(p, [p, G('a', 2, 1), G('x', 1, 5), G('y', 1, 6)], 1);
+  assert.strictEqual(f.forma, 2); assert.strictEqual(ids(f)[0], 'a'); assert(['x', 'y'].includes(ids(f)[1]));
+  assert.strictEqual(formaGesto(p, [p, G('x', 1, 5), G('y', 1, 6)], 1).forma, 2); /* ninguna de su semana: las dos de la anterior */
+});
+t('62. forma 2 de `oscuro`: `descubrir` nunca sale entre las opciones; tampoco las demás parejas (G3)', () => {
+  const o = G('oscuro', 6, 1), todas = [o, G('descubrir', 6, 2), G('a', 6, 3), G('b', 6, 4), G('c', 5, 1)];
+  for (let k = 1; k < 20; k += 2) assert(!ids(formaGesto(o, todas, k)).includes('descubrir'));
+  /* si la única compañera posible es de gesto parecido, no hay forma 2 */
+  assert.strictEqual(formaGesto(o, [o, G('descubrir', 6, 2), G('a', 6, 3)], 1).forma, 1);
+  A.GESTOS_PARECIDOS.forEach(g => g.forEach(x => g.filter(y => y !== x).forEach(y => {
+    const p = G(x, 5, 1); assert(!ids(formaGesto(p, [p, G(y, 5, 2), G('m', 5, 3), G('n', 5, 4)], 1)).includes(y), x + ' ' + y);
+  })));
+});
+t('63. forma 2: la buena cambia de sitio y las otras dos rotan de una vez a la siguiente (G4)', () => {
+  const p = G('p', 2, 3), pr = [p, G('a', 2, 1), G('b', 2, 2), G('c', 2, 4), G('d', 2, 5)];
+  const fs2 = [1, 3, 5, 7].map(k => formaGesto(p, pr, k));
+  assert.deepStrictEqual(fs2.slice(0, 3).map(f => f.pos).sort(), [0, 1, 2]);
+  for (let i = 1; i < fs2.length; i++) { assert.notStrictEqual(fs2[i].pos, fs2[i - 1].pos); assert.notStrictEqual(ids(fs2[i]).join(), ids(fs2[i - 1]).join()); }
+});
+t('66. «pocos» en `gesto` baja un paso y borra los días buenos, como en cualquier tarea de entender (G9)', () => {
+  let a = valorar(valorar(reg(2), 'sentido', 'todos', d(17)), 'ejemplo', 'todos', d(18)); assert.strictEqual(a.e, 3);
+  a = valorar(a, 'gesto', 'pocos', d(19)); assert.strictEqual(a.e, 2); igual([a.dA, a.dB], [[], []]);
+  assert.strictEqual(valorar(reg(2), 'gesto', 'pocos', d(17)).e, 2);
 });
 
 console.log(n + ' pruebas correctas');

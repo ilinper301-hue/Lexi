@@ -254,7 +254,8 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   delicado, regla L7). Test 75 en `tests/test_contenido.js` (47 comprobaciones). Normas añadidas a
   `docs/pedagogia.md` (apartados 6 y 7). Nada cambia en pantalla todavía. **Para la revisión de la
   Fase 4:** «al final» es pregunta de `finalmente` y casi dice la respuesta; valorar si pasa a `rel.mas`
-- [ ] G.2 Tarea `gesto` con sus dos formas (tests 58-64 y 66). No depende de la Fase 3
+- [x] G.2 Tarea `gesto` con sus dos formas (tests 58-64 y 66) (17-11-2026, Sonnet): entra en «Jugamos» como tarea de entender. Forma 1 «Haz el gesto» (las veces pares: palabra, «Todos a la vez: una, dos y tres»; la respuesta enseña imagen, gesto y «¿Por qué es ese su gesto?») y forma 2 «¿Qué palabra es?» (las impares, si hay 2 palabras presentadas de su semana o de la anterior; sin palabra ni imagen hasta «Ver la respuesta»; nunca con gestos parecidos, lista en `GESTOS_PARECIDOS`). `formaGesto` en `src/js/32-eleccion.js`, pantalla en `48-tareas.js`, `nota-g` en `estilos.css`. Ajustados los tests 35 y 39 y los de `test_tareas.js` porque `gesto` ya entra en la rotación de entender. `sw.js` = `lexi-pwa-14`.
+  Tests: `node tests/test_eleccion.js` (58-63 y 66) y `node tests/test_tareas.js` (64). **Para probar:** Jugamos con palabras presentadas; la forma 2 sale a la segunda vez que toca el gesto de una palabra
 - [ ] G.3 Tarea `relaciona` (tests 67-74). Después del paso 3.2 de la Fase 3
 - [x] G.4 Regla G8 dentro del paso 3.1 de la Fase 3 (test 65) (17-11-2026, Sonnet): el gesto solo no sube de paso; se mira en el historial `val` (sin datos nuevos). `valorarPalabra` en `src/js/30-escala-logica.js`; test 65 en `tests/test_escala.js`
 

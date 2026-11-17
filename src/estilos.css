@@ -104,6 +104,7 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .cuerpo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:38vh}
 .gr{margin:0;font:500 clamp(1.5rem,4vw,2.8rem)/1.3 var(--fd)}
 .gr-p{font-size:1.2rem}
+.nota-g{font:500 1rem var(--fi);color:var(--mu);margin:0;text-align:center}
 .pal-ch{margin:0;font:700 clamp(1.3rem,3vw,2rem) var(--fd);color:var(--aci)}
 .palabra-g{margin:0;font:700 clamp(3.5rem,16vw,9rem)/1 var(--fd);overflow-wrap:anywhere}
 .silabas{margin:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}

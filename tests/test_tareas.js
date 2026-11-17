@@ -26,7 +26,7 @@ t('una sola palabra presentada: una sola tarea', () => {
 t('la tarea cambia: nunca la misma que la última hecha con esa palabra', () => {
   const a = nuevo(); a.presentarPalabra('fragil'); const vistas = [];
   for (let i = 0; i < 12; i++) { const q = a.montarJuego(a.perfilAct())[0]; if (vistas.length) assert.notStrictEqual(q.t, vistas[vistas.length - 1]); vistas.push(q.t); a.valorarTarea('fragil', q.t, 'mitad'); }
-  assert.deepStrictEqual([...new Set(vistas)].sort(), ['ejemplo', 'sentido']); /* en el paso 2 toca entender y «elige» necesita otras 2 palabras presentadas (T1, T2) */
+  assert.deepStrictEqual([...new Set(vistas)].sort(), ['ejemplo', 'gesto', 'sentido']); /* en el paso 2 toca entender y «elige» necesita otras 2 palabras presentadas (T1, T2) */
 });
 t('las palabras con menos valoraciones van primero (los empates, por el orden de docs/semana-01.md)', () => {
   const a = nuevo(); ['observar', 'comparar', 'ordenar'].forEach(id => a.presentarPalabra(id));
@@ -48,7 +48,7 @@ t('«elige» pone la palabra correcta en sitios distintos', () => {
   for (let k = 0; k < 3; k++) { const h = a.tareaHTML({ id: 'observar', t: 'elige', k, rev: true }, p).cuerpo; pos.add(h.indexOf('opc on')); }
   assert.strictEqual(pos.size, 3);
 });
-t('Modo Docente: «Otra vez» cambia de tarea y se ven las cinco, sin guardar nada', () => {
+t('Modo Docente: «Otra vez» cambia de tarea y se ven todas, sin guardar nada', () => {
   const a = nuevo(); a.MODO_DOCENTE = true; const vistas = new Set(), antes = JSON.stringify(a.almacen);
   for (let i = 0; i < 12; i++) { const c = a.montarJuego(null); c.forEach(q => { vistas.add(q.t); a.anotarDocente(q.id, q.t); }); assert.notStrictEqual(c[0].t, c[1].t); }
   assert.deepStrictEqual([...vistas].sort(), [...a.TAREAS_ID].sort()); assert.strictEqual(JSON.stringify(a.almacen), antes);
@@ -60,6 +60,26 @@ t('«elige» solo ofrece palabras presentadas', () => {
     const c = a.montarJuego(a.perfilAct());
     c.forEach(q => { if (q.t === 'elige') { assert.strictEqual(q.otras.length, 2); q.otras.forEach(id => assert(pres.includes(id) && id !== q.id)); const h = a.tareaHTML({ ...q, rev: true }, a.palabraPorId(q.id)).cuerpo; (h.match(/<span>([^<]+)<\/span>/g) || []).forEach(s => assert(pres.some(id => a.palabraPorId(id).palabra === s.replace(/<\/?span>/g, '')))); }
       a.valorarTarea(q.id, q.t, 'mitad'); });
+  }
+});
+t('64. «gesto» forma 2: antes de «Ver la respuesta» no sale la palabra fuera de las opciones ni su imagen; después sí (G5)', () => {
+  const a = nuevo(); a.MODO_DOCENTE = true; const p = a.palabraPorId('fragil');
+  const q = { id: 'fragil', t: 'gesto', k: 1, forma: 2, pos: 1, otras: ['observar', 'comparar'], rev: false };
+  const h = a.tareaHTML(q, p), antes = h.cuerpo;
+  assert(antes.includes(p.gesto) && !antes.includes('<img') && !antes.includes('fragil.webp') && !antes.includes(p.def));
+  assert.strictEqual((antes.match(/class="opc[ "]/g) || []).length, 3); assert(!/opc on/.test(antes));
+  assert.strictEqual(antes.replace(/<div class="opcs">.*<\/div>/, '').includes(p.palabra), false, 'la palabra solo está entre las opciones');
+  const despues = a.tareaHTML({ ...q, rev: true }, p); assert.strictEqual((despues.cuerpo.match(/opc on/g) || []).length, 1);
+  assert(despues.res.includes('fragil.webp') && despues.res.includes(p.def) && despues.res.includes('La palabra es «frágil»'));
+  const f1 = a.tareaHTML({ id: 'fragil', t: 'gesto', k: 0, forma: 1, otras: [], rev: true }, p);
+  assert(f1.cuerpo.includes('frágil') && f1.res.includes('fragil.webp') && f1.res.includes(p.gesto) && f1.res.includes('¿Por qué es ese su gesto?'));
+});
+t('«gesto» sale en «Jugamos»: forma 1 la primera vez y forma 2 la segunda si hay 2 palabras más presentadas', () => {
+  const a = nuevo(); ['observar', 'comparar', 'ordenar'].forEach(id => a.presentarPalabra(id));
+  let vistas = [];
+  for (let i = 0; i < 40 && vistas.length < 2; i++) for (const q of a.montarJuego(a.perfilAct())) {
+    if (q.t === 'gesto') { vistas.push(q); assert.strictEqual(q.forma, q.k % 2 === 0 ? 1 : 2); if (q.forma === 2) assert.strictEqual(q.otras.length, 2); }
+    a.valorarTarea(q.id, q.t, 'todos');
   }
 });
 console.log(n + ' pruebas correctas');

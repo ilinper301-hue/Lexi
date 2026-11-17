@@ -8,7 +8,7 @@
    guardadas en orden con las reglas de la escala, así que no se pierde ningún paso ni ninguna valoración.
    Las reglas (valorarPalabra, presentarRegistro…) viven en 30-escala-logica.js; aquí solo se leen, se sanean y se guardan. */
 const VERSION_DATOS = 4,
-  TAREAS_ID = ['sentido', 'ejemplo', 'elige', 'acaba', 'habla'] /* las que ya existen en pantalla */, MAX_PERFILES = 40;
+  TAREAS_ID = ['sentido', 'ejemplo', 'elige', 'gesto', 'acaba', 'habla'] /* las que ya existen en pantalla */, MAX_PERFILES = 40;
 /* Mismos 30 animalitos y mismo orden que Calculi y Lectori (un niño conserva su animal en todas las apps) */
 const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['🦁','#FDE68A'],['🐸','#D9F99D'],['🐙','#F5D0FE'],['🐳','#BAE6FD'],['🦉','#E7D3B5'],
   ['🐝','#FEF08A'],['🐞','#FECACA'],['🦄','#FBCFE8'],['🐨','#CBD5E1'],['🐶','#FDE2C4'],['🐱','#FFE4B5'],['🐰','#FCE7F3'],['🐻','#E8CBA8'],

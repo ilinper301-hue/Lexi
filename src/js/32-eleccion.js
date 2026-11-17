@@ -8,7 +8,7 @@ const otroGrupo = g => (g === 'entender' ? 'usar' : 'entender');
     `otras` = cuántas palabras presentadas, distintas de ésta, hay para ponerle a `elige` sus opciones. */
 const CONTENIDO_TAREA = {
   sentido: p => !!(p.sentido && p.sentido.length), ejemplo: p => !!(p.ejemplos && p.ejemplos.length),
-  elige: (p, otras) => otras >= 2, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla
+  elige: (p, otras) => otras >= 2, gesto: p => !!p.gesto, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla
 };
 const tareasDisponibles = (p, otras = 0) => ORDEN_TAREAS.filter(t => CONTENIDO_TAREA[t] && CONTENIDO_TAREA[t](p, otras));
 
@@ -66,4 +66,22 @@ function distractoresElige(p, presentadas, k = 0) {
   const antes = otras.filter(x => x.semana < p.semana).sort((x, y) => (y.semana - x.semana) || lugarPaquete(x) - lugarPaquete(y));
   const despues = otras.filter(x => x.semana > p.semana).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
   return [...rota(mismas), ...rota(antes), ...rota(despues)].slice(0, 2);
+}
+
+/** G3 · Gestos que se parecen entre semanas (docs/tareas-gesto-relaciona.md, apartado 5): nunca se ponen juntos como opciones de la forma 2. */
+const GESTOS_PARECIDOS = [['descubrir', 'oscuro'], ['rodear', 'repetir'], ['primero', 'solucion'], ['respetar', 'ser-vivo'], ['agotado', 'tranquilo'], ['observar', 'pista', 'paisaje']];
+const seParecen = (a, b) => GESTOS_PARECIDOS.some(g => g.includes(a) && g.includes(b));
+/** G2 + G3 + G4 · Qué forma de `gesto` sale la vez número `k` y con qué opciones. Forma 1 («Haz el gesto») las veces pares; forma 2 («¿Qué palabra es?»)
+    las impares, siempre que haya 2 palabras presentadas para acompañar: primero de su semana, si no de la anterior (la más cercana primero), nunca de una posterior
+    ni de las de gesto parecido. Si no hay 2, forma 1. `presentadas` = fichas. La opción buena cambia de sitio y las otras rotan cada vez que sale la forma 2.
+    Devuelve {forma: 1|2, otras: [ficha, ficha], pos: 0|1|2} (pos = lugar de la buena entre las 3 opciones). */
+function formaGesto(p, presentadas, k = 0) {
+  k = Math.max(0, k | 0);
+  const otras = presentadas.filter(x => x.id !== p.id && !seParecen(x.id, p.id));
+  const mismas = otras.filter(x => x.semana === p.semana).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  const antes = otras.filter(x => x.semana < p.semana).sort((x, y) => (y.semana - x.semana) || lugarPaquete(x) - lugarPaquete(y));
+  const cand = [...mismas, ...antes];
+  if (k % 2 === 0 || cand.length < 2) return { forma: 1, otras: [], pos: 0 };
+  const v = (k - 1) / 2, rota = l => l.map((_, i) => l[(i + v) % l.length]);
+  return { forma: 2, otras: [...rota(mismas), ...rota(antes)].slice(0, 2), pos: v % 3 };
 }

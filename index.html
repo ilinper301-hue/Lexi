@@ -117,6 +117,7 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .cuerpo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:38vh}
 .gr{margin:0;font:500 clamp(1.5rem,4vw,2.8rem)/1.3 var(--fd)}
 .gr-p{font-size:1.2rem}
+.nota-g{font:500 1rem var(--fi);color:var(--mu);margin:0;text-align:center}
 .pal-ch{margin:0;font:700 clamp(1.3rem,3vw,2rem) var(--fd);color:var(--aci)}
 .palabra-g{margin:0;font:700 clamp(3.5rem,16vw,9rem)/1 var(--fd);overflow-wrap:anywhere}
 .silabas{margin:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
@@ -281,7 +282,7 @@ function escalaFila() {
    guardadas en orden con las reglas de la escala, así que no se pierde ningún paso ni ninguna valoración.
    Las reglas (valorarPalabra, presentarRegistro…) viven en 30-escala-logica.js; aquí solo se leen, se sanean y se guardan. */
 const VERSION_DATOS = 4,
-  TAREAS_ID = ['sentido', 'ejemplo', 'elige', 'acaba', 'habla'] /* las que ya existen en pantalla */, MAX_PERFILES = 40;
+  TAREAS_ID = ['sentido', 'ejemplo', 'elige', 'gesto', 'acaba', 'habla'] /* las que ya existen en pantalla */, MAX_PERFILES = 40;
 /* Mismos 30 animalitos y mismo orden que Calculi y Lectori (un niño conserva su animal en todas las apps) */
 const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['🦁','#FDE68A'],['🐸','#D9F99D'],['🐙','#F5D0FE'],['🐳','#BAE6FD'],['🦉','#E7D3B5'],
   ['🐝','#FEF08A'],['🐞','#FECACA'],['🦄','#FBCFE8'],['🐨','#CBD5E1'],['🐶','#FDE2C4'],['🐱','#FFE4B5'],['🐰','#FCE7F3'],['🐻','#E8CBA8'],
@@ -536,7 +537,7 @@ const otroGrupo = g => (g === 'entender' ? 'usar' : 'entender');
     `otras` = cuántas palabras presentadas, distintas de ésta, hay para ponerle a `elige` sus opciones. */
 const CONTENIDO_TAREA = {
   sentido: p => !!(p.sentido && p.sentido.length), ejemplo: p => !!(p.ejemplos && p.ejemplos.length),
-  elige: (p, otras) => otras >= 2, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla
+  elige: (p, otras) => otras >= 2, gesto: p => !!p.gesto, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla
 };
 const tareasDisponibles = (p, otras = 0) => ORDEN_TAREAS.filter(t => CONTENIDO_TAREA[t] && CONTENIDO_TAREA[t](p, otras));
 
@@ -594,6 +595,24 @@ function distractoresElige(p, presentadas, k = 0) {
   const antes = otras.filter(x => x.semana < p.semana).sort((x, y) => (y.semana - x.semana) || lugarPaquete(x) - lugarPaquete(y));
   const despues = otras.filter(x => x.semana > p.semana).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
   return [...rota(mismas), ...rota(antes), ...rota(despues)].slice(0, 2);
+}
+
+/** G3 · Gestos que se parecen entre semanas (docs/tareas-gesto-relaciona.md, apartado 5): nunca se ponen juntos como opciones de la forma 2. */
+const GESTOS_PARECIDOS = [['descubrir', 'oscuro'], ['rodear', 'repetir'], ['primero', 'solucion'], ['respetar', 'ser-vivo'], ['agotado', 'tranquilo'], ['observar', 'pista', 'paisaje']];
+const seParecen = (a, b) => GESTOS_PARECIDOS.some(g => g.includes(a) && g.includes(b));
+/** G2 + G3 + G4 · Qué forma de `gesto` sale la vez número `k` y con qué opciones. Forma 1 («Haz el gesto») las veces pares; forma 2 («¿Qué palabra es?»)
+    las impares, siempre que haya 2 palabras presentadas para acompañar: primero de su semana, si no de la anterior (la más cercana primero), nunca de una posterior
+    ni de las de gesto parecido. Si no hay 2, forma 1. `presentadas` = fichas. La opción buena cambia de sitio y las otras rotan cada vez que sale la forma 2.
+    Devuelve {forma: 1|2, otras: [ficha, ficha], pos: 0|1|2} (pos = lugar de la buena entre las 3 opciones). */
+function formaGesto(p, presentadas, k = 0) {
+  k = Math.max(0, k | 0);
+  const otras = presentadas.filter(x => x.id !== p.id && !seParecen(x.id, p.id));
+  const mismas = otras.filter(x => x.semana === p.semana).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  const antes = otras.filter(x => x.semana < p.semana).sort((x, y) => (y.semana - x.semana) || lugarPaquete(x) - lugarPaquete(y));
+  const cand = [...mismas, ...antes];
+  if (k % 2 === 0 || cand.length < 2) return { forma: 1, otras: [], pos: 0 };
+  const v = (k - 1) / 2, rota = l => l.map((_, i) => l[(i + v) % l.length]);
+  return { forma: 2, otras: [...rota(mismas), ...rota(antes)].slice(0, 2), pos: v % 3 };
 }
 
 /* ---- js/40-inicio.js ---- */
@@ -719,8 +738,8 @@ function presMover(d) {
    La valoración es opcional: valorarTarea apunta y mueve la escala y el repaso (reglas E y R, 30-escala-logica.js); «Seguir sin valorar» solo anota que la tarea salió. */
 let JUEGO = null;
 const NJUEGO = 2;
-const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
-const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, acaba: false, habla: false };
+const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', gesto: 'Haz el gesto', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
+const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, gesto: true, acaba: false, habla: false };
 const VAL_TXT = { todos: 'Casi todos', mitad: 'La mitad', pocos: 'Pocos' };
 
 /** Palabras con las que se puede jugar: las ya presentadas (en Modo Docente, todas las de la semana). */
@@ -743,7 +762,8 @@ function montarJuego(pr, n = NJUEGO) {
     const t = elegirTarea(a, p, dia, { otras: nOtras, evitar });
     if (!t) return;
     const k = a.u[t] | 0; /* T7: cuántas veces se ha hecho; de ahí sale la frase */
-    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : [], rev: false });
+    const g = t === 'gesto' ? formaGesto(p, pres, k) : null; /* G2: la forma de `gesto` sale de k */
+    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
   });
   return cola;
 }
@@ -778,6 +798,14 @@ function tareaHTML(q, p) {
     return { cuerpo: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="mu gr-p">Dedos: 1, 2 o 3</p><div class="opcs">${html}</div>`,
       res: `<div class="veredicto si"><b>La palabra es «${esc(p.palabra)}»</b></div>` };
   }
+  if (q.t === 'gesto' && q.forma === 2) { /* G5: sin palabra ni imagen hasta «Ver la respuesta» */
+    const op = [0, 1, 2].map(j => (j === q.pos ? p : palabraPorId(q.otras[j < q.pos ? j : j - 1])));
+    const html = op.map((x, j) => `<div class="opc${q.rev && x.id === p.id ? ' on' : ''}"><i>${j + 1}</i><span>${esc(x.palabra)}</span></div>`).join('');
+    return { cuerpo: `<p class="nota-g">Haz este gesto sin decir la palabra:</p><p class="gr">${esc(p.gesto)}</p><p class="mu gr-p">Dedos: 1, 2 o 3</p><div class="opcs">${html}</div>`,
+      res: `<div class="veredicto si"><b>La palabra es «${esc(p.palabra)}»</b><span>${esc(p.def)}</span></div><img class="esc-img" src="${esc(imgPal(p))}" alt="">` };
+  }
+  if (q.t === 'gesto') return { cuerpo: `${pal}<p class="mu gr-p">Todos a la vez: una, dos y tres</p>`,
+    res: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="gr">${esc(p.gesto)}</p><p class="mu gr-p">¿Por qué es ese su gesto?</p>` };
   if (q.t === 'acaba') return { cuerpo: `${pal}<p class="gr">${esc(fraseDe(p, 'acaba', q.k))}</p><p class="mu gr-p">Dos o tres voluntarios</p>`, res: '' };
   return { cuerpo: `${pal}<p class="gr">${esc(p.habla)}</p><p class="mu gr-p">Por parejas · un minuto</p>`, res: '' };
 }
@@ -789,7 +817,7 @@ SC.juego = function () {
   const q = j.cola[j.i], p = palabraPorId(q.id), t = tareaHTML(q, p);
   const pts = j.cola.map((_, k) => `<i class="${k === j.i ? 'on' : k < j.i ? 'hecho' : ''}"></i>`).join('');
   const valorar = !CON_RESPUESTA[q.t] || q.rev;
-  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${TAREA_ROT[q.t]}</p>
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
   <div class="cuerpo">${t.cuerpo}${q.rev ? t.res : ''}</div><div class="pts" aria-hidden="true">${pts}</div>
   ${valorar ? `<p class="mu gr-p" style="text-align:center;margin:0">¿Cuántos lo han hecho bien?</p><div class="vals">${Object.keys(VAL_TXT).map(v => `<button class="btn" onclick="juegoValorar('${v}')">${VAL_TXT[v]}</button>`).join('')}</div>
   <button class="btn sec" onclick="juegoValorar('')">Seguir sin valorar</button>`

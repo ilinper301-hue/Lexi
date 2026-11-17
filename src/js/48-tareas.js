@@ -3,8 +3,8 @@
    La valoración es opcional: valorarTarea apunta y mueve la escala y el repaso (reglas E y R, 30-escala-logica.js); «Seguir sin valorar» solo anota que la tarea salió. */
 let JUEGO = null;
 const NJUEGO = 2;
-const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
-const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, acaba: false, habla: false };
+const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', gesto: 'Haz el gesto', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
+const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, gesto: true, acaba: false, habla: false };
 const VAL_TXT = { todos: 'Casi todos', mitad: 'La mitad', pocos: 'Pocos' };
 
 /** Palabras con las que se puede jugar: las ya presentadas (en Modo Docente, todas las de la semana). */
@@ -27,7 +27,8 @@ function montarJuego(pr, n = NJUEGO) {
     const t = elegirTarea(a, p, dia, { otras: nOtras, evitar });
     if (!t) return;
     const k = a.u[t] | 0; /* T7: cuántas veces se ha hecho; de ahí sale la frase */
-    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : [], rev: false });
+    const g = t === 'gesto' ? formaGesto(p, pres, k) : null; /* G2: la forma de `gesto` sale de k */
+    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : g ? g.otras.map(x => x.id) : [], forma: g ? g.forma : 0, pos: g ? g.pos : 0, rev: false });
   });
   return cola;
 }
@@ -62,6 +63,14 @@ function tareaHTML(q, p) {
     return { cuerpo: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="mu gr-p">Dedos: 1, 2 o 3</p><div class="opcs">${html}</div>`,
       res: `<div class="veredicto si"><b>La palabra es «${esc(p.palabra)}»</b></div>` };
   }
+  if (q.t === 'gesto' && q.forma === 2) { /* G5: sin palabra ni imagen hasta «Ver la respuesta» */
+    const op = [0, 1, 2].map(j => (j === q.pos ? p : palabraPorId(q.otras[j < q.pos ? j : j - 1])));
+    const html = op.map((x, j) => `<div class="opc${q.rev && x.id === p.id ? ' on' : ''}"><i>${j + 1}</i><span>${esc(x.palabra)}</span></div>`).join('');
+    return { cuerpo: `<p class="nota-g">Haz este gesto sin decir la palabra:</p><p class="gr">${esc(p.gesto)}</p><p class="mu gr-p">Dedos: 1, 2 o 3</p><div class="opcs">${html}</div>`,
+      res: `<div class="veredicto si"><b>La palabra es «${esc(p.palabra)}»</b><span>${esc(p.def)}</span></div><img class="esc-img" src="${esc(imgPal(p))}" alt="">` };
+  }
+  if (q.t === 'gesto') return { cuerpo: `${pal}<p class="mu gr-p">Todos a la vez: una, dos y tres</p>`,
+    res: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="gr">${esc(p.gesto)}</p><p class="mu gr-p">¿Por qué es ese su gesto?</p>` };
   if (q.t === 'acaba') return { cuerpo: `${pal}<p class="gr">${esc(fraseDe(p, 'acaba', q.k))}</p><p class="mu gr-p">Dos o tres voluntarios</p>`, res: '' };
   return { cuerpo: `${pal}<p class="gr">${esc(p.habla)}</p><p class="mu gr-p">Por parejas · un minuto</p>`, res: '' };
 }
@@ -73,7 +82,7 @@ SC.juego = function () {
   const q = j.cola[j.i], p = palabraPorId(q.id), t = tareaHTML(q, p);
   const pts = j.cola.map((_, k) => `<i class="${k === j.i ? 'on' : k < j.i ? 'hecho' : ''}"></i>`).join('');
   const valorar = !CON_RESPUESTA[q.t] || q.rev;
-  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${TAREA_ROT[q.t]}</p>
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Jugamos · ${j.i + 1} de ${j.cola.length} · ${q.t === 'gesto' && q.forma === 2 ? '¿Qué palabra es?' : TAREA_ROT[q.t]}</p>
   <div class="cuerpo">${t.cuerpo}${q.rev ? t.res : ''}</div><div class="pts" aria-hidden="true">${pts}</div>
   ${valorar ? `<p class="mu gr-p" style="text-align:center;margin:0">¿Cuántos lo han hecho bien?</p><div class="vals">${Object.keys(VAL_TXT).map(v => `<button class="btn" onclick="juegoValorar('${v}')">${VAL_TXT[v]}</button>`).join('')}</div>
   <button class="btn sec" onclick="juegoValorar('')">Seguir sin valorar</button>`
