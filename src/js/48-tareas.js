@@ -1,6 +1,6 @@
 /* ===== «Jugamos»: 2 tareas con palabras de la semana (la guía el docente; la clase responde con pulgares, dedos o hablando) =====
    Tareas: sentido, ejemplo, elige, acaba, habla (ver docs/pedagogia.md, apartado 3). Tras cada una, el docente valora: casi todos · la mitad · pocos.
-   La valoración es opcional y por ahora solo se apunta (valorarTarea); la subida de pasos de la escala llega en la Fase 3. */
+   La valoración es opcional: valorarTarea apunta y mueve la escala y el repaso (reglas E y R, 30-escala-logica.js); «Seguir sin valorar» solo anota que la tarea salió. */
 let JUEGO = null, JUEGO_N = 0;
 const NJUEGO = 2;
 const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
@@ -27,7 +27,7 @@ function empezarJuego() {
   JUEGO = { cola, i: 0 }; go('juego');
 }
 function juegoRevelar() { JUEGO.cola[JUEGO.i].rev = true; pintar(); }
-function juegoValorar(v) { const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); JUEGO.i++; pintar(); window.scrollTo(0, 0); }
+function juegoValorar(v) { const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); else tareaSinValorar(q.id, q.t); JUEGO.i++; pintar(); window.scrollTo(0, 0); }
 
 /** Contenido de una tarea: devuelve {cuerpo, res} (res = lo que se enseña al tocar «Ver la respuesta»). */
 function tareaHTML(q, p) {

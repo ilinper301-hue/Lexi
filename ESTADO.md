@@ -176,6 +176,24 @@ dice que no a alguno, se cambia:
     `cercano` y `lejano`: «¿Es cercano (o lejano) para nosotros, aquí?». Están en las notas de la
     semana 5; se escribirán en las fichas cuando se programe el campo.
 
+## Para decidir (Fase 3)
+Dudas que salieron al programar el paso 3.1 (17-11-2026). Está hecha la lectura más fiel al texto; si Iván dice que no, se cambia:
+
+54. **Dónde viven los tests.** `docs/pedagogia.md` pone los tests 21-31 en `tests/test_repaso.js` y los 1-20 en
+    `tests/test_escala.js`; se hizo así (el test 65 de G8 va en `test_escala.js`).
+55. **«Pocos» de entender borra también los días de usar** (E8 dice «se borran todos sus días buenos»); el de usar
+    solo borra los de usar. El «pocos» del mismo día que una subida no baja (E6) pero sí borra y vuelve mañana.
+56. **«Seguir sin valorar» ahora anota que la tarea salió** (solo la cuenta `u` y la última `ut`, regla R7/T7); no mueve
+    escala ni repaso. Antes no guardaba nada.
+57. **Valorar una palabra sin presentar no hace nada**, ni siquiera apunta el historial (test 2). En la práctica
+    no pasa: «Jugamos» solo ofrece palabras presentadas.
+58. **G8 se mira en el historial `val` (últimas 30):** un día bueno de entender «viene de significado» si en `val` hay ese
+    día un «casi todos» de `sentido`, `ejemplo` o `elige`. Si un día bueno muy antiguo saliera del historial, contaría como de gesto.
+59. **Migración:** el paso guardado en v3 nunca baja (se toma el mayor entre el guardado y el que sale de repetir las valoraciones);
+    las valoraciones anteriores a la presentación se conservan en el historial pero no cuentan.
+60. **Una palabra presentada con fecha de vuelta perdida o rota** vuelve al día siguiente de su presentación, salvo en «La usamos»
+    y caja 5, donde `prox` vacío significa «descansa» (R6).
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -219,7 +237,7 @@ dice que no a alguno, se cambia:
   Fase 4:** «al final» es pregunta de `finalmente` y casi dice la respuesta; valorar si pasa a `rel.mas`
 - [ ] G.2 Tarea `gesto` con sus dos formas (tests 58-64 y 66). No depende de la Fase 3
 - [ ] G.3 Tarea `relaciona` (tests 67-74). Después del paso 3.2 de la Fase 3
-- [ ] G.4 Regla G8 dentro del paso 3.1 de la Fase 3 (test 65)
+- [x] G.4 Regla G8 dentro del paso 3.1 de la Fase 3 (test 65) (17-11-2026, Sonnet): el gesto solo no sube de paso; se mira en el historial `val` (sin datos nuevos). `valorarPalabra` en `src/js/30-escala-logica.js`; test 65 en `tests/test_escala.js`
 
 ## Fase 3 · Repaso y escala · Sonnet, esfuerzo alto
 - [x] **Diseño** (14-11-2026, Fable, esfuerzo alto; sin programar nada): reglas exactas en
@@ -227,8 +245,13 @@ dice que no a alguno, se cambia:
   «Hoy», H1-H10), 11 (casos de ejemplo), 12 (57 tests que deben pasar) y 13 (datos v4 y notas). Las
   reglas se comprobaron con una simulación antes de escribirlas (tabla del apartado 10).
 - [x] Iván aprueba los puntos 7 a 12 (15-11-2026)
-- [ ] 3.1 Datos v4 con migración desde v3, fecha local y funciones de escala y cajas (reglas E y R).
+- [x] 3.1 Datos v4 con migración desde v3, fecha local y funciones de escala y cajas (reglas E y R).
   Tests 1-31 y 54-57. Sin pantallas nuevas: las valoraciones de «Jugamos» ya mueven la escala
+  (17-11-2026, Sonnet): `src/js/30-escala-logica.js` (funciones puras: `presentarRegistro`, `valorarPalabra`,
+  `tareaHecha`, `estaPendiente`, `pendientes`); `20-datos.js` pasa a **v4** (migración que repite las `val`
+  guardadas en orden, saneado de cada campo, `perfil.ses` y `ajustes.nuevas`); `hoy()` ya es la fecha local
+  (`00-util.js`); «Jugamos» llama a `valorarTarea` y, si no se valora, a `tareaSinValorar`. `sw.js` = `lexi-pwa-12`.
+  Tests: `node tests/test_escala.js` (1-20 y 65), `node tests/test_repaso.js` (21-31), `node tests/test_datos.js` (54-57 y los de siempre)
 - [ ] 3.2 Elección de tarea y de frase (reglas T), campos `orden` y `sep` en las fichas, `elige` solo
   con palabras presentadas. Tests 32-39
 - [ ] 3.3 Botón «Hoy» (reglas H1-H4, H7-H10) con el ajuste «Palabras nuevas por sesión» en la zona del
