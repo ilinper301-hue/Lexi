@@ -194,6 +194,25 @@ Dudas que salieron al programar el paso 3.1 (17-11-2026). Está hecha la lectura
 60. **Una palabra presentada con fecha de vuelta perdida o rota** vuelve al día siguiente de su presentación, salvo en «La usamos»
     y caja 5, donde `prox` vacío significa «descansa» (R6).
 
+Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura más fiel al texto; si Iván dice que no, se cambia:
+
+61. **Dónde viven los tests 32-39.** `docs/pedagogia.md` los pone en `tests/test_tareas.js`; por encargo van en `tests/test_eleccion.js`.
+    Lo que toca a la pantalla de «Jugamos» (7 pruebas de la Fase 2, adaptadas, y 2 nuevas) se queda en `tests/test_tareas.js`.
+62. **`elige` y las semanas.** T2 dice «primero de su semana; si faltan, de semanas anteriores». Se hizo así (la semana anterior más cercana primero)
+    y, solo como último recurso, de semanas posteriores (el test 36 dice «otras 2 presentadas» sin más). Siempre presentadas.
+63. **T6 en el otro grupo.** Si en el grupo que toca no queda nada, primero se olvida T4 (variedad) en ese grupo; al pasar al otro grupo se
+    intenta de nuevo con T4 y solo se olvida si no hay más remedio. T3 (nunca la última tarea) no se rompe nunca: si no queda ninguna, no sale tarea.
+64. **T1(c) se aplica también tras «pocos».** El texto lo pone después de (a) y (b); en la práctica nunca coincide con (a) (un «pocos» borra los
+    días buenos de entender), así que da igual.
+65. **`orden` y `sep` en las 60 fichas de `docs/`**, no solo en la semana 1 (el apartado 13 dice «fichas»; así el paso a `src/` no los pierde).
+    `sep` tiene un valor común por grupo: `primero-despues-finalmente`, `parecido-diferente`, `suave-aspero` y `problema-solucion`.
+    La semana 1 no tiene `sep` (ninguna de sus notas pide «días distintos»). En 2.º no se ha tocado: `orden` es opcional.
+66. **Orden de las tarjetas.** «Palabras de la semana» y «Jugamos» desempatan ya por `orden` (observar, comparar, ordenar, enorme, frágil, curioso)
+    y no por orden alfabético de archivo. Es lo único visible que cambia, y es lo que pide el apartado 13.
+67. **Modo Docente en «Jugamos».** Como no guarda nada, trata cada palabra como si estuviera en «La usamos» (alterna entender y usar) y recuerda
+    solo en memoria lo ya enseñado, para que «Otra vez» cambie de tarea y de frase y se vean las cinco tareas. Al recargar la página empieza de cero.
+68. **Qué palabras entran en «Jugamos».** No se ha tocado (las de la semana con menos valoraciones): el orden de H4 (pendientes, etc.) es del paso 3.3.
+
 ## Fase 0 · Identidad · Sonnet, esfuerzo medio
 - [x] Subir al repositorio los documentos de la carpeta `repo/` del proyecto de Claude (13-11-2026).
   `ECOSISTEMA.md` se copió del repo `tabula`. **Desde ahora manda el repo**, no la copia del proyecto.
@@ -252,8 +271,12 @@ Dudas que salieron al programar el paso 3.1 (17-11-2026). Está hecha la lectura
   guardadas en orden, saneado de cada campo, `perfil.ses` y `ajustes.nuevas`); `hoy()` ya es la fecha local
   (`00-util.js`); «Jugamos» llama a `valorarTarea` y, si no se valora, a `tareaSinValorar`. `sw.js` = `lexi-pwa-12`.
   Tests: `node tests/test_escala.js` (1-20 y 65), `node tests/test_repaso.js` (21-31), `node tests/test_datos.js` (54-57 y los de siempre)
-- [ ] 3.2 Elección de tarea y de frase (reglas T), campos `orden` y `sep` en las fichas, `elige` solo
-  con palabras presentadas. Tests 32-39
+- [x] 3.2 Elección de tarea y de frase (reglas T), campos `orden` y `sep` en las fichas, `elige` solo
+  con palabras presentadas. Tests 32-39 (17-11-2026, Sonnet): funciones puras `elegirTarea`, `grupoQueToca`, `fraseDe` y
+  `distractoresElige` en `src/js/32-eleccion.js`; «Jugamos» (`48-tareas.js`) las usa y las palabras de la semana salen en el orden de
+  `docs/semana-NN.md`; `orden` en las 60 fichas de `docs/` y en `src/js/palabras/`, `sep` en las 9 palabras de las semanas 3, 4, 5 y 8
+  (comprobador en `tools/reglas-ficha.js`). Sin datos nuevos: no hay migración. `sw.js` = `lexi-pwa-13`.
+  Tests: `node tests/test_eleccion.js` (32-39), `node tests/test_tareas.js`, `node tests/test_contenido.js` y `python3 tests/humo.py`
 - [ ] 3.3 Botón «Hoy» (reglas H1-H4, H7-H10) con el ajuste «Palabras nuevas por sesión» en la zona del
   tutor. Tests 40-49 y 51-53, y prueba de humo
 - [ ] 3.4 Cierre y segundo significado (H5, H6). Test 50

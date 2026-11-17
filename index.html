@@ -525,6 +525,77 @@ function pendientes(pal, dia, orden = [], max = MAX_RECORDAMOS) {
     .slice(0, max);
 }
 
+/* ---- js/32-eleccion.js ---- */
+/* ===== Qué tarea toca (T1-T6) y qué frase sale (T7): funciones PURAS, sin pantalla y sin reloj =====
+   Reglas en docs/pedagogia.md, apartado 5. Reciben el registro de la palabra (ver 30-escala-logica.js), su ficha y el día; no cambian nada.
+   Lo que se ha hecho con la palabra sale de `u` (veces de cada tarea) y `ut` (la última), que apunta tareaHecha aunque no se valore. */
+const ORDEN_TAREAS = [...TAREAS_ENTENDER, ...TAREAS_USAR]; /* T5: desempate cuando dos tareas se han hecho las mismas veces */
+const grupoDe = t => (TAREAS_ENTENDER.includes(t) ? 'entender' : 'usar');
+const otroGrupo = g => (g === 'entender' ? 'usar' : 'entender');
+/** T2 · Tareas programadas y qué necesitan de la ficha. Las que aún no tienen pantalla (gesto, relaciona, familia) se añaden aquí al programarlas.
+    `otras` = cuántas palabras presentadas, distintas de ésta, hay para ponerle a `elige` sus opciones. */
+const CONTENIDO_TAREA = {
+  sentido: p => !!(p.sentido && p.sentido.length), ejemplo: p => !!(p.ejemplos && p.ejemplos.length),
+  elige: (p, otras) => otras >= 2, acaba: p => !!(p.acaba && p.acaba.length), habla: p => !!p.habla
+};
+const tareasDisponibles = (p, otras = 0) => ORDEN_TAREAS.filter(t => CONTENIDO_TAREA[t] && CONTENIDO_TAREA[t](p, otras));
+
+/** T1 · Grupo de tareas que toca hoy: «entender» o «usar».
+    (a) Si la última valoración fue «pocos»: entender. (b) Si no: paso 2, entender; paso 3, usar; paso 4, el contrario al de su última tarea
+    (si no hay, usar). (c) Si hoy ya es día bueno de ese grupo, el otro. */
+function grupoQueToca(a, dia) {
+  const val = a.val || [], pocos = val.length > 0 && val[val.length - 1].v === 'pocos';
+  let g;
+  if (pocos || a.e <= 2) g = 'entender';
+  else if (a.e === 3) g = 'usar';
+  else g = a.ut ? otroGrupo(grupoDe(a.ut)) : 'usar';
+  return ((g === 'entender' ? a.dA : a.dB) || []).includes(dia) ? otroGrupo(g) : g;
+}
+/** T5 · De varias tareas, la que menos veces se ha hecho con la palabra; si empatan, el orden fijo de ORDEN_TAREAS. */
+const menosHecha = (a, lista) => lista.slice().sort((x, y) => ((a.u[x] | 0) - (a.u[y] | 0)) || ORDEN_TAREAS.indexOf(x) - ORDEN_TAREAS.indexOf(y))[0];
+
+/** Elige la tarea de una palabra (T1-T6). Opciones: `otras` (palabras presentadas distintas de ésta, para `elige`) y
+    `evitar` (tipos de tarea ya puestos en la sesión o justo antes, T4). Devuelve el id de la tarea, o null si no hay ninguna posible.
+    T3: nunca la última tarea hecha con la palabra. T6: si en el grupo no queda ninguna, se olvida T4; si aun así no hay, se pasa al otro grupo
+    (en el otro grupo se prefiere también la variedad de T4 y solo se olvida si no hay más remedio). */
+function elegirTarea(a, p, dia, op = {}) {
+  a = a || palabraNueva();
+  const evitar = op.evitar || [], g = grupoQueToca(a, dia);
+  const libres = tareasDisponibles(p, op.otras | 0).filter(t => t !== a.ut);
+  for (const [grupo, variedad] of [[g, true], [g, false], [otroGrupo(g), true], [otroGrupo(g), false]]) {
+    const c = libres.filter(t => grupoDe(t) === grupo && !(variedad && evitar.includes(t)));
+    if (c.length) return menosHecha(a, c);
+  }
+  return null;
+}
+
+/** T7 · Frase que sale la vez número `k` (k = veces que ya se ha hecho esa tarea con la palabra; al acabar la lista se vuelve a empezar).
+    `sentido` y `acaba`, en el orden de la ficha; `ejemplo`, un sí y un no alternados; `habla`, su única pregunta. */
+function fraseDe(p, tarea, k) {
+  k = Math.max(0, k | 0);
+  if (tarea === 'sentido') return p.sentido[k % p.sentido.length];
+  if (tarea === 'acaba') return p.acaba[k % p.acaba.length];
+  if (tarea === 'ejemplo') {
+    const lista = p.ejemplos.filter(x => x.ok === (k % 2 === 0));
+    return lista.length ? lista[Math.floor(k / 2) % lista.length] : p.ejemplos[k % p.ejemplos.length];
+  }
+  return p.habla;
+}
+
+/** Lugar de una ficha en el paquete: por semana y, dentro de la semana, el `orden` de docs/semana-NN.md. */
+const lugarPaquete = p => p.semana * 100 + (p.orden || 99);
+const ordenPaquete = (lista = PALABRAS) => lista.slice().sort((x, y) => lugarPaquete(x) - lugarPaquete(y)).map(p => p.id);
+/** T2 · Las otras 2 opciones de `elige`: siempre palabras presentadas (`presentadas` = fichas), primero de su semana; si faltan, de las semanas
+    anteriores (la más cercana primero) y, como último recurso, de las posteriores. La vuelta `k` las va cambiando. Devuelve 0, 1 o 2 fichas. */
+function distractoresElige(p, presentadas, k = 0) {
+  const rota = l => l.map((_, i) => l[(i + Math.max(0, k | 0)) % l.length]);
+  const otras = presentadas.filter(x => x.id !== p.id);
+  const mismas = otras.filter(x => x.semana === p.semana).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  const antes = otras.filter(x => x.semana < p.semana).sort((x, y) => (y.semana - x.semana) || lugarPaquete(x) - lugarPaquete(y));
+  const despues = otras.filter(x => x.semana > p.semana).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  return [...rota(mismas), ...rota(antes), ...rota(despues)].slice(0, 2);
+}
+
 /* ---- js/40-inicio.js ---- */
 /* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
 let PANT = 'inicio', MODO = '', NUEVO_AV = null, ERR = '';
@@ -601,7 +672,8 @@ function crearDesdeForm(ev) {
 const SEMANA_ACT = 1;
 let PRES = { id: '', i: 0 };
 const PRES_PASOS = 9;
-const palabrasSemana = n => PALABRAS.filter(p => p.semana === n);
+/** Las palabras de una semana, en el orden de docs/semana-NN.md (campo `orden`). */
+const palabrasSemana = n => PALABRAS.filter(p => p.semana === n).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
 const imgPal = p => 'img/palabras/' + p.escena.img;
 
 SC.semana = function () {
@@ -643,9 +715,9 @@ function presMover(d) {
 
 /* ---- js/48-tareas.js ---- */
 /* ===== «Jugamos»: 2 tareas con palabras de la semana (la guía el docente; la clase responde con pulgares, dedos o hablando) =====
-   Tareas: sentido, ejemplo, elige, acaba, habla (ver docs/pedagogia.md, apartado 3). Tras cada una, el docente valora: casi todos · la mitad · pocos.
+   Tareas: sentido, ejemplo, elige, acaba, habla (ver docs/pedagogia.md, apartado 3); cuál toca y qué frase sale, por las reglas T de 32-eleccion.js. Tras cada una, el docente valora: casi todos · la mitad · pocos.
    La valoración es opcional: valorarTarea apunta y mueve la escala y el repaso (reglas E y R, 30-escala-logica.js); «Seguir sin valorar» solo anota que la tarea salió. */
-let JUEGO = null, JUEGO_N = 0;
+let JUEGO = null;
 const NJUEGO = 2;
 const TAREA_ROT = { sentido: '¿Tiene sentido?', ejemplo: '¿Es o no es?', elige: '¿Qué palabra va?', acaba: 'Acaba la frase', habla: 'Cuéntaselo a tu compañero' };
 const CON_RESPUESTA = { sentido: true, ejemplo: true, elige: true, acaba: false, habla: false };
@@ -653,47 +725,60 @@ const VAL_TXT = { todos: 'Casi todos', mitad: 'La mitad', pocos: 'Pocos' };
 
 /** Palabras con las que se puede jugar: las ya presentadas (en Modo Docente, todas las de la semana). */
 function palabrasJugables(pr) { return palabrasSemana(SEMANA_ACT).filter(p => MODO_DOCENTE || estadoPal(pr, p.id).e >= 2); }
-/** Monta la cola: las palabras con menos valoraciones primero; cada una con una tarea distinta de su última y de la otra de la sesión. */
-function montarJuego(pr, n = NJUEGO, vuelta = JUEGO_N) {
+/** Fichas que cuentan como presentadas (T2): las del perfil; en Modo Docente, todas. */
+const fichasPresentadas = pr => PALABRAS.filter(p => MODO_DOCENTE || estadoPal(pr, p.id).e >= 2);
+/* En Modo Docente no se guarda nada: las tareas ya enseñadas se recuerdan solo en memoria para que «Otra vez» cambie de tarea y de frase,
+   y cada palabra se trata como si estuviera en «La usamos» (alterna entender y usar) para que se vean todas las tareas. */
+let DOC_REG = {};
+const registroJuego = (pr, id) => (MODO_DOCENTE ? DOC_REG[id] || { ...palabraNueva(), e: 4 } : estadoPal(pr, id));
+/** Solo en Modo Docente: recuerda en memoria que esta tarea ya salió (no guarda nada). */
+function anotarDocente(id, tarea) { if (MODO_DOCENTE) DOC_REG[id] = tareaHecha(registroJuego(null, id), tarea); }
+/** Monta la cola: las palabras con menos valoraciones primero; cada una con la tarea y la frase que tocan (reglas T1-T7 de 32-eleccion.js)
+    y con tareas de tipo distinto entre sí (T4). `elige` lleva sus otras 2 opciones, siempre palabras presentadas. */
+function montarJuego(pr, n = NJUEGO) {
   const lista = palabrasJugables(pr).map((p, i) => ({ p, i, v: (estadoPal(pr, p.id).val || []).length }))
-    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n), usadas = [], cola = [];
-  lista.forEach(({ p, v }, k) => {
-    const val = estadoPal(pr, p.id).val || [], ult = val.length ? val[val.length - 1].t : '', off = v + k + vuelta;
-    const orden = TAREAS_ID.map((_, j) => TAREAS_ID[(off + j) % TAREAS_ID.length]);
-    const t = orden.find(x => x !== ult && !usadas.includes(x)) || orden.find(x => x !== ult) || orden[0];
-    usadas.push(t); cola.push({ id: p.id, t, k: v + vuelta, rev: false });
+    .sort((a, b) => a.v - b.v || a.i - b.i).slice(0, n), pres = fichasPresentadas(pr), dia = hoy(), evitar = [], cola = [];
+  lista.forEach(({ p }) => {
+    const a = registroJuego(pr, p.id), nOtras = pres.filter(x => x.id !== p.id).length;
+    const t = elegirTarea(a, p, dia, { otras: nOtras, evitar });
+    if (!t) return;
+    const k = a.u[t] | 0; /* T7: cuántas veces se ha hecho; de ahí sale la frase */
+    evitar.push(t); cola.push({ id: p.id, t, k, otras: t === 'elige' ? distractoresElige(p, pres, k).map(x => x.id) : [], rev: false });
   });
   return cola;
 }
 function empezarJuego() {
-  const cola = montarJuego(MODO_DOCENTE ? null : perfilAct()); JUEGO_N++;
+  const cola = montarJuego(MODO_DOCENTE ? null : perfilAct());
   if (!cola.length) return;
   JUEGO = { cola, i: 0 }; go('juego');
 }
 function juegoRevelar() { JUEGO.cola[JUEGO.i].rev = true; pintar(); }
-function juegoValorar(v) { const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); else tareaSinValorar(q.id, q.t); JUEGO.i++; pintar(); window.scrollTo(0, 0); }
+function juegoValorar(v) {
+  const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); else tareaSinValorar(q.id, q.t);
+  anotarDocente(q.id, q.t);
+  JUEGO.i++; pintar(); window.scrollTo(0, 0); }
 
 /** Contenido de una tarea: devuelve {cuerpo, res} (res = lo que se enseña al tocar «Ver la respuesta»). */
 function tareaHTML(q, p) {
   const pal = `<p class="pal-ch">${esc(p.palabra)}</p>`;
   if (q.t === 'sentido') {
-    const s = p.sentido[q.k % p.sentido.length];
+    const s = fraseDe(p, 'sentido', q.k);
     return { cuerpo: `${pal}<p class="gr">${esc(s.t)}</p><p class="mu gr-p">Pulgar arriba o abajo</p>`,
       res: `<div class="veredicto ${s.ok ? 'si' : 'no'}"><b>${s.ok ? '👍 Sí tiene sentido' : '👎 No tiene sentido'}</b><span>${esc(s.por)}</span></div>` };
   }
   if (q.t === 'ejemplo') {
-    const e = p.ejemplos[q.k % p.ejemplos.length];
+    const e = fraseDe(p, 'ejemplo', q.k);
     return { cuerpo: `<p class="pal-ch">¿Es un ejemplo de «${esc(p.palabra)}»?</p><p class="gr">${esc(e.t)}</p><p class="mu gr-p">Pulgar arriba o abajo</p>`,
       res: `<div class="veredicto ${e.ok ? 'si' : 'no'}"><b>${e.ok ? '👍 Sí es' : '👎 No es'}</b></div>` };
   }
   if (q.t === 'elige') {
-    const otras = palabrasSemana(p.semana).filter(x => x.id !== p.id), a = otras[q.k % otras.length], b = otras[(q.k + 1) % otras.length];
+    const otras = (q.otras ? q.otras.map(palabraPorId) : distractoresElige(p, fichasPresentadas(MODO_DOCENTE ? null : perfilAct()), q.k)), a = otras[0] || p, b = otras[1] || p;
     const op = [p, a, b], r = q.k % 3, orden = [op[r], op[(r + 1) % 3], op[(r + 2) % 3]];
     const html = orden.map((x, j) => `<div class="opc${q.rev && x.id === p.id ? ' on' : ''}"><i>${j + 1}</i><span>${esc(x.palabra)}</span></div>`).join('');
     return { cuerpo: `<img class="esc-img" src="${esc(imgPal(p))}" alt=""><p class="mu gr-p">Dedos: 1, 2 o 3</p><div class="opcs">${html}</div>`,
       res: `<div class="veredicto si"><b>La palabra es «${esc(p.palabra)}»</b></div>` };
   }
-  if (q.t === 'acaba') return { cuerpo: `${pal}<p class="gr">${esc(p.acaba[q.k % p.acaba.length])}</p><p class="mu gr-p">Dos o tres voluntarios</p>`, res: '' };
+  if (q.t === 'acaba') return { cuerpo: `${pal}<p class="gr">${esc(fraseDe(p, 'acaba', q.k))}</p><p class="mu gr-p">Dos o tres voluntarios</p>`, res: '' };
   return { cuerpo: `${pal}<p class="gr">${esc(p.habla)}</p><p class="mu gr-p">Por parejas · un minuto</p>`, res: '' };
 }
 SC.juego = function () {
@@ -799,7 +884,7 @@ function confirmarCopia() { aplicarCopia(TZ.imp); TZ.imp = null; TZ.sub = ''; TZ
 /* ---- js/palabras/s01-comparar.js ---- */
 PALABRA({
   id: 'comparar', palabra: 'comparar', silabas: ['com', 'pa', 'rar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 2, bloque: 'pensar',
   def: 'Comparar es fijarte en dos cosas para ver en qué se parecen y en qué son diferentes.',
   otro: null,
   escena: { img: 'comparar.webp', texto: 'Hugo tiene dos lápices. Los pone juntos, uno al lado del otro. El rojo es más largo que el azul. Hugo ha comparado los lápices.' },
@@ -831,7 +916,7 @@ PALABRA({
 /* ---- js/palabras/s01-curioso.js ---- */
 PALABRA({
   id: 'curioso', palabra: 'curioso', silabas: ['cu', 'rio', 'so'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 6, bloque: 'sentir',
   def: 'Alguien es curioso cuando tiene muchas ganas de saber y descubrir cosas nuevas.',
   otro: 'También decimos que algo es curioso cuando es raro y nos llama la atención.',
   escena: { img: 'curioso.webp', texto: 'Leo ve una caja cerrada encima de la mesa. «¿Qué habrá dentro?», piensa. Se acerca, la mira por todos lados y pregunta a su madre. Leo es un niño curioso.' },
@@ -863,7 +948,7 @@ PALABRA({
 /* ---- js/palabras/s01-enorme.js ---- */
 PALABRA({
   id: 'enorme', palabra: 'enorme', silabas: ['e', 'nor', 'me'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 4, bloque: 'como-son',
   def: 'Algo es enorme cuando es muy, muy grande, tan grande que sorprende.',
   otro: null,
   escena: { img: 'enorme.webp', texto: 'Dani va en barco con su abuela. De pronto, una ballena sale del agua. ¡Es más grande que un autobús! La ballena es enorme.' },
@@ -895,7 +980,7 @@ PALABRA({
 /* ---- js/palabras/s01-fragil.js ---- */
 PALABRA({
   id: 'fragil', palabra: 'frágil', silabas: ['frá', 'gil'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 5, bloque: 'como-son',
   def: 'Algo es frágil cuando se rompe con facilidad y hay que tratarlo con cuidado.',
   otro: null,
   escena: { img: 'fragil.webp', texto: 'Ana lleva un huevo en la mano. Camina muy despacio para que no se le caiga. Si se cae, se rompe. El huevo es frágil.' },
@@ -927,7 +1012,7 @@ PALABRA({
 /* ---- js/palabras/s01-observar.js ---- */
 PALABRA({
   id: 'observar', palabra: 'observar', silabas: ['ob', 'ser', 'var'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 1, bloque: 'pensar',
   def: 'Observar es mirar algo despacio y con mucha atención para fijarte en los detalles.',
   otro: null,
   escena: { img: 'observar.webp', texto: 'Lola encuentra una mariquita en el patio. Se agacha y la mira muy despacio. ¡Tiene siete puntos negros! Lola está observando la mariquita.' },
@@ -959,7 +1044,7 @@ PALABRA({
 /* ---- js/palabras/s01-ordenar.js ---- */
 PALABRA({
   id: 'ordenar', palabra: 'ordenar', silabas: ['or', 'de', 'nar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 3, bloque: 'pensar',
   def: 'Ordenar es colocar las cosas siguiendo una regla: de pequeño a grande, de primero a último…',
   otro: 'También es poner cada cosa en su sitio, como cuando ordenas tu cuarto.',
   escena: { img: 'ordenar.webp', texto: 'Vera tiene tres ositos. Pone primero el pequeño, después el mediano y al final el grande. Vera ha ordenado los ositos de menor a mayor.' },

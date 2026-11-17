@@ -3,7 +3,8 @@
 const SEMANA_ACT = 1;
 let PRES = { id: '', i: 0 };
 const PRES_PASOS = 9;
-const palabrasSemana = n => PALABRAS.filter(p => p.semana === n);
+/** Las palabras de una semana, en el orden de docs/semana-NN.md (campo `orden`). */
+const palabrasSemana = n => PALABRAS.filter(p => p.semana === n).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
 const imgPal = p => 'img/palabras/' + p.escena.img;
 
 SC.semana = function () {
