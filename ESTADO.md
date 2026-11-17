@@ -289,7 +289,7 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   Cierre = **primera versión**: solo las palabras nuevas de hoy con su gesto (falta lo de enseñar las que han subido de paso, paso 3.4). `sw.js` = `lexi-pwa-15`.
   Tests: `node tests/test_hoy.js` (40-49, 52 y 53; usa las 60 fichas de `docs/`) y `tests/humo.py` (sesión completa con valoración, en Docente, Familias y Modo Docente). **Para probar:** en una clase, pulsa «Hoy»; el primer día salen 2 palabras nuevas. Hasta que se pasen las semanas 2 a 10 a `src/js/palabras/` solo existen las 6 de la semana 1; con ellas la sesión se queda corta
 - [x] 3.4 Cierre y segundo significado (H5, H6). Test 50 (17-11-2026, Sonnet): el cierre enseña las palabras nuevas de hoy con su gesto y, debajo, «Hoy han crecido» con la planta de las que han subido de paso (se compara con el paso al empezar la sesión, `HOY.e0`); las que bajan no salen, y si no hay nada que decir el cierre no sale. «También quiere decir…» sale una sola vez, tras la tarea, solo en «Recordamos» y con la palabra en «La entendemos» o «La usamos» (`ov` de datos v4, sin migración nueva). Funciones puras `muestraOtro`, `conOtroVisto`, `subieronHoy` en `src/js/34-hoy.js`; `otroVisto` en `20-datos.js`; pantalla en `48-tareas.js`, cierre en `46-hoy.js`. `sw.js` = `lexi-pwa-17`. Tests: `node tests/test_hoy.js` (50 y 50b) y `tests/humo.py`. **Para probar:** en «Hoy», cuando una palabra con segundo significado (de la semana 1: observar, comparar, ordenar, enorme, frágil, curioso) llegue a «La entendemos» y vuelva en «Recordamos», tras la tarea sale «También quiere decir…»; al final de una sesión en la que alguna suba de paso, el cierre la enseña
-- [ ] 3.5 Muro de palabras de la clase con el paso de cada una (diseñado en `docs/aula.md`: es el paso 5.4)
+- [x] 3.5 Muro de palabras de la clase con el paso de cada una: hecho en el paso 5.4 (17-11-2026)
 
 ## Fase 4 · Contenido de 1.º y 2.º · Fable u Opus, esfuerzo alto
 - [x] Escribir las semanas 2 a 10 (54 palabras) y sus peticiones de imágenes (13-11-2026, Fable)
@@ -343,8 +343,7 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
 - [ ] 5.1 Tarjetas para imprimir, grandes y pequeñas (tests 90 y 93). Se puede hacer ya
 - [ ] 5.2 Hoja para las familias «Nuestras palabras de la semana» (test 89). Se puede hacer ya
 - [ ] 5.3 Pantalla completa y atajos de teclado o mando (test 92). Se puede hacer ya
-- [ ] 5.4 Muro «Nuestras palabras» con «Una al azar» y ficha de consulta (tests 76-80). Después del
-  paso 3.1; sustituye al 3.5
+- [x] 5.4 Muro «Nuestras palabras» con «Una al azar» y ficha de consulta (tests 76-80) (17-11-2026, Sonnet): botón en la casa del perfil, en Modo Docente y en el cierre de «Hoy». Muestra solo las palabras presentadas, por semanas (la más reciente arriba) y con su planta; arriba «Ya son N» (en Familias, «Mis palabras»); vacío: mascota y «Aquí irán nuestras palabras». Tocar una palabra abre su ficha de consulta (imagen, explicación, gesto, 3 contextos y el segundo significado si ya se enseñó). «Una al azar» saca una palabra distinta de la anterior con «Haz su gesto» / «¿Qué quiere decir?» / «Una frase con ella», rotando, con botón «Ver». No guarda nada. Falta la chispa de «encontrada» (MU7), que llega con el paso 5.5. Funciones puras en `src/js/36-muro.js`, pantallas en `47-muro.js`. `sw.js` = `lexi-pwa-18`. Tests: `node tests/test_muro.js` y `tests/humo.py`. **Para probar:** pulsa «Nuestras palabras» en la casa de la clase tras presentar alguna palabra
 - [ ] 5.5 «La hemos encontrado» (tests 81-85)
 - [ ] 5.6 Resumen «Cómo va la clase» (test 91)
 - [ ] 5.7 Explorar: por grupos, parejas y dos al azar (tests 86-88). Después del paso G.1

@@ -722,6 +722,25 @@ function subieronHoy(pal, e0, nuevas = [], palabras = PALABRAS) {
   return palabras.filter(p => !nuevas.includes(p.id) && regDe(pal, p.id).e > ((e0 && e0[p.id]) || 1));
 }
 
+/* ---- js/36-muro.js ---- */
+/* ===== Muro «Nuestras palabras» (reglas MU1-MU6 de docs/aula.md): lo que sale y la palabra «al azar». Funciones PURAS, no cambian nada del perfil. ===== */
+/** MU1 y MU2 · Solo las palabras presentadas, agrupadas por semana (la más reciente arriba) y, dentro de cada semana, en el orden en que se presentaron
+    (y, el mismo día, en el orden de la ficha). No hay huecos de las que faltan. Devuelve [{semana, palabras: [fichas]}]. */
+function muroSemanas(pal, palabras = PALABRAS) {
+  const pres = palabras.filter(p => presentadaEn(pal, p.id)), cmp = (x, y) => (regDe(pal, x.id).pres > regDe(pal, y.id).pres ? 1 : regDe(pal, x.id).pres < regDe(pal, y.id).pres ? -1 : 0) || lugarPaquete(x) - lugarPaquete(y);
+  return [...new Set(pres.map(p => p.semana))].sort((a, b) => b - a).map(s => ({ semana: s, palabras: pres.filter(p => p.semana === s).sort(cmp) }));
+}
+/** MU3 · «Ya son N»: las palabras presentadas. */
+const muroCuenta = (pal, palabras = PALABRAS) => palabras.filter(p => presentadaEn(pal, p.id)).length;
+const PETICIONES_AZAR = ['gesto', 'def', 'frase'];
+/** MU5 · «Una al azar»: una palabra presentada, distinta de la anterior si hay más de una, con la petición que toca (rotan: gesto, qué quiere decir, frase).
+    `k` = cuántas llevan; `rnd` = número al azar entre 0 y 1. Devuelve {id, pet} o null si no hay ninguna. No guarda nada. */
+function azarSiguiente(pal, palabras = PALABRAS, antes = '', k = 0, rnd = Math.random()) {
+  const l = palabras.filter(p => presentadaEn(pal, p.id)); if (!l.length) return null;
+  const c = l.length > 1 ? l.filter(p => p.id !== antes) : l;
+  return { id: c[Math.min(c.length - 1, Math.floor(rnd * c.length))].id, pet: PETICIONES_AZAR[k % PETICIONES_AZAR.length] };
+}
+
 /* ---- js/40-inicio.js ---- */
 /* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
 let PANT = 'inicio', MODO = '', NUEVO_AV = null, ERR = '';
@@ -758,11 +777,12 @@ SC.quien = function () {
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
 };
 SC.casa = function () {
-  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><button class="btn sec" onclick="abrirMuro()">Nuestras palabras</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
   const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
   <button class="btn grande" onclick="empezarHoy()">${p.ses === hoy() ? 'Hoy · hecha' : 'Hoy'}</button>
-  <button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>${escalaFila()}
+  <button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>
+  <button class="btn sec" onclick="abrirMuro()">${tituloMuro()}</button>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
 };
 let NUEVO_NOM = '';
@@ -774,7 +794,8 @@ function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
   if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre')) { HOY = null; return go('casa'); }
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
-  if (PANT === 'semana') return go('casa');
+  if (PANT === 'consulta' || PANT === 'azar') return go('muro');
+  if (PANT === 'semana' || PANT === 'muro') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
   NUEVO_NOM = ''; NUEVO_AV = null; go('inicio');
@@ -899,7 +920,50 @@ SC.cierre = function () {
   return `<main class="pantalla infantil ancha pres"><p class="rotulo">${l.length ? 'Cierre · la decimos otra vez' : 'Cierre'}</p>
   <div class="cuerpo">${l.map(p => `<p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.gesto)}</p>`).join('')}
   ${s.length ? `<p class="mu gr-p" style="text-align:center">Hoy han crecido</p><div class="escala-fila">${s.map(p => `<figure>${escalaSVG(estadoPal(pr, p.id).e)}<figcaption>${esc(p.palabra)}</figcaption></figure>`).join('')}</div>` : ''}</div>
-  <div class="nav"><span></span><button class="btn" onclick="hoyTerminar()">Terminar</button></div></main>`;
+  <div class="nav"><button class="btn sec" onclick="hoyTerminar();abrirMuro()">${tituloMuro()}</button><button class="btn" onclick="hoyTerminar()">Terminar</button></div></main>`;
+};
+
+/* ---- js/47-muro.js ---- */
+/* ===== Muro «Nuestras palabras»: pantallas (reglas MU1-MU11 de docs/aula.md; qué sale: 36-muro.js) =====
+   Solo consulta: abrir una ficha o sacar una al azar no valora, no cuenta tareas y no cambia nada del perfil. */
+let CONS = '', AZAR = { id: '', pet: '', k: 0, rev: false };
+/** Las palabras del muro: las presentadas del perfil; en Modo Docente, las de la semana elegida «en La conocemos», de muestra (MU10). */
+function palMuro() {
+  if (!MODO_DOCENTE) { const p = perfilAct(); return (p && p.pal) || {}; }
+  const o = {}; palabrasSemana(SEMANA_ACT).forEach(p => { o[p.id] = { ...palabraNueva(), e: 2, pres: hoy() }; }); return o;
+}
+const tituloMuro = () => { const p = MODO_DOCENTE ? null : perfilAct(); return p && p.t !== 'doc' ? 'Mis palabras' : 'Nuestras palabras'; };
+const abrirMuro = () => go('muro');
+function abrirConsulta(id) { CONS = id; go('consulta'); }
+function azarOtra() { const pal = palMuro(), s = azarSiguiente(pal, PALABRAS, AZAR.id, AZAR.k); if (!s) return go('muro'); AZAR = { id: s.id, pet: s.pet, k: AZAR.k + 1, rev: false }; go('azar'); }
+function azarEmpezar() { AZAR = { id: '', pet: '', k: 0, rev: false }; azarOtra(); }
+function azarVer() { AZAR.rev = true; pintar(); }
+
+SC.muro = function () {
+  const pal = palMuro(), sem = muroSemanas(pal, PALABRAS), n = muroCuenta(pal, PALABRAS);
+  if (!n) return `<main class="pantalla infantil"><div class="lexi-mascota">${mascota(240)}</div><h1 class="h-pant">${tituloMuro()}</h1><p class="mu">Aquí irán nuestras palabras</p></main>`;
+  setTimeout(() => sem.forEach(s => s.palabras.forEach(p => { const im = new Image(); im.src = imgPal(p); })), 0);
+  return `<main class="pantalla infantil ancha"><h1 class="h-pant">${tituloMuro()}</h1><p class="mu">Ya son ${n}</p>
+  <button class="btn grande" onclick="azarEmpezar()">Una al azar</button>
+  ${sem.map(s => `<p class="rotulo">Semana ${s.semana}</p><div class="palabras">${s.palabras.map(p => `<button class="pal" onclick="abrirConsulta('${p.id}')"><img src="${esc(imgPal(p))}" alt="" loading="lazy">
+  <span class="pal-pie"><span class="pal-n">${esc(p.palabra)}</span>${escalaSVG(regDe(pal, p.id).e)}</span></button>`).join('')}</div>`).join('')}</main>`;
+};
+/** MU4 · Ficha de consulta: imagen, palabra, explicación, gesto y los tres contextos; el segundo significado solo si ya se enseñó. */
+SC.consulta = function () {
+  const p = palabraPorId(CONS); if (!p) return SC.muro();
+  const a = MODO_DOCENTE ? null : estadoPal(perfilAct(), p.id);
+  return `<main class="pantalla infantil ancha"><div class="escena"><img class="esc-img" src="${esc(imgPal(p))}" alt=""></div>
+  <h1 class="palabra-g" style="text-align:center">${esc(p.palabra)}</h1><p class="gr">${esc(p.def)}</p><p class="gr">${esc(p.gesto)}</p>
+  ${p.contextos.map(c => `<p class="gr">${esc(c)}</p>`).join('')}${a && a.ov && p.otro ? `<p class="mu gr-p">También quiere decir…</p><p class="gr">${esc(p.otro)}</p>` : ''}</main>`;
+};
+/** MU5 · «Una al azar»: una petición suelta; no guarda nada. */
+SC.azar = function () {
+  const p = palabraPorId(AZAR.id); if (!p) return SC.muro();
+  const rot = { gesto: 'Haz su gesto', def: '¿Qué quiere decir?', frase: 'Una frase con ella' }[AZAR.pet];
+  const res = { gesto: p.gesto, def: p.def, frase: p.contextos[AZAR.k % p.contextos.length] }[AZAR.pet];
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${rot}</p>
+  <div class="cuerpo"><p class="palabra-g">${esc(p.palabra)}</p>${AZAR.rev ? `<p class="gr">${esc(res)}</p>` : ''}</div>
+  <div class="nav">${AZAR.rev ? '<span></span>' : '<button class="btn sec" onclick="azarVer()">Ver</button>'}<button class="btn" onclick="azarOtra()">Otra</button></div></main>`;
 };
 
 /* ---- js/48-tareas.js ---- */

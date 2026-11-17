@@ -55,5 +55,5 @@ SC.cierre = function () {
   return `<main class="pantalla infantil ancha pres"><p class="rotulo">${l.length ? 'Cierre · la decimos otra vez' : 'Cierre'}</p>
   <div class="cuerpo">${l.map(p => `<p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.gesto)}</p>`).join('')}
   ${s.length ? `<p class="mu gr-p" style="text-align:center">Hoy han crecido</p><div class="escala-fila">${s.map(p => `<figure>${escalaSVG(estadoPal(pr, p.id).e)}<figcaption>${esc(p.palabra)}</figcaption></figure>`).join('')}</div>` : ''}</div>
-  <div class="nav"><span></span><button class="btn" onclick="hoyTerminar()">Terminar</button></div></main>`;
+  <div class="nav"><button class="btn sec" onclick="hoyTerminar();abrirMuro()">${tituloMuro()}</button><button class="btn" onclick="hoyTerminar()">Terminar</button></div></main>`;
 };
