@@ -177,7 +177,7 @@ dice que no a alguno, se cambia:
     semana 5; se escribirán en las fichas cuando se programe el campo.
 
 ## Para decidir (Fase 3)
-Dudas que salieron al programar el paso 3.1 (17-11-2026). Está hecha la lectura más fiel al texto; si Iván dice que no, se cambia:
+Dudas que salieron al programar los pasos 3.1 y 3.2 (17-11-2026). **Iván dijo «todo perfecto» el 17-11-2026: los puntos 54 a 68 están aprobados** tal cual están escritos:
 
 54. **Dónde viven los tests.** `docs/pedagogia.md` pone los tests 21-31 en `tests/test_repaso.js` y los 1-20 en
     `tests/test_escala.js`; se hizo así (el test 65 de G8 va en `test_escala.js`).
