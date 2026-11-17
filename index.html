@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Lexi: vocabulario</title>
 <meta name="description" content="Palabras nuevas para la clase, con Lexi.">
-<meta name="theme-color" content="#FBF9F1">
+<meta name="theme-color" content="#FDFBF2">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,24 +17,24 @@
 @font-face{font-family:'Inter';src:url(fonts/inter-500.woff) format('woff');font-weight:500;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter-600.woff) format('woff');font-weight:600 700;font-display:swap}
 
-/* ================= Colores: ÚNICO sitio (verdes de Lexi, 16-11-2026) ================= */
+/* ================= Colores: ÚNICO sitio (verdes de Lexi, diseño de Iván 17-11-2026) ================= */
 :root{
-  --bg:#FBF9F1;--card:#fff;--soft:#E6F3E2;--bd:#D2E7CE;--bd2:#B4D6B1;--tx:#1A1E29;--mu:#4F5F55;
-  --ac:#4CAF66;--acx:#3F9A5A;--acs:#A7D9A7;--aci:#2E7D4F;--on:#1A1E29;
+  --bg:#FDFBF2;--card:#fff;--soft:#E1F1D7;--bd:#CFE5C6;--bd2:#B3D4A8;--tx:#113C2C;--mu:#3C6E55;
+  --ac:#1D5637;--acx:#16472D;--acs:#B8DCA8;--aci:#1D5637;--on:#fff;
   --ok:#15803D;--okbg:#DCFCE7;--no:#DC2626;--nobg:#FEE2E2;
   --md:linear-gradient(135deg,#7C3AED,#14B8A6);
   --fd:'Fredoka',system-ui,sans-serif;--fi:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --sh:0 1px 2px rgba(26,30,41,.05),0 4px 14px rgba(26,30,41,.07);
+  --sh:0 1px 2px rgba(17,60,44,.05),0 4px 14px rgba(17,60,44,.07);
   --lexi-sombra:rgba(26,50,35,.14);
-  --lx-hoja:#4CAF66;--lx-prof:#2E7D4F;--lx-claro:#A7D9A7;--lx-flor:#FF6B6B;--lx-tinta:#1A1E29;--lx-blanco:#fff;
+  --lx-hoja:#5FA757;--lx-prof:#1D5637;--lx-claro:#A9D69A;--lx-flor:#E8776A;--lx-tinta:#113C2C;--lx-blanco:#fff;
 }
 :root[data-theme="dark"]{
-  --bg:#111A14;--card:#1B2820;--soft:#243629;--bd:#2F4636;--bd2:#40604B;--tx:#EAF5EA;--mu:#A8C2AE;
-  --ac:#A7D9A7;--acx:#4CAF66;--acs:rgba(76,175,102,.22);--aci:#A7D9A7;--on:#1A1E29;
+  --bg:#0F1E16;--card:#172A1F;--soft:#21382A;--bd:#2C4736;--bd2:#3D5F49;--tx:#E6F4E4;--mu:#A3C4AD;
+  --ac:#8FCB80;--acx:#73B762;--acs:rgba(115,183,98,.22);--aci:#A9D69A;--on:#0F2A1D;
   --ok:#4ADE80;--okbg:rgba(74,222,128,.15);--no:#F87171;--nobg:rgba(248,113,113,.15);
   --sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.3);
   --lexi-sombra:rgba(0,0,0,.35);
-  --lx-prof:#3E9A58;--lx-tinta:#A7D9A7;
+  --lx-prof:#4E9E55;--lx-tinta:#A9D69A;
 }
 
 *{box-sizing:border-box}
@@ -141,17 +141,17 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
 .opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
 
-/* Lexi · mascota por capas (la imagen verde de Iván, 16-11-2026, sin redibujar) */
-.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:760/522;--lexi-cuerpo:#5BAD66;--lexi-sombra:rgba(26,50,35,.14)}
+/* Lexi · mascota por capas (la imagen verde de Iván, 17-11-2026, sin redibujar) */
+.lexi-mascota{position:relative;width:100%;max-width:520px;aspect-ratio:760/520;--lexi-cuerpo:#6AAF5E;--lexi-sombra:rgba(26,50,35,.14)}
 .lexi-mascota>*,.lexi-mascota .flota>*{position:absolute}
 .lexi-mascota img{left:0;top:0;width:100%;height:100%;display:block}
 .lexi-mascota .sombra{background:var(--lexi-sombra);border-radius:50%;animation:lexi-sombra 4s ease-in-out infinite}
 .lexi-mascota .flota{inset:0;animation:lexi-flota 4s ease-in-out infinite}
-.lexi-mascota .brazo{transform-origin:17.3% 50.3%;animation:lexi-saluda 3.2s ease-in-out infinite}
+.lexi-mascota .brazo{transform-origin:16.4% 52.2%;animation:lexi-saluda 3.2s ease-in-out infinite}
 .lexi-mascota .lid{background:var(--lexi-cuerpo);border-radius:50%;transform:scaleY(0);transform-origin:50% 0;animation:lexi-parpadea 5s infinite}
 @keyframes lexi-flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.2%)}}
 @keyframes lexi-sombra{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.94)}}
-@keyframes lexi-saluda{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(5deg)}}
+@keyframes lexi-saluda{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(5deg)}}
 @keyframes lexi-parpadea{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.lexi-mascota *{animation:none!important}}
 </style>
@@ -181,7 +181,7 @@ const palabraPorId = id => PALABRAS.find(p => p.id === id);
 /* ---- js/10-tema.js ---- */
 /* Tema claro/oscuro (clave lexi.th) */
 const TEMA = {
-  aplicar(t) { document.documentElement.dataset.theme = t; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = t === 'dark' ? '#111A14' : '#FBF9F1'; },
+  aplicar(t) { document.documentElement.dataset.theme = t; const m = document.querySelector('meta[name=theme-color]'); if (m) m.content = t === 'dark' ? '#0F1E16' : '#FDFBF2'; },
   inicial() { const g = LS.get('th', null); return g || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); },
   alternar() { const t = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; LS.set('th', t); this.aplicar(t); }
 };
@@ -373,11 +373,11 @@ const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre d
 
 function mascotaHTML() {
   return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
-    + '<span class="sombra" style="left:25.96%;top:89.09%;width:52.88%;height:9.09%"></span>'
+    + '<span class="sombra" style="left:25.71%;top:89.5%;width:52.5%;height:9.29%"></span>'
     + '<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt="">'
     + '<img src="img/mascota/cuerpo.png" alt="">'
-    + '<i class="lid" style="left:29.52%;top:28.25%;width:18.27%;height:26.01%"></i>'
-    + '<i class="lid" style="left:55.96%;top:22.38%;width:18.85%;height:26.57%"></i></div></div>';
+    + '<i class="lid" style="left:28.45%;top:27.13%;width:19.52%;height:28%;background:#64A75A"></i>'
+    + '<i class="lid" style="left:55.83%;top:20.87%;width:19.88%;height:28.7%;background:#72B662"></i></div></div>';
 }
 const avatarHTML = p => p.t === 'fam'
   ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`

@@ -6,11 +6,11 @@ const TXT = { doc: { quien: '¿Qué clase?', nuevo: 'Nueva clase', ph: 'Nombre d
 
 function mascotaHTML() {
   return '<div class="lexi-mascota" role="img" aria-label="Lexi, la mascota">'
-    + '<span class="sombra" style="left:25.96%;top:89.09%;width:52.88%;height:9.09%"></span>'
+    + '<span class="sombra" style="left:25.71%;top:89.5%;width:52.5%;height:9.29%"></span>'
     + '<div class="flota"><img class="brazo" src="img/mascota/brazo.png" alt="">'
     + '<img src="img/mascota/cuerpo.png" alt="">'
-    + '<i class="lid" style="left:29.52%;top:28.25%;width:18.27%;height:26.01%"></i>'
-    + '<i class="lid" style="left:55.96%;top:22.38%;width:18.85%;height:26.57%"></i></div></div>';
+    + '<i class="lid" style="left:28.45%;top:27.13%;width:19.52%;height:28%;background:#64A75A"></i>'
+    + '<i class="lid" style="left:55.83%;top:20.87%;width:19.88%;height:28.7%;background:#72B662"></i></div></div>';
 }
 const avatarHTML = p => p.t === 'fam'
   ? `<span class="av" style="background:${(AVATARES[p.av] || AVATARES[0])[1]}" aria-hidden="true">${(AVATARES[p.av] || AVATARES[0])[0]}</span>`
