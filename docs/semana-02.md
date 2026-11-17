@@ -71,13 +71,13 @@ PALABRA({
   tipo: 'accion', nivel: 2, curso: 1, semana: 2, orden: 3, bloque: 'pensar',
   def: 'Describir es contar cómo es algo o alguien: su forma, su color, su tamaño…',
   otro: null,
-  escena: { img: 'describir.webp', texto: 'Carmen ha perdido su mochila. «¿Cómo es?», pregunta el conserje. «Es azul, pequeña y tiene una estrella», dice ella. Carmen sabe describir su mochila.' },
+  escena: { img: 'describir.webp', texto: 'Carmen ha perdido su mochila. «¿Cómo es?», pregunta el señor de la puerta. «Es azul, pequeña y tiene una estrella», dice ella. Carmen sabe describir su mochila.' },
   contextos: [
     'En clase describimos un elefante: es gris, tiene trompa y las orejas grandes.',
     'Por teléfono le describo a mi abuela mi disfraz.',
     'El cuento describe el castillo: alto, de piedra y con cuatro torres.'
   ],
-  gesto: 'Dibuja en el aire, con las dos manos, la forma de algo.',
+  gesto: 'Abre las dos manos como si midieras algo con ellas.',
   sentido: [
     { t: 'Describí a mi perro: es pequeño, blanco y tiene las orejas caídas.', ok: true, por: 'Contó cómo es.' },
     { t: 'Describí mi casa diciendo solo «es mi casa».', ok: false, por: 'No ha contado cómo es.' },
@@ -133,7 +133,7 @@ PALABRA({
   tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, orden: 5, bloque: 'como-son',
   def: 'Alguien o algo es veloz cuando se mueve muy rápido.',
   otro: null,
-  escena: { img: 'veloz.webp', texto: 'Julia mira la carrera del parque. Un galgo sale corriendo como una flecha. Nadie puede alcanzarlo. El galgo es veloz.' },
+  escena: { img: 'veloz.webp', texto: 'Julia mira la carrera del parque. Un perro sale corriendo como una flecha. Nadie puede alcanzarlo. El perro es veloz.' },
   contextos: [
     'El tren veloz nos lleva a la playa en poco tiempo.',
     'El halcón es el ave más veloz del cielo.',
@@ -141,7 +141,7 @@ PALABRA({
   ],
   gesto: 'Pasa la mano por delante de ti muy rápido, como un rayo: ¡fium!',
   sentido: [
-    { t: 'El guepardo es veloz: corre más que un coche por la ciudad.', ok: true, por: 'Se mueve muy rápido.' },
+    { t: 'El guepardo es veloz: corre más que cualquier otro animal.', ok: true, por: 'Se mueve muy rápido.' },
     { t: 'El caracol es tan veloz que tarda un día en cruzar el patio.', ok: false, por: 'Si tarda tanto, es lento.' },
     { t: 'Fui tan veloz que llegué la primera a la meta.', ok: true, por: 'Quien corre muy rápido llega antes.' },
     { t: 'La tortuga veloz llegó la última porque iba muy despacio.', ok: false, por: 'Ir muy despacio es lo contrario de ser veloz.' }
@@ -164,7 +164,7 @@ PALABRA({
   tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, orden: 6, bloque: 'sentir',
   def: 'Alguien es valiente cuando hace algo que le da miedo o le cuesta, porque es importante.',
   otro: null,
-  escena: { img: 'valiente.webp', texto: 'A Mateo le da miedo el agua. Hoy respira hondo, se agarra al bordillo y mete la cabeza. ¡Lo ha conseguido! Mateo ha sido valiente.' },
+  escena: { img: 'valiente.webp', texto: 'A Mateo le da miedo el agua. Hoy respira hondo, se agarra al borde de la piscina y mete la cabeza. ¡Lo ha conseguido! Mateo ha sido valiente.' },
   contextos: [
     'La bombera valiente sube por la escalera para ayudar.',
     'Fui valiente en el médico: me pusieron la vacuna y no aparté el brazo.',

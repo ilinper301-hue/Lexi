@@ -170,7 +170,7 @@ PALABRA({
     'En la cola del súper esperamos pacientes nuestro turno.',
     'Mi maestro es paciente: me lo explica otra vez sin enfadarse.'
   ],
-  gesto: 'Pon las manos una encima de otra sobre la mesa y quédate muy quieto.',
+  gesto: 'Mira el reloj de la muñeca y no lo toques.',
   sentido: [
     { t: 'Fui paciente y esperé mi turno sin protestar.', ok: true, por: 'Esperó con calma.' },
     { t: 'Soy muy paciente: si tengo que esperar un minuto, grito y pataleo.', ok: false, por: 'Gritar no es esperar con calma.' },

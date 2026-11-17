@@ -18,7 +18,7 @@ PALABRA({
     'Tú también eres un ser vivo: naciste, creces y te alimentas.',
     'Las hormigas del jardín son seres vivos, aunque sean diminutas.'
   ],
-  gesto: 'Pon una mano en el pecho y nota cómo respiras.',
+  gesto: 'Pon una mano en la barriga y respira hondo.',
   sentido: [
     { t: 'El caracol es un ser vivo: come hojas y crece.', ok: true, por: 'Nace, se alimenta y crece.' },
     { t: 'Mi mochila es un ser vivo porque la llevo a todas partes.', ok: false, por: 'La mochila no nace, ni come, ni crece.' },
@@ -47,7 +47,7 @@ PALABRA({
   contextos: [
     'La leche es el primer alimento de los bebés.',
     'La hierba es el alimento de las vacas.',
-    'En el comedor tomamos alimentos variados: verdura, fruta, legumbres, pescado…'
+    'En el comedor tomamos alimentos variados: verdura, fruta, lentejas, pescado…'
   ],
   gesto: 'Lleva una mano a la boca, como si comieras con cuchara.',
   sentido: [
@@ -74,7 +74,7 @@ PALABRA({
   tipo: 'nombre', nivel: 2, curso: 1, semana: 10, orden: 3, bloque: 'medio',
   def: 'Un paisaje es todo lo que ves cuando miras a lo lejos desde un sitio.',
   otro: null,
-  escena: { img: 'paisaje.webp', texto: 'Víctor sube al mirador con su madre. Desde arriba ve montañas, un río que brilla y un pueblo pequeñito. «¡Qué bonito!», dice. Víctor está mirando el paisaje.' },
+  escena: { img: 'paisaje.webp', texto: 'Víctor sube a lo alto de un monte con su madre. Desde arriba ve montañas, un río que brilla y un pueblo pequeñito. «¡Qué bonito!», dice. Víctor está mirando el paisaje.' },
   contextos: [
     'Por la ventanilla del tren vemos el paisaje: campos y molinos.',
     'En la playa, el paisaje es de mar, arena y rocas.',
@@ -134,7 +134,7 @@ PALABRA({
 PALABRA({
   id: 'necesitar', palabra: 'necesitar', silabas: ['ne', 'ce', 'si', 'tar'],
   tipo: 'accion', nivel: 2, curso: 1, semana: 10, orden: 5, bloque: 'medio',
-  def: 'Necesitar algo es que te hace falta de verdad: sin eso no puedes vivir o hacer algo.',
+  def: 'Necesitas algo cuando te hace falta de verdad: sin eso no puedes vivir o hacer algo.',
   otro: null,
   escena: { img: 'necesitar.webp', texto: 'La planta de Mario tiene las hojas caídas y la tierra seca. Mario le echa agua con la regadera. Al día siguiente las hojas están tiesas otra vez. La planta necesitaba agua.' },
   contextos: [

@@ -38,10 +38,10 @@ lista, Iván las envía por el chat y Claude las convierte y las sube al reposit
 |---|---|
 | `senalar` | Una niña de pie junto a un plano grande del colegio colgado en la pared, poniendo el dedo sobre una de las aulas. El plano no lleva letras. |
 | `completar` | Un niño colocando la última pieza en un puzle casi terminado; el hueco se ve con claridad. |
-| `describir` | Una niña hablando con un conserje y dibujando con las manos en el aire la forma de una mochila. Sobre ella, una nube de pensamiento con una mochila azul pequeña que tiene una estrella. |
+| `describir` | Una niña hablando con un señor de la puerta del cole y separando las manos para enseñar el tamaño de una mochila. Sobre ella, una nube de pensamiento con una mochila azul pequeña que tiene una estrella. |
 | `diminuto` | Un niño en la playa mirando con una lupa una concha pequeñísima entre la arena; al lado de su dedo se nota lo pequeña que es. |
-| `veloz` | Un galgo corriendo a toda velocidad por un parque, con líneas de movimiento; una niña lo mira desde un lado. |
-| `valiente` | Un niño en una piscina, agarrado al bordillo, a punto de meter la cara en el agua con gesto decidido; un adulto cerca le sonríe. |
+| `veloz` | Un perro corriendo a toda velocidad por un parque, con líneas de movimiento; una niña lo mira desde un lado. |
+| `valiente` | Un niño en una piscina, agarrado al borde de la piscina, a punto de meter la cara en el agua con gesto decidido; un adulto cerca le sonríe. |
 
 ## Petición 3 · semana 3
 
@@ -60,7 +60,7 @@ lista, Iván las envía por el chat y Claude las convierte y las sube al reposit
 |---|---|
 | `rodear` | Primer plano de una ficha con cinco animales dibujados (perro, pez, pájaro, gato y caracol) y la mano de una niña trazando con lápiz un círculo alrededor del pájaro. |
 | `unir` | Un niño en el suelo enganchando vagones de un tren de madera; el tren ya es largo. |
-| `descubrir` | Una niña en un jardín levantando una piedra; debajo hay varios bichos bola. Cara de asombro. |
+| `descubrir` | Una niña en un jardín levantando una piedra; debajo hay varios bichitos que se hacen una bolita. Cara de asombro. |
 | `suave` | Un niño con la mejilla apoyada en un conejo de pelo esponjoso, con los ojos cerrados y sonriendo. |
 | `aspero` | Una niña pasando la mano por el tronco de un pino; la corteza se ve rugosa, con grietas y relieve. |
 | `agotado` | Un niño tumbado boca arriba en la hierba, en lo alto de una montaña, con la mochila al lado; su familia al fondo. |
@@ -126,7 +126,7 @@ lista, Iván las envía por el chat y Claude las convierte y las sube al reposit
 |---|---|
 | `ser-vivo` | Un niño mirando una pecera con un pez de colores y, en el fondo, una piedra. |
 | `alimento` | Una niña y su padre con una cesta de la compra de la que asoman pan, tomates, huevos y un melón. |
-| `paisaje` | Un niño y su madre en un mirador; a lo lejos, montañas, un río y un pueblo pequeño. |
+| `paisaje` | Un niño y su madre en lo alto de un monte; a lo lejos, montañas, un río y un pueblo pequeño. |
 | `crecer` | Una niña con un abrigo que le queda pequeño: las mangas le llegan por el codo; su padre se ríe con cariño. |
 | `necesitar` | Un niño regando una planta de hojas caídas en una maceta con la tierra seca. |
 | `estacion` | Una niña mirando un árbol de su calle con las hojas amarillas, que caen. |

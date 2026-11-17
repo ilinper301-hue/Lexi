@@ -49,7 +49,7 @@ PALABRA({
     'Después de la lluvia sale el sol.',
     'Me lavo los dientes después de cenar.'
   ],
-  gesto: 'Pon una mano delante de ti y hazla saltar hacia un lado: un paso más.',
+  gesto: 'Pon una mano y, a su lado, la otra, como dos pasos seguidos.',
   sentido: [
     { t: 'Me pongo el pijama y después me meto en la cama.', ok: true, por: 'La cama va cuando ya tiene el pijama.' },
     { t: 'Me comí la sopa y después me la sirvieron.', ok: false, por: 'Servir va antes de comer.' },
@@ -83,9 +83,9 @@ PALABRA({
   gesto: 'Junta las dos manos de golpe, como si cerraras un libro.',
   sentido: [
     { t: 'Me puse los calcetines, los zapatos y, finalmente, me até los cordones.', ok: true, por: 'Atarse es lo último.' },
-    { t: 'Para hacer zumo, finalmente cojo las naranjas, y luego las exprimo y me lo bebo.', ok: false, por: 'Coger las naranjas es lo primero, no lo último.' },
+    { t: 'Finalmente cojo las naranjas, y luego hago el zumo.', ok: false, por: 'Coger las naranjas es lo primero, no lo último.' },
     { t: 'Buscamos al gato por toda la casa y, finalmente, apareció en el armario.', ok: true, por: 'Fue lo último que pasó.' },
-    { t: 'Finalmente desayuné, y luego me levanté y me desperté.', ok: false, por: 'Lo último va al final: detrás ya no pasa nada más.' }
+    { t: 'Finalmente me desperté, y luego me levanté.', ok: false, por: 'Lo último va al final: detrás ya no pasa nada más.' }
   ],
   ejemplos: [
     { t: 'En una carrera: cruzar la meta', ok: true },

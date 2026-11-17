@@ -49,7 +49,7 @@ PALABRA({
   gesto: 'Pon las dos manos abiertas delante de ti y cierra una, como si cogieras algo.',
   sentido: [
     { t: 'Había dos camisetas y elegí la roja.', ok: true, por: 'Se quedó con una de las dos.' },
-    { t: 'Solo quedaba un yogur, así que elegí entre muchos.', ok: false, por: 'Con uno solo no se puede elegir.' },
+    { t: 'Solo quedaba un yogur y elegí cuál quería.', ok: false, por: 'Con uno solo no se puede elegir.' },
     { t: 'Elegimos el nombre del pez entre tres que nos gustaban.', ok: true, por: 'Había varios y se quedaron con uno.' },
     { t: 'Elegí un juego quedándome con todos a la vez.', ok: false, por: 'Elegir es quedarte con uno, no con todos.' }
   ],

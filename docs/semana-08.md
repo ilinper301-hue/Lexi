@@ -20,7 +20,7 @@ PALABRA({
   gesto: 'Ráscate la cabeza con una mano.',
   sentido: [
     { t: 'Se rompió la cremallera de mi abrigo: tengo un problema.', ok: true, por: 'Algo no va bien y hay que arreglarlo.' },
-    { t: 'Todo salió perfecto y no faltó nada: ¡menudo problema!', ok: false, por: 'Si todo va bien, no hay problema.' },
+    { t: 'Todo salió perfecto y no faltó nada: tengo un problema.', ok: false, por: 'Si todo va bien, no hay problema.' },
     { t: 'En el problema de mates había que averiguar cuántas canicas quedaban.', ok: true, por: 'Es una pregunta que hay que pensar.' },
     { t: 'Tengo un problema: ya está todo arreglado.', ok: false, por: 'Si está arreglado, ya no es un problema.' }
   ],
@@ -61,7 +61,7 @@ PALABRA({
     { t: 'Pegar con celo la hoja rota', ok: true },
     { t: 'Enfadarte y no hacer nada', ok: false },
     { t: 'Esconder lo que se ha roto', ok: false },
-    { t: 'Llorar sin pedir ayuda', ok: false }
+    { t: 'Quedarte parado sin hacer nada', ok: false }
   ],
   acaba: ['Si se me olvida el bocadillo, una solución es…', 'Para encontrar la solución de un problema de mates, yo…'],
   habla: 'Dos amigos quieren jugar a cosas distintas. Buscad juntos una solución.',
@@ -150,7 +150,7 @@ PALABRA({
   ],
   ejemplos: [
     { t: 'Un pétalo de flor', ok: true },
-    { t: 'Una tela de seda', ok: true },
+    { t: 'Una tela muy fina', ok: true },
     { t: 'Las alas de una mariposa', ok: true },
     { t: 'Un ladrillo', ok: false },
     { t: 'Unas botas de montaña', ok: false },

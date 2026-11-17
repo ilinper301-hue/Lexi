@@ -297,8 +297,10 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   `distinto` → `amable`. El comprobador pasa (60 palabras, sin errores)
 - [x] Revisión independiente de las 54 fichas (17-11-2026, Sonnet, esfuerzo medio): propuesta en
   `docs/revision-fichas.md` (5 fallos de redacción, 11 palabras difíciles, 5 frases a simplificar,
-  5 grupos nuevos de gestos que se confunden). **No se ha cambiado ninguna ficha: espera el sí de
-  Iván** (sección 6 del documento). Después, aplicar los cambios y pasar el comprobador
+  5 grupos nuevos de gestos que se confunden). **Iván dijo «sí a todo» el 18-11-2026 y se aplicó entero**
+  en `docs/semana-02` a `10` y en las peticiones 2, 3, 4, 6 y 10 de `docs/imagenes.md` (29 cambios; comprobador y
+  `test_contenido` sin fallos). Salvo dos retoques: `elegir` → «Solo quedaba un yogur y elegí cuál quería» (la
+  propuesta no era un uso de la palabra) y gesto de `ser vivo` → mano en la barriga (el de abrir brazos era el de `enorme`)
 - [ ] Campo `pregunta` (punto 3): escribir las preguntas en las fichas que lo necesitan (Fable u Opus,
   esfuerzo medio) y programarlo en `ejemplo`, comprobador y test (Sonnet, esfuerzo medio)
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus

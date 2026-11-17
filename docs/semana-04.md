@@ -46,7 +46,7 @@ PALABRA({
     'El puente une los dos lados del río.',
     'Unimos los puntos del 1 al 10 y sale un dibujo.'
   ],
-  gesto: 'Engancha los dos dedos índices, uno con otro.',
+  gesto: 'Junta las dos palmas y apriétalas.',
   sentido: [
     { t: 'Uní las dos piezas y ya no se separaban.', ok: true, por: 'Quedaron juntas.' },
     { t: 'Uní los dos trozos alejándolos todo lo que pude.', ok: false, por: 'Unir es juntar, no separar.' },
@@ -71,7 +71,7 @@ PALABRA({
   tipo: 'accion', nivel: 2, curso: 1, semana: 4, orden: 3, bloque: 'pensar',
   def: 'Descubrir es encontrar o enterarte de algo que antes no sabías o no veías.',
   otro: null,
-  escena: { img: 'descubrir.webp', texto: 'Candela levanta una piedra del jardín. Debajo hay un montón de bichos bola que se hacen una pelota. ¡No sabía que vivían ahí! Candela acaba de descubrir su escondite.' },
+  escena: { img: 'descubrir.webp', texto: 'Candela levanta una piedra del jardín. Debajo hay un montón de bichitos que se hacen una pelota. ¡No sabía que vivían ahí! Candela acaba de descubrir su escondite.' },
   contextos: [
     'Con la lupa descubrimos que la hoja tiene rayitas.',
     'Probé las lentejas y descubrí que me gustan.',
@@ -151,7 +151,7 @@ PALABRA({
     { t: 'La corteza de un árbol', ok: true },
     { t: 'Un estropajo de cocina', ok: true },
     { t: 'Un espejo', ok: false },
-    { t: 'Un pañuelo de seda', ok: false },
+    { t: 'Un papel liso', ok: false },
     { t: 'La piel de un bebé', ok: false }
   ],
   acaba: ['Toqué algo áspero y noté que…', 'Una cosa áspera que conozco es…'],

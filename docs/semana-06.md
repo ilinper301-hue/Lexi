@@ -20,7 +20,7 @@ PALABRA({
     { t: 'Imaginé que era un pez y nadaba entre corales.', ok: true, por: 'Lo vio dentro de su cabeza.' },
     { t: 'Imaginé un bocadillo, me lo comí y se me quitó el hambre.', ok: false, por: 'Lo imaginado no se puede comer.' },
     { t: 'Cuando me leen un cuento, imagino cómo son los personajes.', ok: true, por: 'No los ve, pero los piensa.' },
-    { t: 'Imaginé el lápiz que tenía en la mano mientras lo miraba.', ok: false, por: 'Si lo estás viendo, no hace falta imaginarlo.' }
+    { t: 'Imaginé el lápiz que tenía delante mirándolo bien.', ok: false, por: 'Si lo estás viendo, no hace falta imaginarlo.' }
   ],
   ejemplos: [
     { t: 'Pensar cómo sería vivir en la luna', ok: true },
@@ -28,7 +28,7 @@ PALABRA({
     { t: 'Jugar a que el suelo es lava', ok: true },
     { t: 'Mirar la pizarra', ok: false },
     { t: 'Copiar un dibujo', ok: false },
-    { t: 'Contar lo que has desayunado hoy', ok: false }
+    { t: 'Mirar la foto que tienes delante', ok: false }
   ],
   acaba: ['Imagino que puedo volar y entonces…', 'Cuando cierro los ojos, me gusta imaginar…'],
   habla: 'Imagina un animal que no existe. Descríbeselo a tu compañero.',
@@ -152,7 +152,7 @@ PALABRA({
     { t: 'Un armario cerrado por dentro', ok: true },
     { t: 'La playa a mediodía', ok: false },
     { t: 'Una clase con las luces encendidas', ok: false },
-    { t: 'Un escaparate iluminado', ok: false }
+    { t: 'Una linterna encendida', ok: false }
   ],
   acaba: ['Cuando mi cuarto está oscuro, yo…', 'Para ver en un sitio oscuro necesito…'],
   habla: '¿Qué sitios oscuros conoces? ¿Qué haces para ver en ellos?',
@@ -170,7 +170,7 @@ PALABRA({
     'El equipo está orgulloso porque ha jugado muy bien.',
     'Mi abuelo está orgulloso de su huerto.'
   ],
-  gesto: 'Saca pecho, con las manos en la cintura, y sonríe.',
+  gesto: 'Levanta un pulgar y sonríe.',
   sentido: [
     { t: 'Aprendí a montar en bici y me sentí orgulloso.', ok: true, por: 'Le costó y lo consiguió.' },
     { t: 'Estoy orgulloso de haber roto el vaso sin querer.', ok: false, por: 'Eso no es algo bien hecho.' },

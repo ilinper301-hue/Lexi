@@ -13,7 +13,7 @@ PALABRA({
   contextos: [
     'La maestra dice la palabra y nosotros la repetimos.',
     'Me gustó tanto el tobogán que repetí tres veces.',
-    'El estribillo de la canción se repite muchas veces.'
+    'La parte que se canta muchas veces se repite en la canción.'
   ],
   gesto: 'Haz girar un dedo en el aire, dando vueltas: otra vez, otra vez.',
   sentido: [
@@ -46,7 +46,7 @@ PALABRA({
     'En la frase cambiamos «perro» por «gato».',
     'Se fundió la bombilla y la cambiamos por otra.'
   ],
-  gesto: 'Cruza las manos por delante de ti: la derecha a la izquierda y la izquierda a la derecha.',
+  gesto: 'Gira las dos manos a la vez, como dando la vuelta a algo.',
   sentido: [
     { t: 'Me mojé y me cambié de camiseta.', ok: true, por: 'Se puso otra.' },
     { t: 'Cambié de sitio y me quedé en la misma silla.', ok: false, por: 'Si sigues en la misma silla, no has cambiado.' },
@@ -81,8 +81,8 @@ PALABRA({
   sentido: [
     { t: 'Comprobé la mochila y vi que faltaba el estuche.', ok: true, por: 'Al mirar se dio cuenta.' },
     { t: 'Comprobé la suma sin volver a mirarla.', ok: false, por: 'Para comprobar hay que mirar otra vez.' },
-    { t: 'Comprobamos con la balanza cuál de las dos cajas pesaba más.', ok: true, por: 'Lo miraron para estar seguros.' },
-    { t: 'No miré si estaba bien: así lo comprobé.', ok: false, por: 'Sin mirar no se comprueba nada.' }
+    { t: 'Comprobamos pesándolas cuál de las dos cajas pesaba más.', ok: true, por: 'Lo miraron para estar seguros.' },
+    { t: 'Lo comprobé sin mirarlo ni una vez.', ok: false, por: 'Sin mirar no se comprueba nada.' }
   ],
   ejemplos: [
     { t: 'Contar otra vez para ver si la suma está bien', ok: true },
