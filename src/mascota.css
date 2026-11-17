@@ -5,12 +5,10 @@
 .mas .cuerpo{animation:lexi-flota 3.4s ease-in-out infinite alternate;transform-origin:50% 90%;transform-box:fill-box}
 .mas .sombra{animation:lexi-sombra 3.4s ease-in-out infinite alternate;transform-origin:50% 50%;transform-box:fill-box}
 .mas .ojo{animation:lexi-parpadea 5.2s infinite;transform-origin:50% 50%;transform-box:fill-box}
-.mas .brazo-i{animation:lexi-saluda 1.6s ease-in-out infinite alternate;transform-origin:60px 105px}
-.mas .brazo-d{animation:lexi-mece 3.4s ease-in-out infinite alternate;transform-origin:196px 85px}
+.mas .brazo-i{animation:lexi-saluda 1.6s ease-in-out infinite alternate;transform-origin:36.3px 77.5px}
 .mas.quieta *{animation:none!important}
 @keyframes lexi-flota{from{transform:translateY(0) rotate(-1.5deg)}to{transform:translateY(-6px) rotate(1.5deg)}}
 @keyframes lexi-sombra{from{transform:scaleX(1);opacity:.14}to{transform:scaleX(.85);opacity:.08}}
 @keyframes lexi-parpadea{0%,91%,100%{transform:scaleY(1)}94%{transform:scaleY(.08)}}
-@keyframes lexi-saluda{from{transform:rotate(-8deg)}to{transform:rotate(14deg)}}
-@keyframes lexi-mece{from{transform:rotate(-4deg)}to{transform:rotate(5deg)}}
+@keyframes lexi-saluda{from{transform:rotate(-6deg)}to{transform:rotate(12deg)}}
 @media (prefers-reduced-motion:reduce){.mas *{animation:none!important}}
