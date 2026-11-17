@@ -4,8 +4,8 @@ const fs = require('fs'), vm = require('vm'), path = require('path'), assert = r
 const { leerDocs } = require('../tools/validar-docs.js');
 const R = path.join(__dirname, '..', 'src', 'js');
 const codigo = ['00-util.js', '30-escala-logica.js', '32-eleccion.js', '34-hoy.js'].map(f => fs.readFileSync(path.join(R, f), 'utf8')).join('\n');
-const A = vm.runInContext('const PALABRAS = [];\n' + codigo + '\n;({palabraNueva,presentarRegistro,valorarPalabra,sumarDias,diaNum,lunesDe,cupoNuevas,nuevasPorPresentar,recordamosHoy,jugamosHoy,colaTareas,estaPendiente,pendientes,ordenPaquete,PALABRAS,MAX_RECORDAMOS})', vm.createContext({ console }));
-const { palabraNueva, presentarRegistro, valorarPalabra: valorar, sumarDias, lunesDe, cupoNuevas, nuevasPorPresentar, recordamosHoy, jugamosHoy, colaTareas, estaPendiente } = A;
+const A = vm.runInContext('const PALABRAS = [];\n' + codigo + '\n;({palabraNueva,presentarRegistro,valorarPalabra,sumarDias,diaNum,lunesDe,cupoNuevas,nuevasPorPresentar,recordamosHoy,jugamosHoy,colaTareas,estaPendiente,pendientes,ordenPaquete,PALABRAS,MAX_RECORDAMOS,muestraOtro,conOtroVisto,subieronHoy})', vm.createContext({ console }));
+const { palabraNueva, presentarRegistro, valorarPalabra: valorar, sumarDias, lunesDe, cupoNuevas, nuevasPorPresentar, recordamosHoy, jugamosHoy, colaTareas, estaPendiente, muestraOtro, conOtroVisto, subieronHoy } = A;
 const { todas } = leerDocs(path.resolve(__dirname, '../docs'));
 const P = JSON.parse(JSON.stringify(todas.filter(p => p.curso === 1)));
 const ids = l => JSON.parse(JSON.stringify(l.map(x => x.id)));
@@ -127,6 +127,25 @@ t('53. simulación: 10 semanas de lunes a viernes, 2 nuevas por sesión → las 
   assert(maxPend <= 20, 'pendientes: ' + maxPend);
   for (let k = 0; k < 40; k++) sesion(pal, sumarDias(dia, 70 + k + 2 * Math.floor(k / 5))); /* unas semanas más para que lleguen al final */
   const nivel = Object.values(pal).map(r => r.e); assert(nivel.every(e => e === 4), 'pasos: ' + JSON.stringify(nivel.reduce((o, e) => (o[e] = (o[e] | 0) + 1, o), {})));
+});
+
+t('50. segundo significado: `ordenar` en «Recordamos» en el paso 3 lo enseña una vez; la siguiente vez ya no; en el paso 2 o sin `otro` no sale (H6)', () => {
+  const f = P.find(p => p.id === 'ordenar'), sin = P.find(p => !p.otro);
+  assert(f && f.otro, 'ordenar debe tener otro');
+  const a3 = { ...palabraNueva(), e: 3 };
+  assert.strictEqual(muestraOtro(a3, f), true);
+  assert.strictEqual(muestraOtro(conOtroVisto(a3), f), false);
+  assert.strictEqual(muestraOtro({ ...palabraNueva(), e: 2 }, f), false);
+  assert.strictEqual(muestraOtro({ ...palabraNueva(), e: 4 }, sin), false);
+  assert.strictEqual(a3.ov, false, 'no cambia el registro original');
+  assert.strictEqual(conOtroVisto(a3).e, 3, 'no cuenta para la escala');
+});
+t('50b. cierre: solo salen las que han subido de paso hoy (no las nuevas ni las que bajan) (H5)', () => {
+  const pal = { observar: { ...palabraNueva(), e: 3 }, comparar: { ...palabraNueva(), e: 2 }, ordenar: { ...palabraNueva(), e: 2 }, enorme: { ...palabraNueva(), e: 2 } };
+  const e0 = { observar: 2, comparar: 2, ordenar: 3, enorme: 1 };
+  assert.deepStrictEqual(ids(subieronHoy(pal, e0, ['enorme'], P)), ['observar']);
+  assert.deepStrictEqual(ids(subieronHoy(pal, e0, [], P)), ['observar', 'enorme']);
+  assert.deepStrictEqual(ids(subieronHoy({}, {}, [], P)), []);
 });
 
 console.log(n + ' pruebas correctas');

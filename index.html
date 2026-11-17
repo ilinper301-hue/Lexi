@@ -427,6 +427,13 @@ function tareaSinValorar(id, tarea) {
   p.pal[id] = tareaHecha(estadoPal(p, id), tarea);
   return guardar();
 }
+/** H6 · Se acaba de enseñar «También quiere decir…» de esta palabra: no vuelve a salir. En Modo Docente no guarda. */
+function otroVisto(id) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !idOK(id) || estadoPal(p, id).e < 2) return false;
+  p.pal[id] = conOtroVisto(estadoPal(p, id));
+  return guardar();
+}
 const PIN_OK = p => /^\d{4}$/.test(p || '');
 /** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
 function fijarNuevas(n) { if (EST.bloq) return false; EST.ajustes.nuevas = n === 1 ? 1 : 2; return guardarAjustes(); }
@@ -706,6 +713,14 @@ function colaTareas(fichas, reg, pres, dia) {
   });
   return cola;
 }
+/** H6 · ¿Toca enseñar «También quiere decir…»? Solo si la ficha tiene `otro`, no se ha enseñado ya y la palabra está en «La entendemos» o «La usamos» (paso 3 o 4). */
+const muestraOtro = (a, p) => !!(p && p.otro && a && !a.ov && a.e >= 3);
+/** H6 · El mismo registro con el segundo significado ya enseñado (no cuenta para la escala). */
+const conOtroVisto = a => { const r = copiaPal(a); r.ov = true; return r; };
+/** H5 · Palabras que hoy han subido de paso: su paso ahora es mayor que el de al empezar la sesión (`e0` = {id: paso}). Las nuevas de hoy no cuentan (ya salen aparte). Devuelve fichas. */
+function subieronHoy(pal, e0, nuevas = [], palabras = PALABRAS) {
+  return palabras.filter(p => !nuevas.includes(p.id) && regDe(pal, p.id).e > ((e0 && e0[p.id]) || 1));
+}
 
 /* ---- js/40-inicio.js ---- */
 /* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
@@ -834,7 +849,11 @@ function presMover(d) {
 let HOY = null;
 const PARTES_HOY = ['rec', 'nueva', 'jug', 'cierre'];
 
-function empezarHoy() { HOY = { parte: '', rec: [], nuevas: [] , j: 0 }; hoyAvanzar(); }
+function empezarHoy() {
+  const pr = MODO_DOCENTE ? null : perfilAct(), e0 = {}; /* paso de cada palabra al empezar: así el cierre sabe cuáles han subido (H5) */
+  if (pr) Object.keys(pr.pal).forEach(id => { e0[id] = pr.pal[id].e; });
+  HOY = { parte: '', rec: [], nuevas: [], sube: [], e0, j: 0 }; hoyAvanzar();
+}
 function hoyAvanzar() {
   if (!HOY) return go('casa');
   const sig = PARTES_HOY[PARTES_HOY.indexOf(HOY.parte) + 1];
@@ -845,6 +864,7 @@ function hoyTerminar() { terminarSesionHoy(); HOY = null; go('casa'); toast('Ses
 function hoyCola(fichas, pr, titulo) {
   const cola = colaTareas(fichas, id => registroJuego(pr, id), fichasPresentadas(pr), hoy());
   if (!cola.length) return false;
+  if (titulo === 'Recordamos') cola.forEach(q => { q.otro = muestraOtro(registroJuego(pr, q.id), palabraPorId(q.id)); }); /* H6 */
   JUEGO = { cola, i: 0, hoy: titulo }; go('juego'); return true;
 }
 function hoyEntrar() {
@@ -860,20 +880,25 @@ function hoyEntrar() {
   } else if (HOY.parte === 'jug') {
     const f = muestra ? muestra.slice(3, 5) : jugamosHoy(pal, dia, { rec: HOY.rec, nuevas: HOY.nuevas }, PALABRAS);
     if (!hoyCola(f, pr, 'Jugamos')) hoyAvanzar();
-  } else if (!HOY.nuevas.length) hoyTerminar();
-  else go('cierre');
+  } else {
+    HOY.sube = MODO_DOCENTE ? [] : subieronHoy(pal, HOY.e0, HOY.nuevas).map(p => p.id); /* H5 */
+    if (!HOY.nuevas.length && !HOY.sube.length) hoyTerminar(); else go('cierre');
+  }
 }
 /** Al final de la presentación de una palabra nueva: la siguiente de hoy, o la parte siguiente. */
 function hoyNuevaSiguiente() {
   HOY.j++;
   if (HOY.j < HOY.nuevas.length) { PRES = { id: HOY.nuevas[HOY.j], i: 0 }; pintar(); window.scrollTo(0, 0); } else hoyAvanzar();
 }
-/** H5 (primera versión) · Cierre: se dicen por última vez las palabras nuevas de hoy, con su gesto. */
+/** H5 · Cierre: se dicen por última vez las palabras nuevas de hoy, con su gesto, y se enseñan las que hoy han subido de paso (la planta crece).
+    Las que han bajado no se enseñan a la clase. Sin valoración propia. Si no hay nada que decir, el cierre no sale. */
 SC.cierre = function () {
   if (!HOY) return SC.casa();
   const pr = MODO_DOCENTE ? null : perfilAct(), l = HOY.nuevas.map(palabraPorId).filter(p => p && (MODO_DOCENTE || estadoPal(pr, p.id).e >= 2));
-  return `<main class="pantalla infantil ancha pres"><p class="rotulo">Cierre · la decimos otra vez</p>
-  <div class="cuerpo">${l.map(p => `<p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.gesto)}</p>`).join('')}</div>
+  const s = (HOY.sube || []).map(palabraPorId).filter(Boolean);
+  return `<main class="pantalla infantil ancha pres"><p class="rotulo">${l.length ? 'Cierre · la decimos otra vez' : 'Cierre'}</p>
+  <div class="cuerpo">${l.map(p => `<p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.gesto)}</p>`).join('')}
+  ${s.length ? `<p class="mu gr-p" style="text-align:center">Hoy han crecido</p><div class="escala-fila">${s.map(p => `<figure>${escalaSVG(estadoPal(pr, p.id).e)}<figcaption>${esc(p.palabra)}</figcaption></figure>`).join('')}</div>` : ''}</div>
   <div class="nav"><span></span><button class="btn" onclick="hoyTerminar()">Terminar</button></div></main>`;
 };
 
@@ -914,7 +939,11 @@ function juegoRevelar() { JUEGO.cola[JUEGO.i].rev = true; pintar(); }
 function juegoValorar(v) {
   const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); else tareaSinValorar(q.id, q.t);
   anotarDocente(q.id, q.t);
-  JUEGO.i++; pintar(); window.scrollTo(0, 0); }
+  if (q.otro) { /* H6: tras la tarea, una sola vez, «También quiere decir…» (no cuenta para la escala) */
+    JUEGO.otro = q.id; otroVisto(q.id); if (MODO_DOCENTE) DOC_REG[q.id] = conOtroVisto(registroJuego(null, q.id));
+  } else JUEGO.i++;
+  pintar(); window.scrollTo(0, 0); }
+function juegoSeguirOtro() { JUEGO.otro = ''; JUEGO.i++; pintar(); window.scrollTo(0, 0); }
 
 /** Contenido de una tarea: devuelve {cuerpo, res} (res = lo que se enseña al tocar «Ver la respuesta»). */
 function tareaHTML(q, p) {
@@ -957,6 +986,10 @@ function tareaHTML(q, p) {
 }
 SC.juego = function () {
   const j = JUEGO; if (!j || !j.cola.length) return SC.semana();
+  if (j.otro) { const p = palabraPorId(j.otro); /* H6 */
+    return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy} · También quiere decir…</p>
+    <div class="cuerpo"><p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.otro)}</p></div>
+    <div class="nav"><span></span><button class="btn" onclick="juegoSeguirOtro()">Seguir →</button></div></main>`; }
   if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'}</p>
     <div class="cuerpo"><p class="palabra-g">¡Hecho!</p><p class="mu gr-p">${j.cola.map(q => esc(palabraPorId(q.id).palabra)).join(' · ')}</p></div>
     ${j.hoy ? '<div class="nav"><span></span><button class="btn" onclick="hoyAvanzar()">Seguir →</button></div>'

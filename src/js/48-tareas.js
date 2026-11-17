@@ -34,7 +34,11 @@ function juegoRevelar() { JUEGO.cola[JUEGO.i].rev = true; pintar(); }
 function juegoValorar(v) {
   const q = JUEGO.cola[JUEGO.i]; if (v) valorarTarea(q.id, q.t, v); else tareaSinValorar(q.id, q.t);
   anotarDocente(q.id, q.t);
-  JUEGO.i++; pintar(); window.scrollTo(0, 0); }
+  if (q.otro) { /* H6: tras la tarea, una sola vez, «También quiere decir…» (no cuenta para la escala) */
+    JUEGO.otro = q.id; otroVisto(q.id); if (MODO_DOCENTE) DOC_REG[q.id] = conOtroVisto(registroJuego(null, q.id));
+  } else JUEGO.i++;
+  pintar(); window.scrollTo(0, 0); }
+function juegoSeguirOtro() { JUEGO.otro = ''; JUEGO.i++; pintar(); window.scrollTo(0, 0); }
 
 /** Contenido de una tarea: devuelve {cuerpo, res} (res = lo que se enseña al tocar «Ver la respuesta»). */
 function tareaHTML(q, p) {
@@ -77,6 +81,10 @@ function tareaHTML(q, p) {
 }
 SC.juego = function () {
   const j = JUEGO; if (!j || !j.cola.length) return SC.semana();
+  if (j.otro) { const p = palabraPorId(j.otro); /* H6 */
+    return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy} · También quiere decir…</p>
+    <div class="cuerpo"><p class="palabra-g">${esc(p.palabra)}</p><p class="gr">${esc(p.otro)}</p></div>
+    <div class="nav"><span></span><button class="btn" onclick="juegoSeguirOtro()">Seguir →</button></div></main>`; }
   if (j.i >= j.cola.length) return `<main class="pantalla infantil ancha pres"><p class="rotulo">${j.hoy || 'Jugamos'}</p>
     <div class="cuerpo"><p class="palabra-g">¡Hecho!</p><p class="mu gr-p">${j.cola.map(q => esc(palabraPorId(q.id).palabra)).join(' · ')}</p></div>
     ${j.hoy ? '<div class="nav"><span></span><button class="btn" onclick="hoyAvanzar()">Seguir →</button></div>'

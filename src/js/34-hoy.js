@@ -56,3 +56,11 @@ function colaTareas(fichas, reg, pres, dia) {
   });
   return cola;
 }
+/** H6 · ¿Toca enseñar «También quiere decir…»? Solo si la ficha tiene `otro`, no se ha enseñado ya y la palabra está en «La entendemos» o «La usamos» (paso 3 o 4). */
+const muestraOtro = (a, p) => !!(p && p.otro && a && !a.ov && a.e >= 3);
+/** H6 · El mismo registro con el segundo significado ya enseñado (no cuenta para la escala). */
+const conOtroVisto = a => { const r = copiaPal(a); r.ov = true; return r; };
+/** H5 · Palabras que hoy han subido de paso: su paso ahora es mayor que el de al empezar la sesión (`e0` = {id: paso}). Las nuevas de hoy no cuentan (ya salen aparte). Devuelve fichas. */
+function subieronHoy(pal, e0, nuevas = [], palabras = PALABRAS) {
+  return palabras.filter(p => !nuevas.includes(p.id) && regDe(pal, p.id).e > ((e0 && e0[p.id]) || 1));
+}

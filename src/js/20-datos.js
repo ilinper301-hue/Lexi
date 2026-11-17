@@ -153,6 +153,13 @@ function tareaSinValorar(id, tarea) {
   p.pal[id] = tareaHecha(estadoPal(p, id), tarea);
   return guardar();
 }
+/** H6 · Se acaba de enseñar «También quiere decir…» de esta palabra: no vuelve a salir. En Modo Docente no guarda. */
+function otroVisto(id) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !idOK(id) || estadoPal(p, id).e < 2) return false;
+  p.pal[id] = conOtroVisto(estadoPal(p, id));
+  return guardar();
+}
 const PIN_OK = p => /^\d{4}$/.test(p || '');
 /** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
 function fijarNuevas(n) { if (EST.bloq) return false; EST.ajustes.nuevas = n === 1 ? 1 : 2; return guardarAjustes(); }
