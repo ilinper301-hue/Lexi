@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s09-<id>.js`.
 ```js
 PALABRA({
   id: 'compartir', palabra: 'compartir', silabas: ['com', 'par', 'tir'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 9, bloque: 'convivir',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 9, orden: 1, bloque: 'convivir',
   def: 'Compartir es dar a otros una parte de lo que tienes o usarlo juntos.',
   otro: null,
   escena: { img: 'compartir.webp', texto: 'Jorge abre su bocadillo en el recreo. Su amigo se ha dejado el suyo en casa. Jorge lo parte por la mitad y le da un trozo. Jorge ha compartido su bocadillo.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'colaborar', palabra: 'colaborar', silabas: ['co', 'la', 'bo', 'rar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 9, bloque: 'convivir',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 9, orden: 2, bloque: 'convivir',
   def: 'Colaborar es trabajar con otros, cada uno haciendo su parte, para conseguir algo juntos.',
   otro: null,
   escena: { img: 'colaborar.webp', texto: 'Hay que mover la mesa grande y pesa mucho. Irene llama a tres amigos. Cada uno coge una esquina y cuentan: «una, dos y… ¡tres!». Los cuatro han sabido colaborar.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'respetar', palabra: 'respetar', silabas: ['res', 'pe', 'tar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 9, bloque: 'convivir',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 9, orden: 3, bloque: 'convivir',
   def: 'Respetar es tratar bien a las personas, los animales y las cosas, y cumplir las normas.',
   otro: null,
   escena: { img: 'respetar.webp', texto: 'En el columpio hay cola. Rubén tiene muchas ganas, pero no se cuela. Se pone el último y espera a que le toque. Rubén sabe respetar el turno.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'cuidadoso', palabra: 'cuidadoso', silabas: ['cui', 'da', 'do', 'so'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, orden: 4, bloque: 'como-son',
   def: 'Alguien es cuidadoso cuando hace las cosas despacio y con atención para que salgan bien.',
   otro: null,
   escena: { img: 'cuidadoso.webp', texto: 'Sofía lleva un vaso lleno de agua hasta la mesa. Va paso a paso, mirando el vaso, sin correr. No se le cae ni una gota. Sofía es cuidadosa.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'amable', palabra: 'amable', silabas: ['a', 'ma', 'ble'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, bloque: 'convivir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, orden: 5, bloque: 'convivir',
   def: 'Alguien es amable cuando habla con cariño y ayuda a los demás con una sonrisa.',
   otro: null,
   escena: { img: 'amable.webp', texto: 'Un niño nuevo llega al cole y no conoce a nadie. Marta se acerca, sonríe y le pregunta: «¿Quieres jugar con nosotros?». Luego le enseña dónde está el baño. Marta es amable.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'paciente', palabra: 'paciente', silabas: ['pa', 'cien', 'te'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 9, orden: 6, bloque: 'sentir',
   def: 'Alguien es paciente cuando sabe esperar con calma, sin enfadarse ni quejarse.',
   otro: 'También es paciente la persona enferma a la que cuida un médico.',
   escena: { img: 'paciente.webp', texto: 'Blanca va a pescar con su abuelo. Pasa un rato y no pica ningún pez. Pasa otro rato. Blanca sigue quieta, mirando el agua, sin protestar. Blanca es paciente.' },

@@ -2,7 +2,7 @@
 // Uso: node tools/validar-docs.js docs [lista]
 const fs = require('fs');
 const path = require('path');
-const { revisa, revisaFam, revisaPieza, idsRepetidos, preguntasRepetidas } = require('./reglas-ficha.js');
+const { revisa, revisaSemana, revisaFam, revisaPieza, idsRepetidos, preguntasRepetidas } = require('./reglas-ficha.js');
 
 /* leerDocs(dir) → { todas, piezas, errores, avisos }. Lo usa también tests/test_docs.js */
 function leerDocs(dir) {
@@ -26,6 +26,7 @@ function leerDocs(dir) {
       revisa(p, sem, gestos, e);
       todas.push(p);
     }
+    revisaSemana(lista, x => errores.push(f + ': ' + x));
     for (const z of pz) {
       revisaPieza(z, sem, lista.map(p => p.id), t => errores.push(f + ' · pieza ' + z.id + ': ' + t));
       piezas.push(z);

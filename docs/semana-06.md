@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s06-<id>.js`.
 ```js
 PALABRA({
   id: 'imaginar', palabra: 'imaginar', silabas: ['i', 'ma', 'gi', 'nar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 6, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 6, orden: 1, bloque: 'pensar',
   def: 'Imaginar es ver dentro de tu cabeza algo que ahora no tienes delante o que no existe.',
   otro: null,
   escena: { img: 'imaginar.webp', texto: 'Olivia cierra los ojos en el sofá. Ve un dragón verde que vuela sobre su casa y la lleva en la espalda. Abre los ojos: no hay dragón. Olivia lo ha imaginado.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'recordar', palabra: 'recordar', silabas: ['re', 'cor', 'dar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 6, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 6, orden: 2, bloque: 'pensar',
   def: 'Recordar es traer a tu cabeza algo que pasó o que aprendiste antes.',
   otro: 'También es decirle algo a alguien para que no se le olvide: «recuérdame que riegue la planta».',
   escena: { img: 'recordar.webp', texto: 'Darío huele a bizcocho en la calle. De pronto le vienen a la cabeza el pueblo, la cocina de su abuela y las tardes de agosto. Sonríe. Darío está recordando el verano.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'preguntar', palabra: 'preguntar', silabas: ['pre', 'gun', 'tar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 6, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 6, orden: 3, bloque: 'pensar',
   def: 'Preguntar es decirle algo a alguien para que te conteste lo que quieres saber.',
   otro: null,
   escena: { img: 'preguntar.webp', texto: 'Chloe no encuentra el baño en el museo. Se acerca a una vigilante y dice: «Por favor, ¿dónde está el baño?». La vigilante se lo indica. Chloe ha sabido preguntar.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'brillante', palabra: 'brillante', silabas: ['bri', 'llan', 'te'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 6, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 6, orden: 4, bloque: 'como-son',
   def: 'Algo es brillante cuando echa luz o la refleja, como una estrella o un espejo.',
   otro: 'También decimos que una idea es brillante cuando es muy buena.',
   escena: { img: 'brillante.webp', texto: 'Nico encuentra una moneda en la arena. La frota con la camiseta y le quita el polvo. Ahora le da el sol y parece de oro. La moneda está brillante.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'oscuro', palabra: 'oscuro', silabas: ['os', 'cu', 'ro'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 6, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 6, orden: 5, bloque: 'como-son',
   def: 'Un sitio está oscuro cuando hay tan poca luz que casi no se ve.',
   otro: 'También es un color que se acerca al negro: azul oscuro, verde oscuro.',
   escena: { img: 'oscuro.webp', texto: 'Emma baja con su padre al trastero. La bombilla está fundida y no se ve ni la escalera. Su padre enciende la linterna. El trastero está oscuro.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'orgulloso', palabra: 'orgulloso', silabas: ['or', 'gu', 'llo', 'so'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 6, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 6, orden: 6, bloque: 'sentir',
   def: 'Estás orgulloso cuando te sientes muy contento por algo que has hecho bien y te ha costado.',
   otro: 'También puedes estar orgulloso de otra persona: «estoy orgullosa de ti».',
   escena: { img: 'orgulloso.webp', texto: 'Saúl lleva una semana intentando atarse los cordones. Hoy hace el lazo él solo, a la primera. Corre a enseñárselo a su madre con una sonrisa de oreja a oreja. Saúl está orgulloso.' },

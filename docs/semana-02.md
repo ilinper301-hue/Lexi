@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s02-<id>.js`.
 ```js
 PALABRA({
   id: 'senalar', palabra: 'señalar', silabas: ['se', 'ña', 'lar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 2, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 2, orden: 1, bloque: 'pensar',
   def: 'Señalar es mostrar algo con el dedo o con una marca para que los demás lo vean.',
   otro: null,
   escena: { img: 'senalar.webp', texto: 'En el mapa del cole hay muchas clases. La maestra pregunta: «¿Cuál es la nuestra?». Noa se levanta y pone el dedo encima. Noa ha señalado nuestra clase.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'completar', palabra: 'completar', silabas: ['com', 'ple', 'tar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 2, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 2, orden: 2, bloque: 'pensar',
   def: 'Completar es poner lo que falta para que algo quede entero.',
   otro: null,
   escena: { img: 'completar.webp', texto: 'A Iker le falta una pieza del puzle. La busca debajo de la mesa y la encuentra. La pone en su hueco. Iker ha completado el puzle.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'describir', palabra: 'describir', silabas: ['des', 'cri', 'bir'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 2, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 2, orden: 3, bloque: 'pensar',
   def: 'Describir es contar cómo es algo o alguien: su forma, su color, su tamaño…',
   otro: null,
   escena: { img: 'describir.webp', texto: 'Carmen ha perdido su mochila. «¿Cómo es?», pregunta el conserje. «Es azul, pequeña y tiene una estrella», dice ella. Carmen sabe describir su mochila.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'diminuto', palabra: 'diminuto', silabas: ['di', 'mi', 'nu', 'to'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, orden: 4, bloque: 'como-son',
   def: 'Algo es diminuto cuando es muy, muy pequeño, tan pequeño que cuesta verlo.',
   otro: null,
   escena: { img: 'diminuto.webp', texto: 'Omar mira la arena de la playa con una lupa. Entre los granos hay una concha. ¡Es más pequeña que una lenteja! La concha es diminuta.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'veloz', palabra: 'veloz', silabas: ['ve', 'loz'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, orden: 5, bloque: 'como-son',
   def: 'Alguien o algo es veloz cuando se mueve muy rápido.',
   otro: null,
   escena: { img: 'veloz.webp', texto: 'Julia mira la carrera del parque. Un galgo sale corriendo como una flecha. Nadie puede alcanzarlo. El galgo es veloz.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'valiente', palabra: 'valiente', silabas: ['va', 'lien', 'te'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 2, orden: 6, bloque: 'sentir',
   def: 'Alguien es valiente cuando hace algo que le da miedo o le cuesta, porque es importante.',
   otro: null,
   escena: { img: 'valiente.webp', texto: 'A Mateo le da miedo el agua. Hoy respira hondo, se agarra al bordillo y mete la cabeza. ¡Lo ha conseguido! Mateo ha sido valiente.' },

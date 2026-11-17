@@ -1,6 +1,6 @@
 PALABRA({
   id: 'enorme', palabra: 'enorme', silabas: ['e', 'nor', 'me'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 4, bloque: 'como-son',
   def: 'Algo es enorme cuando es muy, muy grande, tan grande que sorprende.',
   otro: null,
   escena: { img: 'enorme.webp', texto: 'Dani va en barco con su abuela. De pronto, una ballena sale del agua. ¡Es más grande que un autobús! La ballena es enorme.' },

@@ -1,6 +1,6 @@
 PALABRA({
   id: 'fragil', palabra: 'frágil', silabas: ['frá', 'gil'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 5, bloque: 'como-son',
   def: 'Algo es frágil cuando se rompe con facilidad y hay que tratarlo con cuidado.',
   otro: null,
   escena: { img: 'fragil.webp', texto: 'Ana lleva un huevo en la mano. Camina muy despacio para que no se le caiga. Si se cae, se rompe. El huevo es frágil.' },

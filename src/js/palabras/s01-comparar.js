@@ -1,6 +1,6 @@
 PALABRA({
   id: 'comparar', palabra: 'comparar', silabas: ['com', 'pa', 'rar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 2, bloque: 'pensar',
   def: 'Comparar es fijarte en dos cosas para ver en qué se parecen y en qué son diferentes.',
   otro: null,
   escena: { img: 'comparar.webp', texto: 'Hugo tiene dos lápices. Los pone juntos, uno al lado del otro. El rojo es más largo que el azul. Hugo ha comparado los lápices.' },

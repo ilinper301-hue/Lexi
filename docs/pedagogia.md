@@ -168,7 +168,7 @@ Una palabra por archivo en `src/js/palabras/sNN-id.js`. El `id` es estable para 
 PALABRA({
   id: 'fragil', palabra: 'frágil', silabas: ['frá', 'gil'],
   tipo: 'cualidad',            // 'accion' | 'cualidad' | 'nombre' | 'enlace'
-  nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  nivel: 2, curso: 1, semana: 1, orden: 5, bloque: 'como-son',  // `orden` (1-6) y `sep` (marca común, opcional)
   def: 'Algo es frágil cuando se rompe con facilidad y hay que tratarlo con cuidado.',
   otro: null,                  // segundo significado, si lo tiene
   escena: { img: 'fragil.webp', texto: '…' },
@@ -186,6 +186,10 @@ PALABRA({
 - **`rel`**: `parecida` y `contraria` son las preguntas de la tarea `relaciona`. `mas` (opcional) guarda
   las palabras relacionadas que no se preguntan (más difíciles o de la misma familia); solo las ve el
   docente en la ficha. Detalle en `docs/tareas-gesto-relaciona.md`.
+- **`orden`** (obligatorio en 1.º): el lugar de la ficha en `docs/semana-NN.md`, de 1 a 6. Fija el orden en que se
+  presentan las palabras y el desempate de «Recordamos». **`sep`** (opcional): marca común de las palabras que no se
+  presentan el mismo día (`primero-despues-finalmente`, `parecido-diferente`, `suave-aspero`, `problema-solucion`).
+  Son campos técnicos: no son texto de pantalla.
 - **`bloque`**: `pensar`, `como-son`, `sentir`, `convivir` (desde la semana 5) y `medio` (semana 10).
   Sirve para agrupar las palabras en «Explorar»; no cambia la sesión.
 - **`ejemplos` según el tipo** (aprobado el 15-11-2026: campo opcional `pregunta` en la ficha; si

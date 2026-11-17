@@ -9,7 +9,7 @@ Semana de Conocimiento del Medio: las seis palabras van en el bloque `medio` y s
 ```js
 PALABRA({
   id: 'ser-vivo', palabra: 'ser vivo', silabas: ['ser', 'vi', 'vo'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, bloque: 'medio',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, orden: 1, bloque: 'medio',
   def: 'Un ser vivo es todo lo que nace, crece, se alimenta y muere: personas, animales y plantas.',
   otro: null,
   escena: { img: 'ser-vivo.webp', texto: 'Luis mira su pecera. El pez come, nada y ha crecido desde el verano. La piedra del fondo, en cambio, sigue igual: ni come ni crece. El pez es un ser vivo.' },
@@ -40,7 +40,7 @@ PALABRA({
 
 PALABRA({
   id: 'alimento', palabra: 'alimento', silabas: ['a', 'li', 'men', 'to'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, bloque: 'medio',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, orden: 2, bloque: 'medio',
   def: 'Un alimento es lo que comen o beben los seres vivos para crecer y tener fuerzas.',
   otro: null,
   escena: { img: 'alimento.webp', texto: 'Naia vuelve del mercado con su padre. En la cesta hay pan, tomates, lentejas, huevos y un melón. Con todo eso van a comer esta semana. La cesta está llena de alimentos.' },
@@ -71,7 +71,7 @@ PALABRA({
 
 PALABRA({
   id: 'paisaje', palabra: 'paisaje', silabas: ['pai', 'sa', 'je'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, bloque: 'medio',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, orden: 3, bloque: 'medio',
   def: 'Un paisaje es todo lo que ves cuando miras a lo lejos desde un sitio.',
   otro: null,
   escena: { img: 'paisaje.webp', texto: 'Víctor sube al mirador con su madre. Desde arriba ve montañas, un río que brilla y un pueblo pequeñito. «¡Qué bonito!», dice. Víctor está mirando el paisaje.' },
@@ -102,7 +102,7 @@ PALABRA({
 
 PALABRA({
   id: 'crecer', palabra: 'crecer', silabas: ['cre', 'cer'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 10, bloque: 'medio',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 10, orden: 4, bloque: 'medio',
   def: 'Crecer es hacerse más grande o más alto poco a poco, con el tiempo.',
   otro: null,
   escena: { img: 'crecer.webp', texto: 'Claudia se pone el abrigo del año pasado. Las mangas le llegan por el codo y no puede abrocharlo. Su padre se ríe: «¡Te queda pequeño!». Claudia ha crecido.' },
@@ -133,7 +133,7 @@ PALABRA({
 
 PALABRA({
   id: 'necesitar', palabra: 'necesitar', silabas: ['ne', 'ce', 'si', 'tar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 10, bloque: 'medio',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 10, orden: 5, bloque: 'medio',
   def: 'Necesitar algo es que te hace falta de verdad: sin eso no puedes vivir o hacer algo.',
   otro: null,
   escena: { img: 'necesitar.webp', texto: 'La planta de Mario tiene las hojas caídas y la tierra seca. Mario le echa agua con la regadera. Al día siguiente las hojas están tiesas otra vez. La planta necesitaba agua.' },
@@ -164,7 +164,7 @@ PALABRA({
 
 PALABRA({
   id: 'estacion', palabra: 'estación', silabas: ['es', 'ta', 'ción'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, bloque: 'medio',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 10, orden: 6, bloque: 'medio',
   def: 'Una estación es cada una de las cuatro partes del año: primavera, verano, otoño e invierno.',
   otro: 'También es el sitio donde paran los trenes y los autobuses.',
   escena: { img: 'estacion.webp', texto: 'Lía mira el árbol de su calle. Hace unos meses tenía flores; luego, hojas verdes. Hoy las hojas son amarillas y se caen. Ha llegado otra estación.' },

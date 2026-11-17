@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s03-<id>.js`.
 ```js
 PALABRA({
   id: 'explicar', palabra: 'explicar', silabas: ['ex', 'pli', 'car'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 3, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 3, orden: 1, bloque: 'pensar',
   def: 'Explicar es contar algo paso a paso para que otra persona lo entienda.',
   otro: null,
   escena: { img: 'explicar.webp', texto: 'Aitana sabe jugar al dominó y su primo no. Ella le cuenta despacio cómo se ponen las fichas. Ahora su primo ya sabe jugar. Aitana se lo ha explicado.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'elegir', palabra: 'elegir', silabas: ['e', 'le', 'gir'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 3, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 3, orden: 2, bloque: 'pensar',
   def: 'Elegir es quedarte con una cosa entre varias, la que tú prefieres o la que es mejor.',
   otro: null,
   escena: { img: 'elegir.webp', texto: 'En la biblioteca hay tres cuentos. Bruno los mira: uno de piratas, uno de dragones y uno de gatos. Se queda con el de dragones. Bruno ha elegido un cuento.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'clasificar', palabra: 'clasificar', silabas: ['cla', 'si', 'fi', 'car'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 3, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 3, orden: 3, bloque: 'pensar',
   def: 'Clasificar es hacer grupos poniendo juntas las cosas que tienen algo igual.',
   otro: null,
   escena: { img: 'clasificar.webp', texto: 'Nora tiene un montón de botones mezclados. Pone los rojos en un bote, los azules en otro y los verdes en otro. Ya no están revueltos. Nora ha clasificado los botones.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'parecido', palabra: 'parecido', silabas: ['pa', 're', 'ci', 'do'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 3, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 3, orden: 4, bloque: 'como-son', sep: 'parecido-diferente',
   def: 'Dos cosas son parecidas cuando tienen algo igual, pero no son iguales del todo.',
   otro: null,
   escena: { img: 'parecido.webp', texto: 'Samuel y su hermano tienen el pelo rizado y la misma sonrisa. Pero Samuel es más alto y lleva gafas. No son iguales del todo. Samuel y su hermano son parecidos.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'diferente', palabra: 'diferente', silabas: ['di', 'fe', 'ren', 'te'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 3, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 3, orden: 5, bloque: 'como-son', sep: 'parecido-diferente',
   def: 'Dos cosas son diferentes cuando no son iguales: cambia el color, la forma, el tamaño…',
   otro: null,
   escena: { img: 'diferente.webp', texto: 'Alba se ha vestido medio dormida. Lleva un calcetín de rayas y otro de lunares. Sus amigos se ríen y ella también. Los calcetines de Alba son diferentes.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'sorprendido', palabra: 'sorprendido', silabas: ['sor', 'pren', 'di', 'do'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 3, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 3, orden: 6, bloque: 'sentir',
   def: 'Estás sorprendido cuando pasa algo que no esperabas y te quedas con la boca abierta.',
   otro: null,
   escena: { img: 'sorprendido.webp', texto: 'Yusef llega a casa y está todo apagado. De pronto se enciende la luz. «¡Feliz cumpleaños!», gritan sus amigos. Yusef está sorprendido.' },

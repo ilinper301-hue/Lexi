@@ -8,7 +8,7 @@ Esta semana trae los tres primeros `nombre` (problema, solución, pista).
 ```js
 PALABRA({
   id: 'problema', palabra: 'problema', silabas: ['pro', 'ble', 'ma'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 8, bloque: 'pensar',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 8, orden: 1, bloque: 'pensar', sep: 'problema-solucion',
   def: 'Un problema es algo que no va bien o una pregunta difícil, y hay que pensar para resolverlo.',
   otro: null,
   escena: { img: 'problema.webp', texto: 'A Rocío se le cuela el balón en lo alto de un árbol. Salta, pero no llega. Mueve el tronco, pero el balón no cae. Rocío tiene un problema.' },
@@ -39,7 +39,7 @@ PALABRA({
 
 PALABRA({
   id: 'solucion', palabra: 'solución', silabas: ['so', 'lu', 'ción'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 8, bloque: 'pensar',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 8, orden: 2, bloque: 'pensar', sep: 'problema-solucion',
   def: 'La solución es lo que arregla un problema o la respuesta a una pregunta.',
   otro: null,
   escena: { img: 'solucion.webp', texto: 'El balón de Rocío sigue en el árbol. Rocío piensa y piensa. Va a por una escoba, empuja el balón con el palo y… ¡cae! Rocío ha encontrado la solución.' },
@@ -70,7 +70,7 @@ PALABRA({
 
 PALABRA({
   id: 'pista', palabra: 'pista', silabas: ['pis', 'ta'],
-  tipo: 'nombre', nivel: 2, curso: 1, semana: 8, bloque: 'pensar',
+  tipo: 'nombre', nivel: 2, curso: 1, semana: 8, orden: 3, bloque: 'pensar',
   def: 'Una pista es una ayuda pequeña o una señal que te sirve para descubrir algo.',
   otro: 'También es un sitio preparado para algo: la pista de baloncesto, la pista de baile.',
   escena: { img: 'pista.webp', texto: 'Alguien se ha comido las galletas. Tomás mira el suelo y ve unas huellas pequeñas, manchadas de harina. Las huellas van hasta la cesta del perro. Tomás ha encontrado una pista.' },
@@ -101,7 +101,7 @@ PALABRA({
 
 PALABRA({
   id: 'resistente', palabra: 'resistente', silabas: ['re', 'sis', 'ten', 'te'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 8, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 8, orden: 4, bloque: 'como-son',
   def: 'Algo es resistente cuando aguanta mucho sin romperse ni estropearse.',
   otro: null,
   escena: { img: 'resistente.webp', texto: 'Mía se sube al puente de madera del parque. Salta una vez, y otra, y otra más. El puente no se mueve ni cruje. El puente es resistente.' },
@@ -132,7 +132,7 @@ PALABRA({
 
 PALABRA({
   id: 'delicado', palabra: 'delicado', silabas: ['de', 'li', 'ca', 'do'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 8, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 8, orden: 5, bloque: 'como-son',
   def: 'Algo es delicado cuando es fino y se estropea si no lo tratas con mucho cuidado.',
   otro: 'También es delicada una persona que trata las cosas y a los demás con suavidad.',
   escena: { img: 'delicado.webp', texto: 'Erik quiere tocar la flor del almendro. «Con un dedo y muy despacio», dice su tía, «que los pétalos se caen enseguida». Erik casi ni la roza. La flor es delicada.' },
@@ -163,7 +163,7 @@ PALABRA({
 
 PALABRA({
   id: 'nervioso', palabra: 'nervioso', silabas: ['ner', 'vio', 'so'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 8, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 8, orden: 6, bloque: 'sentir',
   def: 'Estás nervioso cuando no puedes estar quieto ni tranquilo porque algo te preocupa o te hace mucha ilusión.',
   otro: null,
   escena: { img: 'nervioso.webp', texto: 'Mañana Daniela actúa en el teatro del cole. Le sudan las manos, mueve la pierna y repasa su frase una y otra vez. No consigue dormirse. Daniela está nerviosa.' },

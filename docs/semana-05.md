@@ -9,7 +9,7 @@ notas del final antes de programarlas.
 ```js
 PALABRA({
   id: 'primero', palabra: 'primero', silabas: ['pri', 'me', 'ro'],
-  tipo: 'enlace', nivel: 2, curso: 1, semana: 5, bloque: 'pensar',
+  tipo: 'enlace', nivel: 2, curso: 1, semana: 5, orden: 1, bloque: 'pensar', sep: 'primero-despues-finalmente',
   def: 'Decimos «primero» para contar lo que pasa o se hace antes que todo lo demás.',
   otro: 'También es el que va delante de todos: el primero de la fila.',
   escena: { img: 'primero.webp', texto: 'Lucía va a hacer un bizcocho con su tío. «¿Por dónde empezamos?», pregunta. «Antes de nada, nos lavamos las manos», dice él. Eso es lo que van a hacer primero.' },
@@ -40,7 +40,7 @@ PALABRA({
 
 PALABRA({
   id: 'despues', palabra: 'después', silabas: ['des', 'pués'],
-  tipo: 'enlace', nivel: 2, curso: 1, semana: 5, bloque: 'pensar',
+  tipo: 'enlace', nivel: 2, curso: 1, semana: 5, orden: 2, bloque: 'pensar', sep: 'primero-despues-finalmente',
   def: 'Decimos «después» para contar lo que pasa cuando ya ha terminado otra cosa.',
   otro: null,
   escena: { img: 'despues.webp', texto: 'Marcos tiene hambre y mira las galletas. «Ahora no», dice su abuelo, «ahora tocan las lentejas». Marcos se las come todas. Las galletas llegan después.' },
@@ -71,7 +71,7 @@ PALABRA({
 
 PALABRA({
   id: 'finalmente', palabra: 'finalmente', silabas: ['fi', 'nal', 'men', 'te'],
-  tipo: 'enlace', nivel: 2, curso: 1, semana: 5, bloque: 'pensar',
+  tipo: 'enlace', nivel: 2, curso: 1, semana: 5, orden: 3, bloque: 'pensar', sep: 'primero-despues-finalmente',
   def: 'Decimos «finalmente» para contar lo último que pasa, cuando todo lo demás ya ha pasado.',
   otro: null,
   escena: { img: 'finalmente.webp', texto: 'Inés planta una semilla. La riega cada día y espera. Sale un tallo, luego unas hojas… y un día, por fin, se abre una flor. Finalmente, Inés tiene su flor.' },
@@ -102,7 +102,7 @@ PALABRA({
 
 PALABRA({
   id: 'antiguo', palabra: 'antiguo', silabas: ['an', 'ti', 'guo'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 5, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 5, orden: 4, bloque: 'como-son',
   def: 'Algo es antiguo cuando existe desde hace muchísimos años.',
   otro: null,
   escena: { img: 'antiguo.webp', texto: 'Teo visita un castillo con su clase. Las piedras están gastadas y las puertas son de madera oscura. «Lo hicieron hace mil años», dice la guía. El castillo es antiguo.' },
@@ -133,7 +133,7 @@ PALABRA({
 
 PALABRA({
   id: 'moderno', palabra: 'moderno', silabas: ['mo', 'der', 'no'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 5, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 5, orden: 5, bloque: 'como-son',
   def: 'Algo es moderno cuando es de ahora, se ha hecho o inventado hace poco.',
   otro: null,
   escena: { img: 'moderno.webp', texto: 'El abuelo de Valeria guarda un teléfono con una rueda para marcar. El de Valeria no tiene botones y hace fotos. «¡Qué distintos!», dice ella. El teléfono de Valeria es moderno.' },
@@ -164,7 +164,7 @@ PALABRA({
 
 PALABRA({
   id: 'proteger', palabra: 'proteger', silabas: ['pro', 'te', 'ger'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 5, bloque: 'convivir',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 5, orden: 6, bloque: 'convivir',
   def: 'Proteger es cuidar a alguien o algo para que no le pase nada malo.',
   otro: null,
   escena: { img: 'proteger.webp', texto: 'Empieza a llover y Gael ve un gatito mojado en la calle. Se quita el chubasquero y lo tapa con él. El gatito deja de temblar. Gael protege al gatito.' },

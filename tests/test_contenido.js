@@ -2,7 +2,7 @@
 // Uso: node tests/test_contenido.js
 const fs = require('fs');
 const path = require('path');
-const { revisa } = require('../tools/reglas-ficha.js');
+const { revisa, revisaSemana } = require('../tools/reglas-ficha.js');
 const R = path.resolve(__dirname, '..');
 let hechas = 0, fallos = [];
 const ok = (cond, msg) => { hechas++; if (!cond) fallos.push(msg); };
@@ -23,6 +23,7 @@ for (const f of archivos) {
 for (const [sem, lista] of Object.entries(porSemana)) {
   ok(lista.length === 6, `semana ${sem}: ${lista.length} palabras (deben ser 6)`);
   const gestos = new Set();
+  lista.sort((a, b) => a.orden - b.orden); revisaSemana(lista, t => fallos.push(`semana ${sem}: ${t}`)); hechas++;
   for (const p of lista) {
     revisa(p, Number(sem), gestos, t => fallos.push(`${p.id}: ${t}`)); hechas++;
     // 2. Imagen
@@ -58,6 +59,22 @@ falla(p => { p.rel.parecida.push('ordenado'); }, 'misma familia', 'test 75: no d
 falla(p => { p.rel.parecida.push('mezclar'); }, 'parecida y contraria', 'no detecta la misma palabra en parecida y contraria');
 falla(p => { p.rel.mas = []; }, 'rel.mas', 'no detecta un rel.mas vacío');
 falla(p => { p.rel.mas.push('colocar'); }, 'también en rel.mas', 'no detecta una palabra repetida en rel.mas');
+
+// 6. `orden` y `sep` (docs/pedagogia.md, apartado 13): el comprobador los exige y detecta lo que está mal
+{
+  const sem1 = Object.values(porSemana)[0].slice().sort((a, b) => a.orden - b.orden).map(p => JSON.parse(JSON.stringify(p)));
+  const er = f => { const l = []; f(l); return l; };
+  ok(sem1.map(p => p.orden).join() === '1,2,3,4,5,6', 'semana 1: orden debe ir de 1 a 6');
+  ok(sem1.map(p => p.id).join() === 'observar,comparar,ordenar,enorme,fragil,curioso', 'semana 1: el orden no es el de docs/semana-01.md');
+  const sinOrden = JSON.parse(JSON.stringify(sem1[0])); delete sinOrden.orden;
+  ok(er(l => revisa(sinOrden, 1, new Set(), t => l.push(t))).some(t => t.includes('orden')), 'no detecta una ficha de 1.º sin orden');
+  const dup = sem1.map(p => JSON.parse(JSON.stringify(p))); dup[1].orden = 1;
+  ok(er(l => revisaSemana(dup, t => l.push(t))).length >= 1, 'no detecta un orden repetido o cambiado');
+  const sola = sem1.map(p => JSON.parse(JSON.stringify(p))); sola[0].sep = 'solo-yo';
+  ok(er(l => revisaSemana(sola, t => l.push(t))).some(t => t.includes('sep')), 'no detecta una marca sep en una sola palabra');
+  const malSep = JSON.parse(JSON.stringify(sem1[0])); malSep.sep = 'Mal Escrita';
+  ok(er(l => revisa(malSep, 1, new Set(), t => l.push(t))).some(t => t.includes('sep')), 'no detecta una marca sep mal escrita');
+}
 
 console.log(`${hechas} comprobaciones, ${fallos.length} fallos`);
 if (fallos.length) { console.log(fallos.join('\n')); process.exit(1); }

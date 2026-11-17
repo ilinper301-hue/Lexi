@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s07-<id>.js`.
 ```js
 PALABRA({
   id: 'repetir', palabra: 'repetir', silabas: ['re', 'pe', 'tir'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 7, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 7, orden: 1, bloque: 'pensar',
   def: 'Repetir es volver a decir o a hacer lo mismo otra vez.',
   otro: null,
   escena: { img: 'repetir.webp', texto: 'Aroa le dice al loro de su vecina: «¡Hola!». El loro la mira y dice: «¡Hola!». Aroa se ríe y prueba con «¡Guapo!». El loro lo repite todo.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'cambiar', palabra: 'cambiar', silabas: ['cam', 'biar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 7, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 7, orden: 2, bloque: 'pensar',
   def: 'Cambiar es hacer que algo sea diferente de como era, o poner una cosa en lugar de otra.',
   otro: null,
   escena: { img: 'cambiar.webp', texto: 'Martín tiene un cromo repetido y Sira también. Él le da el suyo y ella le da el de ella. Ahora cada uno tiene un cromo nuevo. Martín y Sira han cambiado los cromos.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'comprobar', palabra: 'comprobar', silabas: ['com', 'pro', 'bar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 7, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 7, orden: 3, bloque: 'pensar',
   def: 'Comprobar es mirar otra vez para estar seguro de que algo está bien.',
   otro: null,
   escena: { img: 'comprobar.webp', texto: 'Jimena ha hecho una suma: 4 más 3 son 7. Para estar segura, saca siete garbanzos y los cuenta uno a uno. ¡Sí, son siete! Jimena lo ha comprobado.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'necesario', palabra: 'necesario', silabas: ['ne', 'ce', 'sa', 'rio'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 7, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 7, orden: 4, bloque: 'como-son',
   def: 'Algo es necesario cuando hace falta de verdad: sin eso no se puede.',
   otro: null,
   escena: { img: 'necesario.webp', texto: 'Álex quiere pintar con acuarelas. Tiene el papel, el pincel y las pinturas, pero no sale ningún color. «¡Falta el agua!», dice su hermana. Para pintar, el agua es necesaria.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'sencillo', palabra: 'sencillo', silabas: ['sen', 'ci', 'llo'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 7, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 7, orden: 5, bloque: 'como-son',
   def: 'Algo es sencillo cuando es fácil de hacer o de entender.',
   otro: 'También es sencillo lo que no tiene adornos: un vestido sencillo.',
   escena: { img: 'sencillo.webp', texto: 'Carla mira el puzle de su hermano pequeño. Solo tiene cuatro piezas grandes. Las coloca en un momento, casi sin pensar. Para Carla, ese puzle es sencillo.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'tranquilo', palabra: 'tranquilo', silabas: ['tran', 'qui', 'lo'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 7, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 7, orden: 6, bloque: 'sentir',
   def: 'Estás tranquilo cuando estás en calma, sin prisa, sin miedo y sin enfado.',
   otro: 'También es tranquilo un sitio sin ruido ni jaleo: una calle tranquila.',
   escena: { img: 'tranquilo.webp', texto: 'Amir está tumbado en la hierba del parque. Respira despacio y mira pasar las nubes. No tiene prisa ni le preocupa nada. Amir está tranquilo.' },

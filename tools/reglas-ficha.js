@@ -7,6 +7,10 @@ function revisa(p, sem, gestos, e) {
     if (p.silabas.join('') !== p.palabra.replace(/ /g, '')) e('sílabas no forman la palabra');
     if (!['accion', 'cualidad', 'nombre', 'enlace'].includes(p.tipo)) e('tipo desconocido');
     if (!['pensar', 'como-son', 'sentir', 'convivir', 'medio'].includes(p.bloque)) e('bloque desconocido');
+    // Campos técnicos de la Fase 3 (docs/pedagogia.md, apartado 13): `orden` (1.º: lugar en docs/semana-NN.md) y `sep` (marca común)
+    if (p.curso === 1 && !(Number.isInteger(p.orden) && p.orden >= 1 && p.orden <= 6)) e('orden: debe ser un número de 1 a 6');
+    if (p.curso !== 1 && p.orden !== undefined && !(Number.isInteger(p.orden) && p.orden >= 1 && p.orden <= 6)) e('orden: debe ser un número de 1 a 6');
+    if (p.sep !== undefined && !/^[a-z]+(-[a-z]+)+$/.test(p.sep)) e('sep: texto en minúsculas con guiones (p. ej. «suave-aspero»)');
     if (nPal(p.def) > 18) e('definición de ' + nPal(p.def) + ' palabras');
     if (!/[.…]$/.test(p.def)) e('definición sin punto final');
     if (p.escena.img !== p.id + '.webp') e('imagen mal nombrada');
@@ -37,6 +41,14 @@ function revisa(p, sem, gestos, e) {
     const textos = [p.def, p.otro || '', p.escena.texto, ...p.contextos, p.gesto, p.habla, ...p.acaba,
       ...p.sentido.flatMap(s => [s.t, s.por]), ...p.ejemplos.map(x => x.t)];
     if (new Set(textos.filter(Boolean)).size !== textos.filter(Boolean).length) e('hay un texto repetido');
+}
+/* revisaSemana(lista, e): las 6 fichas de una semana de 1.º, en el orden del documento. `orden` va de 1 a 6 sin repetir y
+   coincide con el lugar de la ficha; cada marca `sep` está en 2 o 3 palabras de la semana (nunca en una sola) */
+function revisaSemana(lista, e) {
+    lista.forEach((p, i) => { if (p.curso === 1 && p.orden !== i + 1) e(p.id + ': orden ' + p.orden + ' pero es la ficha ' + (i + 1) + ' de la semana'); });
+    const m = {};
+    for (const p of lista) if (p.sep) (m[p.sep] = m[p.sep] || []).push(p.id);
+    for (const [s, v] of Object.entries(m)) if (v.length < 2 || v.length > 3) e('sep «' + s + '»: está en ' + v.length + ' palabras (deben ser 2 o 3)');
 }
 /* preguntasRepetidas(lista): avisos de dos palabras con la misma pregunta de `relaciona` (regla L7: «También vale») */
 function preguntasRepetidas(lista) {
@@ -96,4 +108,4 @@ function idsRepetidos(lista) {
     const ids = lista.map(p => p.id);
     return [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
 }
-module.exports = { revisa, revisaFam, revisaPieza, idsRepetidos, sinTilde, nPal, preguntasRepetidas };
+module.exports = { revisa, revisaSemana, revisaFam, revisaPieza, idsRepetidos, sinTilde, nPal, preguntasRepetidas };

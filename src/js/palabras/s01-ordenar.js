@@ -1,6 +1,6 @@
 PALABRA({
   id: 'ordenar', palabra: 'ordenar', silabas: ['or', 'de', 'nar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 3, bloque: 'pensar',
   def: 'Ordenar es colocar las cosas siguiendo una regla: de pequeño a grande, de primero a último…',
   otro: 'También es poner cada cosa en su sitio, como cuando ordenas tu cuarto.',
   escena: { img: 'ordenar.webp', texto: 'Vera tiene tres ositos. Pone primero el pequeño, después el mediano y al final el grande. Vera ha ordenado los ositos de menor a mayor.' },

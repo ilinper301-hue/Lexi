@@ -1,6 +1,6 @@
 PALABRA({
   id: 'observar', palabra: 'observar', silabas: ['ob', 'ser', 'var'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 1, bloque: 'pensar',
   def: 'Observar es mirar algo despacio y con mucha atención para fijarte en los detalles.',
   otro: null,
   escena: { img: 'observar.webp', texto: 'Lola encuentra una mariquita en el patio. Se agacha y la mira muy despacio. ¡Tiene siete puntos negros! Lola está observando la mariquita.' },

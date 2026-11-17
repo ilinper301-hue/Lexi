@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s04-<id>.js`.
 ```js
 PALABRA({
   id: 'rodear', palabra: 'rodear', silabas: ['ro', 'de', 'ar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 4, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 4, orden: 1, bloque: 'pensar',
   def: 'Rodear es dibujar una línea cerrada alrededor de algo para marcarlo.',
   otro: 'También es ponerse o ir alrededor de algo: entre todos rodeamos el árbol.',
   escena: { img: 'rodear.webp', texto: 'En la ficha hay cinco animales. «¿Cuál vuela?», lee la maestra. Elsa coge el lápiz y dibuja un círculo alrededor del pájaro. Elsa ha rodeado el pájaro.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'unir', palabra: 'unir', silabas: ['u', 'nir'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 4, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 4, orden: 2, bloque: 'pensar',
   def: 'Unir es juntar dos cosas para que queden pegadas o conectadas.',
   otro: null,
   escena: { img: 'unir.webp', texto: 'Rayan tiene un tren de madera. Engancha la locomotora con el primer vagón, y luego otro, y otro. Ahora es un tren muy largo. Rayan ha unido los vagones.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'descubrir', palabra: 'descubrir', silabas: ['des', 'cu', 'brir'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 4, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 4, orden: 3, bloque: 'pensar',
   def: 'Descubrir es encontrar o enterarte de algo que antes no sabías o no veías.',
   otro: null,
   escena: { img: 'descubrir.webp', texto: 'Candela levanta una piedra del jardín. Debajo hay un montón de bichos bola que se hacen una pelota. ¡No sabía que vivían ahí! Candela acaba de descubrir su escondite.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'suave', palabra: 'suave', silabas: ['sua', 've'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 4, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 4, orden: 4, bloque: 'como-son', sep: 'suave-aspero',
   def: 'Algo es suave cuando da gusto tocarlo porque es liso o blandito y no raspa.',
   otro: 'También es suave lo que no es fuerte: una voz suave, un viento suave.',
   escena: { img: 'suave.webp', texto: 'Izan acaricia a su conejo. El pelo es blandito y no pincha nada. Izan pone la mejilla encima y cierra los ojos. El pelo del conejo es suave.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'aspero', palabra: 'áspero', silabas: ['ás', 'pe', 'ro'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 4, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 4, orden: 5, bloque: 'como-son', sep: 'suave-aspero',
   def: 'Algo es áspero cuando raspa al tocarlo porque no es liso.',
   otro: null,
   escena: { img: 'aspero.webp', texto: 'Paula pasa la mano por el tronco de un pino. Nota bultos y rayas, y le raspa un poco los dedos. No es nada liso. El tronco es áspero.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'agotado', palabra: 'agotado', silabas: ['a', 'go', 'ta', 'do'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 4, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 4, orden: 6, bloque: 'sentir',
   def: 'Estás agotado cuando estás tan cansado que ya no te quedan fuerzas.',
   otro: 'También se dice que algo está agotado cuando se ha acabado: las entradas están agotadas.',
   escena: { img: 'agotado.webp', texto: 'Adrián ha subido la montaña con su familia. Ha andado toda la mañana. Al llegar arriba se tumba en la hierba y no puede ni hablar. Adrián está agotado.' },

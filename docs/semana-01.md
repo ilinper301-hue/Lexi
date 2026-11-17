@@ -6,7 +6,7 @@ Al programar, cada bloque pasa tal cual a `src/js/palabras/s01-<id>.js`.
 ```js
 PALABRA({
   id: 'observar', palabra: 'observar', silabas: ['ob', 'ser', 'var'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 1, bloque: 'pensar',
   def: 'Observar es mirar algo despacio y con mucha atención para fijarte en los detalles.',
   otro: null,
   escena: { img: 'observar.webp', texto: 'Lola encuentra una mariquita en el patio. Se agacha y la mira muy despacio. ¡Tiene siete puntos negros! Lola está observando la mariquita.' },
@@ -37,7 +37,7 @@ PALABRA({
 
 PALABRA({
   id: 'comparar', palabra: 'comparar', silabas: ['com', 'pa', 'rar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 2, bloque: 'pensar',
   def: 'Comparar es fijarte en dos cosas para ver en qué se parecen y en qué son diferentes.',
   otro: null,
   escena: { img: 'comparar.webp', texto: 'Hugo tiene dos lápices. Los pone juntos, uno al lado del otro. El rojo es más largo que el azul. Hugo ha comparado los lápices.' },
@@ -68,7 +68,7 @@ PALABRA({
 
 PALABRA({
   id: 'ordenar', palabra: 'ordenar', silabas: ['or', 'de', 'nar'],
-  tipo: 'accion', nivel: 2, curso: 1, semana: 1, bloque: 'pensar',
+  tipo: 'accion', nivel: 2, curso: 1, semana: 1, orden: 3, bloque: 'pensar',
   def: 'Ordenar es colocar las cosas siguiendo una regla: de pequeño a grande, de primero a último…',
   otro: 'También es poner cada cosa en su sitio, como cuando ordenas tu cuarto.',
   escena: { img: 'ordenar.webp', texto: 'Vera tiene tres ositos. Pone primero el pequeño, después el mediano y al final el grande. Vera ha ordenado los ositos de menor a mayor.' },
@@ -99,7 +99,7 @@ PALABRA({
 
 PALABRA({
   id: 'enorme', palabra: 'enorme', silabas: ['e', 'nor', 'me'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 4, bloque: 'como-son',
   def: 'Algo es enorme cuando es muy, muy grande, tan grande que sorprende.',
   otro: null,
   escena: { img: 'enorme.webp', texto: 'Dani va en barco con su abuela. De pronto, una ballena sale del agua. ¡Es más grande que un autobús! La ballena es enorme.' },
@@ -130,7 +130,7 @@ PALABRA({
 
 PALABRA({
   id: 'fragil', palabra: 'frágil', silabas: ['frá', 'gil'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'como-son',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 5, bloque: 'como-son',
   def: 'Algo es frágil cuando se rompe con facilidad y hay que tratarlo con cuidado.',
   otro: null,
   escena: { img: 'fragil.webp', texto: 'Ana lleva un huevo en la mano. Camina muy despacio para que no se le caiga. Si se cae, se rompe. El huevo es frágil.' },
@@ -161,7 +161,7 @@ PALABRA({
 
 PALABRA({
   id: 'curioso', palabra: 'curioso', silabas: ['cu', 'rio', 'so'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 6, bloque: 'sentir',
   def: 'Alguien es curioso cuando tiene muchas ganas de saber y descubrir cosas nuevas.',
   otro: 'También decimos que algo es curioso cuando es raro y nos llama la atención.',
   escena: { img: 'curioso.webp', texto: 'Leo ve una caja cerrada encima de la mesa. «¿Qué habrá dentro?», piensa. Se acerca, la mira por todos lados y pregunta a su madre. Leo es un niño curioso.' },

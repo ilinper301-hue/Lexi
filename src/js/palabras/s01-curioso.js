@@ -1,6 +1,6 @@
 PALABRA({
   id: 'curioso', palabra: 'curioso', silabas: ['cu', 'rio', 'so'],
-  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, bloque: 'sentir',
+  tipo: 'cualidad', nivel: 2, curso: 1, semana: 1, orden: 6, bloque: 'sentir',
   def: 'Alguien es curioso cuando tiene muchas ganas de saber y descubrir cosas nuevas.',
   otro: 'También decimos que algo es curioso cuando es raro y nos llama la atención.',
   escena: { img: 'curioso.webp', texto: 'Leo ve una caja cerrada encima de la mesa. «¿Qué habrá dentro?», piensa. Se acerca, la mira por todos lados y pregunta a su madre. Leo es un niño curioso.' },
