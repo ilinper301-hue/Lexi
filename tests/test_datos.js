@@ -109,7 +109,7 @@ t('restaurar sobre datos de versión más nueva los conserva en lexi.bk', () => 
 t('migra v1 → v3: los perfiles antiguos conservan todo y reciben «pal» vacío', () => {
   const viejo = JSON.stringify({ v: 1, modo: 'doc', act: 'abcdef12', perfiles: [{ id: 'abcdef12', t: 'doc', n: '1.º A', av: 0, c: '2026-11-01' }], ajustes: { pin: '4321' } });
   const { api, almacen } = nuevo({ 'lexi.v1': viejo }); api.cargar();
-  assert.strictEqual(api.EST.v, 4); assert.strictEqual(api.perfilAct().n, '1.º A'); assert.strictEqual(api.EST.ajustes.pin, '4321');
+  assert.strictEqual(api.EST.v, 5); assert.strictEqual(api.perfilAct().n, '1.º A'); assert.strictEqual(api.EST.ajustes.pin, '4321');
   assert.strictEqual(JSON.stringify(api.perfilAct().pal), JSON.stringify({})); assert(!api.EST.bloq); assert.strictEqual(almacen['lexi.v1'], viejo);
 });
 t('presentar una palabra: pasa a «La conocemos» (2), guarda fecha y no baja ni se repite', () => {
@@ -147,7 +147,7 @@ t('la copia de seguridad lleva el progreso y una copia v1 se restaura', () => {
 t('migra v2 → v3: el progreso de v2 se conserva y recibe «val» vacío', () => {
   const viejo = JSON.stringify({ v: 2, modo: 'doc', act: 'abcdef12', perfiles: [{ id: 'abcdef12', t: 'doc', n: '1.º A', av: 0, c: '2026-11-01', pal: { observar: { e: 3, pres: '2026-11-05' } } }], ajustes: { pin: '4321' } });
   const { api, almacen } = nuevo({ 'lexi.v1': viejo }); api.cargar();
-  assert.strictEqual(api.EST.v, 4); assert.strictEqual(api.estadoPal(api.perfilAct(), 'observar').e, 3); assert.strictEqual(api.perfilAct().pal.observar.pres, '2026-11-05');
+  assert.strictEqual(api.EST.v, 5); assert.strictEqual(api.estadoPal(api.perfilAct(), 'observar').e, 3); assert.strictEqual(api.perfilAct().pal.observar.pres, '2026-11-05');
   assert.strictEqual(api.perfilAct().pal.observar.val.length, 0); assert.strictEqual(almacen['lexi.v1'], viejo);
 });
 t('valorar una tarea: se apunta día, tarea y valor; no cambia el paso; solo valores conocidos', () => {
@@ -182,9 +182,9 @@ t('54. migra v3 → v4: como si las valoraciones se hubieran aplicado en orden; 
   /* a mano: fragil sube al paso 3 el 18 (entender el 17 y el 18) y el «pocos» de usar el mismo día no la baja; observar sigue en 2 */
   assert.strictEqual(pal.fragil.e, 3); assert.strictEqual(pal.fragil.caja, 1); assert.strictEqual(pal.fragil.prox, '2026-11-19'); assert.strictEqual(pal.fragil.u.ejemplo, 2);
   assert.strictEqual(pal.observar.e, 2); assert.strictEqual(pal.observar.ut, 'sentido'); assert.strictEqual(pal.curioso.e, 2); assert.strictEqual(pal.curioso.prox, '2026-11-17');
-  assert.strictEqual(pal.enorme.e, 1); assert.strictEqual(pal.enorme.prox, ''); assert.strictEqual(api.EST.v, 4);
+  assert.strictEqual(pal.enorme.e, 1); assert.strictEqual(pal.enorme.prox, ''); assert.strictEqual(api.EST.v, 5);
   assert.strictEqual(almacen['lexi.v1'], v3(PAL_V3)); /* leer no escribe: el disco sigue en v3 hasta el primer guardado */
-  api.guardar(); assert.strictEqual(JSON.parse(almacen['lexi.v1']).v, 4);
+  api.guardar(); assert.strictEqual(JSON.parse(almacen['lexi.v1']).v, 5);
   const { api: b } = nuevo(almacen); b.cargar(); assert.deepStrictEqual(JSON.parse(JSON.stringify(b.perfilAct().pal)), JSON.parse(JSON.stringify(pal))); /* ya en v4: no se repite la migración */
 });
 t('54b. un paso guardado más alto que el que salen de las reglas no baja (nunca se pierde progreso)', () => {
@@ -195,7 +195,7 @@ t('55. una copia de seguridad v3 se restaura y se migra igual', () => {
   const copia = JSON.stringify({ app: 'lexi', v: 3, exportado: '2026-11-20', modo: 'doc', act: 'abcdef12', perfiles: [{ id: 'abcdef12', t: 'doc', n: '1.º A', av: 0, c: '2026-11-01', pal: PAL_V3 }], ajustes: { pin: '4321' } });
   const r = api.leerCopia(copia); assert(r.datos); const { api: m } = nuevo({ 'lexi.v1': v3(PAL_V3) }); m.cargar();
   assert.deepStrictEqual(JSON.parse(JSON.stringify(r.datos.perfiles[0].pal)), JSON.parse(JSON.stringify(m.perfilAct().pal)));
-  assert.strictEqual(r.datos.v, 4); assert(api.aplicarCopia(r.datos)); assert.strictEqual(JSON.parse(api.exportarTexto()).v, 4);
+  assert.strictEqual(r.datos.v, 5); assert(api.aplicarCopia(r.datos)); assert.strictEqual(JSON.parse(api.exportarTexto()).v, 5);
 });
 t('56. saneado v4: fechas mal escritas, caja fuera de 1-5 o cuentas negativas se corrigen sin perder el paso', () => {
   const { api } = nuevo();

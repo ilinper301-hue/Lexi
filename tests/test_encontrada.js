@@ -11,10 +11,10 @@ function nuevo(almacen = {}) {
 const J = x => JSON.parse(JSON.stringify(x));
 let n = 0; const t = (nombre, f) => { f(); n++; console.log('  ok ' + nombre); };
 const clase = () => { const r = nuevo(); r.api.crearPerfil('doc', 'Clase'); r.api.presentarPalabra('observar'); r.api.valorarTarea('observar', 'sentido', 'todos'); return r; };
-const SIN_ENC = a => { const b = J(a); delete b.enc; return b; };
+const SIN_ENC = a => { const b = J(a); delete b.enc; delete b.m; return b; }; /* la marca `m` (paso 6.1) cambia con cualquier apunte */
 
 t('81. apuntar «oída» suma 1 a enc.o y guarda el día, sin cambiar paso, caja, fecha de vuelta ni días buenos (EN5, EN7)', () => {
-  const { api, almacen } = clase(), antes = J(api.estadoPal(api.perfilAct(), 'observar'));
+  const { api, almacen } = clase(), antes = SIN_ENC(api.estadoPal(api.perfilAct(), 'observar'));
   const r = api.apuntarEncontrada('observar', 'o'); assert(r);
   const a = api.estadoPal(api.perfilAct(), 'observar');
   assert.deepStrictEqual(J(a.enc), { o: 1, v: 0, d: 0, ult: api.hoy() });
