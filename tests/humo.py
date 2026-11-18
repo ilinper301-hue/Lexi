@@ -120,6 +120,14 @@ try:
                 if 'Crea un PIN' not in pg.inner_text('.pinw h2'): fallos.append(f'{et}: PIN distinto debía volver a crear')
                 pin('1234'); pin('1234'); pg.wait_for_selector('text=Zona del tutor'); pg.wait_for_selector('.h-t'); revisa('6tutor')
                 if 'AvPág' not in pg.inner_text('main'): fallos.append(f'{et}: falta la línea de atajos en la zona del tutor') # AT4
+                # hoja para las familias (FA1-FA3): abrir, sin imágenes, volver
+                pg.click('.fila-t:has-text("Hoja para las familias")'); pg.wait_for_selector('.hoja'); revisa('6hoja')
+                if pg.locator('.hoja-pal').count() != 6: fallos.append(f'{et}: la hoja no tiene 6 palabras')
+                if 'semana 1' not in pg.inner_text('.hoja h2'): fallos.append(f'{et}: la hoja no es de la semana 1')
+                pg.click('#hoja-sin')
+                if pg.locator('.hoja img').count(): fallos.append(f'{et}: «sin imágenes» deja imágenes')
+                if 'Lucía' in pg.inner_text('.hoja') or 'Lexi' in pg.inner_text('.hoja'): fallos.append(f'{et}: la hoja lleva nombres o menciona Lexi')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('text=Zona del tutor')
                 txt = pg.inner_text('main')
                 if 'Lucía' not in txt or '1.º A' not in txt: fallos.append(f'{et}: faltan perfiles en el tutor')
                 # renombrar y cambiar animal

@@ -44,7 +44,7 @@ SC.tz = function () {
   <h2 class="h-s">Sesión «Hoy»</h2><div class="tarjeta"><b>Palabras nuevas por sesión</b>
   <div class="dos"><button class="btn${EST.ajustes.nuevas === 1 ? '' : ' sec'}" onclick="nuevasTZ(1)" aria-pressed="${EST.ajustes.nuevas === 1}">1</button><button class="btn${EST.ajustes.nuevas === 1 ? ' sec' : ''}" onclick="nuevasTZ(2)" aria-pressed="${EST.ajustes.nuevas !== 1}">2</button></div>
   <p class="mu pq">Nunca más de 6 palabras nuevas por semana. Con sesión todos los días van bien 2; con 3 o 4 sesiones a la semana conviene 1.</p></div>
-  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}</div>
+  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}${fila('download', 'Hoja para las familias', 'Las palabras de la semana, para imprimir o guardar en PDF', "go('hoja')")}</div>
   <p class="mu pq">${TEXTO_ATAJOS}</p>
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
   <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;

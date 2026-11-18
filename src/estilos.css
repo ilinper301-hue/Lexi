@@ -129,3 +129,13 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .opc{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border-radius:16px;border:3px solid var(--bd);background:var(--card);font:700 clamp(1.2rem,4.5vw,2rem) var(--fd);overflow-wrap:anywhere}
 .opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
 .opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
+
+/* Hoja para las familias (paso 5.2): en pantalla se ve como el papel; al imprimir solo sale la hoja, en blanco y negro */
+.hoja{background:#fff;color:#000;border:1px solid var(--bd);border-radius:12px;padding:20px;font:400 1rem/1.35 var(--fi)}
+.hoja h2{font:600 1.5rem var(--fi);margin:0 0 6px}.hoja h3{font:600 1.15rem var(--fi);margin:0}.hoja p{margin:2px 0}
+.hoja-lista,.hoja ol{margin:10px 0;padding:0}.hoja-lista{list-style:none;display:grid;gap:8px}.hoja ol{padding-left:22px}
+.hoja-pal{display:flex;gap:10px;align-items:flex-start;break-inside:avoid;border-bottom:1px solid #ccc;padding-bottom:6px}
+.hoja-pal img{width:72px;height:54px;object-fit:cover;border-radius:6px;flex:none}
+.hoja-ideas{margin-top:8px!important}
+@media print{body{background:#fff!important}.top,.hoja-ctl,.toast,#toast{display:none!important}
+.pantalla{padding:0!important;max-width:none!important}.hoja{border:0;padding:0;font-size:10.5pt}@page{size:A4;margin:14mm}}

@@ -51,6 +51,7 @@ function atras() {
   if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre')) { HOY = null; return go('casa'); }
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
   if (PANT === 'consulta' || PANT === 'azar') return go('muro');
+  if (PANT === 'hoja') return go('tz');
   if (PANT === 'semana' || PANT === 'muro') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }

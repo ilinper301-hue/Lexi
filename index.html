@@ -143,6 +143,16 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .opc i{font-style:normal;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--soft);color:var(--mu);font-size:1.4rem}
 .opc.on{border-color:var(--ok);background:var(--okbg);color:var(--ok)}
 
+/* Hoja para las familias (paso 5.2): en pantalla se ve como el papel; al imprimir solo sale la hoja, en blanco y negro */
+.hoja{background:#fff;color:#000;border:1px solid var(--bd);border-radius:12px;padding:20px;font:400 1rem/1.35 var(--fi)}
+.hoja h2{font:600 1.5rem var(--fi);margin:0 0 6px}.hoja h3{font:600 1.15rem var(--fi);margin:0}.hoja p{margin:2px 0}
+.hoja-lista,.hoja ol{margin:10px 0;padding:0}.hoja-lista{list-style:none;display:grid;gap:8px}.hoja ol{padding-left:22px}
+.hoja-pal{display:flex;gap:10px;align-items:flex-start;break-inside:avoid;border-bottom:1px solid #ccc;padding-bottom:6px}
+.hoja-pal img{width:72px;height:54px;object-fit:cover;border-radius:6px;flex:none}
+.hoja-ideas{margin-top:8px!important}
+@media print{body{background:#fff!important}.top,.hoja-ctl,.toast,#toast{display:none!important}
+.pantalla{padding:0!important;max-width:none!important}.hoja{border:0;padding:0;font-size:10.5pt}@page{size:A4;margin:14mm}}
+
 /* Lexi · mascota en vectores (14-mascota.js), con el mismo movimiento que Calculi */
 .lexi-mascota{width:100%;max-width:440px;display:grid;place-items:center}
 .lexi-mascota .mas{width:100%;height:auto}
@@ -797,6 +807,7 @@ function atras() {
   if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre')) { HOY = null; return go('casa'); }
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
   if (PANT === 'consulta' || PANT === 'azar') return go('muro');
+  if (PANT === 'hoja') return go('tz');
   if (PANT === 'semana' || PANT === 'muro') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
@@ -1073,6 +1084,31 @@ SC.juego = function () {
   ${j.hoy ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
 };
 
+/* ---- js/49-hoja.js ---- */
+/* ===== Hoja para las familias «Nuestras palabras de la semana» (reglas FA1-FA5 de docs/aula.md) =====
+   Todo sale de las fichas: no lleva notas, progreso, nombres de niños ni menciona otras apps. La app no envía nada: se imprime o se guarda en PDF. */
+const HOJA_ARRIBA = 'Esta semana estamos aprendiendo estas palabras en clase. No hace falta estudiarlas: basta con usarlas en casa, hablando.';
+const HOJA_IDEAS = ['Usa tú la palabra cuando venga a cuento.', 'Pídele que te enseñe el gesto y que te explique qué quiere decir.', 'Si la oye o la dice fuera del colegio, que lo cuente en clase: la apuntamos en nuestro muro.'];
+let HOJA = { s: 0, img: true };
+
+/** Semanas con fichas en la app (de menor a mayor). */
+const semanasConFicha = (palabras = PALABRAS) => [...new Set(palabras.filter(p => p.curso === 1).map(p => p.semana))].sort((a, b) => a - b);
+/** FA2 · HTML de la hoja de una semana: las 6 palabras en el orden de la ficha. `conImg` = false → sin imágenes (gasta menos tinta). */
+function hojaFamilias(semana, conImg = true, palabras = PALABRAS) {
+  const l = palabras.filter(p => p.curso === 1 && p.semana === semana).sort((a, b) => a.orden - b.orden);
+  const f = p => `<li class="hoja-pal">${conImg ? `<img src="img/palabras/${esc(p.escena.img)}" alt="" onerror="this.style.display='none'">` : ''}<div><h3>${esc(p.palabra)}</h3><p>${esc(p.def)}</p><p><b>Su gesto:</b> ${esc(p.gesto)}</p><p><b>Empieza tú la frase y que la acabe:</b> ${esc(p.acaba[0])}</p></div></li>`;
+  return `<article class="hoja"><h2>Nuestras palabras de la semana ${semana}</h2><p>${esc(HOJA_ARRIBA)}</p><ul class="hoja-lista">${l.map(f).join('')}</ul><h3 class="hoja-ideas">Tres ideas</h3><ol>${HOJA_IDEAS.map(x => `<li>${esc(x)}</li>`).join('')}</ol></article>`;
+}
+SC.hoja = function () {
+  const sem = semanasConFicha(); if (!sem.includes(HOJA.s)) HOJA.s = sem[0] || 0;
+  return `<main class="pantalla tutor"><h1 class="h-t hoja-ctl">Hoja para las familias</h1>
+  <div class="tarjeta hoja-ctl"><b>Semana</b><div class="dos">${sem.map(s => `<button class="btn${s === HOJA.s ? '' : ' sec'}" onclick="HOJA.s=${s};pintar()" aria-pressed="${s === HOJA.s}">${s}</button>`).join('')}</div>
+  <button class="btn${HOJA.img ? ' sec' : ''}" id="hoja-sin" onclick="HOJA.img=!HOJA.img;pintar()" aria-pressed="${!HOJA.img}">Sin imágenes (gasta menos tinta)</button>
+  <button class="btn" onclick="window.print()">Imprimir o guardar en PDF</button>
+  <p class="mu pq">Se envía por el canal del centro: Lexi no envía nada. No lleva notas ni nombres.</p></div>
+  ${HOJA.s ? hojaFamilias(HOJA.s, HOJA.img) : '<p class="mu">Aún no hay palabras.</p>'}</main>`;
+};
+
 /* ---- js/50-tutor.js ---- */
 /* ===== Zona del tutor (sobria, letra Inter), protegida con PIN de 4 cifras ===== */
 const TZ = { fase: '', pin: '', pin1: '', hasta: 0, destino: 'tz', sub: '', borrar: '', imp: null, origen: 'pin' };
@@ -1120,7 +1156,7 @@ SC.tz = function () {
   <h2 class="h-s">Sesión «Hoy»</h2><div class="tarjeta"><b>Palabras nuevas por sesión</b>
   <div class="dos"><button class="btn${EST.ajustes.nuevas === 1 ? '' : ' sec'}" onclick="nuevasTZ(1)" aria-pressed="${EST.ajustes.nuevas === 1}">1</button><button class="btn${EST.ajustes.nuevas === 1 ? ' sec' : ''}" onclick="nuevasTZ(2)" aria-pressed="${EST.ajustes.nuevas !== 1}">2</button></div>
   <p class="mu pq">Nunca más de 6 palabras nuevas por semana. Con sesión todos los días van bien 2; con 3 o 4 sesiones a la semana conviene 1.</p></div>
-  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}</div>
+  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}${fila('download', 'Hoja para las familias', 'Las palabras de la semana, para imprimir o guardar en PDF', "go('hoja')")}</div>
   <p class="mu pq">${TEXTO_ATAJOS}</p>
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
   <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;
