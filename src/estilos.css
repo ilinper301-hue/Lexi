@@ -155,3 +155,6 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .pal{position:relative}
 .chispa{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:3px;padding:4px 10px 4px 6px;border-radius:999px;background:var(--card);color:var(--ac);border:2px solid var(--ac);font:700 1rem var(--fd);box-shadow:var(--sh)}
 .enc-btn{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:12px}
+/* Explorar (paso 5.7): parejas en grande */
+.parejas{display:grid;gap:10px}.pareja-mini{align-items:center;text-align:center}.pareja-mini .pal-n{font:700 1.4rem var(--fd)}
+.pareja{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pareja figure{margin:0;text-align:center}.pareja img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}.pareja .palabra-g{font-size:clamp(1.6rem,6vw,3rem)}

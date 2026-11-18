@@ -1,6 +1,6 @@
 /* ===== Muro «Nuestras palabras»: pantallas (reglas MU1-MU11 de docs/aula.md; qué sale: 36-muro.js) =====
    Solo consulta: abrir una ficha o sacar una al azar no valora, no cuenta tareas y no cambia nada del perfil. */
-let CONS = '', AZAR = { id: '', pet: '', k: 0, rev: false };
+let CONS = '', CONS_DE = 'muro', AZAR = { id: '', pet: '', k: 0, rev: false };
 /** Las palabras del muro: las presentadas del perfil; en Modo Docente, las de la semana elegida «en La conocemos», de muestra (MU10). */
 function palMuro() {
   if (!MODO_DOCENTE) { const p = perfilAct(); return (p && p.pal) || {}; }
@@ -8,7 +8,7 @@ function palMuro() {
 }
 const tituloMuro = () => { const p = MODO_DOCENTE ? null : perfilAct(); return p && p.t !== 'doc' ? 'Mis palabras' : 'Nuestras palabras'; };
 const abrirMuro = () => go('muro');
-function abrirConsulta(id) { CONS = id; go('consulta'); }
+function abrirConsulta(id, de = 'muro') { CONS = id; CONS_DE = de; go('consulta'); }
 function azarOtra() { const pal = palMuro(), s = azarSiguiente(pal, PALABRAS, AZAR.id, AZAR.k); if (!s) return go('muro'); AZAR = { id: s.id, pet: s.pet, k: AZAR.k + 1, rev: false }; go('azar'); }
 function azarEmpezar() { AZAR = { id: '', pet: '', k: 0, rev: false }; azarOtra(); }
 function azarVer() { AZAR.rev = true; pintar(); }

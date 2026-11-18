@@ -3,7 +3,7 @@
    la fase se saca de la pantalla activa (PANT) y de su estado (PRES, JUEGO, AZAR). Las acciones llaman a las mismas funciones que los botones. */
 const TEXTO_ATAJOS = 'Atajos con teclado o mando: flecha derecha, espacio, Intro o AvPág para seguir o ver la respuesta; flecha izquierda o RePág para volver; 1, 2 y 3 para valorar (casi todos, la mitad, pocos) y 0 para seguir sin valorar.';
 /** Pantallas donde sale el botón de pantalla completa (AT1). Cuando llegue Explorar, basta con añadir aquí su pantalla. */
-const PANT_COMPLETA = ['semana', 'pres', 'juego', 'cierre', 'muro', 'consulta', 'azar'];
+const PANT_COMPLETA = ['semana', 'pres', 'juego', 'cierre', 'muro', 'consulta', 'azar', 'explorar', 'expGrupos', 'expParejas', 'expPareja', 'expAzar'];
 
 /* --- Pantalla completa (AT1): donde el navegador no la permite (iPhone) el botón no sale --- */
 const completaPosible = () => typeof document !== 'undefined' && !!(document.fullscreenEnabled || document.webkitFullscreenEnabled)

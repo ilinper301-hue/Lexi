@@ -168,6 +168,9 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .pal{position:relative}
 .chispa{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:3px;padding:4px 10px 4px 6px;border-radius:999px;background:var(--card);color:var(--ac);border:2px solid var(--ac);font:700 1rem var(--fd);box-shadow:var(--sh)}
 .enc-btn{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:12px}
+/* Explorar (paso 5.7): parejas en grande */
+.parejas{display:grid;gap:10px}.pareja-mini{align-items:center;text-align:center}.pareja-mini .pal-n{font:700 1.4rem var(--fd)}
+.pareja{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pareja figure{margin:0;text-align:center}.pareja img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}.pareja .palabra-g{font-size:clamp(1.6rem,6vw,3rem)}
 
 /* Lexi · mascota en vectores (14-mascota.js), con el mismo movimiento que Calculi */
 .lexi-mascota{width:100%;max-width:440px;display:grid;place-items:center}
@@ -813,6 +816,77 @@ function azarSiguiente(pal, palabras = PALABRAS, antes = '', k = 0, rnd = Math.r
   return { id: c[Math.min(c.length - 1, Math.floor(rnd * c.length))].id, pet: PETICIONES_AZAR[k % PETICIONES_AZAR.length] };
 }
 
+/* ---- js/37-explorar.js ---- */
+/* ===== Explorar (reglas EX1-EX4 de docs/aula.md): mirar las palabras juntas. Funciones PURAS: no guardan nada ni cambian el perfil. =====
+   Solo salen palabras presentadas. Las fichas dan `bloque` (EX1) y `rel.parecida` / `rel.contraria` (EX2). */
+const BLOQUES_EXPLORAR = [['pensar', 'Para pensar'], ['como-son', 'Cómo son las cosas'], ['sentir', 'Cómo nos sentimos'], ['convivir', 'Para convivir'], ['medio', 'El mundo que nos rodea']];
+const PREGUNTA_PAREJA = { contraria: '¿Por qué son lo contrario?', parecida: '¿En qué se parecen? ¿Son lo mismo del todo?' };
+const presentadas = (pal, palabras = PALABRAS) => palabras.filter(p => presentadaEn(pal, p.id));
+/** EX1 · «Por grupos»: las presentadas agrupadas por `bloque`, con su título y en el orden del paquete. Un grupo sin palabras no sale. */
+function explorarGrupos(pal, palabras = PALABRAS) {
+  const l = presentadas(pal, palabras).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  return BLOQUES_EXPLORAR.map(([b, titulo]) => ({ bloque: b, titulo, palabras: l.filter(p => p.bloque === b) })).filter(g => g.palabras.length);
+}
+/** EX2 · «Parejas»: pares de palabras del paquete presentadas las dos, sacadas de `rel` (contrarias y parecidas; `rel.mas` nunca).
+    Cada pareja sale una vez, aunque las dos fichas se nombren entre sí. Devuelve [{a, b, tipo, q}] por el lugar de la primera en el paquete. */
+function explorarParejas(pal, palabras = PALABRAS) {
+  const l = presentadas(pal, palabras), por = new Map();
+  l.forEach(p => { por.set(sinTildes(p.id), p); por.set(sinTildes(p.palabra), p); });
+  const vistos = new Set(), r = [];
+  for (const p of l.slice().sort((x, y) => lugarPaquete(x) - lugarPaquete(y))) {
+    for (const tipo of ['contraria', 'parecida']) for (const e of (p.rel && p.rel[tipo]) || []) {
+      const q = por.get(sinTildes(e)); if (!q || q.id === p.id) continue;
+      const k = [p.id, q.id].sort().join('|'); if (vistos.has(k)) continue;
+      vistos.add(k); const [a, b] = lugarPaquete(p) <= lugarPaquete(q) ? [p, q] : [q, p];
+      r.push({ a: a.id, b: b.id, tipo, q: PREGUNTA_PAREJA[tipo] });
+    }
+  }
+  return r.sort((x, y) => lugarPaquete(palabras.find(p => p.id === x.a)) - lugarPaquete(palabras.find(p => p.id === y.a)));
+}
+/** EX3 · «Dos al azar»: dos presentadas de semanas distintas. `r1` y `r2` = números al azar entre 0 y 1. null si no hay dos semanas con palabras presentadas. */
+function explorarDosAlAzar(pal, palabras = PALABRAS, r1 = Math.random(), r2 = Math.random()) {
+  const l = presentadas(pal, palabras).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  if (new Set(l.map(p => p.semana)).size < 2) return null;
+  const a = l[Math.min(l.length - 1, Math.floor(r1 * l.length))], o = l.filter(p => p.semana !== a.semana);
+  return [a.id, o[Math.min(o.length - 1, Math.floor(r2 * o.length))].id];
+}
+/** EX4 · Qué se ofrece: «Por grupos» desde 6 presentadas, «Parejas» desde la primera pareja, «Dos al azar» desde 2 semanas empezadas. */
+function explorarDisponible(pal, palabras = PALABRAS) {
+  const l = presentadas(pal, palabras);
+  return { grupos: l.length >= 6, parejas: explorarParejas(pal, palabras).length > 0, azar: new Set(l.map(p => p.semana)).size >= 2 };
+}
+
+/* ---- js/38-resumen.js ---- */
+/* ===== «Cómo va la clase» (reglas RE1-RE3 de docs/aula.md): lo que se ve del progreso. Funciones PURAS: no cambian nada. Sin notas ni porcentajes. ===== */
+const MAX_REPASAR = 8, MAX_ENCONTRADAS = 5;
+/** «Cuestan»: la última valoración fue «pocos», o dos de las tres últimas no fueron «casi todos». */
+function cuesta(a) {
+  const v = ((a && a.val) || []).slice(-3); if (!v.length) return false;
+  return v[v.length - 1].v === 'pocos' || (v.length >= 2 && v.filter(x => x.v !== 'todos').length >= 2);
+}
+/** RE2 · Cuántas palabras hay en cada paso (solo presentadas: nada de huecos) y cuáles. Devuelve [{e, nombre, palabras}] del paso 2 al 4. */
+function resumenPasos(pal, palabras = PALABRAS) {
+  const l = presentadas(pal, palabras).sort((x, y) => lugarPaquete(x) - lugarPaquete(y));
+  return [2, 3, 4].map(e => ({ e, nombre: PASOS[e - 1], palabras: l.filter(p => regDe(pal, p.id).e === e) }));
+}
+/** RE2 · «Para repasar»: primero las pendientes más atrasadas (R9) y después las que cuestan; sin repetir. Devuelve [id]. */
+function resumenRepasar(pal, dia, palabras = PALABRAS, max = MAX_REPASAR) {
+  const pres = new Set(presentadas(pal, palabras).map(p => p.id)), orden = ordenPaquete(palabras);
+  const a = pendientes(pal, dia, orden, 1000).filter(id => pres.has(id));
+  const c = orden.filter(id => pres.has(id) && !a.includes(id) && cuesta(regDe(pal, id)));
+  return [...a, ...c].slice(0, max);
+}
+/** RE2 · «Las más encontradas»: las que más veces ha apuntado la clase (EN7), de más a menos; si empatan, en el orden del paquete. Solo con alguna cuenta. */
+function resumenEncontradas(pal, palabras = PALABRAS, max = MAX_ENCONTRADAS) {
+  return presentadas(pal, palabras).filter(p => encTotal(regDe(pal, p.id))).sort((x, y) => encTotal(regDe(pal, y.id)) - encTotal(regDe(pal, x.id)) || lugarPaquete(x) - lugarPaquete(y)).slice(0, max).map(p => p.id);
+}
+/** RE1-RE3 · Todo el resumen de un perfil. `titulo`: «Cómo va la clase» (clase) o «Cómo va» (niño, RE3). */
+function resumenDe(perfil, dia, palabras = PALABRAS) {
+  const pal = (perfil && perfil.pal) || {};
+  return { titulo: perfil && perfil.t === 'fam' ? 'Cómo va' : 'Cómo va la clase', nombre: perfil ? perfil.n : '', dia,
+    pasos: resumenPasos(pal, palabras), repasar: resumenRepasar(pal, dia, palabras), encontradas: resumenEncontradas(pal, palabras), total: presentadas(pal, palabras).length };
+}
+
 /* ---- js/40-inicio.js ---- */
 /* Pantallas: inicio (Docente / Familias) → quién (elegir o crear perfil) → casa del perfil */
 let PANT = 'inicio', MODO = '', NUEVO_AV = null, ERR = '';
@@ -830,7 +904,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha' || PANT === 'hoyPreg' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'muro' || PANT === 'consulta' || PANT === 'azar' || PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha' || PANT === 'hoyPreg' || PANT.startsWith('exp') ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${botonCompleta()}${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -849,12 +923,12 @@ SC.quien = function () {
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
 };
 SC.casa = function () {
-  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><button class="btn sec" onclick="abrirMuro()">Nuestras palabras</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><button class="btn sec" onclick="abrirMuro()">Nuestras palabras</button><button class="btn sec" onclick="go('explorar')">Explorar</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
   const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
   <button class="btn grande" onclick="empezarHoy()">${p.ses === hoy() ? 'Hoy · hecha' : 'Hoy'}</button>
   <button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>
-  <button class="btn sec" onclick="abrirMuro()">${tituloMuro()}</button>${escalaFila()}
+  <button class="btn sec" onclick="abrirMuro()">${tituloMuro()}</button><button class="btn sec" onclick="go('explorar')">Explorar</button>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
 };
 let NUEVO_NOM = '';
@@ -867,7 +941,12 @@ function atras() {
   if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'hoyPreg')) { HOY = null; return go('casa'); }
   if (PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha') return encAtras();
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
-  if (PANT === 'consulta' || PANT === 'azar') return go('muro');
+  if (PANT === 'consulta') return go(CONS_DE);
+  if (PANT === 'azar') return go('muro');
+  if (PANT === 'expGrupos' || PANT === 'expParejas' || PANT === 'expAzar') return go('explorar');
+  if (PANT === 'expPareja') return go('expParejas');
+  if (PANT === 'explorar') return go('casa');
+  if (PANT === 'resumen') return go('tz');
   if (PANT === 'hoja' || PANT === 'tarj') return go('tz');
   if (PANT === 'semana' || PANT === 'muro') return go('casa');
   if (PANT === 'casa') return go('quien');
@@ -1061,10 +1140,48 @@ SC.encHecha = function () {
 };
 const TEXTO_ENC3 = '¿Dónde? ¿Quién la dijo? ¿Qué quería decir?', ENC_COMO_TIPOS = ['o', 'v', 'd'];
 
+/* ---- js/47-explorar.js ---- */
+/* ===== Explorar: pantallas (reglas EX1-EX4 de docs/aula.md; qué sale: 37-explorar.js) =====
+   Para mirar las palabras juntas y hablar de ellas. No está dentro de «Hoy», no valora y no guarda nada. */
+let EXP = { pareja: 0, dos: null };
+const nombreDe = id => { const p = palabraPorId(id); return p ? p.palabra : ''; };
+const tarjetaExp = (p, onclick) => `<button class="pal" onclick="${onclick}"><img src="${esc(imgPal(p))}" alt="" loading="lazy"><span class="pal-pie"><span class="pal-n">${esc(p.palabra)}</span></span></button>`;
+function expDos() { EXP.dos = explorarDosAlAzar(palMuro(), PALABRAS); go('expAzar'); }
+function expPareja(i) { EXP.pareja = i; go('expPareja'); }
+
+SC.explorar = function () {
+  const d = explorarDisponible(palMuro(), PALABRAS);
+  if (!d.grupos && !d.parejas && !d.azar) return `<main class="pantalla infantil"><div class="lexi-mascota">${mascota(240)}</div><h1 class="h-pant">Explorar</h1><p class="mu">Aquí irá Explorar cuando haya más palabras</p></main>`;
+  return `<main class="pantalla infantil"><h1 class="h-pant">Explorar</h1>
+  ${d.grupos ? `<button class="btn grande" onclick="go('expGrupos')">Por grupos</button>` : ''}${d.parejas ? `<button class="btn grande" onclick="go('expParejas')">Parejas</button>` : ''}${d.azar ? `<button class="btn grande" onclick="expDos()">Dos al azar</button>` : ''}</main>`;
+};
+/** EX1 · Por grupos: cada grupo con su título; al tocar una palabra, su ficha de consulta. */
+SC.expGrupos = function () {
+  const g = explorarGrupos(palMuro(), PALABRAS); if (!g.length) return SC.explorar();
+  return `<main class="pantalla infantil ancha"><h1 class="h-pant">Por grupos</h1>
+  ${g.map(x => `<p class="rotulo">${esc(x.titulo)}</p><div class="palabras">${x.palabras.map(p => tarjetaExp(p, `abrirConsulta('${p.id}','expGrupos')`)).join('')}</div>`).join('')}</main>`;
+};
+/** EX2 · Parejas: lista de parejas; al tocar una, las dos imágenes en grande y su pregunta. */
+SC.expParejas = function () {
+  const l = explorarParejas(palMuro(), PALABRAS); if (!l.length) return SC.explorar();
+  return `<main class="pantalla infantil ancha"><h1 class="h-pant">Parejas</h1><div class="parejas">${l.map((x, i) => `<button class="pal pareja-mini" onclick="expPareja(${i})"><span class="pal-n">${esc(nombreDe(x.a))} · ${esc(nombreDe(x.b))}</span></button>`).join('')}</div></main>`;
+};
+const parejaGrande = (a, b) => `<div class="pareja">${[a, b].map(id => { const p = palabraPorId(id); return p ? `<figure><img src="${esc(imgPal(p))}" alt=""><figcaption class="palabra-g">${esc(p.palabra)}</figcaption></figure>` : ''; }).join('')}</div>`;
+SC.expPareja = function () {
+  const l = explorarParejas(palMuro(), PALABRAS), x = l[EXP.pareja]; if (!x) return SC.expParejas();
+  return `<main class="pantalla infantil ancha">${parejaGrande(x.a, x.b)}<p class="gr" style="text-align:center">${esc(x.q)}</p></main>`;
+};
+/** EX3 · Dos al azar. */
+SC.expAzar = function () {
+  const d = EXP.dos; if (!d) return SC.explorar();
+  return `<main class="pantalla infantil ancha">${parejaGrande(d[0], d[1])}<p class="gr" style="text-align:center">¿Quién dice una frase con las dos?</p>
+  <div class="nav"><span></span><button class="btn" onclick="expDos()">Otras dos</button></div></main>`;
+};
+
 /* ---- js/47-muro.js ---- */
 /* ===== Muro «Nuestras palabras»: pantallas (reglas MU1-MU11 de docs/aula.md; qué sale: 36-muro.js) =====
    Solo consulta: abrir una ficha o sacar una al azar no valora, no cuenta tareas y no cambia nada del perfil. */
-let CONS = '', AZAR = { id: '', pet: '', k: 0, rev: false };
+let CONS = '', CONS_DE = 'muro', AZAR = { id: '', pet: '', k: 0, rev: false };
 /** Las palabras del muro: las presentadas del perfil; en Modo Docente, las de la semana elegida «en La conocemos», de muestra (MU10). */
 function palMuro() {
   if (!MODO_DOCENTE) { const p = perfilAct(); return (p && p.pal) || {}; }
@@ -1072,7 +1189,7 @@ function palMuro() {
 }
 const tituloMuro = () => { const p = MODO_DOCENTE ? null : perfilAct(); return p && p.t !== 'doc' ? 'Mis palabras' : 'Nuestras palabras'; };
 const abrirMuro = () => go('muro');
-function abrirConsulta(id) { CONS = id; go('consulta'); }
+function abrirConsulta(id, de = 'muro') { CONS = id; CONS_DE = de; go('consulta'); }
 function azarOtra() { const pal = palMuro(), s = azarSiguiente(pal, PALABRAS, AZAR.id, AZAR.k); if (!s) return go('muro'); AZAR = { id: s.id, pet: s.pet, k: AZAR.k + 1, rev: false }; go('azar'); }
 function azarEmpezar() { AZAR = { id: '', pet: '', k: 0, rev: false }; azarOtra(); }
 function azarVer() { AZAR.rev = true; pintar(); }
@@ -1297,6 +1414,7 @@ function vistaPerfilTZ(p) {
   <input id="nom" class="campo" maxlength="20" autocomplete="off" value="${esc(NUEVO_NOM || p.n)}" aria-label="Nombre" oninput="NUEVO_NOM=this.value;ERR=''">
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">Guardar nombre</button></form>
   ${p.t === 'fam' ? `<div class="tarjeta"><h2 class="h-s">Animal</h2>${elegirAnimal(p.av, `animalTZ`)}</div>` : ''}
+  <div class="tarjeta"><button class="btn sec" onclick="abrirResumen('${p.id}')">${p.t === 'doc' ? 'Cómo va la clase' : 'Cómo va'}</button></div>
   <div class="tarjeta">${TZ.borrar === p.id
     ? `<p><b>¿Borrar «${esc(p.n)}»?</b> Se pierde todo lo suyo y no se puede deshacer. Puedes guardar antes una copia de seguridad.</p><div class="dos"><button class="btn peligro" onclick="borrarTZ('${p.id}')">Sí, borrar</button><button class="btn sec" onclick="TZ.borrar='';pintar()">No</button></div>`
     : `<button class="btn peligro sec" onclick="TZ.borrar='${p.id}';pintar()">${ico('trash', 20)} Borrar ${p.t === 'doc' ? 'esta clase' : 'este perfil'}</button>`}</div></main>`;
@@ -1359,13 +1477,31 @@ SC.tarj = function () {
   ${l.length ? tarjetasHTML(l, TARJ.tam) : '<p class="mu hoja-ctl">Aún no hay palabras.</p>'}</main>`;
 };
 
+/* ---- js/53-resumen.js ---- */
+/* ===== «Cómo va la clase» / «Cómo va»: pantalla para el tutor (reglas RE1-RE3 de docs/aula.md; qué dice: 38-resumen.js) =====
+   Se ve en pantalla y se imprime o se guarda en PDF. Sin notas ni porcentajes. Solo lee: no cambia nada. */
+let RES = { id: '' };
+const fechaCorta = d => String(d || '').split('-').reverse().join('/');
+function abrirResumen(id) { RES.id = id; go('resumen'); }
+SC.resumen = function () {
+  const p = EST.perfiles.find(x => x.id === RES.id); if (!p) return SC.tz ? SC.tz() : SC.inicio();
+  const r = resumenDe(p, hoy(), PALABRAS), lista = ids => ids.map(nombreDe).map(esc).join(' · ');
+  const enc = r.encontradas.map(id => `${esc(nombreDe(id))} (${encTotal(regDe(p.pal, id))})`).join(' · ');
+  return `<main class="pantalla tutor"><h1 class="h-t hoja-ctl">${esc(r.titulo)}</h1>
+  <div class="tarjeta hoja-ctl"><button class="btn" onclick="window.print()">Imprimir o guardar en PDF</button></div>
+  <article class="hoja resumen"><h2>${esc(r.titulo)} · ${esc(r.nombre)}</h2><p class="mu">${fechaCorta(r.dia)}</p>
+  ${r.total ? `${r.pasos.map(s => `<h3>${esc(s.nombre)} · ${s.palabras.length}</h3>${s.palabras.length ? `<p>${lista(s.palabras.map(x => x.id))}</p>` : ''}`).join('')}
+  <h3>Para repasar</h3><p>${r.repasar.length ? lista(r.repasar) : 'Nada por ahora.'}</p>
+  ${enc ? `<h3>Las más encontradas</h3><p>${enc}</p>` : ''}` : '<p>Aún no hay palabras presentadas.</p>'}</article></main>`;
+};
+
 /* ---- js/55-atajos.js ---- */
 /* ===== Pantalla completa y atajos de teclado o mando (reglas AT1-AT4 de docs/aula.md) =====
    Un solo listener de «keydown». La decisión «tecla + fase de la pantalla → acción» es una función pura (atajoAccion);
    la fase se saca de la pantalla activa (PANT) y de su estado (PRES, JUEGO, AZAR). Las acciones llaman a las mismas funciones que los botones. */
 const TEXTO_ATAJOS = 'Atajos con teclado o mando: flecha derecha, espacio, Intro o AvPág para seguir o ver la respuesta; flecha izquierda o RePág para volver; 1, 2 y 3 para valorar (casi todos, la mitad, pocos) y 0 para seguir sin valorar.';
 /** Pantallas donde sale el botón de pantalla completa (AT1). Cuando llegue Explorar, basta con añadir aquí su pantalla. */
-const PANT_COMPLETA = ['semana', 'pres', 'juego', 'cierre', 'muro', 'consulta', 'azar'];
+const PANT_COMPLETA = ['semana', 'pres', 'juego', 'cierre', 'muro', 'consulta', 'azar', 'explorar', 'expGrupos', 'expParejas', 'expPareja', 'expAzar'];
 
 /* --- Pantalla completa (AT1): donde el navegador no la permite (iPhone) el botón no sale --- */
 const completaPosible = () => typeof document !== 'undefined' && !!(document.fullscreenEnabled || document.webkitFullscreenEnabled)

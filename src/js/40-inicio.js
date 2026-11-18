@@ -14,7 +14,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha' || PANT === 'hoyPreg' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'muro' || PANT === 'consulta' || PANT === 'azar' || PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha' || PANT === 'hoyPreg' || PANT.startsWith('exp') ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${botonCompleta()}${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -33,12 +33,12 @@ SC.quien = function () {
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">${T.crear}</button></form></main>`;
 };
 SC.casa = function () {
-  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><button class="btn sec" onclick="abrirMuro()">Nuestras palabras</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
+  if (MODO_DOCENTE) return `<main class="pantalla infantil"><h1 class="h-pant">Modo Docente</h1><p class="mu">Todo abierto y sin guardar nada: para explicar y probar.</p>${escalaFila()}<button class="btn grande" onclick="empezarHoy()">Hoy</button><button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button><button class="btn sec" onclick="abrirMuro()">Nuestras palabras</button><button class="btn sec" onclick="go('explorar')">Explorar</button><p class="mu pq">Aquí irán las palabras de todas las semanas.</p></main>`;
   const p = perfilAct(); if (!p) { PANT = 'inicio'; return SC.inicio(); }
   return `<main class="pantalla infantil"><div class="casa-cab">${avatarHTML(p)}<h1 class="h-pant" style="margin:0">${esc(p.n)}</h1></div>
   <button class="btn grande" onclick="empezarHoy()">${p.ses === hoy() ? 'Hoy · hecha' : 'Hoy'}</button>
   <button class="btn sec" onclick="go('semana')">Palabras de la semana ${SEMANA_ACT}</button>
-  <button class="btn sec" onclick="abrirMuro()">${tituloMuro()}</button>${escalaFila()}
+  <button class="btn sec" onclick="abrirMuro()">${tituloMuro()}</button><button class="btn sec" onclick="go('explorar')">Explorar</button>${escalaFila()}
   <button class="btn sec" onclick="go('quien')">Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button></main>`;
 };
 let NUEVO_NOM = '';
@@ -51,7 +51,12 @@ function atras() {
   if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'hoyPreg')) { HOY = null; return go('casa'); }
   if (PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha') return encAtras();
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
-  if (PANT === 'consulta' || PANT === 'azar') return go('muro');
+  if (PANT === 'consulta') return go(CONS_DE);
+  if (PANT === 'azar') return go('muro');
+  if (PANT === 'expGrupos' || PANT === 'expParejas' || PANT === 'expAzar') return go('explorar');
+  if (PANT === 'expPareja') return go('expParejas');
+  if (PANT === 'explorar') return go('casa');
+  if (PANT === 'resumen') return go('tz');
   if (PANT === 'hoja' || PANT === 'tarj') return go('tz');
   if (PANT === 'semana' || PANT === 'muro') return go('casa');
   if (PANT === 'casa') return go('quien');

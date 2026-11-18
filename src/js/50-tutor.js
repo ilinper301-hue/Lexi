@@ -58,6 +58,7 @@ function vistaPerfilTZ(p) {
   <input id="nom" class="campo" maxlength="20" autocomplete="off" value="${esc(NUEVO_NOM || p.n)}" aria-label="Nombre" oninput="NUEVO_NOM=this.value;ERR=''">
   <p class="error" id="err" role="alert">${esc(ERR)}</p><button class="btn" type="submit">Guardar nombre</button></form>
   ${p.t === 'fam' ? `<div class="tarjeta"><h2 class="h-s">Animal</h2>${elegirAnimal(p.av, `animalTZ`)}</div>` : ''}
+  <div class="tarjeta"><button class="btn sec" onclick="abrirResumen('${p.id}')">${p.t === 'doc' ? 'Cómo va la clase' : 'Cómo va'}</button></div>
   <div class="tarjeta">${TZ.borrar === p.id
     ? `<p><b>¿Borrar «${esc(p.n)}»?</b> Se pierde todo lo suyo y no se puede deshacer. Puedes guardar antes una copia de seguridad.</p><div class="dos"><button class="btn peligro" onclick="borrarTZ('${p.id}')">Sí, borrar</button><button class="btn sec" onclick="TZ.borrar='';pintar()">No</button></div>`
     : `<button class="btn peligro sec" onclick="TZ.borrar='${p.id}';pintar()">${ico('trash', 20)} Borrar ${p.t === 'doc' ? 'esta clase' : 'este perfil'}</button>`}</div></main>`;

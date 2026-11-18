@@ -128,6 +128,19 @@ try:
                     else: pg.click('button[aria-label="Atrás"]')
                     pg.wait_for_timeout(100)
                 pg.wait_for_selector('.casa-cab')
+                # Explorar (paso 5.7): con una palabra de la semana 2 puesta a mano salen «Parejas» y «Dos al azar»
+                pg.click('button:text-is("Explorar")'); pg.wait_for_selector('text=Aquí irá Explorar'); revisa('9exp0')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
+                pg.evaluate("""(() => { const e = PALABRAS.find(p => p.id === 'enorme'); PALABRAS.push({ ...e, id: 'diminuto', palabra: 'diminuto', semana: 2, orden: 1, rel: { parecida: [], contraria: ['enorme'] } }); window.__antes = !!perfilAct().pal.enorme; presentarPalabra('enorme'); presentarPalabra('diminuto'); })()""")
+                pg.click('button:text-is("Explorar")'); pg.wait_for_selector('button:text-is("Parejas")'); revisa('9exp1')
+                if pg.locator('button:text-is("Por grupos")').count() != 0: fallos.append(f'{et}: «Por grupos» no debía salir con menos de 6 palabras')
+                pg.click('button:text-is("Parejas")'); pg.wait_for_selector('.pareja-mini'); revisa('9expparejas'); pg.click('.pareja-mini >> nth=0'); pg.wait_for_selector('.pareja')
+                if 'lo contrario' not in pg.inner_text('main') or pg.locator('.pareja img').count() != 2: fallos.append(f'{et}: la pareja no enseña dos imágenes y su pregunta'); revisa('9exppareja')
+                pg.click('button[aria-label="Atrás"]'); pg.click('button[aria-label="Atrás"]'); pg.click('button:text-is("Dos al azar")'); pg.wait_for_selector('.pareja'); revisa('9expazar')
+                if 'frase con las dos' not in pg.inner_text('main'): fallos.append(f'{et}: «Dos al azar» sin su pregunta')
+                pg.click('button:text-is("Otras dos")'); pg.wait_for_selector('.pareja')
+                pg.click('button[aria-label="Atrás"]'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
+                pg.evaluate("(() => { delete perfilAct().pal.diminuto; if (!window.__antes) delete perfilAct().pal.enorme; guardar(); PALABRAS.pop(); })()")
                 # recarga: el perfil sigue guardado
                 pg.reload(); pg.wait_for_selector('.opciones'); pg.click('text=Docente'); pg.wait_for_selector('.qa')
                 if '1.º A' not in pg.inner_text('.quien'): fallos.append(f'{et}: no se guardó la clase')
@@ -163,6 +176,10 @@ try:
                 if pg.locator('.hoja img').count(): fallos.append(f'{et}: «sin imágenes» deja imágenes')
                 if 'Lucía' in pg.inner_text('.hoja') or 'Lexi' in pg.inner_text('.hoja'): fallos.append(f'{et}: la hoja lleva nombres o menciona Lexi')
                 pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('text=Zona del tutor')
+                # «Cómo va la clase» (RE1-RE3): se ve desde el perfil de la clase y se vuelve
+                pg.click('.fila-t:has-text("1.º A")'); pg.click('button:text-is("Cómo va la clase")'); pg.wait_for_selector('.hoja.resumen'); revisa('6resumen')
+                if '1.º A' not in pg.inner_text('.resumen') or 'La conocemos' not in pg.inner_text('.resumen'): fallos.append(f'{et}: el resumen no dice la clase ni los pasos')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('#nom'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('text=Zona del tutor')
                 txt = pg.inner_text('main')
                 if 'Lucía' not in txt or '1.º A' not in txt: fallos.append(f'{et}: faltan perfiles en el tutor')
                 # renombrar y cambiar animal
@@ -199,6 +216,10 @@ try:
                 pg.click('text=Modo Docente'); pg.wait_for_selector('.pill-md.salir'); revisa('10docente')
                 pg.wait_for_selector('button:text-is("Hoy")'); partes = hoy_completo('11hoydoc'); pg.wait_for_selector('.pill-md.salir')
                 if partes != ['Recordamos', 'Palabra nueva', 'Jugamos', 'Cierre']: fallos.append(f'{et}: «Hoy» en Modo Docente {partes}')
+                pg.click('button:text-is("Explorar")'); pg.click('button:text-is("Por grupos")'); pg.wait_for_selector('.palabras .pal'); revisa('11expgrupos')
+                if pg.locator('.palabras .pal').count() != 6: fallos.append(f'{et}: «Por grupos» en Modo Docente debía tener las 6 de la semana 1')
+                pg.click('.pal >> nth=0'); pg.wait_for_selector('.palabra-g'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.palabras .pal') # la ficha vuelve a los grupos
+                pg.click('button[aria-label="Atrás"]'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('button:text-is("Hoy")')
                 if pg.evaluate("localStorage.getItem('lexi.v1')") != antes: fallos.append(f'{et}: Modo Docente escribió datos')
                 pg.click('text=Salir'); pg.wait_for_selector('.opciones')
                 claves = pg.evaluate('Object.keys(localStorage)')
