@@ -33,7 +33,7 @@ try:
                         elif parte in ('Recordamos', 'Jugamos'):
                             if pg.locator('text=¡Hecho!').count(): pg.click('text=Seguir')
                             elif pg.locator('text=Ver la respuesta').count(): pg.click('text=Ver la respuesta')
-                            else: pg.click('button:text-is("Casi todos")')
+                            else: pg.keyboard.press('1') # test 92: la tecla 1 valora «casi todos»
                         else:
                             if 'Palabra nueva' not in partes: partes.append('Palabra nueva'); revisa(f'{nombre}nueva')
                             pg.click('text=Siguiente' if pg.locator('text=Siguiente').count() else 'text=Seguir')
@@ -62,7 +62,10 @@ try:
                     if k < 8: pg.click('text=Siguiente')
                 if vistos[0] != 'Escena' or vistos[-1] != 'Ya la conocemos' or len(set(vistos)) != 9: fallos.append(f'{et}: pasos de la presentación {vistos}')
                 if 'ob' not in pg.inner_text('main') and 'observar' not in pg.inner_text('main'): fallos.append(f'{et}: falta la palabra al final')
-                pg.click('text=Antes'); pg.click('text=Siguiente'); pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
+                pg.keyboard.press('ArrowLeft'); pg.wait_for_selector('.rotulo:has-text("Más ejemplos · 3 de 3")'); pg.keyboard.press('ArrowRight') # AT2: atajos de teclado en la presentación
+                if pg.inner_text('.rotulo') != 'Ya la conocemos': fallos.append(f'{et}: flecha derecha no avanzó la presentación')
+                if pg.locator('button[aria-label="Pantalla completa"]').count() != 1: fallos.append(f'{et}: falta el botón de pantalla completa') # AT1
+                pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
                 if pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.e") != 2: fallos.append(f'{et}: la palabra presentada no quedó en «La conocemos»')
                 if pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.comparar") is not None: fallos.append(f'{et}: se guardó una palabra no presentada')
                 # Jugamos: con una sola palabra presentada sale una tarea; se ve la respuesta, se valora y se guarda
@@ -75,9 +78,11 @@ try:
                 val = pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.val")
                 if len(val) != 1 or val[0]['v'] != 'mitad': fallos.append(f'{et}: la valoración no se guardó {val}')
                 pg.click('text=Otra vez'); pg.wait_for_selector('.rotulo:has-text("Jugamos")')
-                pg.click('text=Seguir sin valorar'if not pg.locator('text=Ver la respuesta').count() else 'text=Ver la respuesta')
-                if pg.locator('text=Seguir sin valorar').count() == 0: pg.wait_for_selector('text=Seguir sin valorar')
-                pg.click('text=Seguir sin valorar'); pg.wait_for_selector('text=¡Hecho!')
+                if pg.locator('text=Ver la respuesta').count(): pg.keyboard.press('ArrowRight'); pg.wait_for_selector('.veredicto') # AT2: siguiente enseña la respuesta
+                pg.wait_for_selector('.vals')
+                pg.keyboard.press('PageDown'); pg.keyboard.press('ArrowRight'); pg.keyboard.press(' '); pg.wait_for_timeout(200) # AT3: en valorar, siguiente no hace nada
+                if pg.locator('.vals').count() != 1 or pg.locator('text=¡Hecho!').count(): fallos.append(f'{et}: en la pantalla de valorar, AvPág avanzó')
+                pg.keyboard.press('0'); pg.wait_for_selector('text=¡Hecho!') # 0 = seguir sin valorar
                 if len(pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal.observar.val")) != 1: fallos.append(f'{et}: «seguir sin valorar» no debía guardar')
                 pg.click('text=Terminar'); pg.wait_for_selector('.palabras')
                 pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
@@ -92,7 +97,7 @@ try:
                 pg.click('button:text-is("Nuestras palabras")'); pg.wait_for_selector('.palabras .pal'); revisa('7muro')
                 if 'Ya son' not in pg.inner_text('main'): fallos.append(f'{et}: el muro no dice «Ya son N»')
                 pg.click('.pal >> nth=0'); pg.wait_for_selector('.palabra-g'); revisa('7consulta'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.palabras .pal')
-                pg.click('button:text-is("Una al azar")'); pg.wait_for_selector('.rotulo'); revisa('7azar'); pg.click('text=Ver'); pg.click('button:text-is("Otra")'); pg.wait_for_selector('.rotulo')
+                pg.click('button:text-is("Una al azar")'); pg.wait_for_selector('.rotulo'); revisa('7azar'); pg.keyboard.press('Enter'); pg.wait_for_selector('.palabra-g ~ .gr'); pg.keyboard.press('PageDown'); pg.wait_for_selector('.rotulo') # AT2: Ver y Otra con el teclado
                 pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.palabras .pal'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
                 if pg.evaluate("localStorage.getItem('lexi.v1')") != antes: fallos.append(f'{et}: el muro cambió los datos')
                 # recarga: el perfil sigue guardado
@@ -114,6 +119,7 @@ try:
                 pin('1234'); pin('1111')
                 if 'Crea un PIN' not in pg.inner_text('.pinw h2'): fallos.append(f'{et}: PIN distinto debía volver a crear')
                 pin('1234'); pin('1234'); pg.wait_for_selector('text=Zona del tutor'); pg.wait_for_selector('.h-t'); revisa('6tutor')
+                if 'AvPág' not in pg.inner_text('main'): fallos.append(f'{et}: falta la línea de atajos en la zona del tutor') # AT4
                 txt = pg.inner_text('main')
                 if 'Lucía' not in txt or '1.º A' not in txt: fallos.append(f'{et}: faltan perfiles en el tutor')
                 # renombrar y cambiar animal

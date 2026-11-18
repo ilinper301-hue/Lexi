@@ -14,9 +14,9 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
   `<button type="button" class="${i === sel ? 'on' : ''}" style="background:${c}" onclick="${fn}(${i})" aria-pressed="${i === sel}" aria-label="Animal ${i + 1}">${e}</button>`).join('')}</div>`;
 
 function barra() {
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><button class="pill-md salir" onclick="salirDocente()">Salir</button></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
-  <div class="dcha">${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
+  <div class="dcha">${botonCompleta()}${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
 SC.inicio = function () {
   return `<main class="inicio infantil">${mascotaHTML()}<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>
