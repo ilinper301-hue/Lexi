@@ -153,6 +153,18 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 @media print{body{background:#fff!important}.top,.hoja-ctl,.toast,#toast{display:none!important}
 .pantalla{padding:0!important;max-width:none!important}.hoja{border:0;padding:0;font-size:10.5pt}@page{size:A4;margin:14mm}}
 
+/* Tarjetas para imprimir (paso 5.1): fondo blanco, sin colores del tema, legibles en blanco y negro */
+.tj-hoja{background:#fff;color:#000;border:1px solid #bbb;border-radius:10px;margin:10px 0;padding:14px;font-family:var(--fi)}
+.tj-g .tj-hoja{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.tj-g .tj-img img{max-width:100%;max-height:50vh;border-radius:10px}.tj-g h2{font:700 clamp(2.4rem,9vw,5rem) var(--fd);margin:0}.tj-g p{margin:0;font-size:.95rem;max-width:34em}
+.tj-p .tj-hoja{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tj-p figure{margin:0;border:1px dashed #888;border-radius:8px;padding:8px;text-align:center}.tj-p figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.tj-p figcaption{font:700 1.3rem var(--fd);margin-top:4px}
+@media print{.tj-hoja{border:0;border-radius:0;margin:0;padding:0;break-after:page}.tj-hoja:last-child{break-after:auto}
+.tj-g{page:tgrande}.tj-p{page:tpeq}@page tgrande{size:A4 landscape;margin:10mm}@page tpeq{size:A4 portrait;margin:10mm}
+.tj-g .tj-hoja{min-height:185mm;justify-content:center}.tj-g .tj-img img{max-height:105mm}.tj-g h2{font-size:64pt}.tj-g p{font-size:12pt}
+.tj-p .tj-hoja{gap:6mm}.tj-p figure{border:1px dashed #000}.tj-p figcaption{font-size:20pt}}
+
 /* Lexi · mascota en vectores (14-mascota.js), con el mismo movimiento que Calculi */
 .lexi-mascota{width:100%;max-width:440px;display:grid;place-items:center}
 .lexi-mascota .mas{width:100%;height:auto}
@@ -807,7 +819,7 @@ function atras() {
   if (HOY && (PANT === 'pres' || PANT === 'juego' || PANT === 'cierre')) { HOY = null; return go('casa'); }
   if (PANT === 'pres' || PANT === 'juego') return go('semana');
   if (PANT === 'consulta' || PANT === 'azar') return go('muro');
-  if (PANT === 'hoja') return go('tz');
+  if (PANT === 'hoja' || PANT === 'tarj') return go('tz');
   if (PANT === 'semana' || PANT === 'muro') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
@@ -1156,7 +1168,7 @@ SC.tz = function () {
   <h2 class="h-s">Sesión «Hoy»</h2><div class="tarjeta"><b>Palabras nuevas por sesión</b>
   <div class="dos"><button class="btn${EST.ajustes.nuevas === 1 ? '' : ' sec'}" onclick="nuevasTZ(1)" aria-pressed="${EST.ajustes.nuevas === 1}">1</button><button class="btn${EST.ajustes.nuevas === 1 ? ' sec' : ''}" onclick="nuevasTZ(2)" aria-pressed="${EST.ajustes.nuevas !== 1}">2</button></div>
   <p class="mu pq">Nunca más de 6 palabras nuevas por semana. Con sesión todos los días van bien 2; con 3 o 4 sesiones a la semana conviene 1.</p></div>
-  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}${fila('download', 'Hoja para las familias', 'Las palabras de la semana, para imprimir o guardar en PDF', "go('hoja')")}</div>
+  <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}${fila('download', 'Imprimir tarjetas', 'Para el muro de la clase: grandes o pequeñas', "go('tarj')")}${fila('download', 'Hoja para las familias', 'Las palabras de la semana, para imprimir o guardar en PDF', "go('hoja')")}</div>
   <p class="mu pq">${TEXTO_ATAJOS}</p>
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
   <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;
@@ -1198,6 +1210,36 @@ SC.imp = function () {
   <div class="dos"><button class="btn" onclick="confirmarCopia()">Sustituir</button><button class="btn sec" onclick="TZ.imp=null;go(TZ.origen)">Cancelar</button></div></main>`;
 };
 function confirmarCopia() { aplicarCopia(TZ.imp); TZ.imp = null; TZ.sub = ''; TZ.hasta = 0; toast('Copia restaurada'); go('inicio'); }
+
+/* ---- js/51-tarjetas.js ---- */
+/* ===== Tarjetas para imprimir (reglas TA1-TA5 de docs/aula.md): para el muro de la pared de la clase =====
+   Salen de las fichas. No llevan datos de la clase ni el paso de la escala (TA5): valen de un año para otro. Papel blanco, se entienden en blanco y negro. */
+let TARJ = { s: 0, tam: 'g' }; /* s: semana, o 0 = todas las presentadas */
+
+/** Palabras que entran: de una semana (en el orden de la ficha) o, con 0, las que la clase ya ha presentado (`pal` = perfil.pal; en Modo Docente, null = ninguna). */
+function palabrasTarjetas(semana, pal, palabras = PALABRAS) {
+  const l = palabras.filter(p => p.curso === 1 && (semana ? p.semana === semana : !!pal && presentadaEn(pal, p.id)));
+  return l.sort((a, b) => a.semana - b.semana || a.orden - b.orden);
+}
+const imgTarj = p => `<img src="img/palabras/${esc(p.escena.img)}" alt="" onerror="this.style.display='none'">`;
+/** TA2 · «g» (grandes): una por hoja, A4 apaisado: imagen, la palabra muy grande y, pequeña, la explicación.
+    TA3 · «p» (pequeñas): 6 por hoja para recortar: solo imagen y palabra. */
+function tarjetasHTML(lista, tam) {
+  if (tam === 'g') return `<div class="tj tj-g">${lista.map(p => `<section class="tj-hoja"><div class="tj-img">${imgTarj(p)}</div><h2>${esc(p.palabra)}</h2><p>${esc(p.def)}</p></section>`).join('')}</div>`;
+  const hojas = []; for (let i = 0; i < lista.length; i += 6) hojas.push(lista.slice(i, i + 6));
+  return `<div class="tj tj-p">${hojas.map(h => `<section class="tj-hoja">${h.map(p => `<figure>${imgTarj(p)}<figcaption>${esc(p.palabra)}</figcaption></figure>`).join('')}</section>`).join('')}</div>`;
+}
+SC.tarj = function () {
+  const sem = semanasConFicha(), pr = perfilAct(), hay = !MODO_DOCENTE && pr && palabrasTarjetas(0, pr.pal).length > 0;
+  if (!sem.includes(TARJ.s) && !(TARJ.s === 0 && hay)) TARJ.s = sem[0] || 0;
+  const l = palabrasTarjetas(TARJ.s, pr && pr.pal), b = (v, t, f) => `<button class="btn${v ? '' : ' sec'}" onclick="${f};pintar()" aria-pressed="${!!v}">${t}</button>`;
+  return `<main class="pantalla tutor"><h1 class="h-t hoja-ctl">Imprimir tarjetas</h1>
+  <div class="tarjeta hoja-ctl"><b>Semana</b><div class="dos">${sem.map(s => b(s === TARJ.s, s, `TARJ.s=${s}`)).join('')}${hay ? b(TARJ.s === 0, 'Todas las presentadas', 'TARJ.s=0') : ''}</div>
+  <b>Tamaño</b><div class="dos">${b(TARJ.tam === 'g', 'Grandes', "TARJ.tam='g'")}${b(TARJ.tam === 'p', 'Pequeñas', "TARJ.tam='p'")}</div>
+  <p class="mu pq">${TARJ.tam === 'g' ? 'Una por hoja, A4 apaisado: imagen, palabra y explicación.' : 'Seis por hoja para recortar: imagen y palabra.'} Sin datos de la clase: valen de un año para otro.</p>
+  <button class="btn" onclick="window.print()" ${l.length ? '' : 'disabled'}>Imprimir o guardar en PDF</button></div>
+  ${l.length ? tarjetasHTML(l, TARJ.tam) : '<p class="mu hoja-ctl">Aún no hay palabras.</p>'}</main>`;
+};
 
 /* ---- js/55-atajos.js ---- */
 /* ===== Pantalla completa y atajos de teclado o mando (reglas AT1-AT4 de docs/aula.md) =====

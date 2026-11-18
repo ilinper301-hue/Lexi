@@ -120,6 +120,13 @@ try:
                 if 'Crea un PIN' not in pg.inner_text('.pinw h2'): fallos.append(f'{et}: PIN distinto debía volver a crear')
                 pin('1234'); pin('1234'); pg.wait_for_selector('text=Zona del tutor'); pg.wait_for_selector('.h-t'); revisa('6tutor')
                 if 'AvPág' not in pg.inner_text('main'): fallos.append(f'{et}: falta la línea de atajos en la zona del tutor') # AT4
+                # tarjetas para imprimir (TA1-TA3): grandes (6 hojas) y pequeñas (1 hoja de 6)
+                pg.click('.fila-t:has-text("Imprimir tarjetas")'); pg.wait_for_selector('.tj-g'); revisa('6tarj')
+                if pg.locator('.tj-hoja').count() != 6: fallos.append(f'{et}: tarjetas grandes: no son 6')
+                pg.click('.hoja-ctl .dos button:has-text("Pequeñas")'); pg.wait_for_selector('.tj-p')
+                if pg.locator('.tj-p figure').count() != 6 or pg.locator('.tj-p .tj-hoja').count() != 1: fallos.append(f'{et}: tarjetas pequeñas: no son 6 en una hoja')
+                if 'Lucía' in pg.inner_text('.tj') or 'Lexi' in pg.inner_text('.tj'): fallos.append(f'{et}: las tarjetas llevan nombres o Lexi')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('text=Zona del tutor')
                 # hoja para las familias (FA1-FA3): abrir, sin imágenes, volver
                 pg.click('.fila-t:has-text("Hoja para las familias")'); pg.wait_for_selector('.hoja'); revisa('6hoja')
                 if pg.locator('.hoja-pal').count() != 6: fallos.append(f'{et}: la hoja no tiene 6 palabras')

@@ -139,3 +139,15 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .hoja-ideas{margin-top:8px!important}
 @media print{body{background:#fff!important}.top,.hoja-ctl,.toast,#toast{display:none!important}
 .pantalla{padding:0!important;max-width:none!important}.hoja{border:0;padding:0;font-size:10.5pt}@page{size:A4;margin:14mm}}
+
+/* Tarjetas para imprimir (paso 5.1): fondo blanco, sin colores del tema, legibles en blanco y negro */
+.tj-hoja{background:#fff;color:#000;border:1px solid #bbb;border-radius:10px;margin:10px 0;padding:14px;font-family:var(--fi)}
+.tj-g .tj-hoja{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.tj-g .tj-img img{max-width:100%;max-height:50vh;border-radius:10px}.tj-g h2{font:700 clamp(2.4rem,9vw,5rem) var(--fd);margin:0}.tj-g p{margin:0;font-size:.95rem;max-width:34em}
+.tj-p .tj-hoja{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tj-p figure{margin:0;border:1px dashed #888;border-radius:8px;padding:8px;text-align:center}.tj-p figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.tj-p figcaption{font:700 1.3rem var(--fd);margin-top:4px}
+@media print{.tj-hoja{border:0;border-radius:0;margin:0;padding:0;break-after:page}.tj-hoja:last-child{break-after:auto}
+.tj-g{page:tgrande}.tj-p{page:tpeq}@page tgrande{size:A4 landscape;margin:10mm}@page tpeq{size:A4 portrait;margin:10mm}
+.tj-g .tj-hoja{min-height:185mm;justify-content:center}.tj-g .tj-img img{max-height:105mm}.tj-g h2{font-size:64pt}.tj-g p{font-size:12pt}
+.tj-p .tj-hoja{gap:6mm}.tj-p figure{border:1px dashed #000}.tj-p figcaption{font-size:20pt}}
