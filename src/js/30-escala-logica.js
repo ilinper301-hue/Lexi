@@ -77,3 +77,22 @@ function pendientes(pal, dia, orden = [], max = MAX_RECORDAMOS) {
     .sort((x, y) => (pal[x].prox < pal[y].prox ? -1 : pal[x].prox > pal[y].prox ? 1 : 0) || pal[x].e - pal[y].e || pal[x].caja - pal[y].caja || pos(x) - pos(y) || (x < y ? -1 : 1))
     .slice(0, max);
 }
+
+/* ===== «La hemos encontrado» (reglas EN1-EN10 de docs/aula.md): lo que la clase oye, ve o dice fuera de la sesión =====
+   EN7: por palabra, tres cuentas (o = oída, v = vista, d = dicha) y el último día, en `enc`; una palabra sin `enc` vale cero.
+   EN5: no mueve nada: ni el paso de la escala, ni las cajas, ni las fechas de repaso, ni los días buenos. Funciones PURAS. */
+const ENC_COMO = ['o', 'v', 'd'], ENC_NOMBRE = { o: 'oída', v: 'vista', d: 'dicha' }, ENC_MAX = 100000;
+/** Las tres cuentas y el último día, con ceros si la palabra nunca se ha apuntado. */
+const encDe = a => { const e = (a && a.enc) || {}, n = x => (Number.isFinite(Number(x)) && Number(x) > 0 ? Math.min(Math.floor(Number(x)), ENC_MAX) : 0); return { o: n(e.o), v: n(e.v), d: n(e.d), ult: fechaOK(e.ult) ? e.ult : '' }; };
+const encTotal = a => { const e = encDe(a); return e.o + e.v + e.d; };
+/** EN8 · «La hemos encontrado 3 veces: 2 oída · 1 dicha»; '' si nunca. */
+function encTexto(a) {
+  const e = encDe(a), t = encTotal(a); if (!t) return '';
+  return `La hemos encontrado ${t} ${t === 1 ? 'vez' : 'veces'}: ${ENC_COMO.filter(k => e[k]).map(k => `${e[k]} ${ENC_NOMBRE[k]}`).join(' · ')}`;
+}
+/** EN2, EN7 · Apunta una vez («o», «v» o «d») y el día. Una palabra sin presentar (EN2) o un modo raro no cambian nada. Devuelve un registro nuevo. */
+function conEncontrada(a, como, dia) {
+  if (!a || a.e < 2 || !ENC_COMO.includes(como) || !fechaOK(dia)) return a || palabraNueva();
+  const e = encDe(a); e[como] = Math.min(e[como] + 1, ENC_MAX); e.ult = dia;
+  return { ...a, enc: e };
+}

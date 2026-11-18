@@ -17,7 +17,7 @@ const AVATARES = [['🦊','#FED7AA'],['🐢','#BBF7D0'],['🐼','#E2E8F0'],['�
 
 const ss = (s, n) => String(s ?? '').replace(/[<>&"'`]/g, '').trim().slice(0, n);
 const esFecha = d => fechaOK(d);
-function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles: [], ajustes: { pin: '', nuevas: 2 } }; }
+function estadoVacio() { return { v: VERSION_DATOS, modo: '', act: '', perfiles: [], ajustes: { pin: '', nuevas: 2, preg: true } }; }
 /* Modo Docente: todo abierto y NO se guarda progreso (los ajustes sí, con guardarAjustes) */
 let MODO_DOCENTE = false;
 let EST = estadoVacio();
@@ -42,6 +42,7 @@ function limpiarRegistro(v) {
   const c = Number(v.caja); r.caja = Number.isFinite(c) ? Math.max(1, Math.min(5, Math.round(c))) : 1;
   r.prox = esFecha(v.prox) ? v.prox : '';
   r.u = limpiarCuentas(v.u); r.ut = TAREAS_VAL.includes(v.ut) ? v.ut : ''; r.ov = v.ov === true;
+  if (encTotal(v)) r.enc = encDe(v); /* «La hemos encontrado» (EN7): solo si se ha apuntado alguna vez */
   if (r.e < 2) { r.caja = 1; r.prox = ''; r.dA = []; r.dB = []; }
   else if (!r.prox && !(r.e === 4 && r.caja === 5)) r.prox = sumarDias(esFecha(r.pres) ? r.pres : hoy(), 1); /* solo descansa la de «La usamos» en la caja 5 */
   return r;
@@ -85,7 +86,7 @@ function limpiar(o) {
   }
   const act = perfiles.find(p => p.id === o.act);
   const aj = o.ajustes && typeof o.ajustes === 'object' ? o.ajustes : {};
-  return { v: VERSION_DATOS, modo: act ? act.t : (['doc', 'fam'].includes(o.modo) ? o.modo : ''), act: act ? act.id : '', perfiles, ajustes: { pin: /^\d{4}$/.test(aj.pin || '') ? aj.pin : '', nuevas: aj.nuevas === 1 ? 1 : 2 } };
+  return { v: VERSION_DATOS, modo: act ? act.t : (['doc', 'fam'].includes(o.modo) ? o.modo : ''), act: act ? act.id : '', perfiles, ajustes: { pin: /^\d{4}$/.test(aj.pin || '') ? aj.pin : '', nuevas: aj.nuevas === 1 ? 1 : 2, preg: aj.preg !== false } };
 }
 /** Lee lexi.v1. Si está roto, guarda una copia en lexi.bk antes de empezar de cero; si es de una versión más nueva, no la pisa. */
 function cargar() {
@@ -160,6 +161,24 @@ function otroVisto(id) {
   p.pal[id] = conOtroVisto(estadoPal(p, id));
   return guardar();
 }
+/** EN2, EN4, EN5, EN7 · La clase ha encontrado una palabra presentada (como = 'o' oída, 'v' vista, 'd' dicha). No mueve la escala ni el repaso.
+    Devuelve {ant} (las cuentas de antes, para «Deshacer») o null si no se apuntó (sin presentar, Modo Docente o datos bloqueados). */
+function apuntarEncontrada(id, como) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !idOK(id) || !ENC_COMO.includes(como) || estadoPal(p, id).e < 2) return null;
+  const a = estadoPal(p, id), ant = a.enc ? { ...a.enc } : null;
+  p.pal[id] = conEncontrada(a, como, hoy()); guardar();
+  return { ant };
+}
+/** EN4 · «Deshacer»: deja las cuentas de la palabra como estaban antes de apuntar. */
+function deshacerEncontrada(id, ant) {
+  const p = perfilAct();
+  if (MODO_DOCENTE || !p || EST.bloq || !idOK(id) || !p.pal[id]) return false;
+  const r = { ...p.pal[id] }; if (ant) r.enc = encDe({ enc: ant }); else delete r.enc;
+  p.pal[id] = r; return guardar();
+}
+/** EN1 · Ajuste del tutor: preguntar o no «¿Alguien ha encontrado alguna de nuestras palabras?» al empezar «Hoy». Se guarda también en Modo Docente. */
+function fijarPreg(b) { if (EST.bloq) return false; EST.ajustes.preg = b !== false; return guardarAjustes(); }
 const PIN_OK = p => /^\d{4}$/.test(p || '');
 /** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
 function fijarNuevas(n) { if (EST.bloq) return false; EST.ajustes.nuevas = n === 1 ? 1 : 2; return guardarAjustes(); }

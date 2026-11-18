@@ -3,7 +3,7 @@
    Nada de la sesión se guarda aparte: lo presentado y lo valorado ya está guardado (H8); solo se apunta el día en que se termina (H7).
    Las partes de tareas reutilizan la pantalla «juego» y la de presentación «pres». */
 let HOY = null;
-const PARTES_HOY = ['rec', 'nueva', 'jug', 'cierre'];
+const PARTES_HOY = ['preg', 'rec', 'nueva', 'jug', 'cierre']; /* «preg» = ¿alguien ha encontrado alguna de nuestras palabras? (EN1); se salta si no hay palabras o está apagada */
 
 function empezarHoy() {
   const pr = MODO_DOCENTE ? null : perfilAct(), e0 = {}; /* paso de cada palabra al empezar: así el cierre sabe cuáles han subido (H5) */
@@ -26,7 +26,10 @@ function hoyCola(fichas, pr, titulo) {
 function hoyEntrar() {
   const pr = MODO_DOCENTE ? null : perfilAct(), pal = pr ? pr.pal : {}, dia = hoy();
   const muestra = MODO_DOCENTE ? palabrasSemana(SEMANA_ACT) : null; /* H9: 2 + 1 + 2 de la semana elegida; no lee ni guarda nada */
-  if (HOY.parte === 'rec') {
+  if (HOY.parte === 'preg') {
+    if (!hoyPreguntaEnc(EST.ajustes.preg, MODO_DOCENTE ? palMuro() : pal)) return hoyAvanzar();
+    go('hoyPreg');
+  } else if (HOY.parte === 'rec') {
     const f = muestra ? muestra.slice(0, 2) : recordamosHoy(pal, dia, PALABRAS);
     HOY.rec = f.map(p => p.id); if (!hoyCola(f, pr, 'Recordamos')) hoyAvanzar();
   } else if (HOY.parte === 'nueva') {

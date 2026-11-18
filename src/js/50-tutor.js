@@ -44,6 +44,8 @@ SC.tz = function () {
   <h2 class="h-s">Sesión «Hoy»</h2><div class="tarjeta"><b>Palabras nuevas por sesión</b>
   <div class="dos"><button class="btn${EST.ajustes.nuevas === 1 ? '' : ' sec'}" onclick="nuevasTZ(1)" aria-pressed="${EST.ajustes.nuevas === 1}">1</button><button class="btn${EST.ajustes.nuevas === 1 ? ' sec' : ''}" onclick="nuevasTZ(2)" aria-pressed="${EST.ajustes.nuevas !== 1}">2</button></div>
   <p class="mu pq">Nunca más de 6 palabras nuevas por semana. Con sesión todos los días van bien 2; con 3 o 4 sesiones a la semana conviene 1.</p></div>
+  <div class="tarjeta"><b>«¿Alguien ha encontrado alguna de nuestras palabras?» al empezar «Hoy»</b>
+  <div class="dos"><button class="btn${EST.ajustes.preg ? '' : ' sec'}" onclick="pregTZ(true)" aria-pressed="${EST.ajustes.preg}">Sí</button><button class="btn${EST.ajustes.preg ? ' sec' : ''}" onclick="pregTZ(false)" aria-pressed="${!EST.ajustes.preg}">No</button></div></div>
   <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}${fila('download', 'Imprimir tarjetas', 'Para el muro de la clase: grandes o pequeñas', "go('tarj')")}${fila('download', 'Hoja para las familias', 'Las palabras de la semana, para imprimir o guardar en PDF', "go('hoja')")}</div>
   <p class="mu pq">${TEXTO_ATAJOS}</p>
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
@@ -66,6 +68,7 @@ function renombrarTZ(ev, id) {
   if (e) { ERR = e; pintar(); return; }
   renombrarPerfil(id, NUEVO_NOM || p.n); NUEVO_NOM = ''; ERR = ''; pintar(); toast('Nombre guardado');
 }
+function pregTZ(b) { fijarPreg(b); pintar(); toast(b ? 'Hoy preguntará por las palabras encontradas' : 'Hoy no preguntará por las palabras encontradas'); }
 function nuevasTZ(n) { fijarNuevas(n); pintar(); toast(n === 1 ? '1 palabra nueva por sesión' : '2 palabras nuevas por sesión'); }
 function animalTZ(i) { const id = TZ.sub.slice(2); cambiarAnimal(id, i); pintar(); }
 function borrarTZ(id) { borrarPerfil(id); TZ.sub = ''; TZ.borrar = ''; NUEVO_NOM = ''; pintar(); toast('Perfil borrado'); }

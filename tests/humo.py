@@ -26,6 +26,7 @@ try:
                     pg.click('button:text-is("Hoy")'); partes = []
                     for _ in range(80):
                         pg.wait_for_timeout(80)
+                        if pg.locator('text=¿Alguien ha encontrado alguna').count(): pg.click('text=Hoy no'); continue # EN1: la primera pantalla de «Hoy»
                         if pg.locator('.rotulo').count() == 0: break
                         r = pg.inner_text('.rotulo'); parte = r.split(' · ')[0]
                         if parte not in partes and parte in ('Recordamos', 'Jugamos', 'Cierre'): partes.append(parte)
@@ -100,6 +101,33 @@ try:
                 pg.click('button:text-is("Una al azar")'); pg.wait_for_selector('.rotulo'); revisa('7azar'); pg.keyboard.press('Enter'); pg.wait_for_selector('.palabra-g ~ .gr'); pg.keyboard.press('PageDown'); pg.wait_for_selector('.rotulo') # AT2: Ver y Otra con el teclado
                 pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.palabras .pal'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
                 if pg.evaluate("localStorage.getItem('lexi.v1')") != antes: fallos.append(f'{et}: el muro cambió los datos')
+                # «La hemos encontrado» (paso 5.5): apuntar, deshacer, chispa y ficha; no mueve la escala
+                enc = lambda: pg.evaluate("JSON.parse(localStorage.getItem('lexi.v1')).perfiles.find(p=>p.n==='1.º A').pal")
+                e0 = {k: (v['e'], v['caja'], v['prox']) for k, v in enc().items()}
+                pg.click('button:text-is("Nuestras palabras")'); pg.wait_for_selector('.palabras .pal')
+                pg.click('button:text-is("La hemos encontrado")'); pg.wait_for_selector('.palabras .pal'); revisa('8encpal')
+                pg.click('.pal:has-text("observar")'); pg.wait_for_selector('.enc-btn'); revisa('8enccomo')
+                pg.click('.enc-btn:has-text("oído")'); pg.wait_for_selector('text=¡Apuntada!'); revisa('8enchecha')
+                if enc()['observar'].get('enc', {}).get('o') != 1: fallos.append(f'{et}: «La hemos oído» no se guardó')
+                pg.click('button:text-is("Deshacer")'); pg.wait_for_selector('.enc-btn')
+                if 'enc' in enc()['observar']: fallos.append(f'{et}: «Deshacer» no dejó las cuentas como estaban')
+                pg.click('.enc-btn:has-text("dicho")'); pg.wait_for_selector('text=¡Apuntada!'); pg.click('button:text-is("Otra palabra")'); pg.wait_for_selector('.palabras .pal')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.palabras .pal'); pg.wait_for_selector('.chispa'); revisa('8chispa')
+                if pg.locator('.chispa').count() != 1: fallos.append(f'{et}: debía haber una chispa en el muro')
+                pg.click('.pal:has-text("observar")'); pg.wait_for_selector('text=La hemos encontrado 1 vez: 1 dicha'); revisa('8ficha')
+                pg.click('button:text-is("La hemos encontrado")'); pg.wait_for_selector('.enc-btn'); pg.click('.enc-btn:has-text("escrita")'); pg.wait_for_selector('text=¡Apuntada!')
+                pg.click('button:text-is("Listo")'); pg.wait_for_selector('text=La hemos encontrado 2 veces: 1 vista · 1 dicha')
+                if {k: (v['e'], v['caja'], v['prox']) for k, v in enc().items()} != e0: fallos.append(f'{et}: «La hemos encontrado» movió la escala o el repaso')
+                pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.palabras .pal'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
+                # EN1: «Hoy» empieza preguntando; «Sí» lleva a apuntar y se sigue con la sesión
+                pg.click('button:has-text("Hoy")'); pg.wait_for_selector('text=¿Alguien ha encontrado alguna de nuestras palabras?'); revisa('8hoypreg')
+                pg.click('button:text-is("Sí")'); pg.wait_for_selector('.palabras .pal'); pg.click('.pal:has-text("observar")'); pg.click('.enc-btn:has-text("oído")')
+                pg.wait_for_selector('text=¡Apuntada!'); pg.click('button:text-is("Seguir con Hoy")'); pg.wait_for_selector('.casa-cab, .rotulo')
+                while pg.locator('.rotulo').count(): # si «Hoy» aún tiene partes, se saltan para volver a la casa
+                    if pg.locator('text=Saltar esta parte').count(): pg.click('text=Saltar esta parte')
+                    else: pg.click('button[aria-label="Atrás"]')
+                    pg.wait_for_timeout(100)
+                pg.wait_for_selector('.casa-cab')
                 # recarga: el perfil sigue guardado
                 pg.reload(); pg.wait_for_selector('.opciones'); pg.click('text=Docente'); pg.wait_for_selector('.qa')
                 if '1.º A' not in pg.inner_text('.quien'): fallos.append(f'{et}: no se guardó la clase')

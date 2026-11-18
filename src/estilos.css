@@ -151,3 +151,7 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .tj-g{page:tgrande}.tj-p{page:tpeq}@page tgrande{size:A4 landscape;margin:10mm}@page tpeq{size:A4 portrait;margin:10mm}
 .tj-g .tj-hoja{min-height:185mm;justify-content:center}.tj-g .tj-img img{max-height:105mm}.tj-g h2{font-size:64pt}.tj-g p{font-size:12pt}
 .tj-p .tj-hoja{gap:6mm}.tj-p figure{border:1px dashed #000}.tj-p figcaption{font-size:20pt}}
+/* «La hemos encontrado» (paso 5.5): chispa de la tarjeta del muro y botones con dibujo */
+.pal{position:relative}
+.chispa{position:absolute;top:14px;right:14px;display:inline-flex;align-items:center;gap:3px;padding:4px 10px 4px 6px;border-radius:999px;background:var(--card);color:var(--ac);border:2px solid var(--ac);font:700 1rem var(--fd);box-shadow:var(--sh)}
+.enc-btn{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:12px}

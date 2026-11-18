@@ -64,3 +64,5 @@ const conOtroVisto = a => { const r = copiaPal(a); r.ov = true; return r; };
 function subieronHoy(pal, e0, nuevas = [], palabras = PALABRAS) {
   return palabras.filter(p => !nuevas.includes(p.id) && regDe(pal, p.id).e > ((e0 && e0[p.id]) || 1));
 }
+/** EN1 · ¿«Hoy» empieza con «¿Alguien ha encontrado alguna de nuestras palabras?»? Solo si el ajuste está encendido y hay alguna palabra presentada. */
+const hoyPreguntaEnc = (preg, pal) => !!preg && Object.keys(pal || {}).some(id => presentadaEn(pal, id));

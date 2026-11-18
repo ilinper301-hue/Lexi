@@ -18,8 +18,9 @@ SC.muro = function () {
   if (!n) return `<main class="pantalla infantil"><div class="lexi-mascota">${mascota(240)}</div><h1 class="h-pant">${tituloMuro()}</h1><p class="mu">Aquí irán nuestras palabras</p></main>`;
   setTimeout(() => sem.forEach(s => s.palabras.forEach(p => { const im = new Image(); im.src = imgPal(p); })), 0);
   return `<main class="pantalla infantil ancha"><h1 class="h-pant">${tituloMuro()}</h1><p class="mu">Ya son ${n}</p>
-  <button class="btn grande" onclick="azarEmpezar()">Una al azar</button>
+  <div class="dos"><button class="btn grande" onclick="azarEmpezar()">Una al azar</button><button class="btn grande sec" onclick="encEmpezar('muro')">La hemos encontrado</button></div>
   ${sem.map(s => `<p class="rotulo">Semana ${s.semana}</p><div class="palabras">${s.palabras.map(p => `<button class="pal" onclick="abrirConsulta('${p.id}')"><img src="${esc(imgPal(p))}" alt="" loading="lazy">
+  ${encTotal(regDe(pal, p.id)) ? `<span class="chispa" title="${esc(encTexto(regDe(pal, p.id)))}">${ico('spark', 18)}${encTotal(regDe(pal, p.id))}</span>` : ''}
   <span class="pal-pie"><span class="pal-n">${esc(p.palabra)}</span>${escalaSVG(regDe(pal, p.id).e)}</span></button>`).join('')}</div>`).join('')}</main>`;
 };
 /** MU4 · Ficha de consulta: imagen, palabra, explicación, gesto y los tres contextos; el segundo significado solo si ya se enseñó. */
@@ -28,7 +29,8 @@ SC.consulta = function () {
   const a = MODO_DOCENTE ? null : estadoPal(perfilAct(), p.id);
   return `<main class="pantalla infantil ancha"><div class="escena"><img class="esc-img" src="${esc(imgPal(p))}" alt=""></div>
   <h1 class="palabra-g" style="text-align:center">${esc(p.palabra)}</h1><p class="gr">${esc(p.def)}</p><p class="gr">${esc(p.gesto)}</p>
-  ${p.contextos.map(c => `<p class="gr">${esc(c)}</p>`).join('')}${a && a.ov && p.otro ? `<p class="mu gr-p">También quiere decir…</p><p class="gr">${esc(p.otro)}</p>` : ''}</main>`;
+  ${p.contextos.map(c => `<p class="gr">${esc(c)}</p>`).join('')}${a && a.ov && p.otro ? `<p class="mu gr-p">También quiere decir…</p><p class="gr">${esc(p.otro)}</p>` : ''}
+  ${a && encTotal(a) ? `<p class="mu gr-p">${esc(encTexto(a))}</p>` : ''}<button class="btn sec" onclick="encEmpezar('consulta','${p.id}')">La hemos encontrado</button></main>`;
 };
 /** MU5 · «Una al azar»: una petición suelta; no guarda nada. */
 SC.azar = function () {
