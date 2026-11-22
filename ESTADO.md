@@ -308,6 +308,7 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   (`48-tareas.js`); comprobador en `tools/reglas-ficha.js`; tests en `test_docs.js` y `test_tareas.js`. `sw.js` =
   `lexi-pwa-19`. Se verá en pantalla cuando las semanas 2 a 10 pasen a `src/js/palabras/` (la semana 1 no la necesita)
 - [x] Semana 4 en la app (23-11-2026, Sonnet): 6 imágenes del zip de Iván (ya en 4:3, sin recortar) a `img/palabras/` y las 6 fichas copiadas tal cual de `docs/semana-04.md` a `src/js/palabras/s04-<id>.js`. `sw.js` = `lexi-pwa-27`. Tests y prueba de humo pasan. La semana 3 sigue sin imágenes
+- [x] Semana 3 en la app (23-11-2026, Sonnet): 6 imágenes del zip de Iván (1200×900, webp <90 KB) a `img/palabras/` y las 6 fichas copiadas tal cual de `docs/semana-03.md` a `src/js/palabras/s03-<id>.js`. `sw.js` = `lexi-pwa-28`. Tests y prueba de humo pasan.
 - [ ] Pasar las semanas 3 y 5 a 10 a `src/js/palabras/` según Iván vaya enviando sus imágenes (peticiones 3 y 5 a 10); la 2 y la 4 ya están
 - [x] Semana 2 en la app (22-11-2026, Sonnet): imágenes de la petición 2 subidas a `img/palabras/` (webp 1200×900, <90 KB) y las 6 fichas
   copiadas tal cual de `docs/semana-02.md` a `src/js/palabras/s02-<id>.js`. Recortadas a 4:3: `senalar` pierde los pies, `completar` y
