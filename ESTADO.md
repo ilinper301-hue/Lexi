@@ -309,6 +309,11 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   `lexi-pwa-19`. Se verá en pantalla cuando las semanas 2 a 10 pasen a `src/js/palabras/` (la semana 1 no la necesita)
 - [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus
   imágenes (peticiones 2 a 10): Iván las enviará más adelante
+- [x] Imágenes de la petición 2 (22-11-2026, Sonnet): subidas a `img/palabras/` (webp 1200×900, <90 KB) `senalar`,
+  `completar`, `describir`, `veloz` y `valiente`. Recortadas a 4:3: `senalar` pierde los pies y `completar` algo de pelo.
+  `veloz` sale con un perro de pelo corto, no un galgo. **Falta `diminuto`.** Iván mandó `describir` dos veces; se usó la
+  del conserje con credencial (la otra tenía restos raros dentro de la mochila). Cuando llegue `diminuto`, pasar la semana 2
+  a `src/js/palabras/s02-<id>.js`
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
   `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,
