@@ -307,13 +307,12 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   (las que proponían las notas de cada semana). `ejemplo` la usa y su respuesta dice «Sí» / «No»
   (`48-tareas.js`); comprobador en `tools/reglas-ficha.js`; tests en `test_docs.js` y `test_tareas.js`. `sw.js` =
   `lexi-pwa-19`. Se verá en pantalla cuando las semanas 2 a 10 pasen a `src/js/palabras/` (la semana 1 no la necesita)
-- [ ] Aplicar los cambios que pida Iván y pasar las semanas 2 a 10 a `src/js/palabras/`. Faltan sus
-  imágenes (peticiones 2 a 10): Iván las enviará más adelante
-- [x] Imágenes de la petición 2 (22-11-2026, Sonnet): subidas a `img/palabras/` (webp 1200×900, <90 KB) `senalar`,
-  `completar`, `describir`, `veloz` y `valiente`. Recortadas a 4:3: `senalar` pierde los pies y `completar` algo de pelo.
-  `veloz` sale con un perro de pelo corto, no un galgo. **Falta `diminuto`.** Iván mandó `describir` dos veces; se usó la
-  del conserje con credencial (la otra tenía restos raros dentro de la mochila). Cuando llegue `diminuto`, pasar la semana 2
-  a `src/js/palabras/s02-<id>.js`
+- [ ] Pasar las semanas 3 a 10 a `src/js/palabras/` según Iván vaya enviando sus imágenes (peticiones 3 a 10); la 2 ya está
+- [x] Semana 2 en la app (22-11-2026, Sonnet): imágenes de la petición 2 subidas a `img/palabras/` (webp 1200×900, <90 KB) y las 6 fichas
+  copiadas tal cual de `docs/semana-02.md` a `src/js/palabras/s02-<id>.js`. Recortadas a 4:3: `senalar` pierde los pies, `completar` y
+  `diminuto` algo de pelo. `veloz` sale con un perro de pelo corto, no un galgo. Iván mandó `describir` dos veces; se usó la del conserje
+  con credencial (la otra tenía restos raros en la mochila). Con `diminuto` en la app, en Modo Docente `enorme` ya pregunta «lo contrario
+  de» (test 69): se ajustó el test 71. `sw.js` = `lexi-pwa-26`. Todos los tests y la prueba de humo pasan. Pendiente: que Iván pruebe la semana 2 en clase
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
   `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,

@@ -90,8 +90,9 @@ t('71. «relaciona»: antes de «Ver la respuesta» no sale la palabra ni su ima
   assert(pista.cuerpo.includes('enorme.webp') && !pista.cuerpo.includes('>enorme<'));
   const fin = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 0, rev: true }, p);
   assert(fin.res.includes('Enorme se parece a gigante') && fin.res.includes('¿Quién dice una frase con «enorme»?') && fin.res.includes('enorme.webp'));
-  const c = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 1, rev: true }, p);
-  assert(c.cuerpo.includes('muy grande') && !c.cuerpo.includes('diminuto'), 'diminuto aún no está presentada: ' + c.cuerpo);
+  /* desde que `diminuto` (semana 2) está en la app, en Modo Docente la 2.ª pregunta es «lo contrario de» (test 69) y «muy grande» pasa a la 3.ª */
+  const c = a.tareaHTML({ id: 'enorme', t: 'relaciona', k: 2, rev: true }, p);
+  assert(c.cuerpo.includes('muy grande'), c.cuerpo);
 });
 t('«relaciona» sale en «Jugamos» (Modo Docente: paso 4, alterna) y la cola lleva su pregunta', () => {
   const a = nuevo(); a.MODO_DOCENTE = true; const vistas = new Set();
