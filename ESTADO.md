@@ -309,7 +309,8 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   `lexi-pwa-19`. Se verá en pantalla cuando las semanas 2 a 10 pasen a `src/js/palabras/` (la semana 1 no la necesita)
 - [x] Semana 4 en la app (23-11-2026, Sonnet): 6 imágenes del zip de Iván (ya en 4:3, sin recortar) a `img/palabras/` y las 6 fichas copiadas tal cual de `docs/semana-04.md` a `src/js/palabras/s04-<id>.js`. `sw.js` = `lexi-pwa-27`. Tests y prueba de humo pasan. La semana 3 sigue sin imágenes
 - [x] Semana 3 en la app (23-11-2026, Sonnet): 6 imágenes del zip de Iván (1200×900, webp <90 KB) a `img/palabras/` y las 6 fichas copiadas tal cual de `docs/semana-03.md` a `src/js/palabras/s03-<id>.js`. `sw.js` = `lexi-pwa-28`. Tests y prueba de humo pasan.
-- [ ] Pasar las semanas 3 y 5 a 10 a `src/js/palabras/` según Iván vaya enviando sus imágenes (peticiones 3 y 5 a 10); la 2 y la 4 ya están
+- [x] Semana 6 en la app (23-11-2026, Sonnet): 6 imágenes del zip de Iván (1600×1200, sin recortar) y las 6 fichas copiadas de `docs/semana-06.md` a `src/js/palabras/s06-<id>.js`. `sw.js` = `lexi-pwa-29`. Tests y prueba de humo pasan
+- [ ] Pasar las semanas 5 y 7 a 10 a `src/js/palabras/` según Iván vaya enviando sus imágenes (peticiones 5 y 7 a 10); la 2, la 3, la 4 y la 6 ya están
 - [x] Semana 2 en la app (22-11-2026, Sonnet): imágenes de la petición 2 subidas a `img/palabras/` (webp 1200×900, <90 KB) y las 6 fichas
   copiadas tal cual de `docs/semana-02.md` a `src/js/palabras/s02-<id>.js`. Recortadas a 4:3: `senalar` pierde los pies, `completar` y
   `diminuto` algo de pelo. `veloz` sale con un perro de pelo corto, no un galgo. Iván mandó `describir` dos veces; se usó la del conserje
