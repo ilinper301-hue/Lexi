@@ -398,7 +398,7 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
 - [ ] **«Nuestros jardines» (colección de plantas, como las piedras de Calculi).** Diseño en
   `docs/jardines.md` (23-11-2026): 6 jardines, uno por curso; 10 plantas con 3 fases = 30 avances,
   uno por semana completa. **Espera el sí de Iván** y que decida la regla JA7 («?» o solo lo
-  conseguido). Petición de imágenes J1 (huerto de 1.º) en `docs/imagenes.md`.
+  conseguido). Petición de imágenes J1 (huerto de 1.º) en `docs/imagenes.md`. **Subidas:** girasol (3 fases, 23-11-2026, en `img/jardines/`); faltan las otras 9 plantas.
 - [ ] Modo autónomo y dominio por alumno
 - [ ] «Traer mi clase de Tabula» y resumen en `lexi.tabula` (formato v2)
 

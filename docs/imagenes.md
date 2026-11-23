@@ -244,3 +244,12 @@ Formato distinto al de las palabras:
 | 8 | `calabaza` | Planta de calabaza con una calabaza naranja sobre la tierra |
 | 9 | `maiz` | Planta de maíz alta con una mazorca |
 | 10 | `naranjo` | Naranjo pequeño con naranjas |
+
+### Prompt que funcionó (23-11-2026, ChatGPT)
+
+1. Primero la **maceta vacía** (terracota, con tierra, fondo blanco liso, 1:1, ocupando dos tercios).
+2. En la misma conversación, «usa esta misma maceta, mismo tamaño y mismo sitio» y una imagen por
+   fase (1 brote, 2 crecida sin flor, 3 con flor o fruto).
+- La IA hace la maceta más pequeña cuando la planta es alta. **Claude lo corrige al subirlas**: iguala el
+  ancho de la maceta a la de la fase 3, la apoya en el mismo sitio y limpia el fondo (webp 600 × 600).
+- Hechas: `j1-girasol-1`, `-2`, `-3` en `img/jardines/`.
