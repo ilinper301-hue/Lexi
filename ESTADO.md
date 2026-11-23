@@ -356,7 +356,16 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     `relaciona` (cada una en `rel.mas` de la otra; preguntan «que da gusto» y «molesto»); 73) `furioso` no
     lleva `tranquilo` de contraria porque ya es la pregunta de `nervioso`. Gestos a vigilar (notas de cada
     semana): respirar/ser vivo, saborear/alimento, desagradable/ruidoso
-  - [ ] Semanas 17 y 18
+  - [x] Semanas 17 y 18 (24-11-2026, Opus): `docs/semana-17.md` (cantidad, mitad, doble, lleno, vacío,
+    equipo) y `docs/semana-18.md` (intentar, equivocarse, complicado, útil, frustrado, esforzarse),
+    peticiones S17 y S18. Comprobador: 108 palabras de 1.º, sin errores. `PAQUETE_1` con las 12 nuevas
+    (`sencillo` pierde la pregunta «complicado» hasta presentarla). `sw.js` = `lexi-pwa-47`. Tests y
+    prueba de humo pasan. **Para Iván (puntos 74 a 78; si dice que no, se cambia):** 74) `lleno` lleva
+    segundo significado («¡Estoy lleno!» de comer); 75) `útil` no pregunta «necesario» (no significan lo
+    mismo): pregunta «que sirve»; 76) `sep` nuevos: `mitad-doble`, `lleno-vacio` e `intentar-esforzarse`;
+    77) `mitad` y `doble` no se preguntan una a otra, y `frustrado` no tiene pregunta de `relaciona`;
+    78) `esforzarse` en el bloque «Para convivir» (o «Cómo nos sentimos»)
+  - [ ] Semanas 19 y 20 (chat nuevo: ya van 8 semanas en dos chats)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

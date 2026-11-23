@@ -201,6 +201,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `furioso` | Un niño con la cara roja, los puños apretados y el ceño fruncido, delante de una torre de bloques caída por el suelo; al fondo, su primo se va corriendo. |
 | `norma` | Una maestra y sus alumnos delante de un cartel grande en la pared con el dibujo de una mano levantada; una niña levanta la mano. Sin letras legibles. |
 
+### Petición S17 · semana 17
+
+| id | Qué debe verse |
+|---|---|
+| `cantidad` | Una niña y un niño junto a una mesa de cocina con dos montones de castañas: el del niño, mucho más alto. Él lo señala, contento; ella lo mira con los ojos muy abiertos. |
+| `mitad` | Un niño partiendo una galleta redonda en dos trozos iguales y dándole uno a su hermana pequeña, que tiende la mano. Las dos mitades se ven claramente iguales. |
+| `doble` | Una niña sentada en el suelo con 4 cromos de dinosaurios en fila, dos y dos; su abuelo, a su lado, acaba de dejarle los dos últimos. Se cuentan bien los cuatro. |
+| `lleno` | Un niño en el jardín llenando una regadera con una manguera; el agua rebosa por arriba y le salpica los pies. Él pone cara de «¡uy!». |
+| `vacio` | Un niño con una caja de galletas de lata abierta y vuelta hacia abajo, mirando dentro con cara de pena: no cae nada. |
+| `equipo` | Una carrera de relevos en el patio del cole: una niña le pasa un pañuelo a un niño que ya empieza a correr; al fondo, otra niña espera su turno. Todos con el mismo color de camiseta. |
+
+### Petición S18 · semana 18
+
+| id | Qué debe verse |
+|---|---|
+| `intentar` | Un niño en el salón con los labios fruncidos, soplando para silbar, con cara de concentración; a su lado, su abuelo silba sonriendo. |
+| `equivocarse` | Un niño delante de la puerta abierta de un piso; le abre una señora mayor con delantal que no conoce. El niño, con la mano en la frente, se da cuenta del error. En la puerta de al lado, una niña asoma la cabeza. Sin números legibles. |
+| `complicado` | Una niña sentada en el suelo rodeada de cientos de piezas pequeñas de construcción y un cuadernillo de instrucciones muy gordo abierto; cara de no saber por dónde seguir. |
+| `util` | Un niño tumbado en el suelo del salón sacando una canica de debajo del sofá con una regla larga; su abuela, de pie a su lado, sonríe. |
+| `frustrado` | Una niña en una mesa con cuentas de colores desperdigadas y un hilo suelto; aprieta los labios y tiene la pulsera a medio hacer en la mano. Que no dé pena: escena cálida. |
+| `esforzarse` | Un niño sentado en un sillón leyendo un libro grande de piratas, siguiendo las letras con el dedo, con cara de mucha concentración. El libro está abierto casi al final. Sin letras legibles. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
