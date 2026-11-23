@@ -379,6 +379,9 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   puede empezar el paso 6.3
 - [ ] 6.3 `src/js/52-cuenta.js`, tarjeta «Cuenta» y sincronización (tests 94, 95, 109, 112, 114, 115 y
   117) · Sonnet, esfuerzo alto
+  **Parado (23-11-2026):** falta la configuración de Firebase (`apiKey`, `appId`…) y el patrón de
+  `src/js/52-cuenta.js`, que solo están en el repo Calculi. Hace falta dar acceso a Calculi en el chat
+  o que Iván pegue ese bloque de configuración. No se inventa.
 - [ ] 6.4 Primera vez, cerrar sesión, borrar y restaurar con cuenta (tests 106-108, 110 y 111) ·
   Sonnet, esfuerzo alto
 - [ ] 6.5 Iván lo prueba con dos dispositivos (lista en `docs/nube.md`, apartado 13)
