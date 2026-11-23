@@ -96,7 +96,7 @@ function limpiarPerfil(p, migrar) {
   return { id: /^[a-z0-9]{6,20}$/.test(p.id || '') ? p.id : nid(), t: p.t,
     n: ss(p.n, 20) || (p.t === 'doc' ? 'Clase' : 'Niño'),
     av: p.t === 'fam' ? Math.max(0, Math.min(AVATARES.length - 1, p.av | 0)) : 0,
-    c: esFecha(p.c) ? p.c : hoy(), ses: esFecha(p.ses) ? p.ses : '', mt: nm(p.mt), pal: limpiarPal(p.pal, migrar) };
+    c: esFecha(p.c) ? p.c : hoy(), ses: esFecha(p.ses) ? p.ses : '', mt: nm(p.mt), pal: limpiarPal(p.pal, migrar), ...(nm(p.rst) ? { rst: nm(p.rst) } : {}) }; /* `rst`: marca de «restaurado desde una copia» (BO2); solo existe si se restauró con cuenta */
 }
 /** Ajustes saneados (también los que llegan de la nube). */
 function limpiarAjustes(aj) { aj = aj && typeof aj === 'object' ? aj : {}; return { pin: /^\d{4}$/.test(aj.pin || '') ? aj.pin : '', nuevas: aj.nuevas === 1 ? 1 : 2, preg: aj.preg !== false }; }
@@ -223,8 +223,17 @@ function leerCopia(texto) {
   if ((o.v | 0) > VERSION_DATOS) return { error: 'Esta copia es de una versión más nueva de Lexi' };
   return { datos: limpiar(o) };
 }
-/** Sustituye los datos por los de la copia. Antes guarda lo que hubiera en «lexi.bk» para no perder nada. */
-function aplicarCopia(datos) {
+/** BO2 · Con sesión iniciada, la copia manda en todas partes: sus perfiles, sus palabras y sus ajustes se marcan como recién cambiados (más nuevos que
+    cualquier cosa de la cuenta), salen de `del` y los perfiles que había y no están en la copia se apuntan como borrados. Si no, la nube desharía la restauración. */
+function copiaMandando(datos, ant) {
+  const m = Math.max(nm(AHORA()), maxMarca(ant), maxMarca(datos)) + 1, ids = new Set(datos.perfiles.map(p => p.id)), del = { ...(ant.del || {}) };
+  for (const id of ids) delete del[id];
+  for (const p of ant.perfiles || []) if (!ids.has(p.id)) del[p.id] = m;
+  for (const p of datos.perfiles) { p.mt = m; p.rst = m; for (const id in p.pal || {}) p.pal[id].m = m; }
+  return { ...datos, gmt: m, del: limpiarDel(del) };
+}
+/** Sustituye los datos por los de la copia. Antes guarda lo que hubiera en «lexi.bk» para no perder nada. `conCuenta`: hay sesión iniciada (BO2). */
+function aplicarCopia(datos, conCuenta = false) {
   try { const ant = localStorage.getItem('lexi.v1'); if (ant != null) localStorage.setItem('lexi.bk', ant); } catch (e) {}
-  EST = datos; const m = MODO_DOCENTE; MODO_DOCENTE = false; const r = guardar(); MODO_DOCENTE = m; return r;
+  EST = conCuenta ? copiaMandando(datos, EST) : datos; const m = MODO_DOCENTE; MODO_DOCENTE = false; const r = guardar(); MODO_DOCENTE = m; return r;
 }

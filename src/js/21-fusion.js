@@ -21,10 +21,13 @@ function fusionarRegistro(x, y) {
 /** FU4 · Un perfil que está en los dos lados: nombre y animal del lado con `mt` más reciente (empate: el del dispositivo, a); cada palabra con su regla;
     `ses` = el día más reciente; fecha de creación = la más antigua; `mt` = la mayor. */
 function fusionarPerfil(a, b) {
-  const nuevo = nm(b.mt) > nm(a.mt) ? b : a, pal = {};
-  for (const id of new Set([...Object.keys(a.pal || {}), ...Object.keys(b.pal || {})])) pal[id] = fusionarRegistro((a.pal || {})[id], (b.pal || {})[id]);
+  const nuevo = nm(b.mt) > nm(a.mt) ? b : a, pal = {}, ra = nm(a.rst), rb = nm(b.rst), rst = Math.max(ra, rb);
+  /* BO2 · un lado restaurado desde una copia (`rst` mayor) manda entero: del otro solo sobreviven las palabras tocadas DESPUÉS de la restauración */
+  const viva = (x, r) => Object.fromEntries(Object.entries(x.pal || {}).filter(([, v]) => marcaDe(v) > r));
+  const pa = ra < rb ? viva(a, rb) : a.pal || {}, pb = rb < ra ? viva(b, ra) : b.pal || {};
+  for (const id of new Set([...Object.keys(pa), ...Object.keys(pb)])) pal[id] = fusionarRegistro(pa[id], pb[id]);
   const c = a.c && b.c ? (a.c < b.c ? a.c : b.c) : (a.c || b.c || ''), ses = (a.ses || '') > (b.ses || '') ? (a.ses || '') : (b.ses || '');
-  return { ...nuevo, id: a.id, t: a.t, mt: Math.max(nm(a.mt), nm(b.mt)), c, ses, pal };
+  return { ...nuevo, id: a.id, t: a.t, mt: Math.max(nm(a.mt), nm(b.mt)), c, ses, pal, ...(rst ? { rst } : {}) };
 }
 /** VE2 · Lo que llega de la nube se sanea con la misma limpieza que los datos del disco (y se migra si es de antes de la v4). null si no se puede leer. */
 function leerDocNube(doc) {

@@ -3,7 +3,8 @@
    Uso: node tests/test_cuenta.js */
 const fs = require('fs'), vm = require('vm'), path = require('path'), assert = require('assert');
 const R = path.join(__dirname, '..', 'src', 'js');
-const codigo = ['00-util.js', '20-datos.js', '21-fusion.js', '30-escala-logica.js', '52-cuenta.js'].map(f => fs.readFileSync(path.join(R, f), 'utf8')).join('\n');
+const prelude = "const SC = {}; let PANT = 'inicio'; const go = p => { PANT = p; }; const toast = m => {}; const pintar = () => {};\n";
+const codigo = prelude + ['00-util.js', '20-datos.js', '21-fusion.js', '30-escala-logica.js', '52-cuenta.js'].map(f => fs.readFileSync(path.join(R, f), 'utf8')).join('\n');
 const J = x => JSON.parse(JSON.stringify(x));
 const tick = async (n = 12) => { for (let i = 0; i < n; i++) await new Promise(r => setImmediate(r)); };
 
@@ -25,7 +26,7 @@ function disp(db, almacen = {}) {
   const ls = { getItem: k => (k in almacen ? almacen[k] : null), setItem: (k, v) => { almacen[k] = String(v); }, removeItem: k => { delete almacen[k]; } };
   const timers = [];
   const ctx = vm.createContext({ localStorage: ls, console, setTimeout: (f, ms) => { timers.push({ f, ms }); return timers.length; }, clearTimeout: () => {}, window: {} });
-  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilAct,presentarPalabra,valorarTarea,renombrarPerfil,borrarPerfil,terminarSesionHoy,fijarPin,fijarNuevas,estadoPal,hoy,sincronizarCon,nubeFirestore,syncNow,syncYa,alGuardar,syncMano,decidirPrimera,usuarioCuenta,accSec,fbLogout,aDocsNube,get EST(){return EST},set EST(v){EST=v},get SYNC(){return SYNC},get FBU(){return FBU},set FBU(v){FBU=v},set FB(v){FB=v},set AHORA(v){AHORA=v},set MODO_DOCENTE(v){MODO_DOCENTE=v},LSR})', ctx);
+  const api = vm.runInContext(codigo + '\n;({cargar,guardar,guardarAjustes,crearPerfil,entrarPerfil,perfilAct,presentarPalabra,valorarTarea,renombrarPerfil,borrarPerfil,terminarSesionHoy,fijarPin,fijarNuevas,estadoPal,hoy,sincronizarCon,nubeFirestore,nombresParaJuntar,puedeQuitar,cerrarPedir,cerrarQuitando,cerrarElegido,primeraElegir,aplicarCopia,leerCopia,exportarTexto,conSesion,SC,get PANT(){return PANT},set PANT(v){PANT=v},syncNow,syncYa,alGuardar,syncMano,decidirPrimera,usuarioCuenta,accSec,fbLogout,aDocsNube,get EST(){return EST},set EST(v){EST=v},get SYNC(){return SYNC},get FBU(){return FBU},set FBU(v){FBU=v},set FB(v){FB=v},set AHORA(v){AHORA=v},set MODO_DOCENTE(v){MODO_DOCENTE=v},LSR})', ctx);
   api.cargar(); api.AHORA = () => 1000; api.FB = { db }; return { api, almacen, timers };
 }
 const uid1 = 'cuentaDeIvan1', uid2 = 'otraCuenta2';
@@ -150,6 +151,97 @@ t('la tarjeta «Cuenta»: sin sesión invita a entrar con Google; con sesión en
 t('un perfil demasiado grande (más de 300000 caracteres) no se sube y se avisa; lo demás sí', async () => {
   const db = fakeDb(), A = disp(db), c = A.api.crearPerfil('doc', 'Grande'), c2 = A.api.crearPerfil('doc', 'Normal'); A.api.EST.perfiles.find(p => p.id === c.id).relleno = 'y'.repeat(310000);
   const r = await A.api.sincronizarCon(nubeDe(A, db), uid1); assert.deepStrictEqual(J(r.grandes), [c.id]); assert.deepStrictEqual(docsDe(db), ['lexico/' + uid1 + '/alu/' + c2.id]);
+});
+
+/* ---- Paso 6.4: tests 106-108, 110 y 111 de docs/nube.md (pantallas delicadas) ---- */
+/** Dos dispositivos con datos propios y una cuenta (uid2) que ya tiene los suyos, con un perfil que viene de la misma copia. */
+async function escenarioPrimera() {
+  const dbC = fakeDb(), C = disp(dbC), cx = C.api.crearPerfil('doc', 'Compartida'); C.api.presentarPalabra('observar');
+  const copia = C.api.exportarTexto(); /* la misma copia de seguridad en los dos dispositivos */
+  C.api.crearPerfil('doc', '1.º A'); C.api.presentarPalabra('comparar'); await C.api.sincronizarCon(nubeDe(C, dbC, uid2), uid2);
+  const A = disp(dbC); A.api.aplicarCopia(A.api.leerCopia(copia).datos); A.api.LSR.set('sync.uid', uid1); /* A venía de otra cuenta */
+  A.api.AHORA = () => 3000; A.api.entrarPerfil(cx.id); A.api.presentarPalabra('ordenar'); A.api.crearPerfil('doc', '1.º A'); A.api.crearPerfil('doc', 'Solo en A');
+  return { db: dbC, C, A, cx };
+}
+t('106. primera vez con datos en los dos lados, «Juntar»: están todos los perfiles; mismo nombre → «1.º A» y «1.º A (2)»; mismo id → fusionados (PV3)', async () => {
+  const { db, A, cx } = await escenarioPrimera(), antes = J(A.api.EST);
+  const r = await A.api.sincronizarCon(nubeDe(A, db, uid2), uid2); /* sin elegir no se toca nada */
+  assert.strictEqual(r.res, 'primera'); assert.deepStrictEqual(J(A.api.EST), antes); assert.strictEqual(A.almacen['lexi.sync.uid'], uid1);
+  assert.deepStrictEqual(J(r.info.nube.map(p => p.n).sort()), ['1.º A', 'Compartida']); assert.deepStrictEqual(J(r.info.local.map(p => p.n).sort()), ['1.º A', 'Compartida', 'Solo en A']);
+  assert.strictEqual(r.info.nube.find(p => p.n === 'Compartida').pal, 1); assert.strictEqual(r.info.cabe, true);
+  const j = await A.api.sincronizarCon(nubeDe(A, db, uid2), uid2, { modo: 'juntar' });
+  assert.strictEqual(j.res, 'ok'); const nombres = J(A.api.EST.perfiles.map(p => p.n).sort()); assert.deepStrictEqual(nombres, ['1.º A', '1.º A (2)', 'Compartida', 'Solo en A']);
+  const comp = A.api.EST.perfiles.find(p => p.id === cx.id); assert.ok(comp.pal.observar && comp.pal.ordenar, 'el mismo perfil quedó fusionado: palabras de los dos lados');
+  assert.strictEqual(docsDe(db, uid2).length, 4, 'la cuenta tiene los cuatro'); assert.strictEqual(A.almacen['lexi.sync.uid'], uid2);
+  assert.strictEqual(JSON.parse(A.almacen['lexi.v1']).perfiles.length, 4, 'y el dispositivo los guardó');
+  assert.deepStrictEqual(J(A.api.nombresParaJuntar([{ id: 'a', t: 'doc', n: 'X' }, { id: 'b', t: 'fam', n: 'X' }], [{ id: 'z', t: 'doc', n: 'X' }, { id: 'y', t: 'doc', n: 'X (2)' }])), { a: 'X (3)' }, 'ni el otro tipo ni un nombre libre se tocan; no choca con «(2)»');
+  assert.strictEqual(Object.values(A.api.nombresParaJuntar([{ id: 'a', t: 'doc', n: 'Nombre de veinte letras' }], [{ id: 'z', t: 'doc', n: 'Nombre de veinte letras' }]))[0].length <= 20, true);
+  /* después, como misma cuenta: fusión normal sin preguntar */
+  assert.strictEqual((await A.api.sincronizarCon(nubeDe(A, db, uid2), uid2)).res, 'ok');
+});
+t('107. «Usar solo lo de la cuenta»: lo anterior queda en lexi.bk y la nube no recibe marcas de borrado (PV3)', async () => {
+  const { db, C, A } = await escenarioPrimera(), v1Antes = A.almacen['lexi.v1'], metaAntes = db.store.get('lexico/' + uid2).meta, w = db.log.escrituras;
+  A.api.borrarPerfil(A.api.EST.perfiles.find(p => p.n === 'Solo en A').id); const v1Antes2 = A.almacen['lexi.v1'];
+  const r = await A.api.sincronizarCon(nubeDe(A, db, uid2), uid2, { modo: 'cuenta' }); assert.strictEqual(r.res, 'ok');
+  assert.strictEqual(A.almacen['lexi.bk'], v1Antes2, 'lo que había en el dispositivo se guardó antes de sustituirlo'); assert.notStrictEqual(v1Antes, v1Antes2);
+  assert.deepStrictEqual(J(A.api.EST.perfiles.map(p => p.id).sort()), J(C.api.EST.perfiles.map(p => p.id).sort()), 'ahora tiene lo de la cuenta');
+  assert.strictEqual(db.store.get('lexico/' + uid2).meta, metaAntes, '`del` y ajustes de la cuenta no cambian'); assert.strictEqual(docsDe(db, uid2).length, 2); assert.strictEqual(db.log.escrituras, w, 'no escribe nada en la nube');
+  assert.deepStrictEqual(J(A.api.EST.del), {}); assert.strictEqual(A.almacen['lexi.sync.uid'], uid2);
+  /* con la cuenta vacía no hay nada que usar: la opción no sustituye nada */
+  const db3 = fakeDb(), D = disp(db3); D.api.crearPerfil('doc', 'Mía'); D.api.LSR.set('sync.uid', uid1); const antes = D.almacen['lexi.v1'];
+  const r3 = await D.api.sincronizarCon(nubeDe(D, db3, uid2), uid2, { modo: 'cuenta' }); assert.strictEqual(r3.res, 'primera'); assert.strictEqual(D.almacen['lexi.v1'], antes); assert.strictEqual(r3.info.nubeVacia, true);
+});
+t('108. «Ahora no»: se cierra la sesión y ni el dispositivo ni la nube cambian (PV3)', async () => {
+  const { db, A } = await escenarioPrimera(); entra(A, uid2); A.api.FB = { db }; A.api.LSR.set('fb', '1');
+  const nubeAntes = JSON.stringify([...db.store]), locAntes = J(A.api.EST), v1 = A.almacen['lexi.v1'], w = db.log.escrituras;
+  A.api.PANT = 'tz'; await A.api.syncNow(); assert.strictEqual(A.api.SYNC.espera, 'primera'); assert.strictEqual(A.api.PANT, 'primera', 'recién entrado desde la zona del tutor se pasa a la pantalla de elegir');
+  assert.ok(A.api.SC.primera().includes('Juntar') && A.api.SC.primera().includes('Usar solo lo de la cuenta') && A.api.SC.primera().includes('Ahora no') && A.api.SC.primera().includes('Solo en A'));
+  await A.api.primeraElegir('ahora');
+  assert.strictEqual(A.api.FBU, null); assert.ok(!('lexi.fb' in A.almacen)); assert.deepStrictEqual(J(A.api.EST), locAntes); assert.strictEqual(A.almacen['lexi.v1'], v1);
+  assert.strictEqual(JSON.stringify([...db.store]), nubeAntes); assert.strictEqual(db.log.escrituras, w); assert.strictEqual(A.almacen['lexi.sync.uid'], uid1); assert.strictEqual(A.api.PANT, 'tz');
+});
+t('106b. por la pantalla: «Juntar» desde la tarjeta termina la espera y la tarjeta ya no avisa', async () => {
+  const { db, A } = await escenarioPrimera(); entra(A, uid2); A.api.FB = { db }; await A.api.syncNow(); assert.ok(A.api.accSec().includes('Elegir qué hacer'));
+  A.api.PANT = 'primera'; await A.api.primeraElegir('juntar'); assert.strictEqual(A.api.SYNC.espera, ''); assert.strictEqual(A.api.PANT, 'tz'); assert.ok(!A.api.accSec().includes('Elegir qué hacer')); assert.strictEqual(A.api.EST.perfiles.length, 4);
+});
+t('110. cerrar sesión «Quitarlas de aquí»: el dispositivo queda vacío, la nube intacta y sin marcas de borrado; no se ofrece si la sincronización falló (CU6)', async () => {
+  const db = fakeDb(), A = disp(db); A.api.crearPerfil('doc', '1.º A'); A.api.presentarPalabra('observar'); A.api.fijarPin('2468'); entra(A); A.api.FB = { db }; A.api.LSR.set('fb', '1');
+  A.api.renombrarPerfil(A.api.EST.perfiles[0].id, '1.º B'); /* cambio sin sincronizar: al cerrar se guarda primero */
+  await A.api.cerrarPedir(); assert.strictEqual(A.api.SYNC.cerrar, 'elegir'); assert.ok(A.api.accSec().includes('Quitarlas de aquí') && A.api.accSec().includes('Dejar las clases en este dispositivo'));
+  const nube = JSON.stringify([...db.store]); assert.strictEqual(JSON.parse(db.store.get('lexico/' + uid1 + '/alu/' + A.api.EST.perfiles[0].id).d).n, '1.º B', 'lo último ya está en la cuenta');
+  await A.api.cerrarElegido(true);
+  assert.strictEqual(A.api.EST.perfiles.length, 0); assert.strictEqual(JSON.parse(A.almacen['lexi.v1']).perfiles.length, 0); assert.strictEqual(A.api.FBU, null); assert.ok(!('lexi.fb' in A.almacen));
+  assert.strictEqual(JSON.stringify([...db.store]), nube, 'la nube queda como estaba'); assert.deepStrictEqual(JSON.parse(db.store.get('lexico/' + uid1).meta).del, {}, 'sin marcas de borrado'); assert.ok(!('lexi.bk' in A.almacen), 'sin copia escondida en un ordenador compartido');
+  /* vuelve la misma cuenta: baja todo, con su PIN, sin preguntar */
+  assert.strictEqual((await A.api.sincronizarCon(nubeDe(A, db), uid1)).res, 'ok'); assert.strictEqual(A.api.EST.perfiles[0].n, '1.º B'); assert.strictEqual(A.api.EST.ajustes.pin, '2468');
+  /* si la sincronización falla: solo se ofrece dejarlas */
+  entra(A); A.api.FB = { db }; A.api.renombrarPerfil(A.api.EST.perfiles[0].id, '1.º C'); db.log.fallo = true;
+  await A.api.cerrarPedir(); assert.strictEqual(A.api.SYNC.cerrar, 'solo'); const h = A.api.accSec(); assert.ok(h.includes('Dejar las clases en este dispositivo') && !h.includes('Quitarlas de aquí'));
+  assert.strictEqual(await A.api.cerrarQuitando(), false); assert.strictEqual(A.api.EST.perfiles.length, 1, 'no se quita nada'); assert.ok(A.api.FBU);
+  /* y si se cambia algo después de comprobar, tampoco */
+  db.log.fallo = false; await A.api.cerrarPedir(); assert.strictEqual(A.api.SYNC.cerrar, 'elegir'); A.api.renombrarPerfil(A.api.EST.perfiles[0].id, '1.º D'); assert.strictEqual(A.api.puedeQuitar(), false);
+  await A.api.cerrarElegido(false); assert.strictEqual(A.api.EST.perfiles.length, 1, '«Dejarlas» no quita nada'); assert.strictEqual(A.api.FBU, null);
+});
+t('111. restaurar una copia con sesión iniciada: la copia manda en la nube y en el otro dispositivo (BO2)', async () => {
+  const db = fakeDb(), A = disp(db), B = disp(db), x = A.api.crearPerfil('doc', 'X'); A.api.presentarPalabra('observar'); const copia = A.api.exportarTexto();
+  A.api.AHORA = () => 2000; A.api.crearPerfil('doc', 'Y'); A.api.entrarPerfil(x.id); A.api.presentarPalabra('comparar'); A.api.valorarTarea('observar', 'sentido', 'todos'); entra(A); A.api.FB = { db };
+  await A.api.syncNow(); await B.api.sincronizarCon(nubeDe(B, db), uid1); assert.strictEqual(B.api.EST.perfiles.length, 2); assert.ok(B.api.EST.perfiles.find(p => p.id === x.id).pal.comparar);
+  assert.strictEqual(A.api.conSesion(), true); A.api.AHORA = () => 1500; /* hasta un reloj atrasado: la copia gana */
+  assert.strictEqual(A.api.aplicarCopia(A.api.leerCopia(copia).datos, A.api.conSesion()), true);
+  assert.deepStrictEqual(J(A.api.EST.perfiles.map(p => p.n)), ['X']); assert.strictEqual(Object.keys(A.api.EST.del).length, 1, 'Y queda apuntada como borrada');
+  await A.api.syncNow(); assert.deepStrictEqual(J(docsDe(db)), ['lexico/' + uid1 + '/alu/' + x.id], 'en la nube solo queda lo de la copia');
+  const px = JSON.parse(db.store.get('lexico/' + uid1 + '/alu/' + x.id).d); assert.ok(px.pal.observar && !px.pal.comparar, 'y X vuelve a como estaba en la copia'); assert.strictEqual(px.pal.observar.val.length, 0);
+  await B.api.sincronizarCon(nubeDe(B, db), uid1); assert.deepStrictEqual(J(B.api.EST.perfiles.map(p => p.n)), ['X']); const bx = B.api.EST.perfiles[0]; assert.ok(!bx.pal.comparar); assert.strictEqual(bx.pal.observar.val.length, 0);
+  /* sin sesión, restaurar no marca nada: es lo de siempre */
+  const C = disp(db); const antes = C.api.leerCopia(copia).datos; C.api.aplicarCopia(antes, false); assert.deepStrictEqual(J(C.api.EST), J(C.api.leerCopia(copia).datos));
+});
+t('111b. tras restaurar, lo que otro dispositivo toca DESPUÉS de la restauración sobrevive; lo anterior no (BO2)', async () => {
+  const db = fakeDb(), A = disp(db), B = disp(db), x = A.api.crearPerfil('doc', 'X'); A.api.presentarPalabra('observar'); const copia = A.api.exportarTexto();
+  A.api.presentarPalabra('comparar'); entra(A); A.api.FB = { db }; await A.api.syncNow(); await B.api.sincronizarCon(nubeDe(B, db), uid1); B.api.entrarPerfil(x.id);
+  A.api.AHORA = () => 5000; A.api.aplicarCopia(A.api.leerCopia(copia).datos, true); await A.api.syncNow();
+  B.api.AHORA = () => 9000; const mB = B.api.presentarPalabra('ordenar'); /* B (aún sin enterarse) presenta otra palabra después */
+  await B.api.sincronizarCon(nubeDe(B, db), uid1); await A.api.syncNow();
+  for (const d of [A, B]) { const p = d.api.EST.perfiles[0]; assert.ok(p.pal.observar && p.pal.ordenar && !p.pal.comparar, Object.keys(p.pal).join()); }
 });
 
 (async () => { for (const [nombre, f] of lista) { try { await f(); n++; console.log('  ok ' + nombre); } catch (e) { console.log('FALLA ' + nombre + '\n' + (e.stack || e)); process.exitCode = 1; } } console.log(n + ' pruebas correctas' + (process.exitCode ? ' (hay fallos)' : '')); })();

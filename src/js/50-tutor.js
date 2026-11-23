@@ -61,7 +61,7 @@ function vistaPerfilTZ(p) {
   ${p.t === 'fam' ? `<div class="tarjeta"><h2 class="h-s">Animal</h2>${elegirAnimal(p.av, `animalTZ`)}</div>` : ''}
   <div class="tarjeta"><button class="btn sec" onclick="abrirResumen('${p.id}')">${p.t === 'doc' ? 'Cómo va la clase' : 'Cómo va'}</button></div>
   <div class="tarjeta">${TZ.borrar === p.id
-    ? `<p><b>¿Borrar «${esc(p.n)}»?</b> Se pierde todo lo suyo y no se puede deshacer. Puedes guardar antes una copia de seguridad.</p><div class="dos"><button class="btn peligro" onclick="borrarTZ('${p.id}')">Sí, borrar</button><button class="btn sec" onclick="TZ.borrar='';pintar()">No</button></div>`
+    ? `<p><b>¿Borrar «${esc(p.n)}»?</b> Se pierde todo lo suyo y no se puede deshacer.${conSesion() ? ' Se borrará también de tu cuenta y de tus otros dispositivos.' : ''} Puedes guardar antes una copia de seguridad.</p><div class="dos"><button class="btn peligro" onclick="borrarTZ('${p.id}')">Sí, borrar</button><button class="btn sec" onclick="TZ.borrar='';pintar()">No</button></div>`
     : `<button class="btn peligro sec" onclick="TZ.borrar='${p.id}';pintar()">${ico('trash', 20)} Borrar ${p.t === 'doc' ? 'esta clase' : 'este perfil'}</button>`}</div></main>`;
 }
 function renombrarTZ(ev, id) {
@@ -88,6 +88,7 @@ SC.imp = function () {
   const n = TZ.imp.perfiles.length;
   return `<main class="pantalla tutor"><h1 class="h-t">Restaurar copia</h1>
   <p>La copia tiene <b>${n} ${n === 1 ? 'perfil' : 'perfiles'}</b>. Si sigues, sustituye los datos actuales (se guardan antes por si acaso).</p>
+  ${conSesion() ? '<p class="aviso" role="status">También cambiará en tu cuenta y en tus otros dispositivos.</p>' : ''}
   <div class="dos"><button class="btn" onclick="confirmarCopia()">Sustituir</button><button class="btn sec" onclick="TZ.imp=null;go(TZ.origen)">Cancelar</button></div></main>`;
 };
-function confirmarCopia() { aplicarCopia(TZ.imp); TZ.imp = null; TZ.sub = ''; TZ.hasta = 0; toast('Copia restaurada'); go('inicio'); }
+function confirmarCopia() { aplicarCopia(TZ.imp, conSesion()); TZ.imp = null; TZ.sub = ''; TZ.hasta = 0; toast('Copia restaurada'); go('inicio'); }

@@ -3,8 +3,8 @@
    Firestore: lexico/{uid} = { meta: texto JSON {aj, gmt, del}, ts, v } y lexico/{uid}/alu/{idPerfil} = { d: texto JSON del perfil, mt, v }.
    Regla 0 del ecosistema: sin cuenta y sin conexión la app va igual. Firebase NO se carga hasta que se entra con Google (`lexi.fb` = «1») o se toca el botón (CU3).
    Solo claves «lexi.»: lexi.fb · lexi.sync.uid (no se borra al cerrar sesión: PV4) · lexi.sync.t.
-   Falta (paso 6.4): la pantalla de «primera vez con datos en los dos lados» (PV3), qué hacer con las clases al cerrar sesión (CU6) y borrar/restaurar con cuenta (BO).
-   Hasta entonces, en ese caso NO se sincroniza nada (no se pierde ni se pisa nada) y la tarjeta lo dice. */
+   Paso 6.4: la pantalla de «primera vez con datos en los dos lados» (PV3: Juntar · Usar solo lo de la cuenta · Ahora no), qué hacer con las clases al cerrar sesión (CU6)
+   y, en 20-datos.js y 50-tutor.js, borrar y restaurar copia con cuenta (BO1 y BO2). Mientras no se elige, NO se sincroniza nada (no se pierde ni se pisa nada). */
 const GLG = '<svg class="glogo" width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
 const FBV = '10.12.2', FB_COL = 'lexico', FB_CFG = { apiKey: 'AIzaSyC00dEFMyJ48KM--iClXSFUbbMtoHV3ejc', authDomain: 'mis-apps-educativas.firebaseapp.com', projectId: 'mis-apps-educativas', storageBucket: 'mis-apps-educativas.firebasestorage.app', messagingSenderId: '98830326152', appId: '1:98830326152:web:bd3ff75a1f83ac5fd2c23d' };
 const MAX_META = 20000, MAX_DOC = 300000; /* tamaños máximos que aceptan las reglas de Firestore */
@@ -16,7 +16,9 @@ const LSR = {
 };
 let FB = null, FBU = null;
 /* `espera`: '' (todo bien) · 'primera' (hay datos en los dos lados, PV3: paso 6.4) · 'vieja' (en la nube hay una versión más nueva, VE1) · 'bloq' (los datos del dispositivo son de una versión más nueva, SI8) */
-const SYNC = { busy: false, pend: false, sinEco: false, last: +(LSR.get('sync.t') || 0), err: '', t: null, espera: '' };
+const SYNC = { busy: false, pend: false, sinEco: false, last: +(LSR.get('sync.t') || 0), err: '', t: null, espera: '', primera: null, marcaOk: -1, cerrar: '' };
+/** BO1 y BO2: ¿hay una sesión de Google iniciada? (con ella, borrar y restaurar cambian también la cuenta) */
+const conSesion = () => !!FBU;
 
 /* ---- Firebase (solo se carga al entrar con Google o si ya había cuenta conectada) ---- */
 function fbLoad() {
@@ -54,9 +56,9 @@ async function fbLogin() {
     accRefresh(); try { toast(SYNC.err); } catch (e2) {}
   }
 }
-/** Cerrar sesión. No se borra `lexi.sync.uid` (PV4: si vuelve la misma cuenta no se pregunta nada). Qué hacer con las clases del dispositivo es el paso 6.4 (CU6). */
+/** Cerrar sesión. No se borra `lexi.sync.uid` (PV4: si vuelve la misma cuenta no se pregunta nada). Las clases se quedan en el dispositivo; quitarlas es `cerrarQuitando` (CU6). */
 async function fbLogout() {
-  clearTimeout(SYNC.t); SYNC.pend = false; SYNC.espera = ''; SYNC.err = '';
+  clearTimeout(SYNC.t); SYNC.pend = false; SYNC.espera = ''; SYNC.err = ''; SYNC.primera = null; SYNC.cerrar = '';
   try { if (FB) await FB.auth.signOut(); } catch (e) {}
   FBU = null; LSR.del('fb'); accRefresh();
 }
@@ -90,21 +92,52 @@ function decidirPrimera({ uidGuardado, uid, localVacio, nubeVacia }) {
   if (uidGuardado === uid || localVacio || (nubeVacia && !uidGuardado)) return 'fusionar';
   return 'preguntar';
 }
-/** Una sincronización completa contra `nube` ({leer, escribir}) para la cuenta `uid`. Devuelve { res: 'ok'|'primera'|'vieja'|'bloq', cambia, subidos, borrados, grandes }.
+/** PV3 · Lo que se enseña de cada lado: nombre, tipo y cuántas palabras tiene presentadas. */
+const cuentaPal = p => Object.values(p.pal || {}).filter(r => r && r.e >= 2).length;
+const resumenLado = ps => ps.map(p => ({ n: p.n, t: p.t, pal: cuentaPal(p) }));
+/** PV3 «Juntar» · un perfil del dispositivo que tiene el mismo nombre y tipo que otro de la cuenta pero otro identificador pasa a llamarse «Nombre (2)»
+    (o (3)…). Los que tienen el mismo identificador no se tocan: se fusionan. Devuelve { idPerfil: nombreNuevo }. */
+function nombresParaJuntar(locales, remotos) {
+  const clave = p => p.t + '|' + p.n.toLowerCase(), usados = new Set([...locales, ...remotos].map(clave)), rem = new Set(remotos.map(clave)), ids = new Set(remotos.map(p => p.id)), cambios = {};
+  for (const p of locales) {
+    if (ids.has(p.id) || !rem.has(clave(p))) continue;
+    for (let k = 2; k < 100; k++) { const suf = ` (${k})`, n = ss(p.n, 20 - suf.length) + suf; if (!usados.has(p.t + '|' + n.toLowerCase())) { usados.add(p.t + '|' + n.toLowerCase()); cambios[p.id] = n; break; } }
+  }
+  return cambios;
+}
+/** Una sincronización completa contra `nube` ({leer, escribir}) para la cuenta `uid`. Devuelve { res: 'ok'|'primera'|'vieja'|'bloq', cambia, subidos, borrados, grandes, info }.
+    `opc.modo` solo se usa tras la pantalla de PV3: 'juntar' (quedan los perfiles de los dos lados) o 'cuenta' (lo del dispositivo se guarda antes en `lexi.bk` y se sustituye; no deja marcas de borrado).
     Lo que llega se calcula y se APLICA al dispositivo sin ningún `await` entre medias, así que lo que se guardó mientras se leía la nube no se pierde. */
-async function sincronizarCon(nube, uid) {
+async function sincronizarCon(nube, uid, opc = {}) {
   if (EST.bloq) return { res: 'bloq' }; /* SI8 */
   const R = await nube.leer();
   if (EST.bloq) return { res: 'bloq' };
   if ((R.metaV | 0) > VERSION_DATOS || R.perfiles.some(d => (d.v | 0) > VERSION_DATOS)) return { res: 'vieja' }; /* VE1: ni sube ni baja nada */
   let meta = null; if (R.meta) { try { const o = JSON.parse(R.meta); if (o && typeof o === 'object') meta = o; } catch (e) {} }
-  const uidGuardado = LSR.get('sync.uid') || '', localVacio = !EST.perfiles.length, nubeVacia = !R.meta && !R.perfiles.length;
-  if (decidirPrimera({ uidGuardado, uid, localVacio, nubeVacia }) === 'preguntar') return { res: 'primera' };
+  const uidGuardado = LSR.get('sync.uid') || '', nubeVacia = !R.meta && !R.perfiles.length;
+  let localVacio = !EST.perfiles.length, delLocal = null;
+  if (decidirPrimera({ uidGuardado, uid, localVacio, nubeVacia }) === 'preguntar') {
+    const remotos = R.perfiles.map(leerDocNube).filter(Boolean);
+    if (opc.modo !== 'juntar' && opc.modo !== 'cuenta') { /* PV3: se enseña qué hay en cada lado y se espera a que el docente elija; no se toca nada */
+      const ids = new Set([...EST.perfiles, ...remotos].map(p => p.id));
+      return { res: 'primera', info: { nube: resumenLado(remotos), local: resumenLado(EST.perfiles), nubeVacia, cabe: ids.size <= MAX_PERFILES } };
+    }
+    if (opc.modo === 'cuenta') {
+      if (nubeVacia) return { res: 'primera', info: { nube: [], local: resumenLado(EST.perfiles), nubeVacia, cabe: true } }; /* no hay nada que usar */
+      try { const ant = localStorage.getItem('lexi.v1'); if (ant != null) localStorage.setItem('lexi.bk', ant); } catch (e) {} /* PV3: ninguna opción borra sin copia */
+      EST = { ...EST, perfiles: [], act: '', modo: '' }; localVacio = true; delLocal = {}; /* sus marcas de borrado no deben tocar lo de la cuenta */
+    } else {
+      const ids = new Set([...EST.perfiles, ...remotos].map(p => p.id)); if (ids.size > MAX_PERFILES) return { res: 'primera', info: { nube: resumenLado(remotos), local: resumenLado(EST.perfiles), nubeVacia, cabe: false } };
+      const cambios = nombresParaJuntar(EST.perfiles, remotos);
+      for (const p of EST.perfiles) if (cambios[p.id]) { p.n = cambios[p.id]; tocar(p); }
+    }
+  }
   const remoto = { aj: meta && meta.aj, gmt: meta && meta.gmt, del: meta && meta.del, perfiles: R.perfiles };
   /* PV1: un dispositivo sin perfiles se queda con los ajustes de la cuenta (también el PIN), aunque ya tuviera un PIN propio */
-  const local = localVacio && uidGuardado !== uid && meta && meta.aj ? { ...EST, ajustes: limpiarAjustes({}), gmt: 0 } : EST;
+  let local = localVacio && uidGuardado !== uid && meta && meta.aj ? { ...EST, ajustes: limpiarAjustes({}), gmt: 0 } : EST;
+  if (delLocal) local = { ...local, del: delLocal };
   const r = fusionarTodo(local, remoto), docs = aDocsNube(r.estado), cambia = !mismo(parteEst(r.estado), parteEst(EST));
-  if (cambia) { /* se guarda lo de la cuenta en el dispositivo (los ajustes se guardan también en Modo Docente) */
+  if (cambia || opc.modo) { /* se guarda lo de la cuenta en el dispositivo (los ajustes se guardan también en Modo Docente) */
     EST = r.estado;
     SYNC.sinEco = true; try { guardarAjustes(); } finally { SYNC.sinEco = false; }
   }
@@ -129,20 +162,22 @@ function alGuardar() {
 }
 /** SI3 · Al momento (cierre de «Hoy»: en clase se cierra el navegador justo después). */
 function syncYa() { if (!FBU) return; clearTimeout(SYNC.t); syncNow().catch(() => {}); }
-async function syncNow() {
-  if (!FBU || !FB || SYNC.busy) return;
-  if (enSesion()) { clearTimeout(SYNC.t); SYNC.t = setTimeout(() => syncNow().catch(() => {}), 20000); return; } /* SI7 */
+async function syncNow(opc = {}) {
+  if (!FBU || !FB || SYNC.busy) return null;
+  if (enSesion()) { clearTimeout(SYNC.t); SYNC.t = setTimeout(() => syncNow().catch(() => {}), 20000); return null; } /* SI7 */
   SYNC.busy = true; SYNC.pend = false; SYNC.err = ''; accRefresh();
-  let cambia = false;
+  let cambia = false, r = null;
   try {
-    const r = await sincronizarCon(nubeFirestore(FB.db, FBU.uid), FBU.uid); cambia = !!r.cambia; SYNC.espera = r.res === 'ok' ? '' : r.res;
-    if (r.res === 'ok') { SYNC.last = Date.now(); LSR.set('sync.t', SYNC.last); if (r.grandes && r.grandes.length) SYNC.err = 'Un perfil es demasiado grande y no se ha subido a la nube.'; }
-  } catch (e) { SYNC.err = fbErr(e); }
+    r = await sincronizarCon(nubeFirestore(FB.db, FBU.uid), FBU.uid, opc); cambia = !!r.cambia; SYNC.espera = r.res === 'ok' ? '' : r.res; SYNC.primera = r.res === 'primera' ? r.info : null;
+    if (r.res === 'ok') { SYNC.last = Date.now(); LSR.set('sync.t', SYNC.last); SYNC.marcaOk = maxMarca(EST); if (r.grandes && r.grandes.length) SYNC.err = 'Un perfil es demasiado grande y no se ha subido a la nube.'; }
+  } catch (e) { SYNC.err = fbErr(e); r = null; }
   finally {
     SYNC.busy = false; accRefresh();
     if (SYNC.pend) alGuardar();
-    if (cambia && puedeRepintar()) { try { pintar(); } catch (e) {} } /* SI7: lo que llega se ve al volver al inicio, a la casa, al muro o a la zona del tutor */
+    if (SYNC.espera === 'primera' && typeof PANT !== 'undefined' && PANT === 'tz') { try { go('primera'); } catch (e) {} } /* PV3: recién entrado desde la zona del tutor, se pasa a elegir; desde otro sitio se avisa en la tarjeta */
+    else if (cambia && puedeRepintar()) { try { pintar(); } catch (e) {} } /* SI7: lo que llega se ve al volver al inicio, a la casa, al muro o a la zona del tutor */
   }
+  return r;
 }
 /** Sincronización a mano desde la tarjeta: sirve también para volver a comprobar tras actualizar la app. */
 function syncMano() { SYNC.espera = ''; syncNow().catch(() => {}); }
@@ -150,7 +185,7 @@ function syncMano() { SYNC.espera = ''; syncNow().catch(() => {}); }
 /* ---- Tarjeta «Cuenta» (zona del tutor, CU1 y CU8) ---- */
 function accRefresh() { try { const e = document.getElementById('acc'); if (e) e.outerHTML = accSec(); } catch (e) {} }
 const AVISO_ESPERA = {
-  primera: 'Esta cuenta ya tiene datos y este dispositivo también. Para no perder nada, de momento no se sincroniza: la opción para juntarlos llega en la próxima actualización de Lexi.',
+  primera: 'Esta cuenta y este dispositivo ya tienen datos. Para no perder nada, no se sincroniza hasta que elijas qué hacer.',
   vieja: 'Actualiza Lexi en este dispositivo para sincronizar.',
   bloq: 'Los datos de este dispositivo son de una versión más nueva de Lexi: actualiza la app para sincronizar.'
 };
@@ -165,9 +200,63 @@ function accSec() {
   const quien = esc(FBU.displayName || FBU.email || 'Cuenta de Google'), inicial = esc(((FBU.displayName || FBU.email || 'G')[0] || 'G').toUpperCase());
   const sale = EST.modo === 'fam' ? 'Se cierra tu sesión de Google en este dispositivo.' : 'Se cierra también en tus otras apps de aula de este dispositivo.';
   return `<div id="acc"><h2 class="h-s">Cuenta</h2><div class="tarjeta"><div class="casa-cab"><span class="av" style="background:var(--lx-claro)" aria-hidden="true">${inicial}</span><div><b>${quien}</b>${FBU.email && FBU.displayName ? `<br><span class="mu pq">${esc(FBU.email)}</span>` : ''}</div></div>
-  <p class="mu pq">${SYNC.busy ? 'Sincronizando…' : 'Última sincronización: ' + cuando + '.'} Se sincroniza sola al usar la app y al cerrarla.</p>${SYNC.espera ? `<p class="aviso" role="status">${AVISO_ESPERA[SYNC.espera]}</p>` : ''}${er}
-  <div class="dos"><button class="btn" onclick="syncMano()"${SYNC.busy ? ' disabled' : ''}>Sincronizar ahora</button><button class="btn sec" onclick="fbLogout()">Cerrar sesión</button></div>
-  <p class="mu pq">${sale} Los datos se guardan de forma privada: solo tu cuenta puede leerlos.</p></div></div>`;
+  <p class="mu pq">${SYNC.busy ? 'Sincronizando…' : 'Última sincronización: ' + cuando + '.'} Se sincroniza sola al usar la app y al cerrarla.</p>${SYNC.espera ? `<p class="aviso" role="status">${AVISO_ESPERA[SYNC.espera]}</p>${SYNC.espera === 'primera' && SYNC.primera ? '<button class="btn" onclick="go(\'primera\')">Elegir qué hacer</button>' : ''}` : ''}${er}
+  ${SYNC.cerrar ? cerrarHTML(sale) : `<div class="dos"><button class="btn" onclick="syncMano()"${SYNC.busy ? ' disabled' : ''}>Sincronizar ahora</button><button class="btn sec" onclick="cerrarPedir()">Cerrar sesión</button></div>
+  <p class="mu pq">${sale} Los datos se guardan de forma privada: solo tu cuenta puede leerlos.</p>`}</div></div>`;
+}
+
+/* ---- Cerrar sesión (CU6): dejar las clases en el dispositivo o quitarlas de aquí ---- */
+/** «Quitarlas de aquí» solo se ofrece si la sincronización de ese momento ha salido bien y no se ha cambiado nada después. */
+const puedeQuitar = () => !EST.bloq && SYNC.espera === '' && !SYNC.err && SYNC.marcaOk === maxMarca(EST) && SYNC.marcaOk >= 0;
+async function cerrarPedir() {
+  SYNC.cerrar = 'mirando'; accRefresh();
+  for (let i = 0; i < 150 && SYNC.busy; i++) await new Promise(ok => setTimeout(ok, 100)); /* si ya hay una sincronización en marcha, se espera a que acabe */
+  clearTimeout(SYNC.t); SYNC.marcaOk = -1; await syncNow();
+  SYNC.cerrar = puedeQuitar() ? 'elegir' : 'solo'; accRefresh();
+}
+function cerrarCancelar() { SYNC.cerrar = ''; accRefresh(); }
+/** CU6 · «Quitarlas de aquí»: la cuenta ya tiene todo (se acaba de sincronizar), así que el dispositivo queda vacío y no se apuntan borrados. */
+async function cerrarQuitando() {
+  if (!puedeQuitar()) return false;
+  SYNC.sinEco = true;
+  try { EST = estadoVacio(); LS.set('v1', { v: EST.v, modo: '', act: '', perfiles: [], ajustes: EST.ajustes, gmt: 0, del: {} }); } finally { SYNC.sinEco = false; }
+  await fbLogout(); return true;
+}
+async function cerrarElegido(quitar) {
+  const ok = quitar ? await cerrarQuitando() : (await fbLogout(), true);
+  if (typeof TZ !== 'undefined') TZ.hasta = 0;
+  if (quitar && ok) { toast('Las clases se han quitado de este dispositivo y siguen en tu cuenta'); go('inicio'); } else { toast('Sesión cerrada'); try { pintar(); } catch (e) {} }
+}
+function cerrarHTML(sale) {
+  if (SYNC.cerrar === 'mirando') return '<p class="mu pq" role="status">Comprobando que todo está guardado en tu cuenta…</p>';
+  const quitar = SYNC.cerrar === 'elegir';
+  return `<p><b>¿Qué hacemos con las clases de este dispositivo?</b></p>
+  ${quitar ? '<p class="mu pq">Todo está guardado en tu cuenta. Si es un ordenador compartido, mejor quitarlas de aquí: cualquiera podría tocar la clase.</p>' : `<p class="mu pq">Ahora no se ha podido guardar todo en tu cuenta, así que las clases se quedan en este dispositivo.${SYNC.err ? ' ' + esc(SYNC.err) : ''}</p>`}
+  <div class="dos"><button class="btn" onclick="cerrarElegido(false)">Dejar las clases en este dispositivo</button>${quitar ? '<button class="btn sec" onclick="cerrarElegido(true)">Quitarlas de aquí</button>' : ''}</div>
+  <button class="btn sec" onclick="cerrarCancelar()">Cancelar</button><p class="mu pq">${sale}</p>`;
+}
+
+/* ---- Primera vez con datos en los dos lados (PV3) ---- */
+const listaLado = l => l.length ? `<ul class="lista-lado">${l.map(p => `<li><b>${esc(p.n)}</b> · ${p.t === 'doc' ? 'clase' : 'niño o niña'} · ${p.pal} ${p.pal === 1 ? 'palabra' : 'palabras'}</li>`).join('')}</ul>` : '<p class="mu pq">No hay nada guardado.</p>';
+SC.primera = function () {
+  const i = SYNC.primera;
+  if (!i || !FBU) return `<main class="pantalla tutor"><h1 class="h-t">Cuenta</h1><p class="mu">Ya no hay nada que decidir.</p><button class="btn sec" onclick="go('tz')">Volver</button></main>`;
+  return `<main class="pantalla tutor"><h1 class="h-t">Juntar tus datos</h1>
+  <p>Esta cuenta y este dispositivo ya tienen clases. No se pierde nada sin copia: elige qué hacer.</p>
+  <div class="tarjeta"><h2 class="h-s">En tu cuenta</h2>${listaLado(i.nube)}</div>
+  <div class="tarjeta"><h2 class="h-s">En este dispositivo</h2>${listaLado(i.local)}</div>
+  ${i.cabe ? '' : '<p class="aviso" role="alert">Entre los dos lados hay más perfiles de los que caben en Lexi, así que no se pueden juntar.</p>'}
+  ${i.cabe ? `<button class="btn" onclick="primeraElegir('juntar')">Juntar</button><p class="mu pq">Se quedan las clases de los dos lados. Si dos tienen el mismo nombre, la de este dispositivo pasa a llamarse «nombre (2)» y tú borras la que sobre.</p>` : ''}
+  ${i.nubeVacia ? '' : `<button class="btn sec" onclick="primeraElegir('cuenta')">Usar solo lo de la cuenta</button><p class="mu pq">Lo de este dispositivo se guarda antes en una copia interna y se sustituye por lo de la cuenta.</p>`}
+  <button class="btn sec" onclick="primeraElegir('ahora')">Ahora no</button><p class="mu pq">Se cierra la sesión y no cambia nada.</p></main>`;
+};
+async function primeraElegir(modo) {
+  if (modo === 'ahora') { await fbLogout(); toast('No ha cambiado nada'); return go('tz'); }
+  if (!FBU || SYNC.busy) return;
+  const r = await syncNow({ modo });
+  if (SYNC.espera === 'primera') return; /* no se pudo (p. ej., ya no cabe): sigue la pantalla */
+  toast(r && r.res === 'ok' ? (modo === 'juntar' ? 'Clases juntadas' : 'Ahora tienes lo de tu cuenta') : (SYNC.err || 'No se pudo sincronizar'));
+  go('tz');
 }
 
 /* ---- Arranque (SI1 y SI4): si ya había cuenta conectada se reconecta; sincroniza al ocultar la app y al volver la conexión ---- */
