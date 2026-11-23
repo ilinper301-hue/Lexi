@@ -384,5 +384,15 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   `docs/firebase.md` · Haiku, esfuerzo bajo
 
 ## Más adelante
+- [ ] **Duración del paquete de 1.º (pendiente de decidir tras probarlo en clase).** Las 10 semanas
+  (60 palabras) son solo el primer paquete, más o menos un trimestre; el curso tiene unas 35. Opciones
+  (23-11-2026): 1) tres paquetes de 10 semanas, uno por trimestre, 180 palabras (recomendada);
+  2) 10 semanas de palabras nuevas y el resto del curso de repaso, muro y Explorar; 3) 4 palabras por
+  semana a lo largo de todo el curso.
+- [ ] **«Nuestro jardín» (colección, como las piedras de Calculi). Idea en diseño (23-11-2026).** Es de la clase
+  (o del niño en Familias), no se pierde nunca y no son puntos ni rachas: cada palabra que llega a «La
+  usamos» florece; al completar una semana sale una pieza especial. Se enseña en el cierre y en una
+  sección del inicio. Falta que Iván elija la versión (A jardín, B álbum por bloques, más C hitos de
+  sesiones acumuladas) y aprobar el plan.
 - [ ] Modo autónomo y dominio por alumno
 - [ ] «Traer mi clase de Tabula» y resumen en `lexi.tabula` (formato v2)
