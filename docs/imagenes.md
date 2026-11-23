@@ -157,6 +157,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `caluroso` | Un niño mojándose la cabeza en la fuente de la plaza de un pueblo; sol fuerte, calle vacía y un perro durmiendo a la sombra. |
 | `timido` | Una niña nueva junto a la puerta de una clase, mirando al suelo con las manos juntas; un niño se le acerca con una pelota, invitándola a jugar. |
 
+### Petición S13 · semana 13
+
+| id | Qué debe verse |
+|---|---|
+| `faltar` | Una niña poniendo la mesa para cenar: cuatro sillas y solo tres platos; ella mira el sitio vacío sin plato, pensativa. |
+| `sobrar` | Un niño en clase con una caja de magdalenas en la que aún quedan tres; sus compañeros ya tienen cada uno la suya en la mano. |
+| `repartir` | Una niña recorriendo las mesas de la clase y dejando un folio en blanco delante de cada compañero. |
+| `ruidoso` | Una niña asomada a la ventana de su casa tapándose los oídos; abajo, en la calle, un obrero con una máquina grande que golpea el asfalto. |
+| `silencioso` | Un niño en la cama, de noche, con una lamparita encendida; un gato entra en el cuarto de puntillas. |
+| `turno` | La fila de un tobogán en el parque: una niña con coletas se tira y un niño sube ya la escalera, contento; detrás esperan otros. |
+
+### Petición S14 · semana 14
+
+| id | Qué debe verse |
+|---|---|
+| `personaje` | Una niña y su padre leyendo un libro grande y abierto; en sus páginas se ven dibujados una tortuga, un pájaro y una nube con cara gruñona. Sin letras. |
+| `titulo` | Un niño escribiendo con un lápiz grande en la parte de arriba de una hoja; en la hoja, garabatos que no se leen y el dibujo de una perra corriendo. Sin letras legibles. |
+| `de-repente` | Una niña sentada en un banco del parque con su tía, con cara de sorpresa: un perro pasa corriendo con su bocadillo en la boca. |
+| `gracioso` | Un niño disfrazado de pingüino en el escenario del cole, haciendo como que resbala; el público, niños y familias, se ríe. |
+| `serio` | Un niño jugando al ajedrez con su abuela, muy concentrado y con cara seria; la abuela sonríe. |
+| `asustado` | Una niña en la cama tapada con la manta hasta la nariz, con los ojos muy abiertos; por la ventana se ve un rayo. Que no dé miedo: habitación cálida. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.

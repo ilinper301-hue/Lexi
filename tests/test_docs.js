@@ -10,13 +10,13 @@ const copia = x => JSON.parse(JSON.stringify(x));
 const { todas, piezas, errores } = leerDocs(path.resolve(__dirname, '../docs'));
 const de = c => todas.filter(p => p.curso === c);
 ok(errores.length === 0, 'el comprobador da errores: ' + errores.join(' | '));
-ok(de(1).length === 72, '1.º debe tener 72 palabras (semanas 1 a 12): ' + de(1).length);
+ok(de(1).length >= 60 && de(1).length % 6 === 0, '1.º: 6 palabras por semana escrita: ' + de(1).length);
 ok(de(2).length > 0 && de(2).length % 6 === 0, '2.º: 6 palabras por semana escrita');
 ok(piezas.length === de(2).length / 6, 'una pieza por cada semana escrita de 2.º (test 136)');
 // Campo `pregunta` (punto 3): en 1.º la llevan todos los enlaces y nombres, y las parejas, necesario y necesitar
-const CON_PREG = ['parecido', 'diferente', 'necesario', 'necesitar'];
+const CON_PREG = ['parecido', 'diferente', 'necesario', 'necesitar', 'faltar', 'sobrar'];
 for (const p of de(1)) if (['enlace', 'nombre'].includes(p.tipo) || CON_PREG.includes(p.id)) ok(p.pregunta, p.id + ': le falta `pregunta`');
-ok(de(1).filter(p => p.pregunta).length === 16, '1.º: 16 fichas con `pregunta`');
+for (const p of de(1)) if (p.pregunta) ok(['enlace', 'nombre'].includes(p.tipo) || CON_PREG.includes(p.id), p.id + ': lleva `pregunta` y no le toca');
 { const { revisa } = require('../tools/reglas-ficha.js'); const er = []; const p = copia(de(1).find(x => x.pregunta)); p.pregunta = 'Es lo último';
   revisa(p, p.semana, new Set(), t => er.push(t)); ok(er.some(t => t.startsWith('pregunta')), 'el comprobador no detecta una `pregunta` mal escrita'); }
 ok(idsRepetidos(todas).length === 0, 'ningún id se repite entre 1.º y 2.º (test 137)');

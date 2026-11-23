@@ -28,7 +28,7 @@ t('FA2 · «sin imágenes» quita todas las imágenes', () => {
   assert(A.hojaFamilias(1, true, P).includes('<img') && !A.hojaFamilias(1, false, P).includes('<img'));
 });
 t('las semanas disponibles salen de las fichas y cada una da una hoja de 6', () => {
-  const s = JSON.parse(JSON.stringify(A.semanasConFicha(P))); assert.deepStrictEqual(s, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+  const s = JSON.parse(JSON.stringify(A.semanasConFicha(P))); assert.deepStrictEqual(s, [...new Set(P.map(p => p.semana))].sort((a, b) => a - b));
   for (const x of s) assert.strictEqual((A.hojaFamilias(x, false, P).match(/class="hoja-pal"/g) || []).length, 6);
 });
 console.log(n + ' pruebas correctas');

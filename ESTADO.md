@@ -338,8 +338,17 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     `test_hoja`). `sw.js` = `lexi-pwa-43`. **Para Iván (puntos 69 a 71, si dice que no se cambia):**
     69) segundos significados que no estaban en la lista: `pesado` (alguien que molesta) y `entre` (entre
     todos); 70) `sep` nuevos: `tachar-marcar` y `pesado-ligero` (días distintos); 71) sin contraria
-    `emocionado` y `tímido`, y sin parecida `pesado` y `caluroso` (las que sirven son de su familia)
-  - [ ] Semanas 13 y 14
+    `emocionado` y `tímido`, y sin parecida `pesado` y `caluroso` (las que sirven son de su familia).
+    **Iván dijo sí a los puntos 69 a 71 (23-11-2026).**
+  - [x] Semanas 13 y 14 (23-11-2026, Opus): `docs/semana-13.md` y `docs/semana-14.md`, peticiones S13 y S14.
+    Comprobador: 84 palabras de 1.º, sin errores. `PAQUETE_1` con las 12 nuevas (la pregunta «repartir» de
+    `compartir` espera a que se presente). Tests que contaban palabras ahora las sacan de `docs/`
+    (`test_docs`, `test_hoja`, `test_explorar`); `test_hoy` usa solo las semanas 1 a 10 (su simulación es
+    de ese paquete). `sw.js` = `lexi-pwa-45`. Mismos criterios que en 69-71: `sep` en las parejas de
+    contrarias (faltar-sobrar, ruidoso-silencioso, gracioso-serio), segundos significados de `faltar` (no
+    ir a clase) y `serio` (un problema serio). Al pasar `repartir` a la app, añadir `clasificar-repartir`
+    a `GESTOS_PARECIDOS`
+  - [ ] Semanas 15 y 16 (la 15 es de Medio: el cuerpo y la salud)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

@@ -7,7 +7,7 @@ const codigo = ['00-util.js', '30-escala-logica.js', '32-eleccion.js', '34-hoy.j
 const A = vm.runInContext('const PALABRAS = [];\n' + codigo + '\n;({palabraNueva,presentarRegistro,valorarPalabra,sumarDias,diaNum,lunesDe,cupoNuevas,nuevasPorPresentar,recordamosHoy,jugamosHoy,colaTareas,estaPendiente,pendientes,ordenPaquete,PALABRAS,MAX_RECORDAMOS,muestraOtro,conOtroVisto,subieronHoy})', vm.createContext({ console }));
 const { palabraNueva, presentarRegistro, valorarPalabra: valorar, sumarDias, lunesDe, cupoNuevas, nuevasPorPresentar, recordamosHoy, jugamosHoy, colaTareas, estaPendiente, muestraOtro, conOtroVisto, subieronHoy } = A;
 const { todas } = leerDocs(path.resolve(__dirname, '../docs'));
-const P = JSON.parse(JSON.stringify(todas.filter(p => p.curso === 1)));
+const P = JSON.parse(JSON.stringify(todas.filter(p => p.curso === 1 && p.semana <= 10))); /* semanas 1 a 10: la tabla del apartado 10 y la simulación del test 53 son de ese paquete */
 const ids = l => JSON.parse(JSON.stringify(l.map(x => x.id)));
 const igual = (x, y, m) => assert.deepStrictEqual(JSON.parse(JSON.stringify(x)), JSON.parse(JSON.stringify(y)), m);
 const d = n => sumarDias('2026-11-16', n - 16); /* d(16) = lunes 16-11-2026 */
