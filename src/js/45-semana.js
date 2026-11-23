@@ -35,8 +35,8 @@ SC.pres = function () {
   return `<main class="pantalla infantil ancha pres"><p class="rotulo">${rot}</p>
   <div class="cuerpo">${cuerpo}</div><div class="pts" aria-hidden="true">${pts}</div>
   <div class="nav">${i > 0 ? '<button class="btn sec" onclick="presMover(-1)">← Antes</button>' : '<span></span>'}
-  ${ult ? (HOY ? '<button class="btn" onclick="hoyNuevaSiguiente()">Seguir →</button>' : '<button class="btn" onclick="atras()">Terminar</button>') : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}</div>
-  ${HOY ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
+  ${ult ? (HOY ? '<button class="btn" onclick="hoyNuevaSiguiente()">Seguir →</button>' : '<button class="btn" onclick="atras()">Terminar</button>') : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}
+  ${HOY ? '<button class="btn sec saltar" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</div></main>`;
 };
 function abrirPalabra(id) { PRES = { id, i: 0 }; go('pres'); }
 function presMover(d) {

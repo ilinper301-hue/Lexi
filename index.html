@@ -132,6 +132,28 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .pts i.hecho{background:var(--acs);border-color:var(--acs)}.pts i.on{background:var(--ac);border-color:var(--ac);transform:scale(1.25)}
 .nav{display:grid;grid-template-columns:minmax(128px,1fr) 2fr;gap:12px}.nav .btn{white-space:nowrap}
 .nav .btn{min-height:68px;font-size:1.5rem}
+.nav .saltar{grid-column:1/-1}
+/* Pizarra digital y pantallas apaisadas: la presentación ocupa toda la pantalla */
+@media (orientation:landscape) and (min-width:900px){
+  #app:has(.pres){padding:16px 24px 18px}
+  .pantalla.pres{max-width:none;width:100%;min-height:calc(100dvh - 34px);margin-block:0;gap:min(2.2vh,18px)}
+  .pres .rotulo{font-size:clamp(1.05rem,1.6vw,1.6rem);padding:.3em 1em}
+  .pres .cuerpo{flex:1;min-height:0}
+  .pres .escena{grid-template-columns:auto minmax(0,1fr);gap:3vw;align-items:center;justify-items:start;width:100%}
+  .pres .esc-img{width:auto;max-width:56vw;height:calc(100dvh - 250px);max-height:none;justify-self:end}
+  .pres .gr{font-size:clamp(1.6rem,min(3.4vw,6.2vh),4.6rem)}
+  .pres .pal-ch{font-size:clamp(1.6rem,min(3vw,5.5vh),3.6rem)}
+  .pres .palabra-g{font-size:clamp(3.5rem,min(13vw,26vh),14rem)}
+  .pres .sil{font-size:clamp(2.4rem,min(9vw,20vh),10rem)}
+  .pres .pt{font-size:clamp(2rem,min(7vw,15vh),8rem)}
+  .pres .gr-p,.pres .fin-esc{font-size:clamp(1.2rem,min(2vw,3.6vh),2.2rem)}
+  .pres .pts i{width:14px;height:14px}
+  .pres .nav{grid-template-columns:1fr 1fr 2fr;width:min(1200px,100%);align-self:center}
+  .pres .nav .saltar{grid-column:2;grid-row:1}
+  .pres .nav .btn:last-child:not(.saltar),.pres .nav>.btn:not(.sec){grid-column:3;grid-row:1}
+  .pres .nav>:first-child{grid-column:1;grid-row:1}
+  .pres .nav .btn{min-height:min(80px,10vh);font-size:clamp(1.3rem,1.8vw,2rem)}
+}
 .top .izq{display:flex;gap:8px;pointer-events:none}.top .izq .tema{pointer-events:auto}
 
 /* ===== Jugamos ===== */
@@ -1185,8 +1207,8 @@ SC.pres = function () {
   return `<main class="pantalla infantil ancha pres"><p class="rotulo">${rot}</p>
   <div class="cuerpo">${cuerpo}</div><div class="pts" aria-hidden="true">${pts}</div>
   <div class="nav">${i > 0 ? '<button class="btn sec" onclick="presMover(-1)">← Antes</button>' : '<span></span>'}
-  ${ult ? (HOY ? '<button class="btn" onclick="hoyNuevaSiguiente()">Seguir →</button>' : '<button class="btn" onclick="atras()">Terminar</button>') : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}</div>
-  ${HOY ? '<button class="btn sec" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</main>`;
+  ${ult ? (HOY ? '<button class="btn" onclick="hoyNuevaSiguiente()">Seguir →</button>' : '<button class="btn" onclick="atras()">Terminar</button>') : '<button class="btn" onclick="presMover(1)">Siguiente →</button>'}
+  ${HOY ? '<button class="btn sec saltar" onclick="hoyAvanzar()">Saltar esta parte</button>' : ''}</div></main>`;
 };
 function abrirPalabra(id) { PRES = { id, i: 0 }; go('pres'); }
 function presMover(d) {

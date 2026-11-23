@@ -15,6 +15,8 @@ modelo + esfuerzo + motivo.
   18 palabras como mucho, 2 sí + 2 no, 3 sí + 3 no, gestos sin repetir, escena que acaba en la palabra)
   Desde el 15-11-2026 revisa también 2.º (`docs/2-semana-NN.md`): `node tests/test_docs.js`
 
+- [x] 23-11-2026: presentación de palabra a pantalla completa en pizarra y pantallas apaisadas (imagen y textos más grandes; «Saltar esta parte» en la fila de botones). sw 41.
+
 ## Decidido con Iván
 **Iván aprobó los puntos 1 a 6 el 15-11-2026** (salieron al escribir las semanas 2 a 10):
 
