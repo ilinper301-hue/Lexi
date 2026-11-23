@@ -374,8 +374,9 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
 - [x] 6.2 Bloque de Lexi en `tabula/firestore.rules` (15-11-2026, Fable): el de `docs/nube.md` tal cual,
   delante del de Tabula; prueba de estructura en `tabula/tests/reglas.test.mjs`. **No se pudo probar en el
   simulador** (está en la consola de Firebase y aquí no hay emulador): revisadas a mano.
-- [x] 6.2b **Iván publicó las reglas** en Firebase (15-11-2026). No ha dicho si probó en la «Zona de
-  pruebas de reglas» los 5 casos de `docs/nube.md`, apartado 10: preguntárselo antes del paso 6.3
+- [x] 6.2b **Iván publicó las reglas** en Firebase (15-11-2026) y **las probó** en la «Zona de pruebas
+  de reglas» con los 5 casos de `docs/nube.md`, apartado 10 (confirmado por Iván el 23-11-2026). Ya se
+  puede empezar el paso 6.3
 - [ ] 6.3 `src/js/52-cuenta.js`, tarjeta «Cuenta» y sincronización (tests 94, 95, 109, 112, 114, 115 y
   117) · Sonnet, esfuerzo alto
 - [ ] 6.4 Primera vez, cerrar sesión, borrar y restaurar con cuenta (tests 106-108, 110 y 111) ·
