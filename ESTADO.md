@@ -331,6 +331,16 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
 - [ ] Fichas de las semanas 11 a 30 de dos en dos (11-12, 13-14…), con el comprobador en cada tanda, y sus
   peticiones de imágenes (Fable u Opus, esfuerzo alto; chat nuevo cada 4 o 6 semanas). Notas para
   escribirlas al final de la lista. Después: revisión por Sonnet y tabla del apartado 8 de `docs/pedagogia.md`
+  - [x] Semanas 11 y 12 (23-11-2026, Opus): `docs/semana-11.md` y `docs/semana-12.md`, peticiones S11 y S12
+    en `docs/imagenes.md`. El comprobador pasa (72 palabras de 1.º). `PAQUETE_1` (`src/js/32-eleccion.js`) ya
+    lleva las 12 nuevas: por eso, hasta que estén en la app, `señalar` pierde su pregunta de `relaciona`
+    («marcar») y `unir` solo pregunta «juntar». Tests ajustados a 72 palabras (`test_docs`, `test_explorar`,
+    `test_hoja`). `sw.js` = `lexi-pwa-42`. **Para Iván (puntos 69 a 71, si dice que no se cambia):**
+    69) segundos significados que no estaban en la lista: `pesado` (alguien que molesta) y `entre` (entre
+    todos); 70) `sep` nuevos: `tachar-marcar` y `pesado-ligero` (días distintos); 71) sin contraria
+    `emocionado` y `tímido`, y sin parecida `pesado` y `caluroso` (las que sirven son de su familia)
+  - [ ] Semanas 13 y 14
+  - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
   `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,

@@ -16,7 +16,7 @@ t('86. «Por grupos»: sin grupos vacíos ni palabras sin presentar, con sus tí
   assert.deepStrictEqual(g.map(x => x.titulo), ['Para pensar', 'Cómo son las cosas']); assert.deepStrictEqual(g.map(x => x.palabras.map(p => p.id)), [['observar'], ['enorme']]);
   assert.deepStrictEqual(J(A.explorarGrupos({}, P)), []);
   const t60 = A.explorarGrupos(todas(), P); assert.deepStrictEqual(J(t60.map(x => x.titulo)), ['Para pensar', 'Cómo son las cosas', 'Cómo nos sentimos', 'Para convivir', 'El mundo que nos rodea']);
-  assert.strictEqual(t60.reduce((s, x) => s + x.palabras.length, 0), 60);
+  assert.strictEqual(t60.reduce((s, x) => s + x.palabras.length, 0), 72);
 });
 t('87. «Parejas»: enorme y diminuto salen cuando las dos están presentadas, y no antes (EX2)', () => {
   const ya = J(A.explorarParejas(de('enorme', 'diminuto'), P)); assert.deepStrictEqual(ya.map(x => [x.a, x.b, x.tipo]), [['enorme', 'diminuto', 'contraria']]);

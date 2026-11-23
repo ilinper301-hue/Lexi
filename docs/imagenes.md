@@ -131,6 +131,32 @@ lista, Iván las envía por el chat y Claude las convierte y las sube al reposit
 | `necesitar` | Un niño regando una planta de hojas caídas en una maceta con la tierra seca. |
 | `estacion` | Una niña mirando un árbol de su calle con las hojas amarillas, que caen. |
 
+## Paquete de 1.º, semanas 11 a 30
+
+Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, que son de 2.º.
+
+### Petición S11 · semana 11
+
+| id | Qué debe verse |
+|---|---|
+| `tachar` | Un niño en la mesa de la cocina con una lista de la compra hecha **solo con dibujos** (un cartón de leche, un pan, unos plátanos); pasa una raya con el lápiz por encima de los plátanos. Su madre, al lado, señala el frutero lleno de plátanos. Sin letras. |
+| `marcar` | Una niña y su abuelo mirando un folleto del zoo con dibujos de animales; la niña pone una cruz grande junto al león. Sin letras. |
+| `contestar` | Una clase: una niña con la mano levantada habla contenta; la maestra, de pie, la mira y sonríe. En la pizarra, solo el dibujo de una araña. Sin números ni letras. |
+| `pesado` | Una niña junto al maletero abierto de un coche tirando con las dos manos de una bolsa llena de naranjas que casi no se mueve; su padre la mira. |
+| `ligero` | Un niño en su cuarto levantando su mochila vacía con un solo dedo y sonriendo; en la mesa, los libros y el estuche que ha sacado. |
+| `emocionado` | Una niña abrazando a su abuela en la puerta de casa; la abuela, con una maleta al lado, ríe con lágrimas de alegría. |
+
+### Petición S12 · semana 12
+
+| id | Qué debe verse |
+|---|---|
+| `entre` | Un niño acurrucado en un sofá, sentado justo en medio de su madre y su padre, los tres mirando hacia la tele (no se ve la pantalla). |
+| `alrededor` | Una mesa vista un poco desde arriba con una tarta de cumpleaños en el centro; niñas y niños sentados alrededor, en todas las sillas; una niña sopla las velas. |
+| `separar` | Una niña y su madre en la cocina con una bandeja de galletas recién horneadas pegadas unas a otras; la niña aparta una con cuidado. |
+| `helado` | Una niña con gorro, abrigo y la ropa con nieve, sin guantes, poniendo las manos rojas de frío en la cara de su padre, que pone cara de «¡qué frío!». |
+| `caluroso` | Un niño mojándose la cabeza en la fuente de la plaza de un pueblo; sol fuerte, calle vacía y un perro durmiendo a la sombra. |
+| `timido` | Una niña nueva junto a la puerta de una clase, mirando al suelo con las manos juntas; un niño se le acerca con una pelota, invitándola a jugar. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
