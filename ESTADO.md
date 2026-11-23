@@ -335,7 +335,7 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     en `docs/imagenes.md`. El comprobador pasa (72 palabras de 1.º). `PAQUETE_1` (`src/js/32-eleccion.js`) ya
     lleva las 12 nuevas: por eso, hasta que estén en la app, `señalar` pierde su pregunta de `relaciona`
     («marcar») y `unir` solo pregunta «juntar». Tests ajustados a 72 palabras (`test_docs`, `test_explorar`,
-    `test_hoja`). `sw.js` = `lexi-pwa-42`. **Para Iván (puntos 69 a 71, si dice que no se cambia):**
+    `test_hoja`). `sw.js` = `lexi-pwa-43`. **Para Iván (puntos 69 a 71, si dice que no se cambia):**
     69) segundos significados que no estaban en la lista: `pesado` (alguien que molesta) y `entre` (entre
     todos); 70) `sep` nuevos: `tachar-marcar` y `pesado-ligero` (días distintos); 71) sin contraria
     `emocionado` y `tímido`, y sin parecida `pesado` y `caluroso` (las que sirven son de su familia)
@@ -416,7 +416,7 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   jardines»: 10 plantas del huerto de 1.º con 3 fases (30 avances, uno por semana completa en «La usamos»),
   macetas con «?» para las que faltan, y aviso grande en el cierre de «Hoy». Datos: campo opcional `jar` en el
   perfil (sin subir versión), unido en la fusión de la nube y sin tocar las reglas de Firebase. `35-jardin.js`,
-  `47-jardin.js`, `tests/test_jardin.js` (8) y prueba de humo; todos los tests pasan. `sw.js` = `lexi-pwa-42`.
+  `47-jardin.js`, `tests/test_jardin.js` (8) y prueba de humo; todos los tests pasan. `sw.js` = `lexi-pwa-43`.
   De paso: el botón «Nuestras palabras» del cierre ya no se corta en móvil. **Para probar:** casa → «Nuestros
   jardines» (en Modo Docente se ve todo completo). Para ver crecer una planta hace falta una semana entera en
   «La usamos» (mínimo 7 días tras presentarla).
