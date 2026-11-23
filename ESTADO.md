@@ -365,7 +365,16 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     mismo): pregunta «que sirve»; 76) `sep` nuevos: `mitad-doble`, `lleno-vacio` e `intentar-esforzarse`;
     77) `mitad` y `doble` no se preguntan una a otra, y `frustrado` no tiene pregunta de `relaciona`;
     78) `esforzarse` en el bloque «Para convivir» (o «Cómo nos sentimos»)
-  - [ ] Semanas 19 y 20 (chat nuevo: ya van 8 semanas en dos chats)
+  - [x] Semanas 19 y 20 (24-11-2026, Opus): `docs/semana-19.md` (antes, durante, continuar, recto, torcido,
+    aburrido) y `docs/semana-20.md` (Medio: doméstico, salvaje, nacer, semilla, raíz, refugio), peticiones
+    S19 y S20. Comprobador: 120 palabras de 1.º, sin errores. `PAQUETE_1` con las 12 nuevas (`después` pierde
+    la pregunta «antes» hasta presentarla). `doméstico` y `salvaje` llevan `pregunta` (añadidas a `CON_PREG` de
+    `test_docs`). `sw.js` = `lexi-pwa-48`. **Para Iván (puntos 79 a 82; si dice que no, se cambia):**
+    79) segundos significados nuevos: `antes` («hace tiempo») y `aburrido` («una película aburrida»);
+    80) `sep` nuevos: `antes-durante`, `recto-torcido` y `domestico-salvaje`; 81) `aburrido` no lleva
+    `curioso` de contraria (no lo es): pregunta «entretenido»; `durante` sin preguntas de `relaciona`
+    (`mientras` es de 2.º); 82) `nacer` lleva `morir` de contraria (la del libro de Medio); si no, a `rel.mas`
+  - [ ] Semanas 21 y 22 (chat nuevo: ya van 10 semanas en tres chats)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

@@ -223,6 +223,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `frustrado` | Una niña en una mesa con cuentas de colores desperdigadas y un hilo suelto; aprieta los labios y tiene la pulsera a medio hacer en la mano. Que no dé pena: escena cálida. |
 | `esforzarse` | Un niño sentado en un sillón leyendo un libro grande de piratas, siguiendo las letras con el dedo, con cara de mucha concentración. El libro está abierto casi al final. Sin letras legibles. |
 
+### Petición S19 · semana 19
+
+| id | Qué debe verse |
+|---|---|
+| `antes` | Una niña en bañador, con gorro de piscina, debajo de la ducha del borde de una piscina cubierta; el monitor, con silbato, le señala la ducha. Al fondo, la piscina con el agua tranquila. |
+| `durante` | Un niño y su abuela sentados en las butacas de un cine a oscuras, comiendo palomitas de un cubo grande; la luz de la pantalla les ilumina la cara. Sin imagen reconocible en la pantalla. |
+| `continuar` | Un padre sentado en el borde de la cama de una niña con pijama, abriendo un libro de dragones por una página con la esquina doblada; la niña, despierta, le mira con ganas. Sin letras legibles. |
+| `recto` | Primer plano de una mesa de clase: una niña sujeta fuerte una regla sobre un papel y traza con el lápiz una raya larga y perfectamente recta. |
+| `torcido` | Un niño en su cuarto, un paso atrás de la pared, con la cabeza ladeada mirando un dibujo de un perro colgado muy torcido. |
+| `aburrido` | Una niña en el salón con la cara apoyada en la mano, mirando por una ventana con gotas de lluvia; juguetes recogidos en una estantería. Domingo gris, pero escena cálida. |
+
+### Petición S20 · semana 20
+
+| id | Qué debe verse |
+|---|---|
+| `domestico` | Un niño en el patio de una granja echando maíz a unas gallinas; cerca, un perro sentado, un gato bebiendo agua de un cuenco y, al fondo, una mujer dando heno a una vaca. |
+| `salvaje` | Una niña con mochila de excursión, junto a su familia, mirando entre los árboles de una sierra un ciervo que come hierba en libertad. |
+| `nacer` | Un nido con tres huevos en la rama baja de un árbol del patio del cole; uno tiene una grieta y asoma un piquito de pollito. Un niño lo mira de puntillas, sin tocar. |
+| `semilla` | Una maceta en un patio con una pequeña hoja verde asomando de la tierra; al lado, una niña con una tajada de sandía en la mano mira la maceta sorprendida. Se ven pepitas negras en la sandía. |
+| `raiz` | Un niño en un huerto sujetando en alto una planta recién arrancada; de abajo cuelgan muchas raíces finas con tierra. Su abuelo, con sombrero, sonríe a su lado. |
+| `refugio` | Una niña y su madre, mojadas, dentro de una caseta de piedra con tejado en el campo; fuera llueve mucho y ellas miran la lluvia desde la puerta, secas y a salvo. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.

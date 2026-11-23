@@ -14,7 +14,7 @@ ok(de(1).length >= 60 && de(1).length % 6 === 0, '1.º: 6 palabras por semana es
 ok(de(2).length > 0 && de(2).length % 6 === 0, '2.º: 6 palabras por semana escrita');
 ok(piezas.length === de(2).length / 6, 'una pieza por cada semana escrita de 2.º (test 136)');
 // Campo `pregunta` (punto 3): en 1.º la llevan todos los enlaces y nombres, y las parejas, necesario y necesitar
-const CON_PREG = ['parecido', 'diferente', 'necesario', 'necesitar', 'faltar', 'sobrar'];
+const CON_PREG = ['parecido', 'diferente', 'necesario', 'necesitar', 'faltar', 'sobrar', 'domestico', 'salvaje'];
 for (const p of de(1)) if (['enlace', 'nombre'].includes(p.tipo) || CON_PREG.includes(p.id)) ok(p.pregunta, p.id + ': le falta `pregunta`');
 for (const p of de(1)) if (p.pregunta) ok(['enlace', 'nombre'].includes(p.tipo) || CON_PREG.includes(p.id), p.id + ': lleva `pregunta` y no le toca');
 { const { revisa } = require('../tools/reglas-ficha.js'); const er = []; const p = copia(de(1).find(x => x.pregunta)); p.pregunta = 'Es lo último';
