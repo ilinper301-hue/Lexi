@@ -396,3 +396,11 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   sesiones acumuladas) y aprobar el plan.
 - [ ] Modo autónomo y dominio por alumno
 - [ ] «Traer mi clase de Tabula» y resumen en `lexi.tabula` (formato v2)
+
+## 23-11-2026 · Casa del perfil con el estilo del ecosistema
+- [x] La pantalla de la clase (o del niño) sigue el esquema de Calculi y Lectori: cabecera con logo + «Lexi»,
+  avatar (cambia de clase) y botón de tema con sol/luna; saludo con la mascota («¡Hola, 1.º A!»); tarjeta
+  grande «Hoy»; tarjetas con icono (semana, Nuestras palabras); pareja Explorar · Cambiar de clase; la planta
+  de 4 pasos en una tarjeta; «Zona del tutor» con borde discontinuo abajo. Modo Docente: «¡Modo Docente!» y
+  botón «Salir» con el degradado. Código: `SC.casa` y `cabeceraCasa` (40-inicio.js), bloque final de
+  estilos.css, iconos nuevos en 12-iconos.js. sw.js → lexi-pwa-35.
