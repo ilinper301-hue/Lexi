@@ -416,13 +416,13 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   jardines»: 10 plantas del huerto de 1.º con 3 fases (30 avances, uno por semana completa en «La usamos»),
   macetas con «?» para las que faltan, y aviso grande en el cierre de «Hoy». Datos: campo opcional `jar` en el
   perfil (sin subir versión), unido en la fusión de la nube y sin tocar las reglas de Firebase. `35-jardin.js`,
-  `47-jardin.js`, `tests/test_jardin.js` (8) y prueba de humo; todos los tests pasan. `sw.js` = `lexi-pwa-43`.
-  De paso: el botón «Nuestras palabras» del cierre ya no se corta en móvil. **Para probar:** casa → «Nuestros
+  `47-jardin.js`, `tests/test_jardin.js` (8) y prueba de humo; todos los tests pasan. `sw.js` = `lexi-pwa-42`.
+  De paso: el botón «Nuestras palabras» del cierre ya no se corta en móvil. **Rediseño (23-11-2026, a petición de Iván):** la pantalla es ahora una escena de jardín (cielo, colinas, césped y las 10 macetas en filas; en noche en tema oscuro); las imágenes del girasol se pasaron a transparentes y recortadas. `sw.js` = `lexi-pwa-44`. **Para probar:** casa → «Nuestros
   jardines» (en Modo Docente se ve todo completo). Para ver crecer una planta hace falta una semana entera en
   «La usamos» (mínimo 7 días tras presentarla).
 - [ ] **Jardín: faltan las imágenes de 9 plantas** (tomatera, fresa, lechuga, zanahoria, pimiento, judía,
-  calabaza, maíz, naranjo; petición J1 en `docs/imagenes.md`). Mientras, se dibuja la planta de la escala. Al
-  subir cada una, añadirla a `IMG_JARDIN`. Y los jardines de 2.º a 6.º, cuando existan sus paquetes.
+  calabaza, maíz, naranjo; petición J1 en `docs/imagenes.md`). Mientras, se dibuja la planta de la escala sin maceta. Al
+  subir cada una, quitarle el fondo, recortarla igual que el girasol y añadirla a `IMG_JARDIN`. Y los jardines de 2.º a 6.º, cuando existan sus paquetes.
 - [ ] Modo autónomo y dominio por alumno
 - [ ] «Traer mi clase de Tabula» y resumen en `lexi.tabula` (formato v2)
 

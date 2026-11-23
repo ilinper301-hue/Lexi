@@ -20,7 +20,8 @@ Propuesto por Iván el 23-11-2026, como las piedras de Calculi. **Diseño aproba
 - **JA4. No importa el orden:** cuenta el número de semanas completas, no cuáles.
 - **JA5. Cierre de «Hoy»:** si ha habido avance, aviso grande con la mascota: «¡Ha crecido el
   girasol!» o «¡Planta nueva en el jardín!». Si hay varios avances a la vez, un solo aviso.
-- **JA6. Pantalla «Nuestros jardines»** desde la casa del perfil: plantas conseguidas en su fase, la
+- **JA6. Pantalla «Nuestros jardines»** (rediseñada el 23-11-2026 como una **escena de jardín**: cielo con sol y nubes, colinas
+  y césped; de noche, cielo oscuro y luna; las 10 macetas en filas 4-3-3 sobre el césped, o 2 filas de 5 en horizontal) desde la casa del perfil: plantas conseguidas en su fase, la
   que está creciendo con su fase y la cuenta de semanas que le faltan. Al tocar una planta se ven las
   semanas que la han hecho crecer.
 - **JA7. Lo que falta:** macetas con «?» o solo lo conseguido. **Decidido por Iván (23-11-2026): macetas con «?»**

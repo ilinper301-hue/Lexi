@@ -15,6 +15,7 @@
   --lexi-sombra:rgba(26,50,35,.14);
   --m0:#57A052;--m1:#67AD5A;--m2:#7AB968;--m3:#2A693B;--mbr:#438D49;--mojo:#113C2C;--mboca:#0F3B2C;--mlengua:#E8776A;
   --lx-hoja:#5FA757;--lx-prof:#1D5637;--lx-claro:#A9D69A;--lx-flor:#E8776A;--lx-tinta:#113C2C;--lx-blanco:#fff;
+  --jar-cielo1:#BFE3F0;--jar-cielo2:#EAF6EF;--jar-sol:#F6C453;--jar-nube:#fff;--jar-col1:#A8D58B;--jar-col2:#86C46B;--jar-pasto:#6FB35A;--jar-pastilla:rgba(255,255,255,.9);--jar-pastilla-tx:#113C2C;
 }
 :root[data-theme="dark"]{
   --bg:#0F1E16;--card:#172A1F;--soft:#21382A;--bd:#2C4736;--bd2:#3D5F49;--tx:#E6F4E4;--mu:#A3C4AD;
@@ -23,6 +24,7 @@
   --sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.3);
   --lexi-sombra:rgba(0,0,0,.35);
   --lx-prof:#4E9E55;--lx-tinta:#A9D69A;
+  --jar-cielo1:#0B1A2C;--jar-cielo2:#173A33;--jar-sol:#E6F4E4;--jar-nube:rgba(255,255,255,.1);--jar-col1:#2B5A3C;--jar-col2:#24503A;--jar-pasto:#1B3F2C;--jar-pastilla:rgba(15,30,22,.82);--jar-pastilla-tx:#E6F4E4;
 }
 
 *{box-sizing:border-box}
@@ -224,25 +226,30 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 @media (min-width:700px) and (min-height:900px) and (orientation:portrait){.casa{max-width:760px;gap:20px}.greet .hi{font-size:2.6rem}.greet p{font-size:1.35rem}.lc{font-size:1.6rem!important}.lc.hero{font-size:2.2rem!important}}
 @media (orientation:landscape) and (min-width:820px){.casa{max-width:900px}.greet .hi{font-size:2.4rem}.greet p{font-size:1.25rem}}
 
-/* Nuestros jardines (docs/jardines.md): rejilla de plantas con su fase, huecos con «?» y aviso del cierre */
-.jar-rejilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%}
-.jar-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 12px;border-radius:22px;border:2px solid var(--bd);background:var(--card);box-shadow:var(--sh);font:inherit;color:var(--tx);min-height:44px}
-button.jar-card:active{transform:scale(.97)}
-.jar-card.crece{border-color:var(--ac)}
-.jar-card.sel{background:var(--soft)}
-.jar-card.hueco{border-style:dashed;border-color:var(--bd2);background:none;box-shadow:none}
-.jar-foto{display:block;width:100%;max-width:220px;aspect-ratio:1}
-.jar-foto img,.jar-foto svg{display:block;width:100%;height:100%;object-fit:contain}
-.jar-foto img{border-radius:16px;background:#fff}
-.jar-n{font-weight:500;font-size:1.15rem;line-height:1.1}
-.jar-fases{display:flex;gap:6px}
-.jar-fases i{width:12px;height:12px;border-radius:50%;border:2px solid var(--bd2)}
-.jar-fases i.on{background:var(--ac);border-color:var(--ac)}
-.jar-hueco rect,.jar-hueco path{fill:none;stroke:var(--bd2);stroke-width:4;stroke-dasharray:7 6;stroke-linejoin:round}
-.jar-hueco text{font:600 30px var(--fd);fill:var(--mu);stroke:none}
+/* Nuestros jardines (docs/jardines.md): una escena de jardín con las macetas en filas sobre el césped; aviso del cierre */
+.jar-rejilla{position:relative;width:100%;max-width:640px;margin:0 auto;padding:0 0 18px;border-radius:26px;overflow:hidden;border:2px solid var(--bd);
+  background:radial-gradient(rgba(255,255,255,.34) 2px,transparent 3px) 0 0/58px 58px,radial-gradient(rgba(255,255,255,.22) 1.6px,transparent 2.6px) 29px 22px/74px 66px,linear-gradient(var(--jar-col2),var(--jar-pasto))}
+.jar-cielo{display:block;width:100%;height:auto;margin-bottom:6px}
+.jar-fila{display:flex;justify-content:center;gap:4px;padding:0 6px;margin-top:-22px}
+.jar-fila:first-of-type{margin-top:-6px}
+.jar-card{flex:0 0 calc((100% - 12px) / var(--jar-n));min-width:0;display:flex;flex-direction:column;align-items:center;gap:0;padding:0;border:0;background:none;box-shadow:none;font:inherit;color:inherit}
+button.jar-card{cursor:pointer}
+button.jar-card:active .jar-foto{transform:scale(.96)}
+.jar-foto{position:relative;display:block;width:100%;aspect-ratio:.62}
+.jar-foto img,.jar-foto svg{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;transition:transform .2s}
+.jar-foto svg.escala{top:auto;height:auto;aspect-ratio:1/1}
+.jar-rejilla .jar-foto::before{content:"";position:absolute;left:12%;right:12%;bottom:0;height:3.4%;border-radius:50%;background:rgba(10,40,20,.22)}
+.jar-n{margin-top:3px;max-width:100%;padding:3px 10px;border-radius:99px;background:var(--jar-pastilla);color:var(--jar-pastilla-tx);font:500 clamp(.85rem,3.4vw,1.15rem)/1.15 var(--fd);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jar-card.hueco .jar-n{background:none}
+.jar-card.crece .jar-n{outline:2px solid var(--jar-sol);outline-offset:1px}
+.jar-card.sel .jar-foto img,.jar-card.sel .jar-foto svg{transform:translateY(-6px) scale(1.06)}
+.jar-card.sel .jar-n{background:var(--jar-sol);color:#113C2C}
+.jar-hueco rect,.jar-hueco path{fill:rgba(255,255,255,.22);stroke:rgba(255,255,255,.85);stroke-width:9;stroke-dasharray:22 16;stroke-linejoin:round}
+.jar-hueco text{font:600 96px var(--fd);fill:rgba(255,255,255,.95);stroke:none}
 .jar-det{text-align:center}
+@media (orientation:landscape) and (min-width:820px){.jar-rejilla{max-width:760px}.jar-macetas{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0 4px;padding:0 10px}.jar-fila{display:contents}.jar-card{margin-top:-12px}}
 .jar-aviso{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:12px}
-.jar-aviso .jar-foto{max-width:200px}
-@media (min-width:700px){.jar-rejilla{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.jar-aviso .jar-foto{max-width:150px}
+.jar-aviso .jar-foto::before{content:"";position:absolute;left:12%;right:12%;bottom:0;height:3.4%;border-radius:50%;background:rgba(10,40,20,.16)}
 .nav .btn.largo{white-space:normal;font-size:1.2rem;line-height:1.1}
 @media (min-width:700px){.nav .btn.largo{font-size:inherit}}

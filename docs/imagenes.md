@@ -278,4 +278,6 @@ Formato distinto al de las palabras:
    fase (1 brote, 2 crecida sin flor, 3 con flor o fruto).
 - La IA hace la maceta más pequeña cuando la planta es alta. **Claude lo corrige al subirlas**: iguala el
   ancho de la maceta a la de la fase 3, la apoya en el mismo sitio y limpia el fondo (webp 600 × 600).
+- **Claude también quita el fondo blanco** (las deja transparentes, para que se vean sobre el césped) y las
+  **recorta** igual las tres fases (webp de unos 286 × 577, ya no cuadradas).
 - Hechas: `j1-girasol-1`, `-2`, `-3` en `img/jardines/`.
