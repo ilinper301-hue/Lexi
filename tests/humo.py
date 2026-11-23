@@ -53,6 +53,13 @@ try:
                 an = pg.evaluate("[...document.querySelectorAll('.escala-fila .escala g')].map(g=>g.getBoundingClientRect().width)")
                 if len(an) != 4 or an != sorted(an): fallos.append(f'{et}: la escala no crece {an}')
                 revisa('3casa')
+                # Nuestros jardines: vacío (10 huecos con «?») y con 4 avances de muestra (no se guardan)
+                pg.click('button:text-is("Nuestros jardines")'); pg.wait_for_selector('.jar-rejilla'); revisa('3jardines0')
+                if pg.locator('.jar-card.hueco').count() != 10: fallos.append(f'{et}: el jardín vacío debía tener 10 huecos')
+                pg.evaluate("EST.perfiles[0].jar={1:[1,2,3,4]};pintar()"); pg.wait_for_selector('.jar-card:not(.hueco)'); revisa('3jardines4')
+                if pg.locator('.jar-card.hueco').count() != 8 or pg.locator('.jar-card:not(.hueco)').count() != 2: fallos.append(f'{et}: con 4 avances debía haber 2 plantas y 8 huecos')
+                pg.click('.jar-card:not(.hueco) >> nth=0'); pg.wait_for_selector('.jar-det'); revisa('3jardinesdet')
+                pg.evaluate("delete EST.perfiles[0].jar"); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.escala-fila')
                 # Semana 1: lista y presentación completa de una palabra
                 pg.click('text=Palabras de la semana 1'); pg.wait_for_selector('.palabras .pal'); revisa('3semana')
                 if pg.locator('.palabras .pal').count() != 6: fallos.append(f'{et}: la semana 1 debía tener 6 palabras')

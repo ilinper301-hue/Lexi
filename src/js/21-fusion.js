@@ -27,7 +27,12 @@ function fusionarPerfil(a, b) {
   const pa = ra < rb ? viva(a, rb) : a.pal || {}, pb = rb < ra ? viva(b, ra) : b.pal || {};
   for (const id of new Set([...Object.keys(pa), ...Object.keys(pb)])) pal[id] = fusionarRegistro(pa[id], pb[id]);
   const c = a.c && b.c ? (a.c < b.c ? a.c : b.c) : (a.c || b.c || ''), ses = (a.ses || '') > (b.ses || '') ? (a.ses || '') : (b.ses || '');
-  return { ...nuevo, id: a.id, t: a.t, mt: Math.max(nm(a.mt), nm(b.mt)), c, ses, pal, ...(rst ? { rst } : {}) };
+  /* Jardines: las semanas completas de los dos lados se unen y no se pierde ninguna (JA3); un lado restaurado manda como con las palabras (BO2) */
+  const ja = ra < rb ? {} : limpiarJar(a.jar), jb = rb < ra ? {} : limpiarJar(b.jar), jar = {};
+  for (const k of new Set([...Object.keys(ja), ...Object.keys(jb)])) jar[k] = [...new Set([...(ja[k] || []), ...(jb[k] || [])])].sort((x, y) => x - y).slice(0, 30);
+  const r = { ...nuevo, id: a.id, t: a.t, mt: Math.max(nm(a.mt), nm(b.mt)), c, ses, pal, ...(rst ? { rst } : {}) };
+  delete r.jar; if (Object.keys(jar).length) r.jar = jar;
+  return r;
 }
 /** VE2 · Lo que llega de la nube se sanea con la misma limpieza que los datos del disco (y se migra si es de antes de la v4). null si no se puede leer. */
 function leerDocNube(doc) {

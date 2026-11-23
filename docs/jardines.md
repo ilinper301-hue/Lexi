@@ -1,7 +1,6 @@
 # Lexi · Nuestros jardines (colección de plantas)
 
-Propuesto por Iván el 23-11-2026, como las piedras de Calculi. **Diseño pendiente de su sí; no hay
-nada programado.**
+Propuesto por Iván el 23-11-2026, como las piedras de Calculi. **Diseño aprobado por Iván el 23-11-2026.**
 
 ## 1. La idea
 
@@ -24,21 +23,25 @@ nada programado.**
 - **JA6. Pantalla «Nuestros jardines»** desde la casa del perfil: plantas conseguidas en su fase, la
   que está creciendo con su fase y la cuenta de semanas que le faltan. Al tocar una planta se ven las
   semanas que la han hecho crecer.
-- **JA7. Lo que falta:** macetas con «?» o solo lo conseguido. **Lo decide Iván.** En el muro se
-  decidió no enseñar huecos (regla MU1).
+- **JA7. Lo que falta:** macetas con «?» o solo lo conseguido. **Decidido por Iván (23-11-2026): macetas con «?»**
+  para las plantas aún sin conseguir. Es una excepción a la regla MU1 del muro, que no enseña huecos.
 - **JA8. Modo Docente:** se ven todos los jardines completos y no se guarda nada.
-- **JA9. Informe para familias:** una línea con las plantas del jardín. La hoja semanal no lleva nada
-  (regla FA4).
+- **JA9. Familias:** la hoja semanal no lleva nada del jardín (regla FA4). Hoy no existe un informe de
+  progreso para las familias; si se crea, llevará una línea con las plantas.
 
 ## 3. Datos
 
 ```js
-perfil.jar = { 1: ['s01', 's03'], 2: [] };   // semanas completas por curso, con su fecha si hace falta
+perfil.jar = { 1: [1, 3, 4] };   // semanas completas ya apuntadas, por curso, de menor a mayor (30 como mucho)
 ```
 
-- Versión de datos 6, con migración desde la 5: calcula las semanas que ya estén completas.
-- Las fases no se guardan: salen de la cuenta (avances = semanas completas; planta = ⌊n/3⌋; fase = n mod 3).
-- En la nube, con la fusión de siempre: se unen las listas y no se borra nada (como las piezas de 2.º).
+- **Campo opcional, sin subir la versión de datos** (como `rst`): un perfil sin jardín queda igual que antes y
+  no hace falta migrar. Las semanas que ya estén completas se apuntan la primera vez que se termina «Hoy».
+- Las fases no se guardan: salen de la cuenta (n avances; planta i con fase = n − 3i, entre 0 y 3).
+- Se apunta al terminar «Hoy» (`terminarSesionHoy`). La pantalla y el aviso cuentan también lo completado y aún sin apuntar.
+- En la nube viaja dentro del perfil (no cambian las reglas de Firebase) y se **unen** las listas de los dos
+  dispositivos: no se pierde ninguna semana. Un lado restaurado desde una copia manda (BO2).
+- Código: `35-jardin.js` (cuenta y aviso), `47-jardin.js` (pantalla y aviso del cierre). Tests: `tests/test_jardin.js`.
 
 ## 4. Aviso importante
 
@@ -54,8 +57,10 @@ petición en `docs/imagenes.md`, apartado «Jardines».
 Ambientes propuestos: 1.º huerto · 2.º jardín de flores · 3.º desierto · 4.º bosque · 5.º selva ·
 6.º jardín japonés.
 
-## 6. Pasos (después del sí de Iván)
+## 6. Pasos
 
-1. Datos v6, migración y cuenta de avances (JA1-JA4), con tests · Sonnet, esfuerzo medio.
-2. Pantalla «Nuestros jardines» y aviso del cierre (JA5-JA9), prueba de humo · Sonnet, esfuerzo medio.
-3. Imágenes del jardín de 1.º cuando Iván las envíe · Haiku, esfuerzo bajo.
+1. [x] Datos (`jar`), cuenta de avances y fusión (JA1-JA4), con tests (23-11-2026, Sonnet).
+2. [x] Pantalla «Nuestros jardines», aviso del cierre y tarjeta en la casa (JA5-JA8), con prueba de humo (23-11-2026).
+3. [ ] Imágenes del huerto de 1.º: **girasol hecho**; faltan 9 plantas. Hasta que lleguen, esas plantas se
+   dibujan con la planta de la escala. Al subir cada una, añadirla a `IMG_JARDIN` en `src/js/35-jardin.js`.
+4. [ ] Jardines de 2.º a 6.º: cuando existan sus paquetes (añadir el jardín a `JARDINES`).

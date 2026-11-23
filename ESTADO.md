@@ -401,10 +401,18 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   (23-11-2026): 1) tres paquetes de 10 semanas, uno por trimestre, 180 palabras (recomendada);
   2) 10 semanas de palabras nuevas y el resto del curso de repaso, muro y Explorar; 3) 4 palabras por
   semana a lo largo de todo el curso.
-- [ ] **«Nuestros jardines» (colección de plantas, como las piedras de Calculi).** Diseño en
-  `docs/jardines.md` (23-11-2026): 6 jardines, uno por curso; 10 plantas con 3 fases = 30 avances,
-  uno por semana completa. **Espera el sí de Iván** y que decida la regla JA7 («?» o solo lo
-  conseguido). Petición de imágenes J1 (huerto de 1.º) en `docs/imagenes.md`. **Subidas:** girasol (3 fases, 23-11-2026, en `img/jardines/`); faltan las otras 9 plantas.
+- [x] **«Nuestros jardines» (colección de plantas, como las piedras de Calculi)** — programado el 23-11-2026
+  (Sonnet, esfuerzo medio), diseño aprobado por Iván en `docs/jardines.md`. Casa → tarjeta «Nuestros
+  jardines»: 10 plantas del huerto de 1.º con 3 fases (30 avances, uno por semana completa en «La usamos»),
+  macetas con «?» para las que faltan, y aviso grande en el cierre de «Hoy». Datos: campo opcional `jar` en el
+  perfil (sin subir versión), unido en la fusión de la nube y sin tocar las reglas de Firebase. `35-jardin.js`,
+  `47-jardin.js`, `tests/test_jardin.js` (8) y prueba de humo; todos los tests pasan. `sw.js` = `lexi-pwa-42`.
+  De paso: el botón «Nuestras palabras» del cierre ya no se corta en móvil. **Para probar:** casa → «Nuestros
+  jardines» (en Modo Docente se ve todo completo). Para ver crecer una planta hace falta una semana entera en
+  «La usamos» (mínimo 7 días tras presentarla).
+- [ ] **Jardín: faltan las imágenes de 9 plantas** (tomatera, fresa, lechuga, zanahoria, pimiento, judía,
+  calabaza, maíz, naranjo; petición J1 en `docs/imagenes.md`). Mientras, se dibuja la planta de la escala. Al
+  subir cada una, añadirla a `IMG_JARDIN`. Y los jardines de 2.º a 6.º, cuando existan sus paquetes.
 - [ ] Modo autónomo y dominio por alumno
 - [ ] «Traer mi clase de Tabula» y resumen en `lexi.tabula` (formato v2)
 

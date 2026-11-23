@@ -223,3 +223,26 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 @media (min-width:700px){.home-grid{display:grid;grid-template-columns:1fr 1fr}.home-grid .lc.hero{grid-column:1/-1}}
 @media (min-width:700px) and (min-height:900px) and (orientation:portrait){.casa{max-width:760px;gap:20px}.greet .hi{font-size:2.6rem}.greet p{font-size:1.35rem}.lc{font-size:1.6rem!important}.lc.hero{font-size:2.2rem!important}}
 @media (orientation:landscape) and (min-width:820px){.casa{max-width:900px}.greet .hi{font-size:2.4rem}.greet p{font-size:1.25rem}}
+
+/* Nuestros jardines (docs/jardines.md): rejilla de plantas con su fase, huecos con «?» y aviso del cierre */
+.jar-rejilla{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%}
+.jar-card{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 12px;border-radius:22px;border:2px solid var(--bd);background:var(--card);box-shadow:var(--sh);font:inherit;color:var(--tx);min-height:44px}
+button.jar-card:active{transform:scale(.97)}
+.jar-card.crece{border-color:var(--ac)}
+.jar-card.sel{background:var(--soft)}
+.jar-card.hueco{border-style:dashed;border-color:var(--bd2);background:none;box-shadow:none}
+.jar-foto{display:block;width:100%;max-width:220px;aspect-ratio:1}
+.jar-foto img,.jar-foto svg{display:block;width:100%;height:100%;object-fit:contain}
+.jar-foto img{border-radius:16px;background:#fff}
+.jar-n{font-weight:500;font-size:1.15rem;line-height:1.1}
+.jar-fases{display:flex;gap:6px}
+.jar-fases i{width:12px;height:12px;border-radius:50%;border:2px solid var(--bd2)}
+.jar-fases i.on{background:var(--ac);border-color:var(--ac)}
+.jar-hueco rect,.jar-hueco path{fill:none;stroke:var(--bd2);stroke-width:4;stroke-dasharray:7 6;stroke-linejoin:round}
+.jar-hueco text{font:600 30px var(--fd);fill:var(--mu);stroke:none}
+.jar-det{text-align:center}
+.jar-aviso{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:12px}
+.jar-aviso .jar-foto{max-width:200px}
+@media (min-width:700px){.jar-rejilla{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.nav .btn.largo{white-space:normal;font-size:1.2rem;line-height:1.1}
+@media (min-width:700px){.nav .btn.largo{font-size:inherit}}

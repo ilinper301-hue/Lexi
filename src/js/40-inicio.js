@@ -15,7 +15,7 @@ const elegirAnimal = (sel, fn = 'animalNuevo') => `<div class="animales" role="g
 
 function barra() {
   if (PANT === 'casa') return ''; /* la casa lleva su propia cabecera, como Calculi y Lectori */
-  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'muro' || PANT === 'consulta' || PANT === 'azar' || PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha' || PANT === 'hoyPreg' || PANT.startsWith('exp') ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
+  if (MODO_DOCENTE) return `<div class="top"><span class="izq">${PANT === 'semana' || PANT === 'pres' || PANT === 'juego' || PANT === 'cierre' || PANT === 'muro' || PANT === 'jardines' || PANT === 'consulta' || PANT === 'azar' || PANT === 'enc' || PANT === 'encComo' || PANT === 'encHecha' || PANT === 'hoyPreg' || PANT.startsWith('exp') ? '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>' : ''}<span class="pill-md">${ico('grad', 20)} Modo Docente</span></span><span class="dcha">${botonCompleta()}<button class="pill-md salir" onclick="salirDocente()">Salir</button></span></div>`;
   return `<div class="top">${PANT === 'inicio' ? '<span></span>' : '<button class="tema" onclick="atras()" aria-label="Atrás">←</button>'}
   <div class="dcha">${botonCompleta()}${PANT === 'pin' || PANT === 'tz' || PANT === 'imp' ? '' : `<button class="tema" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 22)}</button>`}<button class="tema" id="bt-tema" onclick="TEMA.alternar()" aria-label="Cambiar tema">◐</button></div></div>`;
 }
@@ -52,7 +52,7 @@ SC.casa = function () {
   return `<main class="casa infantil">${cabeceraCasa(p)}
   <div class="greet">${mascota(132)}<div><h1 class="hi">${saludo}</h1><p>${frase}</p></div></div>
   <div class="home-grid">${tarjeta(' hero', 'play', p && p.ses === hoy() ? 'Hoy · hecha' : 'Hoy', 'empezarHoy()')}
-  ${tarjeta('', 'book', `Palabras de la semana ${SEMANA_ACT}`, "go('semana')")}${tarjeta('', 'sprout', tituloMuro(), 'abrirMuro()')}</div>
+  ${tarjeta('', 'book', `Palabras de la semana ${SEMANA_ACT}`, "go('semana')")}${tarjeta('', 'sprout', tituloMuro(), 'abrirMuro()')}${tarjeta('', 'flower', tituloJardines(), "go('jardines')")}</div>
   <div class="duo"><button class="hc" onclick="go('explorar')">${ico('compass', 26)}Explorar</button>${MODO_DOCENTE ? '' : `<button class="hc" onclick="go('quien')">${ico('users', 26)}Cambiar ${p.t === 'doc' ? 'de clase' : 'de niño'}</button>`}</div>
   <div class="crece">${escalaFila()}</div>
   ${MODO_DOCENTE ? '' : `<button class="tzb" onclick="abrirTutor()" aria-label="Zona del tutor">${ico('lock', 20)}Zona del tutor</button>`}</main>`;
@@ -75,7 +75,7 @@ function atras() {
   if (PANT === 'explorar') return go('casa');
   if (PANT === 'resumen') return go('tz');
   if (PANT === 'hoja' || PANT === 'tarj') return go('tz');
-  if (PANT === 'semana' || PANT === 'muro') return go('casa');
+  if (PANT === 'semana' || PANT === 'muro' || PANT === 'jardines') return go('casa');
   if (PANT === 'casa') return go('quien');
   if (PANT === 'imp') { TZ.imp = null; return go(TZ.origen); }
   NUEVO_NOM = ''; NUEVO_AV = null; go('inicio');

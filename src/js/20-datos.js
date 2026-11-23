@@ -91,12 +91,22 @@ function limpiarPal(o, migrar) {
   }
   return r;
 }
+/** Jardines (docs/jardines.md, JA3): semanas completas ya apuntadas por curso, {curso: [semanas]} (sin repetir, de menor a mayor, 30 como mucho). Campo opcional, como `rst`: no sube la versión. */
+function limpiarJar(j) {
+  const r = {}; if (!j || typeof j !== 'object') return r;
+  for (let c = 1; c <= 6; c++) {
+    const l = j[c]; if (!Array.isArray(l)) continue;
+    const s = [...new Set(l.map(x => x | 0).filter(x => x >= 1 && x <= 99))].sort((a, b) => a - b).slice(0, 30); if (s.length) r[c] = s;
+  }
+  return r;
+}
 function limpiarPerfil(p, migrar) {
+  const jar = limpiarJar(p && p.jar);
   if (!p || typeof p !== 'object' || !['doc', 'fam'].includes(p.t)) return null;
   return { id: /^[a-z0-9]{6,20}$/.test(p.id || '') ? p.id : nid(), t: p.t,
     n: ss(p.n, 20) || (p.t === 'doc' ? 'Clase' : 'Niño'),
     av: p.t === 'fam' ? Math.max(0, Math.min(AVATARES.length - 1, p.av | 0)) : 0,
-    c: esFecha(p.c) ? p.c : hoy(), ses: esFecha(p.ses) ? p.ses : '', mt: nm(p.mt), pal: limpiarPal(p.pal, migrar), ...(nm(p.rst) ? { rst: nm(p.rst) } : {}) }; /* `rst`: marca de «restaurado desde una copia» (BO2); solo existe si se restauró con cuenta */
+    c: esFecha(p.c) ? p.c : hoy(), ses: esFecha(p.ses) ? p.ses : '', mt: nm(p.mt), pal: limpiarPal(p.pal, migrar), ...(nm(p.rst) ? { rst: nm(p.rst) } : {}), ...(Object.keys(jar).length ? { jar } : {}) }; /* `rst`: marca de «restaurado desde una copia» (BO2); solo existe si se restauró con cuenta */
 }
 /** Ajustes saneados (también los que llegan de la nube). */
 function limpiarAjustes(aj) { aj = aj && typeof aj === 'object' ? aj : {}; return { pin: /^\d{4}$/.test(aj.pin || '') ? aj.pin : '', nuevas: aj.nuevas === 1 ? 1 : 2, preg: aj.preg !== false }; }
@@ -211,7 +221,7 @@ const PIN_OK = p => /^\d{4}$/.test(p || '');
 /** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
 function fijarNuevas(n) { if (EST.bloq) return false; n = n === 1 ? 1 : 2; if (EST.ajustes.nuevas !== n) { EST.ajustes.nuevas = n; marcarAjustes(); } return guardarAjustes(); }
 /** H7 · Se ha terminado una sesión «Hoy»: se apunta el día. En Modo Docente no guarda nada. */
-function terminarSesionHoy() { const p = perfilAct(); if (MODO_DOCENTE || !p || EST.bloq) return false; p.ses = hoy(); tocar(p); const ok = guardar(); if (ok && typeof syncYa === 'function') syncYa(); return ok; } /* SI3: al cerrar «Hoy» se sincroniza al momento */
+function terminarSesionHoy() { const p = perfilAct(); if (MODO_DOCENTE || !p || EST.bloq) return false; p.ses = hoy(); if (typeof jardinRegistrar === 'function') jardinRegistrar(p); tocar(p); const ok = guardar(); if (ok && typeof syncYa === 'function') syncYa(); return ok; } /* SI3: al cerrar «Hoy» se sincroniza al momento */
 function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; if (EST.ajustes.pin !== pin) { EST.ajustes.pin = pin; marcarAjustes(); } guardarAjustes(); return true; }
 
 /* ===== Copia de seguridad ===== */
