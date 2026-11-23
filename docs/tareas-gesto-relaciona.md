@@ -140,7 +140,7 @@ Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; 
 | 5 | antiguo | de hace mucho tiempo | moderno\* · nuevo | |
 | 5 | moderno | nuevo | antiguo\* | ↷ actual |
 | 5 | proteger | cuidar · defender | dañar | |
-| 6 | imaginar | inventar | — | ↷ fantasear |
+| 6 | imaginar | — | — | ↷ inventar · fantasear |
 | 6 | recordar | acordarse | olvidar | |
 | 6 | preguntar | — | responder · contestar | |
 | 6 | brillante | — | apagado · oscuro\* | ↷ reluciente, luminoso |
@@ -148,7 +148,7 @@ Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; 
 | 6 | orgulloso | contento de sí mismo | — | ↷ satisfecho, avergonzado |
 | 7 | repetir | volver a hacer | — | |
 | 7 | cambiar | hacer diferente | dejar igual | |
-| 7 | comprobar | revisar · asegurarse | — | |
+| 7 | comprobar | asegurarse | — | ↷ revisar |
 | 7 | necesario | que hace falta | — | ↷ imprescindible, innecesario |
 | 7 | sencillo | fácil | difícil · complicado | ↷ simple |
 | 7 | tranquilo | calmado | nervioso\* · inquieto | ↷ sereno |

@@ -32,7 +32,7 @@ PALABRA({
   ],
   acaba: ['Imagino que puedo volar y entonces…', 'Cuando cierro los ojos, me gusta imaginar…'],
   habla: 'Imagina un animal que no existe. Descríbeselo a tu compañero.',
-  rel: { parecida: ['inventar'], contraria: [], familia: ['imaginación', 'imaginario'], mas: ['fantasear'] }
+  rel: { parecida: [], contraria: [], familia: ['imaginación', 'imaginario'], mas: ['inventar', 'fantasear'] }
 });
 
 PALABRA({

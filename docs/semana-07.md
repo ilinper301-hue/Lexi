@@ -94,7 +94,7 @@ PALABRA({
   ],
   acaba: ['Antes de entregar la ficha compruebo…', 'Para comprobar si llueve, yo…'],
   habla: '¿Qué compruebas tú antes de salir de casa por la mañana?',
-  rel: { parecida: ['revisar', 'asegurarse'], contraria: [], familia: ['comprobación'] }
+  rel: { parecida: ['asegurarse'], contraria: [], familia: ['comprobación'], mas: ['revisar'] }
 });
 
 PALABRA({

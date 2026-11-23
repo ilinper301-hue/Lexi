@@ -151,7 +151,7 @@ dice que no a alguno, se cambia:
 45. **Pieza parecidas:** a investigar-averiguar-descubrir y anotar-apuntar se suman
     consultar-preguntar e indicar-señalar.
 46. **`imaginar` (1.º, semana 6)** tiene «inventar» como pregunta de `relaciona`, y ahora «inventar»
-    es palabra de 2.º. Propuesta: pasarla a `rel.mas` de `imaginar`. **No se ha tocado**: espera el sí.
+    es palabra de 2.º. Propuesta: pasarla a `rel.mas` de `imaginar`. **Iván dijo sí (23-11-2026): hecho** (`imaginar` se queda sin pregunta de `relaciona`).
 
 Salieron al escribir las semanas 5 y 6 de 2.º (15-11-2026). Están aplicados en las fichas; si Iván
 dice que no a alguno, se cambia:
@@ -170,7 +170,7 @@ dice que no a alguno, se cambia:
     es `revisar`, aunque no es ejemplo de la pieza (no se desmonta).
 52. **`comprobar` (1.º, semana 7)** tiene «revisar» como pregunta de `relaciona`, y ahora «revisar» es
     palabra de 2.º. Propuesta: pasarla a `rel.mas` de `comprobar` (mismo caso que el punto 46).
-    **No se ha tocado**: espera el sí.
+    **Iván dijo sí (23-11-2026): hecho** (`comprobar` pregunta solo «asegurarse»). `sw.js` = `lexi-pwa-32`.
 53. **Preguntas de `ejemplo` para los tres enlaces** (campo `pregunta`, punto 3): «¿Pueden pasar a la
     vez?» (mientras), «¿Está bien dicho con "en cambio"?» y «¿Está bien dicho con "por eso"?». Y para
     `cercano` y `lejano`: «¿Es cercano (o lejano) para nosotros, aquí?». Están en las notas de la
