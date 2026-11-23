@@ -214,3 +214,33 @@ Se añaden aquí, una tabla por semana, cuando se escriba su contenido (semanas 
   `cercano`-`lejano` y `humedo`-`seco`.
 - Si la otra IA mete texto o números en la imagen, mejor repetirla que arreglarla.
 - Si Iván cambia alguna palabra de la lista, se cambia también su fila aquí.
+
+## Jardines (`docs/jardines.md`)
+
+Formato distinto al de las palabras:
+
+> Ilustración infantil de estilo editorial, formas planas con textura suave, colores cálidos y poco
+> saturados. Una sola planta en una maceta de barro sencilla, centrada, vista de frente, sobre fondo
+> blanco liso. Sin texto, sin personas. Formato cuadrado 1:1.
+
+- La **misma maceta** en todas las plantas y en las 3 fases, del mismo tamaño y en el mismo sitio.
+- Las 3 fases de cada planta, seguidas en la misma conversación: **1** brote pequeño · **2** planta
+  crecida con hojas · **3** la planta con flor o fruto.
+- PNG cuadrado de 800 × 800 px o más. Nombre: `j1-<planta>-<fase>.png` (por ejemplo, `j1-girasol-2.png`).
+- Como mucho 6 imágenes por mensaje (dos plantas).
+- Claude las deja en `img/jardines/` como webp de 600 × 600.
+
+### Petición J1 · jardín de 1.º: el huerto
+
+| Orden | id | Fase 3 (con flor o fruto) |
+|---|---|---|
+| 1 | `girasol` | Girasol alto con una flor grande y amarilla |
+| 2 | `tomatera` | Tomatera con tres tomates rojos |
+| 3 | `fresa` | Planta de fresas con fresas rojas colgando |
+| 4 | `lechuga` | Lechuga grande y redonda |
+| 5 | `zanahoria` | Hojas de zanahoria con una zanahoria asomando de la tierra |
+| 6 | `pimiento` | Planta de pimientos con dos pimientos verdes y uno rojo |
+| 7 | `judia` | Judía trepando por una caña con vainas verdes |
+| 8 | `calabaza` | Planta de calabaza con una calabaza naranja sobre la tierra |
+| 9 | `maiz` | Planta de maíz alta con una mazorca |
+| 10 | `naranjo` | Naranjo pequeño con naranjas |

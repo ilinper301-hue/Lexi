@@ -395,11 +395,10 @@ el curso que viene. Los puntos 41 a 53 siguen sin respuesta y se retoman entonce
   (23-11-2026): 1) tres paquetes de 10 semanas, uno por trimestre, 180 palabras (recomendada);
   2) 10 semanas de palabras nuevas y el resto del curso de repaso, muro y Explorar; 3) 4 palabras por
   semana a lo largo de todo el curso.
-- [ ] **«Nuestro jardín» (colección, como las piedras de Calculi). Idea en diseño (23-11-2026).** Es de la clase
-  (o del niño en Familias), no se pierde nunca y no son puntos ni rachas: cada palabra que llega a «La
-  usamos» florece; al completar una semana sale una pieza especial. Se enseña en el cierre y en una
-  sección del inicio. Falta que Iván elija la versión (A jardín, B álbum por bloques, más C hitos de
-  sesiones acumuladas) y aprobar el plan.
+- [ ] **«Nuestros jardines» (colección de plantas, como las piedras de Calculi).** Diseño en
+  `docs/jardines.md` (23-11-2026): 6 jardines, uno por curso; 10 plantas con 3 fases = 30 avances,
+  uno por semana completa. **Espera el sí de Iván** y que decida la regla JA7 («?» o solo lo
+  conseguido). Petición de imágenes J1 (huerto de 1.º) en `docs/imagenes.md`.
 - [ ] Modo autónomo y dominio por alumno
 - [ ] «Traer mi clase de Tabula» y resumen en `lexi.tabula` (formato v2)
 
