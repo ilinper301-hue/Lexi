@@ -13,6 +13,7 @@ try:
                 pg = b.new_page(viewport={'width': w, 'height': h}); errs = []; et = f'{tema} {w}x{h}'
                 pg.on('console', lambda m: errs.append(m.text) if m.type == 'error' else None)
                 pg.on('pageerror', lambda e: errs.append(str(e)))
+                ext = []; pg.on('request', lambda r: ext.append(r.url) if not r.url.startswith(('http://localhost:8765', 'data:', 'blob:')) else None) # test 117: sin cuenta no sale ninguna petición fuera de la propia dirección
                 pg.add_init_script(f"localStorage.setItem('lexi.th','\"{tema}\"')")
                 def revisa(que):
                     pg.wait_for_timeout(150)
@@ -43,6 +44,8 @@ try:
                 pg.goto('http://localhost:8765/index.html'); pg.wait_for_selector('.lexi-mascota svg')
                 if pg.evaluate('document.documentElement.dataset.theme') != tema: fallos.append(f'{et}: tema')
                 revisa('1inicio')
+                if pg.locator('.inicio >> text=Ya uso Lexi en otro dispositivo').count() != 1: fallos.append(f'{et}: sin perfiles debía salir «Ya uso Lexi en otro dispositivo» (CU2)')
+                if pg.locator('#acc').count(): fallos.append(f'{et}: la tarjeta Cuenta no debe salir en el inicio (CU1)')
                 # Docente: error sin nombre, crear clase
                 pg.click('text=Docente'); pg.wait_for_selector('#nom'); pg.click('text=Crear clase')
                 if 'Escribe un nombre' not in pg.inner_text('#err'): fallos.append(f'{et}: falta aviso de nombre vacío')
@@ -142,7 +145,9 @@ try:
                 pg.click('button[aria-label="Atrás"]'); pg.click('button[aria-label="Atrás"]'); pg.wait_for_selector('.casa-cab')
                 pg.evaluate("(() => { delete perfilAct().pal.diminuto; if (!window.__antes) delete perfilAct().pal.enorme; guardar(); PALABRAS.pop(); })()")
                 # recarga: el perfil sigue guardado
-                pg.reload(); pg.wait_for_selector('.opciones'); pg.click('text=Docente'); pg.wait_for_selector('.qa')
+                pg.reload(); pg.wait_for_selector('.opciones')
+                if pg.locator('text=Ya uso Lexi en otro dispositivo').count(): fallos.append(f'{et}: con perfiles no debía salir «Ya uso Lexi en otro dispositivo» (CU2)')
+                pg.click('text=Docente'); pg.wait_for_selector('.qa')
                 if '1.º A' not in pg.inner_text('.quien'): fallos.append(f'{et}: no se guardó la clase')
                 # repetido
                 pg.fill('#nom', '1.º a'); pg.click('text=Crear clase')
@@ -160,6 +165,8 @@ try:
                 pin('1234'); pin('1111')
                 if 'Crea un PIN' not in pg.inner_text('.pinw h2'): fallos.append(f'{et}: PIN distinto debía volver a crear')
                 pin('1234'); pin('1234'); pg.wait_for_selector('text=Zona del tutor'); pg.wait_for_selector('.h-t'); revisa('6tutor')
+                if pg.locator('#acc').count() != 1 or 'Entrar con Google' not in pg.inner_text('#acc') or 'guardar el progreso en la nube' not in pg.inner_text('#acc'): fallos.append(f'{et}: falta la tarjeta «Cuenta» en la zona del tutor (CU1)') # test 117
+                if any(x in pg.inner_text('#acc') for x in ('Calculi', 'Tabula', 'Barri', 'Lectori', 'otras apps')): fallos.append(f'{et}: la tarjeta Cuenta nombra otras apps')
                 if 'AvPág' not in pg.inner_text('main'): fallos.append(f'{et}: falta la línea de atajos en la zona del tutor') # AT4
                 # tarjetas para imprimir (TA1-TA3): grandes (6 hojas) y pequeñas (1 hoja de 6)
                 pg.click('.fila-t:has-text("Imprimir tarjetas")'); pg.wait_for_selector('.tj-g'); revisa('6tarj')
@@ -224,6 +231,8 @@ try:
                 pg.click('text=Salir'); pg.wait_for_selector('.opciones')
                 claves = pg.evaluate('Object.keys(localStorage)')
                 if any(not k.startswith('lexi.') for k in claves): fallos.append(f'{et}: claves ajenas {claves}')
+                if ext: fallos.append(f'{et}: peticiones fuera de la propia dirección {ext}') # test 117
+                if any(k in claves for k in ('lexi.fb', 'lexi.sync.uid', 'lexi.sync.t')): fallos.append(f'{et}: sin cuenta hay claves de cuenta {claves}')
                 if errs: fallos.append(f'{et}: {errs}')
                 pg.close()
         b.close()

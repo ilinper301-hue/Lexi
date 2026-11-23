@@ -48,6 +48,7 @@ SC.tz = function () {
   <div class="dos"><button class="btn${EST.ajustes.preg ? '' : ' sec'}" onclick="pregTZ(true)" aria-pressed="${EST.ajustes.preg}">Sí</button><button class="btn${EST.ajustes.preg ? ' sec' : ''}" onclick="pregTZ(false)" aria-pressed="${!EST.ajustes.preg}">No</button></div></div>
   <h2 class="h-s">Aula</h2><div class="lista">${fila('grad', 'Modo Docente', 'Todo abierto, sin guardar: para explicar', "entrarDocente()")}${fila('download', 'Imprimir tarjetas', 'Para el muro de la clase: grandes o pequeñas', "go('tarj')")}${fila('download', 'Hoja para las familias', 'Las palabras de la semana, para imprimir o guardar en PDF', "go('hoja')")}</div>
   <p class="mu pq">${TEXTO_ATAJOS}</p>
+  ${typeof accSec === 'function' ? accSec() : ''}
   <h2 class="h-s">Datos</h2><div class="lista">${fila('download', 'Guardar copia de seguridad', 'Archivo con clases, niños y PIN', 'exportar()')}${botonArchivo('Restaurar copia')}${fila('key', 'Cambiar PIN', '', "TZ.fase='nuevo';TZ.pin='';go('pin')")}</div>
   <button class="btn sec" onclick="go('inicio')">Salir de la zona del tutor</button></main>`;
 };

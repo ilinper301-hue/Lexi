@@ -158,3 +158,8 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 /* Explorar (paso 5.7): parejas en grande */
 .parejas{display:grid;gap:10px}.pareja-mini{align-items:center;text-align:center}.pareja-mini .pal-n{font:700 1.4rem var(--fd)}
 .pareja{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pareja figure{margin:0;text-align:center}.pareja img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px}.pareja .palabra-g{font-size:clamp(1.6rem,6vw,3rem)}
+/* Cuenta de Google (52-cuenta.js): botón con el logo y enlace discreto del inicio */
+.btn.ggl{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--fi);font-size:1.05rem;background:var(--soft);color:var(--tx)}
+.btn.ggl:disabled,.btn:disabled{opacity:.6;cursor:default}
+.enlace{min-height:44px;min-width:44px;padding:8px 14px;border:0;background:none;color:var(--mu);font:500 .95rem var(--fi);text-decoration:underline;cursor:pointer}
+.tutor .tarjeta .casa-cab{justify-content:flex-start}

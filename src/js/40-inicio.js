@@ -20,7 +20,7 @@ function barra() {
 }
 SC.inicio = function () {
   return `<main class="inicio infantil">${mascotaHTML()}<h1>Lexi</h1><p>Palabras nuevas para toda la clase</p>
-  <div class="opciones"><button class="btn grande" onclick="elegirModo('doc')">Docente</button><button class="btn grande sec" onclick="elegirModo('fam')">Familias</button></div></main>`;
+  <div class="opciones"><button class="btn grande" onclick="elegirModo('doc')">Docente</button><button class="btn grande sec" onclick="elegirModo('fam')">Familias</button></div>${EST.perfiles.length || typeof fbLogin !== 'function' ? '' : '<button class="enlace" onclick="fbLogin()">Ya uso Lexi en otro dispositivo</button>'}</main>`; /* CU2: solo cuando aún no hay ningún perfil */
 };
 SC.quien = function () {
   const T = TXT[MODO], lista = perfilesDe(MODO);

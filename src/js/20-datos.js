@@ -121,7 +121,7 @@ function cargar() {
   EST = limpiar(o); if ((o && o.v | 0) > VERSION_DATOS) EST.bloq = true;
   return EST;
 }
-function guardar() { if (EST.bloq || MODO_DOCENTE) return false; return LS.set('v1', { v: EST.v, modo: EST.modo, act: EST.act, perfiles: EST.perfiles, ajustes: EST.ajustes, gmt: EST.gmt, del: EST.del }); }
+function guardar() { if (EST.bloq || MODO_DOCENTE) return false; const ok = LS.set('v1', { v: EST.v, modo: EST.modo, act: EST.act, perfiles: EST.perfiles, ajustes: EST.ajustes, gmt: EST.gmt, del: EST.del }); if (ok && typeof alGuardar === 'function') alGuardar(); return ok; } /* SI2: la cuenta (52-cuenta.js) sincroniza 15 s después */
 /** Los ajustes (PIN) se guardan también en Modo Docente; el progreso no. */
 function guardarAjustes() { const m = MODO_DOCENTE; MODO_DOCENTE = false; const r = guardar(); MODO_DOCENTE = m; return r; }
 
@@ -211,7 +211,7 @@ const PIN_OK = p => /^\d{4}$/.test(p || '');
 /** H3 · Ajuste del tutor «Palabras nuevas por sesión» (1 o 2). Se guarda también en Modo Docente. */
 function fijarNuevas(n) { if (EST.bloq) return false; n = n === 1 ? 1 : 2; if (EST.ajustes.nuevas !== n) { EST.ajustes.nuevas = n; marcarAjustes(); } return guardarAjustes(); }
 /** H7 · Se ha terminado una sesión «Hoy»: se apunta el día. En Modo Docente no guarda nada. */
-function terminarSesionHoy() { const p = perfilAct(); if (MODO_DOCENTE || !p || EST.bloq) return false; p.ses = hoy(); tocar(p); return guardar(); }
+function terminarSesionHoy() { const p = perfilAct(); if (MODO_DOCENTE || !p || EST.bloq) return false; p.ses = hoy(); tocar(p); const ok = guardar(); if (ok && typeof syncYa === 'function') syncYa(); return ok; } /* SI3: al cerrar «Hoy» se sincroniza al momento */
 function fijarPin(pin) { if (!PIN_OK(pin) || EST.bloq) return false; if (EST.ajustes.pin !== pin) { EST.ajustes.pin = pin; marcarAjustes(); } guardarAjustes(); return true; }
 
 /* ===== Copia de seguridad ===== */
