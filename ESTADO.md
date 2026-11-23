@@ -325,6 +325,12 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
   `diminuto` algo de pelo. `veloz` sale con un perro de pelo corto, no un galgo. Iván mandó `describir` dos veces; se usó la del conserje
   con credencial (la otra tenía restos raros en la mochila). Con `diminuto` en la app, en Modo Docente `enorme` ya pregunta «lo contrario
   de» (test 69): se ajustó el test 71. `sw.js` = `lexi-pwa-26`. Todos los tests y la prueba de humo pasan. Pendiente: que Iván pruebe la semana 2 en clase
+- [x] **1.º pasa a 30 semanas** (una por avance del jardín, `docs/jardines.md`): lista de las semanas 11 a 30
+  (120 palabras) en `docs/lista-1-semanas-11-30.md` (23-11-2026, Opus). Iván delegó el criterio: lista aprobada.
+  No choca con ninguna palabra de 1.º ni de 2.º. Semanas 15, 20, 25 y 30 enteras de Medio
+- [ ] Fichas de las semanas 11 a 30 de dos en dos (11-12, 13-14…), con el comprobador en cada tanda, y sus
+  peticiones de imágenes (Fable u Opus, esfuerzo alto; chat nuevo cada 4 o 6 semanas). Notas para
+  escribirlas al final de la lista. Después: revisión por Sonnet y tabla del apartado 8 de `docs/pedagogia.md`
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
   `docs/segundo.md` (pieza de la semana, reglas P1-P8; tarea `familia`, F1-F10; curso del perfil,
