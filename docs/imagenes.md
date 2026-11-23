@@ -179,6 +179,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `serio` | Un niño jugando al ajedrez con su abuela, muy concentrado y con cara seria; la abuela sonríe. |
 | `asustado` | Una niña en la cama tapada con la manta hasta la nariz, con los ojos muy abiertos; por la ventana se ve un rayo. Que no dé miedo: habitación cálida. |
 
+### Petición S15 · semana 15
+
+| id | Qué debe verse |
+|---|---|
+| `respirar` | Un niño arriba de una cuesta del parque, recién llegado corriendo, de pie y con una mano en el pecho, cogiendo aire con la boca un poco abierta. Cara tranquila, no agotada. |
+| `saborear` | Una niña con los ojos cerrados chupando despacio un helado de fresa en cucurucho, con cara de disfrutarlo; se ven trocitos de fresa. |
+| `articulacion` | Un niño en el patio con rodillas y codos doblados, como en mitad de un paso de baile; en sus rodillas, codos y muñecas, unos circulitos de color suaves que los señalan. Sin huesos dibujados ni rayos X. |
+| `higiene` | Un niño lavándose las manos con mucha espuma de jabón en un lavabo; en el borde, su cepillo de dientes en un vaso. Las manos aún tienen un poco de tierra. |
+| `descansar` | Una niña con ropa de deporte sentada a la sombra de un árbol, apoyada en el tronco, con los ojos medio cerrados y una botella de agua al lado; al fondo, un balón quieto en el patio. |
+| `saludable` | Un niño desayunando en la cocina: un vaso de leche, pan con tomate y una naranja partida. Por la ventana entra el sol de la mañana. |
+
+### Petición S16 · semana 16
+
+| id | Qué debe verse |
+|---|---|
+| `adivinar` | Una niña tapando con las manos los ojos de su hermano, que sonríe y tiene una naranja en la mano. |
+| `decidir` | Un niño de pie junto a un sofá con el dedo levantado y cara de «¡ya está!»; sobre su cabeza, dos nubecitas con dibujos: una piscina y una casa. La nube de la piscina, más grande. |
+| `agradable` | Una niña metida en una bañera con mucha espuma, con los ojos cerrados y cara feliz; su abuelo, en la puerta, sonríe con una toalla en el brazo. |
+| `desagradable` | Un niño abriendo una fiambrera con cara de asco, la nariz arrugada y la cara apartada; dentro, un bocadillo verdoso con unas líneas onduladas de mal olor. Que no dé asco de verdad: dibujo amable. |
+| `furioso` | Un niño con la cara roja, los puños apretados y el ceño fruncido, delante de una torre de bloques caída por el suelo; al fondo, su primo se va corriendo. |
+| `norma` | Una maestra y sus alumnos delante de un cartel grande en la pared con el dibujo de una mano levantada; una niña levanta la mano. Sin letras legibles. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.

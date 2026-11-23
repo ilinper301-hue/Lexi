@@ -348,7 +348,15 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     contrarias (faltar-sobrar, ruidoso-silencioso, gracioso-serio), segundos significados de `faltar` (no
     ir a clase) y `serio` (un problema serio). Al pasar `repartir` a la app, añadir `clasificar-repartir`
     a `GESTOS_PARECIDOS`
-  - [ ] Semanas 15 y 16 (la 15 es de Medio: el cuerpo y la salud)
+  - [x] Semanas 15 y 16 (23-11-2026, Opus): `docs/semana-15.md` (Medio: respirar, saborear, articulación,
+    higiene, descansar, saludable) y `docs/semana-16.md` (adivinar, decidir, agradable, desagradable,
+    furioso, norma), peticiones S15 y S16. Comprobador: 96 palabras de 1.º, sin errores. `PAQUETE_1` con las
+    12 nuevas. `sw.js` = `lexi-pwa-46`. **Para Iván (puntos 72 y 73; si dice que no, se cambia):**
+    72) `agradable` y `desagradable` son de la misma familia, así que no se preguntan una a otra en
+    `relaciona` (cada una en `rel.mas` de la otra; preguntan «que da gusto» y «molesto»); 73) `furioso` no
+    lleva `tranquilo` de contraria porque ya es la pregunta de `nervioso`. Gestos a vigilar (notas de cada
+    semana): respirar/ser vivo, saborear/alimento, desagradable/ruidoso
+  - [ ] Semanas 17 y 18
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
