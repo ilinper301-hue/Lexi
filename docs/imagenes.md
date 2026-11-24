@@ -289,6 +289,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `puntiagudo` | Un niño agachado delante de un cactus grande en una maceta, mirándolo de cerca con un dedo a cierta distancia, sin tocarlo; los pinchos se ven largos y finos. Su tía, a su lado, le hace un gesto de «cuidado». |
 | `acompanar` | El pasillo de un colegio: una niña camina junto a un niño nuevo con mochila, que mira a su alrededor algo perdido; ella le señala una puerta de clase con la mano y sonríe. Sin letras legibles. |
 
+### Petición S25 · semana 25
+
+| id | Qué debe verse |
+|---|---|
+| `objeto` | Un niño en clase con la mano metida en una caja de cartón con un agujero; con los ojos cerrados, sonríe. Sobre la mesa, ya fuera de la caja, una pelota, una cuchara, un peine y una llave. La maestra, al lado. |
+| `material` | Una niña y su padre en un taller de casa, con unas tablas de madera, un martillo y clavos sobre la mesa; ella sostiene una tabla y mira a su padre; al lado, el dibujo de una casita para pájaros (sin letras). |
+| `natural` | Una niña en un bosque con mochila de excursión, enseñando en la palma de la mano una piña, una pluma y una piedra lisa; al fondo, árboles y otros niños de su clase. |
+| `artificial` | Un niño en una tienda de plantas, con la nariz pegada a una planta de flores rojas y cara de extrañeza; su madre, a su lado, sonríe. Las flores se ven algo brillantes, como de plástico. Sin carteles con letras. |
+| `impermeable` | Una niña en la calle bajo la lluvia, con botas de agua, sosteniendo una bolsa de plástico transparente con un dibujo de colores seco dentro; en el suelo, una bolsa de papel mojada y rota. |
+| `maquina` | Una cocina de casa: unos operarios dejan una lavadora nueva y un niño aplaude contento delante; detrás, su familia, con ropa mojada colgada en la bañera que se ve por una puerta abierta. Sin marcas ni letras. |
+
+### Petición S26 · semana 26
+
+| id | Qué debe verse |
+|---|---|
+| `imitar` | En el patio del colegio, una niña agachada moviendo los brazos doblados como alas y con la boca abierta, como un pato; detrás, otros niños la siguen en fila haciendo lo mismo y riéndose. |
+| `crear` | Un niño en pijama en la cama y su padre sentado a su lado, los dos mirando hacia arriba, pensando; sobre ellos, una nube de pensamiento con un dragón pequeño que huye asustado de una mosca. |
+| `comodo` | Un niño tumbado en un sofá con un cojín grande, con zapatillas de estar por casa y cara de gusto; en el suelo, unas botas de monte embarradas y una mochila de excursión. |
+| `apretado` | Un niño en su cuarto con una camiseta que le queda muy pequeña: le asoma la barriga y no puede bajar bien los brazos; pone cara de apuro. Sin letras ni dibujos con marcas en la camiseta. |
+| `solo` | El patio de un colegio: un niño sentado solo en un banco, algo triste; al fondo, otros niños juegan lejos. Una niña se le acerca sonriendo y le tiende la mano. |
+| `educado` | Una panadería de barrio: una niña, de la mano de su madre, coge una barra de pan que le da la panadera por encima del mostrador; las tres sonríen. Sin carteles con letras. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.

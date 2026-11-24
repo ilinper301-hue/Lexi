@@ -395,7 +395,20 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     `profundo`, `puntiagudo` y `desanimado` (las que sirven son de su familia o no valen siempre);
     90) propuesta aparte, que toca la semana 1: pasar `colocar` de `rel.parecida` a `rel.mas` en
     `ordenar`, porque ahora enseñamos que no son lo mismo
-  - [ ] Semanas 25 y 26 (chat nuevo recomendado: Opus, esfuerzo alto)
+  - [x] Semanas 25 y 26 (24-11-2026, Opus): `docs/semana-25.md` (Medio: objeto, material, natural,
+    artificial, impermeable, máquina) y `docs/semana-26.md` (imitar, crear, cómodo, apretado, solo,
+    educado), peticiones S25 y S26. Comprobador: 156 palabras de 1.º, sin errores. `PAQUETE_1` con las
+    12 nuevas (`amable` pierde la pregunta «educado» hasta presentarla). Los tres nombres y `natural`,
+    `artificial` e `impermeable` llevan `pregunta` (las tres cualidades, añadidas a `CON_PREG` de
+    `test_docs`). `sw.js` = `lexi-pwa-51`. Tests y prueba de humo pasan. **Para Iván (puntos 91 a 94;
+    si dice que no, se cambia):** 91) `sep` nuevos: `objeto-material`, `natural-artificial`,
+    `imitar-crear` y `comodo-apretado`; 92) segundo significado nuevo de `impermeable` (el abrigo para
+    la lluvia); 93) `crear` no lleva `imaginar` de parecida, como decía la lista (no significan lo
+    mismo: va a `rel.mas`); pregunta «lo contrario de copiar», igual que `inventar` de 2.º («También
+    vale»); 94) sin preguntas de `relaciona`: `material` y `cómodo`; `apretado` no pregunta «justo»
+    (es de 2.º con otro significado). Propuesta aparte, que toca la semana 9: pasar `educado` de
+    `rel.parecida` a `rel.mas` en `amable`, porque ahora enseñamos que no son lo mismo
+  - [ ] Semanas 27 y 28 (Opus, esfuerzo alto; chat nuevo recomendado a partir de la 29)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
