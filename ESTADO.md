@@ -374,7 +374,17 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     80) `sep` nuevos: `antes-durante`, `recto-torcido` y `domestico-salvaje`; 81) `aburrido` no lleva
     `curioso` de contraria (no lo es): pregunta «entretenido»; `durante` sin preguntas de `relaciona`
     (`mientras` es de 2.º); 82) `nacer` lleva `morir` de contraria (la del libro de Medio); si no, a `rel.mas`
-  - [ ] Semanas 21 y 22 (chat nuevo: ya van 10 semanas en tres chats)
+  - [x] Semanas 21 y 22 (24-11-2026, Opus): `docs/semana-21.md` (opinar, proponer, importante, valioso,
+    celoso, incluir) y `docs/semana-22.md` (fijarse, detalle, idea, extraño, único, confundido), peticiones
+    S21 y S22. Comprobador: 132 palabras de 1.º, sin errores. `PAQUETE_1` con las 12 nuevas (`observar`
+    pierde la pregunta «fijarse» hasta presentarla). `detalle` e `idea` llevan `pregunta`. `sw.js` =
+    `lexi-pwa-49`. Tests y prueba de humo pasan. **Para Iván (puntos 83 a 86; si dice que no, se cambia):**
+    83) `sep` nuevos: `opinar-proponer`, `importante-valioso` y `extrano-unico`; 84) sin preguntas de
+    `relaciona`: `celoso`, `detalle` e `idea` (les quedan `acaba` y `habla`); `valioso` solo pregunta «como
+    un tesoro»; 85) `único` pregunta «lo contrario de repetido» y `extraño` «lo contrario de normal»;
+    86) `celoso` con la escena del hermanito recién nacido (el docente puede escoger otro contexto si
+    hace falta en su clase)
+  - [ ] Semanas 23 y 24 (chat nuevo: ya van 12 semanas en cuatro chats)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

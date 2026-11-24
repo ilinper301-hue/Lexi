@@ -245,6 +245,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `raiz` | Un niño en un huerto sujetando en alto una planta recién arrancada; de abajo cuelgan muchas raíces finas con tierra. Su abuelo, con sombrero, sonríe a su lado. |
 | `refugio` | Una niña y su madre, mojadas, dentro de una caseta de piedra con tejado en el campo; fuera llueve mucho y ellas miran la lluvia desde la puerta, secas y a salvo. |
 
+### Petición S21 · semana 21
+
+| id | Qué debe verse |
+|---|---|
+| `opinar` | Una clase en asamblea, sentada en corro; la maestra sostiene un cuento abierto con un dragón verde y simpático en la portada. Una niña levanta la mano y habla, sonriendo. Sin letras legibles. |
+| `proponer` | Un aula con la ventana mojada por la lluvia; un niño, de pie junto a la mesa de sus amigos, abre los brazos con cara de tener una idea, y tres niños le miran entusiasmados. |
+| `importante` | Un niño en la cocina de su casa pegando con un imán en la nevera un dibujo hecho por él: una gorra y una botella de agua. Mochila de excursión preparada en el suelo. Sin letras legibles. |
+| `valioso` | Una niña sentada en su cama sosteniendo con las dos manos una concha de mar, mirándola con cariño; a su lado, una cajita de madera abierta. En la pared, una foto de ella con su abuela en la playa. |
+| `celoso` | Un salón: la familia rodea a una bebé en brazos de su madre, todos sonriendo; en primer plano, medio escondido detrás del sofá, un niño de unos 6 años con los brazos cruzados y el morro torcido. Escena tierna, no triste. |
+| `incluir` | El patio del cole: dos niñas mueven la comba y otro niño salta; un niño se acerca a una niña que mira sola desde un lado y le tiende la mano, invitándola a jugar. Ella sonríe. |
+
+### Petición S22 · semana 22
+
+| id | Qué debe verse |
+|---|---|
+| `fijarse` | Un niño y su padre en un aparcamiento lleno de coches rojos iguales; el niño señala uno con una pegatina de una ballena azul en la puerta trasera. Sin marcas ni matrículas legibles. |
+| `detalle` | Primer plano de una niña pintando con un pincel fino las antenas de una mariquita grande dibujada en un papel de mural; la mariquita tiene sus puntos negros bien pintados. Al fondo, la maestra mira y sonríe. |
+| `idea` | Un parque con césped: un niño coloca dos mochilas en el suelo, separadas, como postes de una portería; una niña con un balón bajo el brazo le mira contenta. |
+| `extrano` | Un niño en pijama delante de una nevera abierta, con la boca abierta y una ceja levantada: dentro, entre los yogures y la leche, hay un zapato. Escena divertida. |
+| `unico` | Un abuelo con delantal de taller, sentado, dando a su nieta una figurita de madera de un búho con un ojo abierto y otro cerrado; ella la coge con las dos manos, encantada. |
+| `confundido` | Un comedor escolar: un niño a medio levantarse de la silla, con la bandeja en la mesa, mirando a un lado y a otro con cara de no entender; a su alrededor, unos niños de pie y otros sentados. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
