@@ -419,8 +419,21 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     de distraerse» («prestar atención» es la de `fijarse`); `maduro` pregunta «lo contrario de verde»;
     98) propuesta aparte, junto con la del punto 94: dejar a `amable` solo con «lo contrario de
     antipático» y pasar `cariñoso` y `educado` a su `rel.mas`, porque ahora enseñamos que no son lo mismo
-  - [ ] Semanas 29 y 30 (chat nuevo recomendado: Opus, esfuerzo alto). Después: revisión por Sonnet y
-    tabla del apartado 8 de `docs/pedagogia.md`
+  - [x] Semanas 29 y 30 (24-11-2026, Opus): `docs/semana-29.md` (plan, además, soleado, nublado, atento,
+    confiar) y `docs/semana-30.md` (Medio: planeta, medio ambiente, contaminar, residuo, reciclar, ahorrar),
+    peticiones S29 y S30. Comprobador: **180 palabras de 1.º, sin errores: el paquete de 1.º está escrito
+    entero.** `PAQUETE_1` con las 12 nuevas (`cuidadoso` pierde la pregunta «atento» hasta presentarla).
+    `plan`, `además`, `planeta`, `medio ambiente` y `residuo` llevan `pregunta`. Tabla del apartado 8 de
+    `docs/pedagogia.md` puesta al día (30 semanas). `sw.js` = `lexi-pwa-53`. Tests y prueba de humo pasan.
+    **Para Iván (puntos 99 a 102; si dice que no, se cambia):** 99) `atento` va en el bloque «Para pensar»
+    (con observar, fijarse y concentrarse), no en convivir, y lleva segundo significado nuevo (alguien
+    atento con los demás); 100) segundo significado nuevo de `ahorrar` (la hucha); `sep` nuevos:
+    `soleado-nublado` y `planeta-medio-ambiente`; 101) sin preguntas de `relaciona`: `reciclar`;
+    `contaminar` sin contraria (solo «ensuciar»); `ahorrar` pregunta «lo contrario de malgastar»;
+    102) `medio ambiente` y `residuo` de nivel 3, como `articulación`
+  - [ ] Revisión independiente de las semanas 11 a 30 por Sonnet (esfuerzo medio), como la de las semanas
+    2 a 10 (`docs/revision-fichas.md`): solo propone; los cambios los aprueba Iván. Incluye los puntos
+    69 a 102 que Iván aún no haya contestado (87 a 102)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

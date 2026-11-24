@@ -227,11 +227,12 @@ Solo para 2.º (aprobadas el 15-11-2026; detalle en `docs/segundo.md`):
 - **Idea de la pieza:** una frase con palabras de todos los días; nunca «prefijo» ni «sufijo» en
   pantalla. Se dice «pieza».
 
-## 8. Paquete de 1.º (10 semanas, 60 palabras)
+## 8. Paquete de 1.º (30 semanas, 180 palabras)
 
-Las diez semanas están escritas enteras en `docs/semana-01.md` … `docs/semana-10.md`. De la 2 a la 10
-se escribieron el 13-11-2026 con esta lista tal cual, sin cambiar ninguna palabra; **falta la revisión
-de Iván** (ver `ESTADO.md`, fase 4).
+Las treinta semanas están escritas enteras en `docs/semana-01.md` … `docs/semana-30.md`, una por cada
+avance del jardín de 1.º (`docs/jardines.md`). Las semanas 1 a 10 las revisó Iván el 15-11-2026
+(`distinto` pasó a `amable`). Las 11 a 30 salen de `docs/lista-1-semanas-11-30.md` (23-11-2026) y se
+escribieron del 23 al 24-11-2026; falta la revisión independiente (ver `ESTADO.md`).
 
 | Semana | Pensar y enunciados | Cómo son las cosas | Sentir, tiempo y áreas |
 |---|---|---|---|
@@ -245,6 +246,26 @@ de Iván** (ver `ESTADO.md`, fase 4).
 | 8 | problema, solución, pista | resistente, delicado | nervioso |
 | 9 | compartir, colaborar, respetar | cuidadoso, amable | paciente |
 | 10 | ser vivo, alimento, paisaje | crecer, necesitar | estación |
+| 11 | tachar, marcar, contestar | pesado, ligero | emocionado |
+| 12 | entre, alrededor, separar | helado, caluroso | tímido |
+| 13 | faltar, sobrar, repartir | ruidoso, silencioso | turno |
+| 14 | personaje, título, de repente | gracioso, serio | asustado |
+| 15 | respirar, saborear, articulación | higiene, descansar | saludable (Medio) |
+| 16 | adivinar, decidir | agradable, desagradable | furioso, norma |
+| 17 | cantidad, mitad, doble | lleno, vacío | equipo |
+| 18 | intentar, equivocarse | complicado, útil | frustrado, esforzarse |
+| 19 | antes, durante, continuar | recto, torcido | aburrido |
+| 20 | doméstico, salvaje, nacer | semilla, raíz | refugio (Medio) |
+| 21 | opinar, proponer | importante, valioso | celoso, incluir |
+| 22 | fijarse, detalle, idea | extraño, único | confundido |
+| 23 | colocar, serie | entero, estropeado | desanimado, consolar |
+| 24 | construir, mezclar, decorar | profundo, puntiagudo | acompañar |
+| 25 | objeto, material, natural | artificial, impermeable | máquina (Medio) |
+| 26 | imitar, crear | cómodo, apretado | solo, educado |
+| 27 | practicar, mejorar, concentrarse | abundante, escaso | animar |
+| 28 | respuesta, resultado | maduro, fresco | perdonar, cariñoso |
+| 29 | plan, además, atento | soleado, nublado | confiar |
+| 30 | planeta, medio ambiente, contaminar | residuo, reciclar | ahorrar (Medio) |
 
 ## 9. Para más adelante
 

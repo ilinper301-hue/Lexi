@@ -333,6 +333,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `perdonar` | Dos niños en el patio: el niño ofrece la mano con cara de «lo siento» y la niña, que tiene en la otra mano un avión de papel arrugado, le da la mano sonriendo. |
 | `carinoso` | La entrada de una casa: una niña abraza fuerte a su abuela, que acaba de llegar con un abrigo y un bolso; la abuela se ríe con los ojos cerrados. |
 
+### Petición S29 · semana 29
+
+| id | Qué debe verse |
+|---|---|
+| `plan` | La mesa de una cocina un sábado por la mañana: un niño y su madre sentados, mirando un papel donde el niño dibuja tres dibujitos unidos por flechas (una cesta, un columpio y una casa), sin letras. Los dos sonríen. |
+| `ademas` | Una clase: una niña de pie delante de sus compañeros enseña una mochila azul con muchos bolsillos; de un bolsillo saca una linterna pequeña encendida. Los compañeros la miran sorprendidos. |
+| `soleado` | Un niño asomado a la ventana de su cuarto, con la persiana subida, el cielo muy azul y un sol brillante; lleva puesta una gorra y tiene en la mano un bote de crema (sin marcas). |
+| `nublado` | La puerta de una casa: una niña con bañador, toalla al hombro y flotador mira hacia arriba, desilusionada; el cielo está gris, lleno de nubes grandes que tapan el sol. Su padre, a su lado, señala el cielo. |
+| `atento` | Un paso de peatones en la ciudad: una niña de la mano de su padre mira fijamente un semáforo de peatones en rojo, con los ojos muy abiertos; el padre la mira a ella. Sin letras ni carteles. |
+| `confiar` | El patio de un colegio: una niña con los ojos tapados con un pañuelo camina tranquila, sonriendo, de la mano de un niño que le señala un escalón con la otra mano. |
+
+### Petición S30 · semana 30
+
+| id | Qué debe verse |
+|---|---|
+| `planeta` | Una noche estrellada en el campo: una niña y su abuelo, sentados en una manta, miran al cielo; el abuelo señala un punto muy brillante, más grande que las estrellas de alrededor. |
+| `medio-ambiente` | La orilla de un río con árboles, flores y patos en el agua: un grupo de niños de excursión con su maestra; un niño recoge un envoltorio de la hierba y lo mete en su mochila. Sin marcas ni letras. |
+| `contaminar` | Una calle con un atasco: coches parados echando humo gris por detrás; en la acera, una niña con mochila se tapa la nariz con la mano, de la mano de su madre. Sin matrículas ni letras. |
+| `residuo` | Tres contenedores de colores en la calle (amarillo, azul y marrón), sin marcas ni letras; delante, un niño con una cáscara de plátano, un brik y una servilleta en las manos, y su hermana mayor señalándole un contenedor. |
+| `reciclar` | Una clase: la maestra enseña unos cuadernos nuevos de papel reciclado (color marrón claro); al lado, una caja azul llena de papeles usados. Una niña, entusiasmada, señala la caja y los cuadernos. Sin letras. |
+| `ahorrar` | Un cuarto de baño: un niño en pijama, con el cepillo de dientes en la boca, cierra el grifo del lavabo; su padre, a su lado, sonríe y le pone una mano en el hombro. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
