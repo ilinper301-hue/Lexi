@@ -384,7 +384,18 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     un tesoro»; 85) `único` pregunta «lo contrario de repetido» y `extraño` «lo contrario de normal»;
     86) `celoso` con la escena del hermanito recién nacido (el docente puede escoger otro contexto si
     hace falta en su clase)
-  - [ ] Semanas 23 y 24 (chat nuevo: ya van 12 semanas en cuatro chats)
+  - [x] Semanas 23 y 24 (24-11-2026, Opus): `docs/semana-23.md` (colocar, serie, entero, estropeado,
+    desanimado, consolar) y `docs/semana-24.md` (construir, mezclar, decorar, profundo, puntiagudo,
+    acompañar), peticiones S23 y S24. Comprobador: 144 palabras de 1.º, sin errores. `PAQUETE_1` con las
+    12 nuevas (`ordenar` pierde sus preguntas «colocar» y «mezclar» hasta presentarlas). `serie` lleva
+    `pregunta`. `sw.js` = `lexi-pwa-50`. Tests y prueba de humo pasan. `desanimado` y `consolar` son la
+    misma historia (Pablo y Nora): las imágenes, con los mismos niños. **Para Iván (puntos 87 a 90; si
+    dice que no, se cambia):** 87) segundo significado nuevo de `serie` (la de la tele); 88) `sep` nuevo:
+    `entero-estropeado`; 89) sin preguntas de `relaciona`: `serie` y `consolar`; sin contraria
+    `profundo`, `puntiagudo` y `desanimado` (las que sirven son de su familia o no valen siempre);
+    90) propuesta aparte, que toca la semana 1: pasar `colocar` de `rel.parecida` a `rel.mas` en
+    `ordenar`, porque ahora enseñamos que no son lo mismo
+  - [ ] Semanas 25 y 26 (chat nuevo recomendado: Opus, esfuerzo alto)
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

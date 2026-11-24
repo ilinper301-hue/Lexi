@@ -267,6 +267,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `unico` | Un abuelo con delantal de taller, sentado, dando a su nieta una figurita de madera de un búho con un ojo abierto y otro cerrado; ella la coge con las dos manos, encantada. |
 | `confundido` | Un comedor escolar: un niño a medio levantarse de la silla, con la bandeja en la mesa, mirando a un lado y a otro con cara de no entender; a su alrededor, unos niños de pie y otros sentados. |
 
+### Petición S23 · semana 23
+
+| id | Qué debe verse |
+|---|---|
+| `colocar` | Un niño poniendo la mesa en la cocina de casa: deja con cuidado un tenedor junto a un plato, donde ya hay vaso y servilleta; su abuela, al lado, le mira contenta. |
+| `serie` | Primer plano de una niña sentada a la mesa ensartando bolitas en un cordón: roja, azul, roja, azul…; tiene una bolita roja en la mano y, al lado, dos cuencos, uno de bolitas rojas y otro de azules. Su hermano mira. |
+| `entero` | Un niño en la orilla de la playa sujetando en alto una concha grande y perfecta, sin grietas; en la arena, a sus pies, varias conchas rotas. Su madre, con un cubo, sonríe. |
+| `estropeado` | Un niño junto a su bici parada en un camino del parque, con la cadena suelta colgando; su abuelo, agachado, mira la cadena. El niño tiene cara de fastidio. |
+| `desanimado` | Patio de un colegio con cintas de meta y otros niños celebrando al fondo; en primer plano, un niño con dorsal sin números, sentado solo en un banco, con la cabeza baja y los hombros caídos. |
+| `consolar` | **El mismo niño y el mismo banco** de `desanimado`: ahora una niña sentada a su lado le pasa el brazo por los hombros y le habla; él empieza a levantar la cabeza. |
+
+### Petición S24 · semana 24
+
+| id | Qué debe verse |
+|---|---|
+| `construir` | Una niña y su abuelo en la playa, de rodillas junto a un castillo de arena con varias torres hechas con cubos; ella clava una banderita de papel en la torre más alta. |
+| `mezclar` | Primer plano de un niño en clase de plástica removiendo con un pincel un vaso donde la pintura amarilla y la azul se están volviendo verde; al lado, dos botes abiertos, uno amarillo y otro azul. |
+| `decorar` | Un salón decorado para un cumpleaños, con globos y guirnaldas de colores; una niña en pijama, en la puerta, con los ojos muy abiertos y las manos en la cara; su padre y su hermano sonríen junto a los globos. |
+| `profundo` | Una niña y su abuela inclinadas sobre la reja de un pozo antiguo de piedra en un patio de pueblo; la niña mira hacia abajo con atención; dentro del pozo se ve oscuro y, muy al fondo, un brillo de agua. |
+| `puntiagudo` | Un niño agachado delante de un cactus grande en una maceta, mirándolo de cerca con un dedo a cierta distancia, sin tocarlo; los pinchos se ven largos y finos. Su tía, a su lado, le hace un gesto de «cuidado». |
+| `acompanar` | El pasillo de un colegio: una niña camina junto a un niño nuevo con mochila, que mira a su alrededor algo perdido; ella le señala una puerta de clase con la mano y sonríe. Sin letras legibles. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
