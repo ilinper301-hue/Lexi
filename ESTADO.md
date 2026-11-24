@@ -439,9 +439,12 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     98 (`cariñoso` y `educado` pasan a `rel.mas` en `amable`), en las fichas, en `src/js/palabras/`, en
     `docs/tareas-gesto-relaciona.md` y en `tests/test_contenido.js` (la prueba de «`rel.mas` repetido»
     usaba `colocar`). Todos los tests y la prueba de humo pasan. `sw.js` = `lexi-pwa-55`
-  - [ ] Iván contesta a los puntos R1 a R40 de la revisión (sí / no / cambio) y se aplican en
-    `docs/semana-11.md` … `semana-30.md` (Sonnet, esfuerzo medio; el comprobador y `test_docs` tienen que
-    seguir pasando). Los gestos de R32 (`GESTOS_PARECIDOS`) se pueden hacer sin tocar fichas
+  - [x] **Iván dijo «sí a todo» a R1 a R40 (24-11-2026) y se aplicaron** (Sonnet, esfuerzo medio) en
+    `docs/semana-11.md` … `semana-30.md`: 52 retoques de texto y 8 gestos (R30 y R31). R32: parejas nuevas en
+    `GESTOS_PARECIDOS` (`src/js/32-eleccion.js`). Sin cambio, porque eran avisos: R33 (nombres repetidos: el
+    docente puede cambiarlos), R34, R36 y los avisos de R39 y R40 (colores de contenedores, 2.º significado de
+    `estropeado`, no-ejemplos que pueden señalar a una familia). Comprobador, todos los tests y la prueba de
+    humo pasan. `sw.js` = `lexi-pwa-56`
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

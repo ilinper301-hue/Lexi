@@ -124,7 +124,7 @@ PALABRA({
     { t: 'Una lechuga recién cogida del huerto', ok: true },
     { t: 'Pan recién hecho', ok: true },
     { t: 'Un huevo puesto esta mañana', ok: true },
-    { t: 'Un yogur caducado', ok: false },
+    { t: 'Un yogur abierto hace semanas', ok: false },
     { t: 'Una manzana arrugada de hace muchos días', ok: false },
     { t: 'Un pan duro de la semana pasada', ok: false }
   ],
@@ -167,7 +167,7 @@ PALABRA({
 PALABRA({
   id: 'carinoso', palabra: 'cariñoso', silabas: ['ca', 'ri', 'ño', 'so'],
   tipo: 'cualidad', nivel: 2, curso: 1, semana: 28, orden: 6, bloque: 'convivir',
-  def: 'Alguien es cariñoso cuando demuestra que quiere a los demás con abrazos, besos y palabras bonitas.',
+  def: 'Alguien es cariñoso cuando demuestra que quiere a los demás con abrazos, mimos y palabras bonitas.',
   otro: null,
   escena: { img: 'carinoso.webp', texto: 'Cuando la abuela de Valeria llega a casa, Valeria corre a abrazarla. Le da un beso en cada mejilla y le dice: «¡Te he echado de menos!». La abuela se ríe: «¡Qué cariñosa eres!».' },
   contextos: [
@@ -187,7 +187,7 @@ PALABRA({
     { t: 'Acariciar con mimo a tu gato', ok: true },
     { t: 'Decirle a tu abuelo «te quiero»', ok: true },
     { t: 'Dar las gracias al conductor del autobús', ok: false },
-    { t: 'Apartar la cara cuando te quieren dar un beso', ok: false },
+    { t: 'Empujar a tu hermano para quitarle el juguete', ok: false },
     { t: 'Gritar a tu hermano', ok: false }
   ],
   acaba: ['Soy cariñoso con… cuando…', 'Para demostrar que quiero a alguien, yo…'],

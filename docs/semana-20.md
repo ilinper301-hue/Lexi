@@ -117,11 +117,11 @@ PALABRA({
   sentido: [
     { t: 'Planté una semilla y salió una planta.', ok: true, por: 'De la semilla nace una planta nueva.' },
     { t: 'Planté una piedra porque es una semilla.', ok: false, por: 'De una piedra no nace nada.' },
-    { t: 'Las pipas de girasol son semillas.', ok: true, por: 'Si las plantas, sale un girasol.' },
+    { t: 'Las pipas de girasol sin tostar son semillas.', ok: true, por: 'Si las plantas, sale un girasol.' },
     { t: 'De una semilla de manzano salió un perro.', ok: false, por: 'De una semilla nace una planta, no un animal.' }
   ],
   ejemplos: [
-    { t: 'Una pipa de girasol', ok: true },
+    { t: 'Una pipa de girasol sin tostar', ok: true },
     { t: 'Una pepita de sandía', ok: true },
     { t: 'Una bellota', ok: true },
     { t: 'Una piedrecita', ok: false },
@@ -153,7 +153,7 @@ PALABRA({
     { t: 'La raíz de la planta está arriba del todo, encima de las flores.', ok: false, por: 'La raíz está abajo, bajo tierra.' }
   ],
   ejemplos: [
-    { t: 'Lo que tiene un árbol bajo tierra', ok: true },
+    { t: 'Lo que sujeta a un árbol bajo la tierra', ok: true },
     { t: 'Los pelillos de abajo de una planta arrancada', ok: true },
     { t: 'Una zanahoria', ok: true },
     { t: 'Una hoja', ok: false },

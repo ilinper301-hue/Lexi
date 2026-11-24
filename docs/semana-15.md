@@ -90,7 +90,7 @@ PALABRA({
   ejemplos: [
     { t: 'La rodilla', ok: true },
     { t: 'El codo', ok: true },
-    { t: 'El hombro', ok: true },
+    { t: 'El tobillo', ok: true },
     { t: 'La nariz', ok: false },
     { t: 'La uña', ok: false },
     { t: 'El pelo', ok: false }

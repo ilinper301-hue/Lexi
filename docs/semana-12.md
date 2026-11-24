@@ -21,7 +21,7 @@ PALABRA({
   gesto: 'Abre dos dedos de una mano, como una V, y mete en medio un dedo de la otra.',
   sentido: [
     { t: 'El jamón va entre las dos rebanadas de pan.', ok: true, por: 'Está en medio: un pan a cada lado.' },
-    { t: 'Me senté entre mi hermano, porque no había nadie más.', ok: false, por: 'Para estar entre, hacen falta dos: uno a cada lado.' },
+    { t: 'Me senté entre mi hermano y mi hermana, pero los dos estaban al mismo lado.', ok: false, por: 'Para estar entre, uno tiene que estar a cada lado.' },
     { t: 'El martes está entre el lunes y el miércoles.', ok: true, por: 'Va en medio de los dos.' },
     { t: 'El 5 está entre el 8 y el 9.', ok: false, por: 'El 5 va antes que el 8: no está en medio.' }
   ],
@@ -30,7 +30,7 @@ PALABRA({
     { t: 'La nariz, entre los dos ojos', ok: true },
     { t: 'El jueves, entre el miércoles y el viernes', ok: true },
     { t: 'El 7, entre el 1 y el 2', ok: false },
-    { t: 'La boca, entre los dos ojos', ok: false },
+    { t: 'El zapato, entre los dos ojos', ok: false },
     { t: 'El domingo, entre el lunes y el martes', ok: false }
   ],
   pregunta: '¿Está bien dicho con «entre»?',
@@ -62,7 +62,7 @@ PALABRA({
     { t: 'Un marco alrededor de la foto', ok: true },
     { t: 'Un cinturón alrededor de la cintura', ok: true },
     { t: 'Un vaso alrededor de la mesa', ok: false },
-    { t: 'Una pegatina alrededor de la libreta', ok: false },
+    { t: 'Una pegatina en el centro de la libreta', ok: false },
     { t: 'Un plato alrededor de la bandeja', ok: false }
   ],
   pregunta: '¿Está bien dicho con «alrededor»?',

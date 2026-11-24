@@ -191,7 +191,7 @@ PALABRA({
     { t: 'Pensar que tu amigo te va a hacer trampas', ok: false }
   ],
   acaba: ['Confío en… porque…', 'Sé que puedo confiar en alguien cuando…'],
-  habla: 'Contad entre los dos en quién confiáis mucho y por qué.',
+  habla: 'Contad entre los dos en quién confiáis mucho y por qué. Si un secreto te da miedo o te hace sentir mal, se lo cuentas a un adulto.',
   rel: { parecida: ['fiarse'], contraria: [], familia: ['confianza', 'desconfiar'], mas: ['creer', 'amistad', 'secreto'] }
 });
 ```

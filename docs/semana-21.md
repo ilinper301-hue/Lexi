@@ -145,7 +145,7 @@ PALABRA({
   gesto: 'Tira dos veces de una manga imaginaria, a tu lado, como diciendo «¡mírame a mí!».',
   sentido: [
     { t: 'Me puse celosa cuando mi abuela solo hacía caso a mi primo.', ok: true, por: 'Le daba miedo perder el cariño de la abuela.' },
-    { t: 'Me puse celoso porque Juan tenía una bici nueva y yo no.', ok: false, por: 'Querer lo que tiene otro es envidia, no celos.' },
+    { t: 'Me puse celoso porque Juan tenía una bici nueva y yo no.', ok: false, por: 'Querer lo que tiene otro no es tener celos.' },
     { t: 'El gato está celoso del perrito nuevo de casa.', ok: true, por: 'Tiene miedo de que le quiten los mimos.' },
     { t: 'Estoy celoso porque todos me hacen mucho caso.', ok: false, por: 'Si te hacen caso, no tienes miedo de perderlo.' }
   ],

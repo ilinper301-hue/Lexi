@@ -93,8 +93,8 @@ PALABRA({
     { t: 'Que se te ocurra un nombre para el perro', ok: true },
     { t: 'Pensar un juego nuevo para el recreo', ok: true },
     { t: 'Una caja de cartón', ok: false },
-    { t: 'Estornudar', ok: false },
-    { t: 'Comerte un bocadillo', ok: false }
+    { t: 'Una piedra', ok: false },
+    { t: 'Un lápiz', ok: false }
   ],
   pregunta: '¿Es una idea?',
   acaba: ['Tengo una idea para el recreo: …', 'Cuando no se me ocurre ninguna idea, yo…'],
@@ -113,7 +113,7 @@ PALABRA({
     'En el bosque encontramos una seta extraña, con lunares azules.',
     'En el colegio pasó algo extraño: el timbre sonó tres veces seguidas.'
   ],
-  gesto: 'Levanta una sola ceja y mira algo imaginario de arriba abajo.',
+  gesto: 'Inclina la cabeza y arruga la nariz mirando algo imaginario.',
   sentido: [
     { t: 'Mi perro hoy está extraño: no quiere salir a pasear.', ok: true, por: 'No hace lo de siempre.' },
     { t: 'Es muy extraño que el sol salga por la mañana.', ok: false, por: 'Eso pasa todos los días: es lo normal.' },

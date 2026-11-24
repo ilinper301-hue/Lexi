@@ -186,7 +186,7 @@ PALABRA({
     { t: 'Llevar a un compañero nuevo hasta el comedor', ok: true },
     { t: 'Irte corriendo y dejar a tu amigo atrás', ok: false },
     { t: 'Dormir la siesta', ok: false },
-    { t: 'Secar las lágrimas a alguien que llora', ok: false }
+    { t: 'Dejar a tu hermano esperando solo en la parada', ok: false }
   ],
   acaba: ['Me gusta que me acompañe… cuando…', 'Si un compañero no sabe adónde ir, puedo…'],
   habla: 'Dile a tu compañero adónde te gustaría que te acompañara y por qué.',
@@ -216,7 +216,7 @@ PALABRA({
   el contexto del lápiz, las tijeras y el cactus enseñan cuidado; el «habla» pide buscar sin tocar.
 - `acompañar` (bloque `convivir`) frente a `consolar` (semana 23) e `incluir` (semana 21): acompañar
   es **ir o estar con alguien**; consolar es **ayudar a quien está triste**; incluir es **dejar
-  jugar**. El no-ejemplo «Secar las lágrimas a alguien que llora» es justo el gesto de `consolar`.
+  jugar**. El no-ejemplo «Dejar a tu hermano esperando solo en la parada» es justo lo contrario (R22; antes era el gesto de `consolar`, que también es estar con alguien).
   Pregunta «ir con» y «lo contrario de dejar solo». **`solo` (semana 26):** el «acaba» evita
   «un compañero está solo» para no adelantar esa escena.
 - **Gestos cercanos a vigilar:** `construir` (puños que suben) y `crecer` (mano que sube, semana 10);

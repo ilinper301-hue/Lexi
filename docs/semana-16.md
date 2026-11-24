@@ -85,7 +85,7 @@ PALABRA({
     { t: 'Una brisa fresca en verano es muy agradable.', ok: true, por: 'Sienta bien y gusta.' },
     { t: 'El pinchazo de la vacuna fue muy agradable.', ok: false, por: 'Un pinchazo duele: no gusta.' },
     { t: 'La música suave de la clase es agradable.', ok: true, por: 'Gusta escucharla.' },
-    { t: 'Qué agradable: me he pillado el dedo con la puerta.', ok: false, por: 'Pillarse el dedo hace daño.' }
+    { t: 'Me pillé el dedo con la puerta y me pareció muy agradable.', ok: false, por: 'Pillarse el dedo hace daño.' }
   ],
   ejemplos: [
     { t: 'Una manta suave en invierno', ok: true },

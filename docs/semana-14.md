@@ -82,7 +82,7 @@ PALABRA({
     'Estábamos en el patio y, de repente, empezó a llover.',
     'Un conejo salió de repente de detrás de un arbusto.'
   ],
-  gesto: 'Chasca los dedos una sola vez.',
+  gesto: 'Cierra los puños y ábrelos de golpe, una sola vez.',
   sentido: [
     { t: 'Íbamos en bici y, de repente, se pinchó la rueda.', ok: true, por: 'Pasó rápido y nadie lo esperaba.' },
     { t: 'Cada mañana, de repente, me lavo los dientes despacito.', ok: false, por: 'Lo que haces cada día, despacio, no pasa de repente.' },
@@ -154,7 +154,7 @@ PALABRA({
   ],
   ejemplos: [
     { t: 'Un jugador de ajedrez pensando', ok: true },
-    { t: 'Una cara sin sonrisa', ok: true },
+    { t: 'Una cara sin sonrisa, mirando con mucha atención', ok: true },
     { t: 'Un guardia en la puerta de un museo', ok: true },
     { t: 'Un payaso haciendo muecas', ok: false },
     { t: 'Un niño riéndose de un chiste', ok: false },
@@ -168,7 +168,7 @@ PALABRA({
 PALABRA({
   id: 'asustado', palabra: 'asustado', silabas: ['a', 'sus', 'ta', 'do'],
   tipo: 'cualidad', nivel: 2, curso: 1, semana: 14, orden: 6, bloque: 'sentir',
-  def: 'Estás asustado cuando tienes miedo porque algo te parece peligroso o te ha pillado por sorpresa.',
+  def: 'Estás asustado cuando tienes miedo porque algo te parece peligroso o te ha dado un susto.',
   otro: null,
   escena: { img: 'asustado.webp', texto: 'Es de noche y hay tormenta. Un trueno enorme suena justo encima de la casa de Vera. Vera se tapa con la manta hasta la nariz y llama a su madre. Vera está asustada.' },
   contextos: [

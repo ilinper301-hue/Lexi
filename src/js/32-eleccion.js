@@ -71,7 +71,7 @@ function distractoresElige(p, presentadas, k = 0) {
 }
 
 /** G3 · Gestos que se parecen entre semanas (docs/tareas-gesto-relaciona.md, apartado 5): nunca se ponen juntos como opciones de la forma 2. */
-const GESTOS_PARECIDOS = [['descubrir', 'oscuro'], ['rodear', 'repetir'], ['primero', 'solucion'], ['respetar', 'ser-vivo'], ['agotado', 'tranquilo'], ['observar', 'pista', 'paisaje']];
+const GESTOS_PARECIDOS = [['descubrir', 'oscuro'], ['rodear', 'repetir'], ['primero', 'solucion'], ['respetar', 'ser-vivo'], ['agotado', 'tranquilo'], ['observar', 'pista', 'paisaje', 'fijarse'], ['solucion', 'idea'], ['primero', 'unico'], ['clasificar', 'repartir'], ['repetir', 'cambiar', 'continuar'], ['crecer', 'mejorar'], ['explicar', 'necesitar', 'proponer'], ['timido', 'confundido'], ['pesado', 'esforzarse'], ['soleado', 'alrededor']];
 const seParecen = (a, b) => GESTOS_PARECIDOS.some(g => g.includes(a) && g.includes(b));
 /** G2 + G3 + G4 · Qué forma de `gesto` sale la vez número `k` y con qué opciones. Forma 1 («Haz el gesto») las veces pares; forma 2 («¿Qué palabra es?»)
     las impares, siempre que haya 2 palabras presentadas para acompañar: primero de su semana, si no de la anterior (la más cercana primero), nunca de una posterior

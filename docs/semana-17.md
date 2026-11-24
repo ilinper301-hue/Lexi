@@ -141,7 +141,7 @@ PALABRA({
   otro: null,
   escena: { img: 'vacio.webp', texto: 'Teo abre la caja de galletas para merendar. Mete la mano, pero no toca nada. Mira dentro: no queda ni una miga. ¡La caja está vacía!' },
   contextos: [
-    'El frigorífico está casi vacío: hay que ir a comprar.',
+    'El frigorífico está vacío: hay que ir a comprar.',
     'El sábado, el colegio está vacío.',
     'En invierno, la playa está vacía.'
   ],

@@ -52,7 +52,7 @@ PALABRA({
   gesto: 'Haz como que coges algo de tu cabeza con los dedos y lo dejas encima de la mesa.',
   sentido: [
     { t: 'Mi hermano creó un baile nuevo y ahora lo bailamos todos.', ok: true, por: 'Antes no existía: lo sacó de su cabeza.' },
-    { t: 'Creé un dibujo calcando el de mi libro.', ok: false, por: 'Calcar es copiar: el dibujo no es nuevo.' },
+    { t: 'Creé un dibujo copiando el de mi libro.', ok: false, por: 'Copiar no es crear: el dibujo no es nuevo.' },
     { t: 'La clase creó un nombre para la mascota: «Bigotes».', ok: true, por: 'Se les ocurrió un nombre nuevo.' },
     { t: 'Para crear la canción, cantamos la de siempre.', ok: false, por: 'Si es la de siempre, no hay nada nuevo.' }
   ],
@@ -83,7 +83,7 @@ PALABRA({
   gesto: 'Échate hacia atrás en la silla, cruza las manos detrás de la cabeza y sonríe.',
   sentido: [
     { t: 'Estas zapatillas son tan cómodas que no me las quiero quitar.', ok: true, por: 'Está a gusto con ellas.' },
-    { t: 'Qué cómodo es este jersey: me pica muchísimo.', ok: false, por: 'Si pica, molesta: es incómodo.' },
+    { t: 'Este jersey es muy cómodo porque me pica muchísimo.', ok: false, por: 'Si pica, molesta: es incómodo.' },
     { t: 'En el cojín grande de la biblioteca leo muy cómoda.', ok: true, por: 'Allí está a gusto leyendo.' },
     { t: 'Dormí muy cómodo encima de las piedras del camino.', ok: false, por: 'Las piedras se clavan y molestan.' }
   ],
@@ -122,7 +122,7 @@ PALABRA({
     { t: 'Un guante pequeño en una mano grande', ok: true },
     { t: 'Muchos lápices en un estuche que casi no cierra', ok: true },
     { t: 'Un nudo muy fuerte', ok: true },
-    { t: 'Un abrigo grande que te baila', ok: false },
+    { t: 'Un abrigo grande que se te cae de los hombros', ok: false },
     { t: 'Una caja con un solo lápiz', ok: false },
     { t: 'Unos zapatos de tu talla', ok: false }
   ],
@@ -142,7 +142,7 @@ PALABRA({
     'En clase, hoy he hecho la ficha yo solo, sin ayuda.',
     'En el parque, un perrito estaba solo y buscaba a su dueño.'
   ],
-  gesto: 'Pon un dedo de pie en una punta de la mesa y, en la otra punta, la otra mano con todos los dedos juntos.',
+  gesto: 'Cruza los brazos y mira a los lados, sin nadie cerca.',
   sentido: [
     { t: 'Mi abuelo vive solo desde que mi tía se fue a otra ciudad.', ok: true, por: 'Nadie vive con él.' },
     { t: 'Estaba solo en el cumpleaños, con todos mis amigos.', ok: false, por: 'Si están todos sus amigos, no está solo.' },

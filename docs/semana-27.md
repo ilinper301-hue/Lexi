@@ -138,7 +138,7 @@ PALABRA({
   otro: null,
   escena: { img: 'escaso.webp', texto: 'Hace muchos días que no llueve en el pueblo de Marco. El río lleva muy poca agua y las plantas se ponen amarillas. Su madre le dice: «Cierra bien el grifo, que el agua es escasa».' },
   contextos: [
-    'En casa, la leche estaba escasa y solo llegó para dos vasos.',
+    'En casa, la leche era escasa y solo llegó para dos vasos.',
     'En clase, las tijeras eran escasas y tuvimos que compartirlas.',
     'En el desierto, las plantas son escasas.'
   ],
@@ -186,7 +186,7 @@ PALABRA({
     { t: 'Decirle a tu hermano que le queda poco para acabar', ok: true },
     { t: 'Decir «Déjalo, es muy difícil»', ok: false },
     { t: 'Reírte de quien se equivoca', ok: false },
-    { t: 'Secar las lágrimas a alguien que llora', ok: false }
+    { t: 'Decirle a un amigo «¡Qué lento eres!»', ok: false }
   ],
   acaba: ['Cuando alguien quiere rendirse, lo animo diciendo…', 'Me anima mucho que me digan…'],
   habla: 'Pensad entre los dos tres frases para animar a un compañero que no quiere seguir.',
@@ -213,8 +213,8 @@ PALABRA({
   `abundante` pregunta además «a montones»; `escaso`, «poco». `mucho` va en `rel.mas` porque «poco» y
   «mucho» se dicen todos los días y bastan como pista.
 - `animar` (bloque `convivir`) frente a `consolar` (semana 23): animar es **dar ganas de seguir**;
-  consolar es **ayudar a quien está triste**. El no-ejemplo «Secar las lágrimas a alguien que llora» es
-  justo `consolar`. Segundo significado (de la lista): «La música animó la fiesta». Pregunta «apoyar».
+  consolar es **ayudar a quien está triste**. El no-ejemplo «Decirle a un amigo «¡Qué lento eres!»» es
+  lo contrario de animar (R28; antes era `consolar`, que un niño que la sabe daría por buena). Segundo significado (de la lista): «La música animó la fiesta». Pregunta «apoyar».
   `desanimado` (semana 23) va en `rel.mas`: es de su familia.
 - **Gestos cercanos a vigilar:** `practicar` (tocar una flauta) y `brillante` (dedos que parpadean,
   semana 6); `mejorar` (dos manos como escalones) y `crecer` (mano que sube, semana 10); `concentrarse`

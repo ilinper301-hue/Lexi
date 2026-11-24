@@ -42,7 +42,7 @@ PALABRA({
 PALABRA({
   id: 'medio-ambiente', palabra: 'medio ambiente', silabas: ['me', 'dio', 'am', 'bien', 'te'],
   tipo: 'nombre', nivel: 3, curso: 1, semana: 30, orden: 2, bloque: 'medio', sep: 'planeta-medio-ambiente',
-  def: 'El medio ambiente es todo lo que nos rodea: aire, agua, tierra, plantas y animales.',
+  def: 'El medio ambiente es la naturaleza que nos rodea: aire, agua, tierra, plantas y animales.',
   otro: null,
   escena: { img: 'medio-ambiente.webp', texto: 'La clase de Bruno va de excursión al río. Ven patos, peces, árboles y flores. Bruno encuentra un envoltorio en la hierba y lo guarda en su mochila. «Así cuidamos el medio ambiente», dice la maestra.' },
   contextos: [
@@ -61,8 +61,8 @@ PALABRA({
     { t: 'El aire que respiramos', ok: true },
     { t: 'El agua de los ríos y del mar', ok: true },
     { t: 'Los animales y las plantas del bosque', ok: true },
-    { t: 'Un sueño', ok: false },
-    { t: 'Un número', ok: false },
+    { t: 'Un juguete de plástico', ok: false },
+    { t: 'Un estuche', ok: false },
     { t: 'Un chiste', ok: false }
   ],
   pregunta: '¿Es parte del medio ambiente?',
@@ -79,7 +79,7 @@ PALABRA({
   escena: { img: 'contaminar.webp', texto: 'Rocío va al cole andando con su madre. Hay un atasco y los coches echan humo gris. Rocío se tapa la nariz: «¡Qué mal huele!». «Ese humo contamina el aire», le dice su madre.' },
   contextos: [
     'En casa no tiramos el aceite por el fregadero, porque contamina el agua.',
-    'En el cole nos gusta venir andando o en bici, que no contamina.',
+    'En el cole nos gusta venir andando, en bici o en autobús, que contamina menos.',
     'En la playa vimos plásticos en la arena: contaminan el mar.'
   ],
   gesto: 'Tápate la nariz con dos dedos y aparta con la otra mano un humo imaginario.',

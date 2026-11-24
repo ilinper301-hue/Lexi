@@ -74,7 +74,7 @@ PALABRA({
   tipo: 'cualidad', nivel: 2, curso: 1, semana: 18, orden: 3, bloque: 'como-son',
   def: 'Algo es complicado cuando tiene muchos pasos o partes y cuesta entenderlo o hacerlo.',
   otro: null,
-  escena: { img: 'complicado.webp', texto: 'Marina quiere montar una nave espacial con piezas. Las instrucciones tienen muchísimas páginas y cientos de piezas pequeñas. Marina pasa las hojas y no sabe por dónde seguir. ¡Qué nave tan complicada!' },
+  escena: { img: 'complicado.webp', texto: 'Marina quiere montar una nave espacial con piezas. Las instrucciones tienen muchísimas páginas y muchísimas piezas pequeñas. Marina pasa las hojas y no sabe por dónde seguir. ¡Qué nave tan complicada!' },
   contextos: [
     'Hacer una tarta de tres pisos es complicado.',
     'Este problema es complicado: hay que leerlo despacio.',

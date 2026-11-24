@@ -10,7 +10,7 @@ torcido) y un sentimiento (aburrido).
 PALABRA({
   id: 'antes', palabra: 'antes', silabas: ['an', 'tes'],
   tipo: 'enlace', nivel: 2, curso: 1, semana: 19, orden: 1, bloque: 'pensar', sep: 'antes-durante',
-  def: 'Decimos «antes» para contar lo que pasa cuando otra cosa todavía no ha llegado.',
+  def: 'Decimos «antes» cuando algo va primero y otra cosa viene después.',
   otro: 'También quiere decir «hace tiempo»: «Antes vivía en otra ciudad».',
   escena: { img: 'antes.webp', texto: 'Hoy hay piscina. Lola quiere tirarse al agua corriendo, pero el monitor la para. «¡Espera, la ducha!», le recuerda. Lola se ducha antes de meterse en el agua.' },
   contextos: [
@@ -61,7 +61,7 @@ PALABRA({
     { t: 'Dormir durante la noche', ok: true },
     { t: 'Aplaudir durante la canción', ok: true },
     { t: 'Llevar el casco durante el paseo en bici', ok: true },
-    { t: 'Comer helado durante la siesta', ok: false },
+    { t: 'Hacer un dibujo entero durante un parpadeo', ok: false },
     { t: 'Leer un cuento entero durante un estornudo', ok: false },
     { t: 'Estar seco durante el baño', ok: false }
   ],
@@ -118,7 +118,7 @@ PALABRA({
     { t: 'Con la regla, la raya me salió recta.', ok: true, por: 'La regla ayuda a ir derecho.' },
     { t: 'El camino era recto: tenía muchísimas curvas.', ok: false, por: 'Si tiene curvas, no es recto.' },
     { t: 'La flecha voló recta hasta la diana.', ok: true, por: 'Fue derecha, sin hacer curvas.' },
-    { t: 'La serpiente avanzaba recta, haciendo eses.', ok: false, por: 'Las eses son curvas.' }
+    { t: 'La serpiente avanzaba recta, haciendo curvas y curvas.', ok: false, por: 'Con curvas no es recta.' }
   ],
   ejemplos: [
     { t: 'Una regla', ok: true },
@@ -138,10 +138,10 @@ PALABRA({
   tipo: 'cualidad', nivel: 2, curso: 1, semana: 19, orden: 5, bloque: 'como-son', sep: 'recto-torcido',
   def: 'Algo está torcido cuando se ha doblado o no está derecho, como debería.',
   otro: null,
-  escena: { img: 'torcido.webp', texto: 'Pablo cuelga en la pared el dibujo de su perro. Se aparta para mirarlo y ladea la cabeza. El perro parece que se va a caer de lado. ¡El dibujo está torcido!' },
+  escena: { img: 'torcido.webp', texto: 'Pablo cuelga en la pared el dibujo de su perro. Se aparta para mirarlo y inclina la cabeza. El perro parece que se va a caer de lado. ¡El dibujo está torcido!' },
   contextos: [
     'En casa, el clavo se torció y no entraba en la madera.',
-    'En el pasillo del cole, la fila salió torcida y la enderezamos.',
+    'En el pasillo del cole, la fila salió torcida y la pusimos derecha.',
     'El viento ha dejado el árbol torcido.'
   ],
   gesto: 'Pon una mano plana delante e inclínala hacia un lado, despacio.',
@@ -175,7 +175,7 @@ PALABRA({
     'Cuando estoy aburrido en el recreo, busco a alguien para jugar.',
     'El perro está aburrido y mordisquea una zapatilla.'
   ],
-  gesto: 'Apoya la cara en una mano y mira al techo, sin moverte.',
+  gesto: 'Deja caer la cabeza hacia atrás y resopla mirando al techo.',
   sentido: [
     { t: 'Me aburrí en la cola del súper porque no había nada que hacer.', ok: true, por: 'No tenía nada que hacer y el rato se hacía largo.' },
     { t: 'Estaba aburrido porque me lo estaba pasando genial.', ok: false, por: 'Si te lo pasas genial, no te aburres.' },

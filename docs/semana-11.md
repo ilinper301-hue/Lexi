@@ -10,7 +10,7 @@ enunciados de las fichas (tachar, marcar, contestar), una pareja de contrarias y
 PALABRA({
   id: 'tachar', palabra: 'tachar', silabas: ['ta', 'char'],
   tipo: 'accion', nivel: 2, curso: 1, semana: 11, orden: 1, bloque: 'pensar', sep: 'tachar-marcar',
-  def: 'Tachar es hacer una raya encima de algo escrito o dibujado, porque sobra o está mal.',
+  def: 'Tachar es hacer una raya encima de algo porque sobra, está mal o ya está hecho.',
   otro: null,
   escena: { img: 'tachar.webp', texto: 'Hugo hace con dibujos la lista de la compra: leche, pan y plátanos. «¡Uy, plátanos ya tenemos!», dice su madre. Hugo pasa una raya por encima de los plátanos. Los ha tachado.' },
   contextos: [
@@ -107,7 +107,7 @@ PALABRA({
   otro: 'También se dice de quien molesta y no para: «¡Qué pesado estás con la pelota!».',
   escena: { img: 'pesado.webp', texto: 'Lola ayuda a su padre a sacar la compra del coche. Coge la bolsa de las naranjas y tira con fuerza, pero casi no se mueve. «¡Cuánto pesa!», dice. La bolsa es muy pesada.' },
   contextos: [
-    'Con todos los libros, mi mochila está pesadísima.',
+    'Con todos los libros, mi mochila está muy pesada.',
     'El elefante es un animal muy pesado.',
     'Entre dos vecinos suben la caja pesada hasta el quinto piso.'
   ],
@@ -173,7 +173,7 @@ PALABRA({
     'Cuando nuestro equipo marcó el gol, la gente del campo se emocionó.',
     'Papá se emocionó al ver mi primer dibujo de la familia.'
   ],
-  gesto: 'Da palmadas rápidas y pequeñas con la punta de los dedos, sonriendo.',
+  gesto: 'Aprieta los puños junto al pecho y da un saltito, sonriendo.',
   sentido: [
     { t: 'Estoy emocionado: ¡mañana vamos al zoo!', ok: true, por: 'Tiene muchas ganas y mucha alegría.' },
     { t: 'Estaba emocionado porque no pasaba nada en toda la tarde.', ok: false, por: 'Si no pasa nada, no hay nada que dé ganas ni alegría.' },

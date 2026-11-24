@@ -122,7 +122,7 @@ PALABRA({
   ],
   ejemplos: [
     { t: 'Una tele que no se enciende', ok: true },
-    { t: 'Un paraguas con las varillas dobladas', ok: true },
+    { t: 'Un paraguas que ya no se abre', ok: true },
     { t: 'Una cremallera que ya no cierra', ok: true },
     { t: 'Un coche de juguete que corre muy bien', ok: false },
     { t: 'Una linterna que da mucha luz', ok: false },
@@ -144,7 +144,7 @@ PALABRA({
     'En clase, cuando un dibujo no me sale, a veces me siento desanimado.',
     'En la piscina, Leo estaba desanimado porque todavía no sabía flotar.'
   ],
-  gesto: 'Pon el pulgar hacia arriba y bájalo despacio hasta abajo, con cara triste.',
+  gesto: 'Deja caer los hombros y la cabeza, despacio, con un suspiro.',
   sentido: [
     { t: 'Estaba desanimada porque mi planta no crecía, y ya no quería regarla.', ok: true, por: 'Perdió las ganas porque pensaba que no iba a salir.' },
     { t: 'Estaba tan desanimado que salté de alegría.', ok: false, por: 'Si saltas de alegría, estás contento, no desanimado.' },

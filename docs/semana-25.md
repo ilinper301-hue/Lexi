@@ -149,7 +149,7 @@ PALABRA({
   gesto: 'Cierra una mano en puño y, con los dedos de la otra, deja caer gotas encima: resbalan y no entran.',
   sentido: [
     { t: 'Mis botas de agua son impermeables: salté en los charcos y no me mojé.', ok: true, por: 'No dejan pasar el agua.' },
-    { t: 'Mi camiseta de algodón es impermeable: con la lluvia me calé entera.', ok: false, por: 'Si te calas, deja pasar el agua.' },
+    { t: 'Mi camiseta de algodón es impermeable: con la lluvia me mojé entera.', ok: false, por: 'Si te calas, deja pasar el agua.' },
     { t: 'La tienda de campaña es impermeable, y dentro no entra la lluvia.', ok: true, por: 'El agua se queda fuera.' },
     { t: 'La esponja es impermeable porque se llena de agua.', ok: false, por: 'La esponja chupa el agua: es lo contrario.' }
   ],
@@ -188,7 +188,7 @@ PALABRA({
   ejemplos: [
     { t: 'Una lavadora', ok: true },
     { t: 'Una grúa', ok: true },
-    { t: 'Una bicicleta', ok: true },
+    { t: 'Una excavadora', ok: true },
     { t: 'Una mesa', ok: false },
     { t: 'Un caballo', ok: false },
     { t: 'Una caja de cartón', ok: false }

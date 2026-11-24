@@ -87,12 +87,12 @@ PALABRA({
     { t: 'La maestra repartió los cuentos: uno para cada mesa.', ok: true, por: 'Dio a cada mesa su parte.' },
     { t: 'Repartí las galletas entre mis amigos y me las comí todas yo.', ok: false, por: 'Si se las comió él, nadie más tuvo su parte.' },
     { t: 'En casa repartimos las tareas: yo pongo la mesa y mi hermano la quita.', ok: true, por: 'A cada uno le toca la suya.' },
-    { t: 'El cartero repartió las cartas guardándolas en su casa.', ok: false, por: 'Repartir es dejar cada carta en su casa.' }
+    { t: 'El cartero repartió las cartas guardándolas en su casa.', ok: false, por: 'Repartir es dejar cada carta en la casa de quien la espera.' }
   ],
   ejemplos: [
     { t: 'Dar un folio a cada niño', ok: true },
     { t: 'Dejar una carta en cada buzón', ok: true },
-    { t: 'Partir la pizza para que todos tengan un trozo', ok: true },
+    { t: 'Partir la pizza y dar un trozo a cada uno', ok: true },
     { t: 'Guardarte todos los cromos', ok: false },
     { t: 'Juntar todos los lápices en un bote', ok: false },
     { t: 'Dar todas las galletas a un solo niño', ok: false }
@@ -118,12 +118,12 @@ PALABRA({
     { t: 'La fiesta era tan ruidosa que tenía que gritar para hablar.', ok: true, por: 'Había tanto ruido que no se oían.' },
     { t: 'La biblioteca es ruidosa: allí se lee sin hablar.', ok: false, por: 'Donde no se habla, casi no hay ruido.' },
     { t: 'Mi perro es muy ruidoso: ladra a todo el que pasa.', ok: true, por: 'Hace mucho ruido.' },
-    { t: 'El gato caminó tan ruidoso que nadie lo oyó.', ok: false, por: 'Si nadie lo oyó, no hizo ruido.' }
+    { t: 'El gato era tan ruidoso que nadie lo oyó.', ok: false, por: 'Si nadie lo oyó, no hizo ruido.' }
   ],
   ejemplos: [
     { t: 'Una moto', ok: true },
     { t: 'Una tormenta con truenos', ok: true },
-    { t: 'Una batería', ok: true },
+    { t: 'Un tambor grande', ok: true },
     { t: 'Una mariposa', ok: false },
     { t: 'Una biblioteca', ok: false },
     { t: 'Una pluma cayendo', ok: false }
@@ -147,7 +147,7 @@ PALABRA({
   gesto: 'Ponte un dedo sobre los labios.',
   sentido: [
     { t: 'Entré silencioso para no despertar al bebé.', ok: true, por: 'No hizo ruido.' },
-    { t: 'El concierto de tambores fue muy silencioso.', ok: false, por: 'Los tambores hacen mucho ruido.' },
+    { t: 'El concierto de trompetas fue muy silencioso.', ok: false, por: 'Las trompetas hacen mucho ruido.' },
     { t: 'El búho vuela silencioso por la noche.', ok: true, por: 'Casi no se le oye.' },
     { t: 'Mi hermano estaba silencioso: cantaba a gritos.', ok: false, por: 'Si canta a gritos, hace mucho ruido.' }
   ],
@@ -157,7 +157,7 @@ PALABRA({
     { t: 'Una pluma cayendo', ok: true },
     { t: 'Una moto', ok: false },
     { t: 'Una tormenta con truenos', ok: false },
-    { t: 'Una batería', ok: false }
+    { t: 'Un tambor grande', ok: false }
   ],
   acaba: ['En clase estamos silenciosos cuando…', 'Un animal silencioso es… porque…'],
   habla: '¿Dónde hay que estar silencioso? Pensad tres sitios con tu compañero.',
