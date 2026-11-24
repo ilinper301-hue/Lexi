@@ -58,7 +58,7 @@ falla(p => { p.gesto = 'Haz como que ordenas la mesa.'; }, 'el gesto nombra', 't
 falla(p => { p.rel.parecida.push('ordenado'); }, 'misma familia', 'test 75: no detecta una parecida de la misma familia');
 falla(p => { p.rel.parecida.push('mezclar'); }, 'parecida y contraria', 'no detecta la misma palabra en parecida y contraria');
 falla(p => { p.rel.mas = []; }, 'rel.mas', 'no detecta un rel.mas vacío');
-falla(p => { p.rel.mas.push('colocar'); }, 'también en rel.mas', 'no detecta una palabra repetida en rel.mas');
+falla(p => { p.rel.mas.push('mezclar'); }, 'también en rel.mas', 'no detecta una palabra repetida en rel.mas');
 
 // 6. `orden` y `sep` (docs/pedagogia.md, apartado 13): el comprobador los exige y detecta lo que está mal
 {

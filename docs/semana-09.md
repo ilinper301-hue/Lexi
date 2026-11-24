@@ -156,7 +156,7 @@ PALABRA({
   ],
   acaba: ['Soy amable cuando…', 'Me siento bien cuando alguien es amable conmigo porque…'],
   habla: '¿Qué puedes hacer o decir hoy para ser amable con alguien?',
-  rel: { parecida: ['cariñoso', 'educado'], contraria: ['antipático'], familia: ['amabilidad'] }
+  rel: { parecida: [], contraria: ['antipático'], familia: ['amabilidad'], mas: ['cariñoso', 'educado'] }
 });
 
 PALABRA({

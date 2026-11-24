@@ -431,10 +431,17 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     `soleado-nublado` y `planeta-medio-ambiente`; 101) sin preguntas de `relaciona`: `reciclar`;
     `contaminar` sin contraria (solo «ensuciar»); `ahorrar` pregunta «lo contrario de malgastar»;
     102) `medio ambiente` y `residuo` de nivel 3, como `articulación`
-  - [ ] Revisión independiente de las semanas 11 a 30 por Sonnet (esfuerzo medio), como la de las semanas
-    2 a 10 (`docs/revision-fichas.md`): solo propone; los cambios los aprueba Iván. Incluye los puntos
-    72 a 102. **Iván dijo «sí a todo» el 24-11-2026: los puntos 72 a 102 están aprobados** tal cual
-    están escritos
+  - [x] Revisión independiente de las semanas 11 a 30 (24-11-2026, Sonnet, esfuerzo medio): propuesta en
+    `docs/revision-fichas-11-30.md` (9 fallos A, 20 mejoras B, 3 puntos de gestos y 8 detalles C; puntos
+    R1 a R40). **Solo propone: no se ha cambiado ninguna ficha de las semanas 11 a 30.** Incluye los puntos
+    72 a 102, que están cumplidos. **Iván dijo «sí a todo» el 24-11-2026 a los puntos 72 a 102**, y de
+    ellos los dos que tocaban fichas viejas se aplicaron ya: 90 (`colocar` pasa a `rel.mas` en `ordenar`) y
+    98 (`cariñoso` y `educado` pasan a `rel.mas` en `amable`), en las fichas, en `src/js/palabras/`, en
+    `docs/tareas-gesto-relaciona.md` y en `tests/test_contenido.js` (la prueba de «`rel.mas` repetido»
+    usaba `colocar`). Todos los tests y la prueba de humo pasan. `sw.js` = `lexi-pwa-55`
+  - [ ] Iván contesta a los puntos R1 a R40 de la revisión (sí / no / cambio) y se aplican en
+    `docs/semana-11.md` … `semana-30.md` (Sonnet, esfuerzo medio; el comprobador y `test_docs` tienen que
+    seguir pasando). Los gestos de R32 (`GESTOS_PARECIDOS`) se pueden hacer sin tocar fichas
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

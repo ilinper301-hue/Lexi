@@ -112,7 +112,7 @@ Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; 
 |---|---|---|---|---|
 | 1 | observar | fijarse · mirar con atención | — | |
 | 1 | comparar | — | — | |
-| 1 | ordenar | colocar | mezclar | ↷ desordenar |
+| 1 | ordenar | — | mezclar | ↷ desordenar · colocar (no son lo mismo) |
 | 1 | enorme | gigante · muy grande | diminuto\* | |
 | 1 | frágil | delicado\* | resistente\* · duro | |
 | 1 | curioso | — | — | |
@@ -162,7 +162,7 @@ Sin marca: ya está así en la ficha. **↷** pasa a `rel.mas` (no se pregunta; 
 | 9 | colaborar | trabajar en equipo | — | ↷ cooperar |
 | 9 | respetar | tratar bien | molestar | ↷ cumplir, faltar al respeto |
 | 9 | cuidadoso | atento | — | ↷ descuidado |
-| 9 | amable | cariñoso · educado | antipático | |
+| 9 | amable | — | antipático | ↷ cariñoso · educado (no son lo mismo) |
 | 9 | paciente | ✎ que sabe esperar | — | ↷ tranquilo, calmado (son de `tranquilo`), impaciente |
 | 10 | ser vivo | — | — | ↷ cosa sin vida |
 | 10 | alimento | comida | — | |
