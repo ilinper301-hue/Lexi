@@ -408,7 +408,19 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     vale»); 94) sin preguntas de `relaciona`: `material` y `cómodo`; `apretado` no pregunta «justo»
     (es de 2.º con otro significado). Propuesta aparte, que toca la semana 9: pasar `educado` de
     `rel.parecida` a `rel.mas` en `amable`, porque ahora enseñamos que no son lo mismo
-  - [ ] Semanas 27 y 28 (Opus, esfuerzo alto; chat nuevo recomendado a partir de la 29)
+  - [x] Semanas 27 y 28 (24-11-2026, Opus): `docs/semana-27.md` (practicar, mejorar, concentrarse,
+    abundante, escaso, animar) y `docs/semana-28.md` (respuesta, resultado, maduro, fresco, perdonar,
+    cariñoso), peticiones S27 y S28. Comprobador: 168 palabras de 1.º, sin errores. `PAQUETE_1` con las
+    12 nuevas (`solución` pierde la pregunta «respuesta» y `amable` la de «cariñoso» hasta presentarlas).
+    `respuesta` y `resultado` llevan `pregunta`. `sw.js` = `lexi-pwa-52`. Tests y prueba de humo pasan.
+    **Para Iván (puntos 95 a 98; si dice que no, se cambia):** 95) `sep` nuevos: `practicar-mejorar`,
+    `abundante-escaso` y `respuesta-resultado`; 96) segundo significado nuevo de `mejorar` (ponerse bien
+    de salud); 97) `resultado` sin preguntas de `relaciona`; `concentrarse` solo pregunta «lo contrario
+    de distraerse» («prestar atención» es la de `fijarse`); `maduro` pregunta «lo contrario de verde»;
+    98) propuesta aparte, junto con la del punto 94: dejar a `amable` solo con «lo contrario de
+    antipático» y pasar `cariñoso` y `educado` a su `rel.mas`, porque ahora enseñamos que no son lo mismo
+  - [ ] Semanas 29 y 30 (chat nuevo recomendado: Opus, esfuerzo alto). Después: revisión por Sonnet y
+    tabla del apartado 8 de `docs/pedagogia.md`
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):

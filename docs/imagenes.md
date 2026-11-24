@@ -311,6 +311,28 @@ Se nombran «S11», «S12»… para no confundirlas con las peticiones 11 a 16, 
 | `solo` | El patio de un colegio: un niño sentado solo en un banco, algo triste; al fondo, otros niños juegan lejos. Una niña se le acerca sonriendo y le tiende la mano. |
 | `educado` | Una panadería de barrio: una niña, de la mano de su madre, coge una barra de pan que le da la panadera por encima del mostrador; las tres sonríen. Sin carteles con letras. |
 
+### Petición S27 · semana 27
+
+| id | Qué debe verse |
+|---|---|
+| `practicar` | Una niña saltando a la comba en el patio de su casa, concentrada, con la cuerda en el aire por encima de la cabeza; al lado, en el suelo, una mochila del cole. |
+| `mejorar` | Primer plano de dos fichas de colegio una junto a otra sobre una mesa: en la de la izquierda, garabatos grandes y torcidos; en la de la derecha, garabatos más pequeños y casi rectos (sin letras que se puedan leer). La mano de una maestra señala la de la derecha. |
+| `concentrarse` | Un niño en el suelo de su salón haciendo un puzle grande, muy concentrado, con una pieza en la mano; detrás, su hermana con unos auriculares bailando y un perro ladrando, sin que él levante la vista. |
+| `abundante` | Una niña y su abuelo en un camino de campo en otoño, con dos cestas llenas de castañas; el suelo, alrededor, está cubierto de castañas y erizos entre hojas secas. |
+| `escaso` | Un niño en un pueblo junto a un río casi seco, con piedras al aire y un hilito de agua; a la orilla, plantas amarillentas. Al fondo, su madre lo llama desde una casa. |
+| `animar` | Una carrera en el patio de un colegio: un niño cansado corre hacia una cinta de meta y, detrás de una valla, sus compañeros saltan y gritan con los brazos en alto. Camisetas sin números ni letras. |
+
+### Petición S28 · semana 28
+
+| id | Qué debe verse |
+|---|---|
+| `respuesta` | Una clase de 1.º: la maestra con una lámina de una vaca en la mano (sin letras) y muchos niños con la mano levantada; una niña en primera fila contesta con la boca abierta y cara de alegría. |
+| `resultado` | Una cocina de casa: una niña y su padre con guantes de horno sacan un bizcocho dorado del horno; los dos sonríen y huelen el vapor. En la mesa, un bol con restos de masa, huevos y harina. |
+| `maduro` | Una tomatera en una maceta de un balcón, con tomates rojos y algún tomate pequeño y verde; una abuela coge un tomate rojo y se lo enseña a una niña, que sonríe. |
+| `fresco` | Un puesto de pescado en un mercado: el pescadero enseña un pescado brillante sobre hielo a una madre y a su hijo, que lo miran con atención. Sin carteles con letras ni precios. |
+| `perdonar` | Dos niños en el patio: el niño ofrece la mano con cara de «lo siento» y la niña, que tiene en la otra mano un avión de papel arrugado, le da la mano sonriendo. |
+| `carinoso` | La entrada de una casa: una niña abraza fuerte a su abuela, que acaba de llegar con un abrigo y un bolso; la abuela se ríe con los ojos cerrados. |
+
 ## Paquete de 2.º
 
 Mismo estilo y mismo formato de entrega. Los `id` no se repiten con los de 1.º.
