@@ -433,7 +433,7 @@ Dudas que salieron al programar el paso 3.2 (17-11-2026). Está hecha la lectura
     102) `medio ambiente` y `residuo` de nivel 3, como `articulación`
   - [ ] Revisión independiente de las semanas 11 a 30 por Sonnet (esfuerzo medio), como la de las semanas
     2 a 10 (`docs/revision-fichas.md`): solo propone; los cambios los aprueba Iván. Incluye los puntos
-    69 a 102 que Iván aún no haya contestado (87 a 102)
+    72 a 102, que Iván aún no ha contestado
   - [ ] Pasar las semanas 11 y 12 a `src/js/palabras/` cuando lleguen sus imágenes (Sonnet)
 - [x] Paquete de 2.º: lista aprobada por Iván (15-11-2026) con 6 cambios, en `docs/lista-2-borrador.md`
 - [x] Paquete de 2.º, **diseño** (15-11-2026, Fable, esfuerzo alto; sin programar nada):
