@@ -61,7 +61,20 @@ let NUEVO_NOM = '';
 function pintar() {
   $('#app').dataset.sc = PANT;
   $('#app').innerHTML = barra() + (SC[PANT] || SC.inicio)();
+  ajustarPalabras();
 }
+/** Cada palabra grande cabe siempre en una sola línea: si no cabe al tamaño de la hoja de estilos, se reduce la letra. */
+function ajustarPalabras() {
+  document.querySelectorAll('.palabra-g').forEach(el => {
+    el.style.fontSize = '';
+    const pa = el.parentElement, cs = getComputedStyle(pa);
+    const libre = Math.min(pa.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), document.documentElement.clientWidth - 24);
+    const w = el.scrollWidth;
+    if (libre > 0 && w > libre) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * libre / w * 0.97).toFixed(1) + 'px';
+  });
+}
+window.addEventListener('resize', () => ajustarPalabras());
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ajustarPalabras());
 function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
 function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }

@@ -13,6 +13,7 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <style>@font-face{font-family:'Fredoka';src:url(fonts/fredoka.woff) format('woff');font-weight:400 700;font-display:swap}
 @font-face{font-family:'Fredoka';src:url(fonts/fredoka-ext.woff) format('woff');font-weight:400 600;font-display:swap;unicode-range:U+0131,U+0152-0153,U+2122,U+2212}
+@font-face{font-family:'FredokaFina';src:url(fonts/fredoka-fina.woff) format('woff');font-weight:400;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter-400.woff) format('woff');font-weight:400;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter-500.woff) format('woff');font-weight:500;font-display:swap}
 @font-face{font-family:'Inter';src:url(fonts/inter-600.woff) format('woff');font-weight:600 700;font-display:swap}
@@ -121,7 +122,7 @@ body{font-family:var(--fi);-webkit-text-size-adjust:100%}
 .gr-p{font-size:1.2rem}
 .nota-g{font:500 1rem var(--fi);color:var(--mu);margin:0;text-align:center}
 .pal-ch{margin:0;font:700 clamp(1.3rem,3vw,2rem) var(--fd);color:var(--aci)}
-.palabra-g{margin:0;font:700 clamp(3.5rem,16vw,9rem)/1 var(--fd);overflow-wrap:anywhere}
+.palabra-g{margin:0;font:400 clamp(3.5rem,16vw,9rem)/1 'FredokaFina',var(--fd);white-space:nowrap;text-align:center;max-width:100%}
 .silabas{margin:0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
 .sil{display:inline-block;padding:.1em .4em;border-radius:.35em;background:var(--soft);font:700 clamp(2.4rem,11vw,6rem)/1.1 var(--fd)}
 .pt{font:700 clamp(2rem,9vw,5rem) var(--fd);color:var(--ac);font-style:normal}
@@ -1246,7 +1247,20 @@ let NUEVO_NOM = '';
 function pintar() {
   $('#app').dataset.sc = PANT;
   $('#app').innerHTML = barra() + (SC[PANT] || SC.inicio)();
+  ajustarPalabras();
 }
+/** Cada palabra grande cabe siempre en una sola línea: si no cabe al tamaño de la hoja de estilos, se reduce la letra. */
+function ajustarPalabras() {
+  document.querySelectorAll('.palabra-g').forEach(el => {
+    el.style.fontSize = '';
+    const pa = el.parentElement, cs = getComputedStyle(pa);
+    const libre = Math.min(pa.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), document.documentElement.clientWidth - 24);
+    const w = el.scrollWidth;
+    if (libre > 0 && w > libre) el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) * libre / w * 0.97).toFixed(1) + 'px';
+  });
+}
+window.addEventListener('resize', () => ajustarPalabras());
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ajustarPalabras());
 function go(p) { PANT = p; ERR = ''; pintar(); window.scrollTo(0, 0); }
 function atras() {
   if (PANT === 'tz' && (TZ.sub || TZ.borrar)) { TZ.sub = ''; TZ.borrar = ''; TZ.imp = null; ERR = ''; return pintar(); }
