@@ -1,35 +1,26 @@
-/* ===== Mascota de Lexi: un bocadillo de palabras (diseño de Iván, 17-11-2026) =====
-   Dibujada a mano en vectores con formas limpias (círculos y curvas suaves de pocos puntos),
-   como las mascotas de Calculi, Lectori y Barri. Flota, parpadea y saluda con el brazo izquierdo;
+/* ===== Mascota de Lexi: bocadillo coral (diseño de Iván, 28-11-2026) =====
+   SVG de Iván pasado a función. Flota, parpadea y saluda con el brazo izquierdo;
    el brazo nace dentro del cuerpo, así que al girar nunca se abre un hueco.
-   Colores en --m0…--mlengua (estilos.css). */
+   Colores en --m0, --m3, --mojo y --mlengua (estilos.css). */
 function mascota(tam = 240, quieta = false) {
-  const cuerpo = 'M62 16C88 8 120 3 144 4C170 5 182 14 185 36C188 56 188 76 182 92C176 104 160 110 140 113C112 117 92 119 74 119C66 122 54 127 45 128.5C38 129.5 35.5 124 39 120C42 115 45 109 46 104C38 92 35 76 36 60C37 40 44 24 62 16Z';
-  const boca = 'M96 80.5C107 81.5 119 79 128 74.5C131 73 132.4 75.5 131.8 79C130 91 121.5 98.5 112 98.5C102 98.5 95 90.5 94.5 84.5C94.2 82 94.8 80.4 96 80.5Z';
-  const ojo = (cx, cy, r, px, py) => `<g class="ojo"><circle cx="${cx}" cy="${cy}" r="${r}" fill="#fff"/>`
-    + `<circle cx="${px}" cy="${py}" r="${(r * .63).toFixed(1)}" fill="var(--mojo)"/>`
-    + `<circle cx="${px + 5.5}" cy="${py - 6.5}" r="${(r * .25).toFixed(1)}" fill="#fff"/></g>`;
-  return `<svg class="mas${quieta ? ' quieta' : ''}" width="${tam}" height="${Math.round(tam * 148 / 216)}" viewBox="0 0 216 148" role="img" aria-label="Lexi, la mascota">
-  <defs>
-    <linearGradient id="lexi-g" gradientUnits="userSpaceOnUse" x1="0" y1="4" x2="0" y2="120"><stop offset="0" style="stop-color:var(--m2)"/><stop offset="1" style="stop-color:var(--m0)"/></linearGradient>
-    <clipPath id="lexi-d"><path d="M180 60C194 60 206 70 209 84C211 95 207 105 199 105C192 105 188 98 190 90C191 84 188 78 180 76Z"/></clipPath><clipPath id="lexi-i"><path d="M54 70C42 66 31 59 24 52C18 46 9 47 5 54C1 61 4 70 12 76C22 84 36 89 54 88Z"/></clipPath><clipPath id="lexi-c"><path d="${cuerpo}"/></clipPath><clipPath id="lexi-b"><path d="${boca}"/></clipPath>
-  </defs>
-  <ellipse class="sombra" cx="111" cy="138" rx="55" ry="6.5" fill="currentColor" opacity=".12"/>
+  const ojo = (bx, by, brx, bry, br, px, py, prx, pry, pr, hx, hy) => `<g class="ojo">`
+    + `<ellipse cx="${bx}" cy="${by}" rx="${brx}" ry="${bry}" transform="rotate(${br} ${bx} ${by})" fill="#fffefd"/>`
+    + `<ellipse cx="${px}" cy="${py}" rx="${prx}" ry="${pry}" transform="rotate(${pr} ${px} ${py})" fill="var(--mojo)"/>`
+    + `<circle cx="${hx}" cy="${hy}" r="21" fill="#fffefd"/></g>`;
+  return `<svg class="mas${quieta ? ' quieta' : ''}" width="${tam}" height="${Math.round(tam * 725 / 965)}" viewBox="295 140 965 725" role="img" aria-label="Lexi, la mascota">
+  <ellipse class="sombra" cx="769" cy="818" rx="323" ry="36" fill="currentColor" opacity=".12"/>
   <g class="cuerpo">
-    <path d="M180 60C194 60 206 70 209 84C211 95 207 105 199 105C192 105 188 98 190 90C191 84 188 78 180 76Z" fill="var(--mbr)"/>
-    <path d="M182 57C190 62 193.5 77 189 92L176 92L176 57Z" fill="var(--m3)" opacity=".8" clip-path="url(#lexi-d)"/>
     <g class="brazo-i">
-      <path d="M54 70C42 66 31 59 24 52C18 46 9 47 5 54C1 61 4 70 12 76C22 84 36 89 54 88Z" fill="var(--mbr)"/>
-      <path d="M39 63C32 69 30.5 79 34 87.5L50 88L50 63Z" fill="var(--m3)" opacity=".8" clip-path="url(#lexi-i)"/>
+      <path d="M455 478C416 478 408 444 392 420C373 391 338 394 317 419C289 449 308 479 336 507C370 541 410 561 461 562Z" fill="var(--m0)"/>
+      <path d="M424 471Q440 478 455 480L466 561Q444 563 432 556Q415 516 424 471Z" fill="var(--m3)"/>
     </g>
-    <path d="${cuerpo}" fill="url(#lexi-g)"/>
-    <g clip-path="url(#lexi-c)">
-      <path d="M28 94C56 112 102 116 142 109C162 105.5 178 97 192 82L192 140L28 140Z" fill="var(--mbr)" opacity=".75"/>
-    </g>
-    <path d="M67.5 39Q72 31 80.5 32.5M135 21Q143 18.5 149 26.5" fill="none" stroke="var(--mojo)" stroke-width="3.8" stroke-linecap="round"/>
-    ${ojo(82, 62, 20, 85.5, 61.5)}${ojo(140, 53.5, 20.5, 137.5, 53.5)}
-    <path d="${boca}" fill="var(--mboca)"/>
-    <ellipse cx="115" cy="96.5" rx="14.5" ry="9.5" fill="var(--mlengua)" clip-path="url(#lexi-b)"/>
+    <path d="M1125 422C1190 437 1245 490 1245 553C1245 596 1221 626 1190 627C1161 628 1139 608 1143 581C1146 562 1163 550 1155 532C1150 519 1140 508 1127 502Z" fill="var(--m0)"/>
+    <path d="M1126 422Q1140 425 1147 431Q1160 469 1151 518L1125 501Z" fill="var(--m3)"/>
+    <path d="M437 409C431 314 452 253 508 216C573 174 711 157 846 153C969 149 1044 169 1086 230C1121 281 1133 374 1137 464C1142 552 1107 611 1033 649C941 696 806 705 691 707C652 708 623 704 597 698C559 719 511 741 483 741C459 740 451 725 462 700L491 636C456 589 443 513 437 409Z" fill="var(--m0)"/>
+    ${ojo(645, 413, 85, 90, 17, 663, 415, 52, 61, 9, 685, 381)}${ojo(891, 374, 91, 92, 17, 878, 381, 54, 62, 8, 900, 348)}
+    <path d="M575 303C587 283 608 269 629 268C644 267 649 284 634 289C614 294 601 306 592 317C581 327 570 315 575 303ZM877 223C900 219 924 230 936 244C946 256 933 269 922 258C909 246 896 243 879 245C861 247 861 226 877 223Z" fill="var(--mojo)"/>
+    <path d="M724 496C765 501 804 487 838 472C852 465 861 477 861 497C860 541 834 580 791 585C750 590 717 556 706 522C700 504 709 494 724 496Z" fill="var(--mojo)"/>
+    <path d="M737 569C753 542 780 521 810 520C829 519 844 525 853 534C840 565 819 582 791 585C770 588 751 581 737 569Z" fill="var(--mlengua)"/>
   </g>
 </svg>`;
 }
